@@ -1,0 +1,65 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="clob.type" value="longtext" dbms="mysql"/>
+
+    <changeSet author="author" id="1">
+        <sql>
+            DROP DATABASE IF EXISTS `default`;
+            CREATE DATABASE `default` CHARSET = utf8 COLLATE = utf8_general_ci;
+            USE `default`;
+
+            CREATE TABLE `user` (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `first_name` varchar(45) DEFAULT NULL,
+            `last_name` varchar(45) DEFAULT NULL,
+            `user_name` varchar(45) DEFAULT NULL,
+            PRIMARY KEY(`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+            CREATE TABLE `meeting_info` (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `speaking_level` varchar(45) DEFAULT NULL,
+            `topic` varchar(45) DEFAULT NULL,
+            `questions` varchar(45) DEFAULT NULL,
+            PRIMARY KEY(`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+            CREATE TABLE `location` (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `latitude` FLOAT DEFAULT NULL,
+            `longitude` FLOAT DEFAULT NULL,
+            `address` varchar(45) DEFAULT NULL,
+            `name` varchar(45) DEFAULT NULL,
+            PRIMARY KEY(`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+            CREATE TABLE `meeting`(
+            `id` INT AUTO_INCREMENT,
+            `owner_id` INT,
+            `meeting_info_id` INT,
+            `location_id` INT,
+            `creation_date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `meeting_date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY(`id`),
+            FOREIGN KEY (`owner_id`) REFERENCES `user`(`id`),
+            FOREIGN KEY (`location_id`) REFERENCES `location`(`id`),
+            FOREIGN KEY (`meeting_info_id`) REFERENCES `meeting_info`(`id`)
+            ) ENGINE=INNODB;
+
+            CREATE TABLE `user_meeting`(
+            `user_id` INT NOT NULL,
+            `meeting_id` INT NOT NULL,
+            CONSTRAINT `Constr_CourseMembership_Student_fk`
+            FOREIGN KEY `user_fk` (`user_id`) REFERENCES `user` (`id`)
+            ON DELETE CASCADE ON UPDATE CASCADE,
+            CONSTRAINT `Constr_CourseMembership_Course_fk`
+            FOREIGN KEY `Course_fk` (`meeting_id`) REFERENCES `meeting` (`id`)
+            ON DELETE CASCADE ON UPDATE CASCADE
+            ) ENGINE=INNODB;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
