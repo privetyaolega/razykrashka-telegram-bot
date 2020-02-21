@@ -28,8 +28,6 @@ public abstract class MainStage implements Stage {
 
     @Override
     public void handleRequest() {
-        if (this.processCallBackQuery()) return;
-
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(update.getMessage().getChat().getId());

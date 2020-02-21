@@ -27,18 +27,17 @@ import java.util.List;
 
 @Component
 @Log4j2
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RazykrashkaBot extends TelegramLongPollingBot {
 
-    @Getter
     @Value("${bot.avp256.username}")
     String botUsername;
-    @Getter
     @Value("${bot.avp256.token}")
     String botToken;
 
     @Autowired
-    private ApplicationContext context;
+    ApplicationContext context;
 
     List<Stage> stages;
     Stage undefinedStage;
@@ -52,10 +51,9 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        callbackQuery = update.getCallbackQuery();
         undefinedStage = getContext().getBean(UndefinedStage.class);
-
         if (update.hasCallbackQuery()) {
+            this.callbackQuery = update.getCallbackQuery();
             stages.stream().filter(x -> callbackQuery.getData().contains(x.getStageInfo().getStageName()))
                     .findFirst().get().processCallBackQuery();
         } else {
@@ -127,17 +125,5 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-    }
-
-    public ApplicationContext getContext() {
-        return context;
-    }
-
-    public Update getUpdate() {
-        return update;
-    }
-
-    public CallbackQuery getCallbackQuery() {
-        return callbackQuery;
     }
 }
