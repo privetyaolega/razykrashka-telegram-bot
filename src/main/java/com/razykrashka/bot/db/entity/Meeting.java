@@ -26,12 +26,13 @@ public class Meeting {
     LocalDateTime creationDateTime;
     LocalDateTime meetingDateTime;
 
-    @Embedded
-    MeetingInfoEmbeddable meetingInfo;
-
     @ManyToOne
     @JoinColumn(name = "owner_id")
     TelegramUser owner;
+
+    @OneToOne
+    @JoinColumn(name = "meeting_info_id")
+    MeetingInfo meetingInfo;
 
     @Column
     @ManyToMany(cascade = {CascadeType.ALL})

@@ -19,13 +19,23 @@
             PRIMARY KEY(`id`)
             ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
+            CREATE TABLE `meeting_info` (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `speaking_level` varchar(45) DEFAULT NULL,
+            `topic` varchar(45) DEFAULT NULL,
+            `questions` varchar(45) DEFAULT NULL,
+            PRIMARY KEY(`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
             CREATE TABLE `meeting`(
             `id` INT AUTO_INCREMENT,
-            `info` varchar(100) not null,
             `owner_id` INT,
-            `creation_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `meeting_info_id` INT,
+            `creation_date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `meeting_date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY(`id`),
-            FOREIGN KEY (`owner_id`) REFERENCES `user`(`id`)
+            FOREIGN KEY (`owner_id`) REFERENCES `user`(`id`),
+            FOREIGN KEY (`meeting_info_id`) REFERENCES `meeting_info`(`id`)
             ) ENGINE=INNODB;
 
             CREATE TABLE `user_meeting`(
@@ -38,8 +48,7 @@
             FOREIGN KEY `Course_fk` (`meeting_id`) REFERENCES `meeting` (`id`)
             ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=INNODB;
-
-
         </sql>
     </changeSet>
+
 </databaseChangeLog>
