@@ -1,7 +1,7 @@
 package com.razykrashka.bot.service;
 
 import com.razykrashka.bot.stage.Stage;
-import com.razykrashka.bot.stage.StageInfo;
+import com.razykrashka.bot.stage.UndefinedStage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -18,24 +18,17 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RazykrashkaBot extends TelegramLongPollingBot {
-
-    public static final String HELLO_BUTTON = "Hello";
-    public static final String START_COMMAND = "/start";
-    public static final String HELP_BUTTON = "Help";
 
     @Getter
     @Value("${bot.avp256.username}")
@@ -44,26 +37,26 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     @Value("${bot.avp256.token}")
     String botToken;
 
-    //    final List<TelegramMessageHandler> telegramMessageHandlers;
-    final List<Stage> stages;
-    Stage undefinedStage;
-    Update update;
-
     @Autowired
     private ApplicationContext context;
+
+    List<Stage> stages;
+    Stage undefinedStage;
+    Update update;
+    CallbackQuery callbackQuery;
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
         this.stages = stages;
     }
 
-
     @Override
     public void onUpdateReceived(Update update) {
-        this.update = update;
-
-//        undefinedStage = getContext().getBean(UndefinedStage.class);
-        undefinedStage = stages.stream().filter(x -> x.getStageInfo().equals(StageInfo.UNDEFINED)).findFirst().get();
+        if (!update.hasCallbackQuery()) {
+            this.update = update;
+        }
+        callbackQuery = update.getCallbackQuery();
+        undefinedStage = getContext().getBean(UndefinedStage.class);
 
         if (update.hasCallbackQuery()) {
             stages.forEach(Stage::processCallBackQuery);
@@ -92,42 +85,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-    }
-
-
-    public synchronized void sendTextMessage(Long chatId, String text) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(chatId);
-        sendMessage.setText(text);
-
-        sendMessage.setReplyMarkup(getCustomReplyKeyboardMarkup());
-
-        try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
-            log.error(e);
-        }
-    }
-
-    private ReplyKeyboardMarkup getCustomReplyKeyboardMarkup() {
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(false);
-
-        List<KeyboardRow> keyboard = new ArrayList<>();
-
-        KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton(HELLO_BUTTON));
-
-        KeyboardRow keyboardSecondRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton(HELP_BUTTON));
-
-        keyboard.add(keyboardFirstRow);
-        keyboard.add(keyboardSecondRow);
-        replyKeyboardMarkup.setKeyboard(keyboard);
-        return replyKeyboardMarkup;
     }
 
     public void sendSimpleTextMessage(String text) {
@@ -183,5 +140,9 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     public Update getUpdate() {
         return update;
+    }
+
+    public CallbackQuery getCallbackQuery() {
+        return callbackQuery;
     }
 }

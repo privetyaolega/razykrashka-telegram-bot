@@ -23,5 +23,6 @@ public class MeetingInfo {
     @Enumerated(EnumType.STRING)
     SpeakingLevel speakingLevel;
     String topic;
+    @Lob
     String questions;
 }
