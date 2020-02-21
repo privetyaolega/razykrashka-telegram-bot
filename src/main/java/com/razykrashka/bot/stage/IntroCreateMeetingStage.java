@@ -104,32 +104,32 @@ public class IntroCreateMeetingStage extends MainStage {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(avp256Bot.getUpdate().getMessage().getChat().getId());
+        sendMessage.setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId());
         sendMessage.setText(EN_INSTRUCTION);
         sendMessage.setReplyMarkup(getKeyboard());
 
-        avp256Bot.executeBot(sendMessage);
+        razykrashkaBot.executeBot(sendMessage);
 
         stageActivity = false;
     }
 
     @Override
     public boolean processCallBackQuery() {
-        if (avp256Bot.getUpdate().hasCallbackQuery()) {
-            String callBackData = avp256Bot.getUpdate().getCallbackQuery().getData();
+        if (razykrashkaBot.getUpdate().hasCallbackQuery()) {
+            String callBackData = razykrashkaBot.getUpdate().getCallbackQuery().getData();
             if (callBackData.equals(stageInfo.getStageName() + "_en_instruction")) {
-                avp256Bot.updateMessage(EN_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
+                razykrashkaBot.updateMessage(EN_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
             }
 
             if (callBackData.equals(stageInfo.getStageName() + "_ru_instruction")) {
-                avp256Bot.updateMessage(RU_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
+                razykrashkaBot.updateMessage(RU_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
             }
             if (callBackData.equals(stageInfo.getStageName() + "_template")) {
-                avp256Bot.updateMessage(TEMPLATE, (InlineKeyboardMarkup) getKeyboard());
+                razykrashkaBot.updateMessage(TEMPLATE, (InlineKeyboardMarkup) getKeyboard());
             }
 
             if (callBackData.equals(stageInfo.getStageName() + "_example")) {
-                avp256Bot.updateMessage(EXAMPLE, (InlineKeyboardMarkup) getKeyboard());
+                razykrashkaBot.updateMessage(EXAMPLE, (InlineKeyboardMarkup) getKeyboard());
             }
             return true;
         }

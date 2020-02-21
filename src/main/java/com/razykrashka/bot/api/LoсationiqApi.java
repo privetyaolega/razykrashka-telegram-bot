@@ -12,11 +12,11 @@ import java.util.List;
 public class LoсationiqApi extends RestBuilder {
 
     @Value("${api.locationiq.token}")
-    String token;
+    static String token;
     @Value("${api.locationiq.endpoint}")
-    String endpoint;
+    static String endpoint;
 
-    private List<Locationiq> getLocationiq(String address) {
+    public static List<Locationiq> getLocationiq(String address) {
         return getRequest(endpoint, ImmutableMap.of("key", token, "q", address), Locationiq.class);
     }
 }

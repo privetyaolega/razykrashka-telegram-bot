@@ -2,7 +2,6 @@ package com.razykrashka.bot.service;
 
 import com.razykrashka.bot.model.telegram.TelegramUpdate;
 import com.razykrashka.bot.stage.Stage;
-import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.stage.UndefinedStage;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,7 +32,7 @@ import java.util.List;
 @Component
 @Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Avp256Bot extends TelegramLongPollingBot {
+public class RazykrashkaBot extends TelegramLongPollingBot {
 
     public static final String HELLO_BUTTON = "Hello";
     public static final String START_COMMAND = "/start";
@@ -57,8 +56,8 @@ public class Avp256Bot extends TelegramLongPollingBot {
     private ApplicationContext context;
 
     @Autowired
-    public Avp256Bot(TelegramUpdateService telegramUpdateService,
-                     @Lazy List<Stage> stages) {
+    public RazykrashkaBot(TelegramUpdateService telegramUpdateService,
+                          @Lazy List<Stage> stages) {
         this.telegramUpdateService = telegramUpdateService;
         this.stages = stages;
     }
@@ -76,6 +75,7 @@ public class Avp256Bot extends TelegramLongPollingBot {
         this.update = update;
 
         undefinedStage = getContext().getBean(UndefinedStage.class);
+//        undefinedStage = stages.stream().filter(x -> x.getStageInfo().equals(StageInfo.UNDEFINED)).findFirst().get();
 
         if (update.hasCallbackQuery()) {
             stages.forEach(Stage::processCallBackQuery);

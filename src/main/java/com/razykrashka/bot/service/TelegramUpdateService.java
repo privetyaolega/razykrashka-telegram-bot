@@ -7,7 +7,7 @@ import com.razykrashka.bot.model.telegram.TelegramUser;
 import com.razykrashka.bot.repository.telegram.TelegramChatRepository;
 import com.razykrashka.bot.repository.telegram.TelegramMessageRepository;
 import com.razykrashka.bot.repository.telegram.TelegramUpdateRepository;
-import com.razykrashka.bot.repository.telegram.TelegramUserRepository;
+import com.razykrashka.bot.repository.telegram.TelegramUserRepository1;
 import com.razykrashka.bot.transformer.Transformer;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +30,13 @@ public class TelegramUpdateService {
     Transformer<Chat, TelegramChat> chatToTelegramChatTransformer;
     TelegramUpdateRepository telegramUpdateRepository;
     TelegramMessageRepository telegramMessageRepository;
-    TelegramUserRepository telegramUserRepository;
+    TelegramUserRepository1 telegramUserRepository1;
     TelegramChatRepository telegramChatRepository;
 
     public TelegramUpdate save(Update update) {
-        TelegramUser telegramUser = telegramUserRepository.findById(update.getMessage().getFrom().getId())
+        TelegramUser telegramUser = telegramUserRepository1.findById(update.getMessage().getFrom().getId())
                 .orElseGet(() ->
-                        telegramUserRepository.save(
+                        telegramUserRepository1.save(
                                 userToTelegramUserTransformer.transform(update.getMessage().getFrom())
                         )
                 );

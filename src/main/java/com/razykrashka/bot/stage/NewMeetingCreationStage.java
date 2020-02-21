@@ -1,14 +1,16 @@
 package com.razykrashka.bot.stage;
 
+import com.razykrashka.bot.api.LoсationiqApi;
 import com.razykrashka.bot.api.model.locationiq.Locationiq;
-import com.razykrashka.bot.db.entity.Meeting;
-import com.razykrashka.bot.model.helper.geolocation.GeolocationHelper;
-import com.razykrashka.bot.model.razykrashka.MeetingModel;
+import com.razykrashka.bot.db.entity.*;
+import com.razykrashka.bot.db.repo.LocationRepository;
+import com.razykrashka.bot.db.repo.MeetingInfoRepository;
+import com.razykrashka.bot.db.repo.MeetingRepository;
+import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
-import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -17,7 +19,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -26,6 +31,15 @@ public class NewMeetingCreationStage extends MainStage {
 
     private String message;
     private Meeting meetingModel;
+
+    @Autowired
+    private MeetingRepository meetingRepository;
+    @Autowired
+    private TelegramUserRepository telegramUserRepository1;
+    @Autowired
+    private MeetingInfoRepository meetingInfoRepository;
+    @Autowired
+    private LocationRepository locationRepository;
 
     public NewMeetingCreationStage() {
         stageInfo = StageInfo.NEW_MEETING_CREATION;
@@ -62,50 +76,74 @@ public class NewMeetingCreationStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        message = avp256Bot.getUpdate().getMessage().getText();
+        message = razykrashkaBot.getUpdate().getMessage().getText();
         try {
             Map<String, String> meetingMap = Arrays.stream(message.split("\\n\\n")).skip(1)
                     .map(x -> x.replace("\n", ""))
                     .collect(Collectors.toMap((line) -> line.split(":")[0].trim(), (x) -> x.split(":")[1].trim()));
 
-            meetingModel = Meeting.builder()
-                    .location(meetingMap.get("LOCATION"))
-                    .owner(avp256Bot.getUpdate().getMessage().getFrom())
-                    .meetingDate(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
-                    .creationDate(LocalDateTime.now())
-                    .speakingLevel(meetingMap.get("SPEAKING LEVEL"))
-                    .topic(meetingMap.get("TOPIC"))
-                    .questions(meetingMap.get("QUESTIONS"))
+            Locationiq getModel = LoсationiqApi.getLocationiq(meetingMap.get("LOCATION")).stream()
+                    .filter(x -> x.getDisplayName().contains("Minsk"))
+                    .findFirst().get();
+
+            TelegramUser user = TelegramUser.builder()
+                    .lastName(telegramUpdate.getMessage().getFrom().getLastName())
+                    .firstName(telegramUpdate.getMessage().getFrom().getFirstName())
+                    .userName(telegramUpdate.getMessage().getFrom().getUserName())
+                    .phoneNumber(meetingMap.get("CONTACT NUMBER"))
                     .build();
+            telegramUserRepository1.save(user);
 
-            Locationiq geoModel = GeolocationHelper.getGeolocationByAddress(meetingModel.getLocation())
-                    .stream().filter(model -> model.getDisplayName().contains("Minsk")).findFirst().get();
+            MeetingInfo meetingInfo = MeetingInfo.builder()
+                    .questions(meetingMap.get("QUESTIONS"))
+                    .topic(meetingMap.get("TOPIC"))
+                    .speakingLevel(SpeakingLevel.ADVANCED)
+                    .build();
+            meetingInfoRepository.save(meetingInfo);
 
-            SendVenue sendVenue = new SendVenue()
-                    .setLongitude(Float.parseFloat(geoModel.getLon()))
-                    .setLatitude(Float.parseFloat(geoModel.getLat()))
-                    .setAddress(meetingModel.getLocation())
-                    .setTitle(meetingModel.getMeetingDate().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH)));
-            meetingModel.setSendVenue(sendVenue);
+            Location location = Location.builder()
+                    .address(meetingMap.get("LOCATION"))
+                    .latitude(Float.parseFloat(getModel.getLat()))
+                    .longitude(Float.parseFloat(getModel.getLon()))
+                    .name(getModel.getDisplayName())
+                    .build();
+            locationRepository.save(location);
 
-            SendContact sendContact = new SendContact()
-                    .setPhoneNumber(meetingMap.get("CONTACT NUMBER"))
-                    .setFirstName(meetingModel.getOwner().getFirstName())
-                    .setLastName(meetingModel.getOwner().getLastName());
-            meetingModel.setSendContact(sendContact);
 
-            gsonHelper.writeToFile(meetingModel);
-            avp256Bot.sendSimpleTextMessage("MEETING CREATED");
-            avp256Bot.sendSticker(new SendSticker().setSticker(new File("C:\\Development\\Projects\\git-hub\\telegram_bot\\src\\main\\java\\com\\avp256\\avp256_bot\\repository\\files\\successMeetingCreationSticker.tgs")));
+            meetingModel = Meeting.builder()
+                    .owner(user)
+                    .meetingDateTime(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
+                    .creationDateTime(LocalDateTime.now())
+                    .meetingInfo(meetingInfo)
+                    .location(location)
+                    .build();
+            meetingRepository.save(meetingModel);
+
+
+//            SendVenue sendVenue = new SendVenue()
+//                    .setLongitude(Float.parseFloat(geoModel.getLon()))
+//                    .setLatitude(Float.parseFloat(geoModel.getLat()))
+//                    .setAddress(meetingModel.getLocation())
+//                    .setTitle(meetingModel.getMeetingDate().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH)));
+//            meetingModel.setSendVenue(sendVenue);
+//
+//            SendContact sendContact = new SendContact()
+//                    .setPhoneNumber()
+//                    .setFirstName(meetingModel.getOwner().getFirstName())
+//                    .setLastName(meetingModel.getOwner().getLastName());
+//            meetingModel.setSendContact(sendContact);
+
+            razykrashkaBot.sendSimpleTextMessage("MEETING CREATED");
+            razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("C:\\Development\\Projects\\git-hub\\telegram_bot\\src\\main\\java\\com\\avp256\\avp256_bot\\repository\\files\\successMeetingCreationSticker.tgs")));
         } catch (Exception e) {
-            avp256Bot.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION");
-            avp256Bot.sendSticker(new SendSticker().setSticker(new File("C:\\Development\\Projects\\git-hub\\telegram_bot\\src\\main\\java\\com\\avp256\\avp256_bot\\repository\\files\\failSticker.png")));
-            avp256Bot.getContext().getBean(IntroCreateMeetingStage.class).handleRequest();
+            razykrashkaBot.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION");
+            razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("C:\\Development\\Projects\\git-hub\\telegram_bot\\src\\main\\java\\com\\avp256\\avp256_bot\\repository\\files\\failSticker.png")));
+            razykrashkaBot.getContext().getBean(IntroCreateMeetingStage.class).handleRequest();
         }
     }
 
     @Override
     public boolean isStageActive() {
-        return avp256Bot.getUpdate().getMessage().getText().startsWith(stageInfo.getKeyword());
+        return razykrashkaBot.getUpdate().getMessage().getText().startsWith(stageInfo.getKeyword());
     }
 }

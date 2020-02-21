@@ -1,9 +1,13 @@
 package com.razykrashka.bot.stage;
 
-import com.razykrashka.bot.model.razykrashka.MeetingModel;
+import com.razykrashka.bot.db.entity.Meeting;
+import com.razykrashka.bot.db.repo.MeetingRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
@@ -11,13 +15,16 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
 public class ViewExistingMeetingsStage extends MainStage {
 
-    private String message;
-    private List<MeetingModel> modelList;
+    @Autowired
+    private MeetingRepository meetingRepository;
+    List<Meeting> modelList;
 
     public ViewExistingMeetingsStage() {
         stageInfo = StageInfo.VIEW_EXISTING_MEETINGS;
@@ -30,17 +37,17 @@ public class ViewExistingMeetingsStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        modelList = gsonHelper.readFromFile();
+        modelList = StreamSupport.stream(meetingRepository.findAll().spliterator(), false).collect(Collectors.toList());
         if (modelList.size() == 0) {
-            avp256Bot.sendSimpleTextMessage("NO MEETINGS :(");
+            razykrashkaBot.sendSimpleTextMessage("NO MEETINGS :(");
         } else {
             modelList.forEach(model -> {
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.enableMarkdown(true);
-                sendMessage.setChatId(avp256Bot.getUpdate().getMessage().getChat().getId());
-                sendMessage.setText(model.getTopic() + " " + model.getSpeakingLevel());
+                sendMessage.setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId());
+                sendMessage.setText(model.getMeetingInfo().getTopic() + " " + model.getMeetingInfo().getSpeakingLevel());
                 sendMessage.setReplyMarkup(getKeyboard(model));
-                avp256Bot.executeBot(sendMessage);
+                razykrashkaBot.executeBot(sendMessage);
             });
         }
     }
@@ -59,7 +66,7 @@ public class ViewExistingMeetingsStage extends MainStage {
         return inlineKeyboardMarkup;
     }
 
-    public ReplyKeyboard getKeyboard(MeetingModel model) {
+    public ReplyKeyboard getKeyboard(Meeting model) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
         keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Information")
@@ -77,24 +84,29 @@ public class ViewExistingMeetingsStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
-        String callBackData = avp256Bot.getUpdate().getCallbackQuery().getData();
-        MeetingModel meetingModel = modelList.stream().filter(x -> callBackData.contains(String.valueOf(x.getId()))).findFirst().get();
+        String callBackData = razykrashkaBot.getUpdate().getCallbackQuery().getData();
+        Meeting meetingModel = modelList.stream().filter(x -> callBackData.contains(String.valueOf(x.getId()))).findFirst().get();
 
         if (callBackData.equals(stageInfo.getStageName() + "_contact" + meetingModel.getId())) {
-            avp256Bot.sendContact(meetingModel.getSendContact());
+            razykrashkaBot.sendContact(new SendContact().setLastName(meetingModel.getOwner().getLastName())
+                    .setFirstName(meetingModel.getOwner().getFirstName())
+                    .setPhoneNumber(meetingModel.getOwner().getPhoneNumber()));
         }
         if (callBackData.equals(stageInfo.getStageName() + "_map" + meetingModel.getId())) {
-            avp256Bot.sendVenue(meetingModel.getSendVenue());
+            razykrashkaBot.sendVenue(new SendVenue().setTitle("TEST TITLE")
+                    .setLatitude(meetingModel.getLocation().getLatitude())
+                    .setLongitude(meetingModel.getLocation().getLongitude())
+                    .setAddress("TEST ADDRESS"));
         }
         if (callBackData.equals(stageInfo.getStageName() + "_information" + meetingModel.getId())) {
-            String message = meetingModel.getTopic() + "\\n" + meetingModel.getSpeakingLevel() + "\\n" + meetingModel.getQuestions();
-            avp256Bot.updateMessage(message, (InlineKeyboardMarkup) getKeyboard(meetingModel));
+            String message = meetingModel.getMeetingInfo().getQuestions() + "\\n" + meetingModel.getMeetingInfo().getTopic() + "\\n" + meetingModel.getId();
+            razykrashkaBot.updateMessage(message, (InlineKeyboardMarkup) getKeyboard(meetingModel));
         }
         return true;
     }
 
     @Override
     public boolean isStageActive() {
-        return avp256Bot.getUpdate().getMessage().getText().startsWith(stageInfo.getKeyword());
+        return razykrashkaBot.getUpdate().getMessage().getText().startsWith(stageInfo.getKeyword());
     }
 }

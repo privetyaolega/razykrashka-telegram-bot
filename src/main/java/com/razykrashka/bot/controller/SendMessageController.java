@@ -1,7 +1,7 @@
 package com.razykrashka.bot.controller;
 
 import com.razykrashka.bot.repository.telegram.TelegramChatRepository;
-import com.razykrashka.bot.service.Avp256Bot;
+import com.razykrashka.bot.service.RazykrashkaBot;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,27 +16,27 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class SendMessageController {
-    Avp256Bot avp256Bot;
+    RazykrashkaBot razykrashkaBot;
     TelegramChatRepository telegramChatRepository;
 
     @PostMapping("/user/{userId}/send-message")
     @ResponseStatus(HttpStatus.OK)
     public void sendToUser(@PathVariable Integer userId, @RequestBody String message) {
         telegramChatRepository.findByUser_Id(userId)
-                .ifPresent(chat -> avp256Bot.sendTextMessage(chat.getId(), message));
+                .ifPresent(chat -> razykrashkaBot.sendTextMessage(chat.getId(), message));
     }
 
     @PostMapping("/person/{personId}/send-message")
     @ResponseStatus(HttpStatus.OK)
     public void sendToPerson(@PathVariable Integer personId, @RequestBody String message) {
         telegramChatRepository.findByUser_Person_Id(personId)
-                .ifPresent(chat -> avp256Bot.sendTextMessage(chat.getId(), message));
+                .ifPresent(chat -> razykrashkaBot.sendTextMessage(chat.getId(), message));
     }
 
     @PostMapping("/user/send-messages")
     @ResponseStatus(HttpStatus.OK)
     public void sendToAllUsers(@RequestBody String message) {
         telegramChatRepository.findAll()
-                .forEach(chat -> avp256Bot.sendTextMessage(chat.getId(), message));
+                .forEach(chat -> razykrashkaBot.sendTextMessage(chat.getId(), message));
     }
 }

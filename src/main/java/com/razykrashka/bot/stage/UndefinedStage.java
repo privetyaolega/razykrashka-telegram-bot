@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage;
 
+import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Log4j2
 @Component
+@Builder
 public class UndefinedStage extends MainStage {
 
     public UndefinedStage() {
@@ -40,7 +42,7 @@ public class UndefinedStage extends MainStage {
         sendMessage.setText(telegramUpdate.getMessage().getText() + ": UNKNOWN COMMAND");
         sendMessage.setReplyMarkup(null);
 
-        avp256Bot.executeBot(sendMessage);
+        razykrashkaBot.executeBot(sendMessage);
     }
 
 

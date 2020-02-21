@@ -21,7 +21,7 @@ public class Meeting {
 
     @Id
     @GeneratedValue
-    Long id;
+    Integer id;
 
     LocalDateTime creationDateTime;
     LocalDateTime meetingDateTime;
@@ -33,6 +33,10 @@ public class Meeting {
     @OneToOne
     @JoinColumn(name = "meeting_info_id")
     MeetingInfo meetingInfo;
+
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    Location location;
 
     @Column
     @ManyToMany(cascade = {CascadeType.ALL})

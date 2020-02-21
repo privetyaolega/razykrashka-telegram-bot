@@ -1,8 +1,9 @@
 package com.razykrashka.bot.stage;
 
 import com.razykrashka.bot.model.telegram.TelegramUpdate;
-import com.razykrashka.bot.repository.json.GsonHelper;
-import com.razykrashka.bot.service.Avp256Bot;
+import com.razykrashka.bot.service.RazykrashkaBot;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -14,13 +15,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Log4j2
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class MainStage implements Stage {
 
     @Autowired
-    Avp256Bot avp256Bot;
+    RazykrashkaBot razykrashkaBot;
 
-    @Autowired
-    protected GsonHelper gsonHelper;
     protected StageInfo stageInfo;
     protected boolean stageActivity;
     protected TelegramUpdate telegramUpdate;
@@ -38,7 +39,7 @@ public abstract class MainStage implements Stage {
 //            sendMessage.setReplyMarkup(getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
 //        }
 
-        avp256Bot.executeBot(sendMessage);
+        razykrashkaBot.executeBot(sendMessage);
 
         stageActivity = false;
     }
@@ -50,7 +51,7 @@ public abstract class MainStage implements Stage {
 
     @Override
     public boolean isStageActive() {
-        return stageActivity = stageInfo.getKeyword().equals(avp256Bot.getUpdate().getMessage().getText());
+        return stageActivity = stageInfo.getKeyword().equals(razykrashkaBot.getUpdate().getMessage().getText());
     }
 
     @Override
@@ -71,19 +72,18 @@ public abstract class MainStage implements Stage {
 
     @Override
     public boolean processCallBackQuery() {
-        if (avp256Bot.getUpdate().hasCallbackQuery()) {
-            String callBackData = avp256Bot.getUpdate().getCallbackQuery().getData();
+        if (razykrashkaBot.getUpdate().hasCallbackQuery()) {
+            String callBackData = razykrashkaBot.getUpdate().getCallbackQuery().getData();
             if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
-                avp256Bot.updateMessage(stageInfo.getWelcomeMessageRu(),
+                razykrashkaBot.updateMessage(stageInfo.getWelcomeMessageRu(),
                         getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
             }
             if (callBackData.equals(stageInfo.getStageName() + "ru_en")) {
-                avp256Bot.updateMessage(stageInfo.getWelcomeMessageEn(),
+                razykrashkaBot.updateMessage(stageInfo.getWelcomeMessageEn(),
                         getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
             }
             return true;
         }
         return false;
     }
-
 }

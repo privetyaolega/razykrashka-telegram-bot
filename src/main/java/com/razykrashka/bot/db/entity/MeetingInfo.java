@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class MeetingInfo {
     @Id
     @GeneratedValue
-    Long id;
+    Integer id;
 
     @Enumerated(EnumType.STRING)
     SpeakingLevel speakingLevel;
