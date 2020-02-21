@@ -12,6 +12,3 @@ public interface TelegramChatRepository extends PagingAndSortingRepository<Teleg
 
     Optional<TelegramChat> findByUser_Person_Id(Integer personId);
 }
-
-
-
