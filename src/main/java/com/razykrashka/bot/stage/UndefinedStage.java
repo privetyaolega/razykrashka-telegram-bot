@@ -38,8 +38,8 @@ public class UndefinedStage extends MainStage {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(telegramUpdate.getMessage().getChat().getId());
-        sendMessage.setText(telegramUpdate.getMessage().getText() + ": UNKNOWN COMMAND");
+        sendMessage.setChatId(update.getMessage().getChat().getId());
+        sendMessage.setText(update.getMessage().getText() + ": UNKNOWN COMMAND");
         sendMessage.setReplyMarkup(null);
 
         razykrashkaBot.executeBot(sendMessage);

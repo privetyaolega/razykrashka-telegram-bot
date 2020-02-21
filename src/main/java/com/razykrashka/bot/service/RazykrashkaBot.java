@@ -1,6 +1,5 @@
 package com.razykrashka.bot.service;
 
-import com.razykrashka.bot.model.telegram.TelegramUpdate;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.StageInfo;
 import lombok.AccessLevel;
@@ -45,33 +44,22 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     @Value("${bot.avp256.token}")
     String botToken;
 
-    final TelegramUpdateService telegramUpdateService;
     //    final List<TelegramMessageHandler> telegramMessageHandlers;
     final List<Stage> stages;
     Stage undefinedStage;
-    TelegramUpdate telegramUpdate;
     Update update;
 
     @Autowired
     private ApplicationContext context;
 
     @Autowired
-    public RazykrashkaBot(TelegramUpdateService telegramUpdateService,
-                          @Lazy List<Stage> stages) {
-        this.telegramUpdateService = telegramUpdateService;
+    public RazykrashkaBot(@Lazy List<Stage> stages) {
         this.stages = stages;
     }
 
 
     @Override
     public void onUpdateReceived(Update update) {
-        if (update.getMessage() != null) {
-            try {
-                telegramUpdate = telegramUpdateService.save(update);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         this.update = update;
 
 //        undefinedStage = getContext().getBean(UndefinedStage.class);
@@ -83,7 +71,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
         stages.stream()
                 .peek(x -> {
-                    x.setMessage(telegramUpdate);
+                    x.setMessage(update);
                 })
                 .filter(Stage::isStageActive).findFirst()
                 .orElseGet(() -> undefinedStage)
@@ -145,7 +133,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     public void sendSimpleTextMessage(String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(telegramUpdate.getMessage().getChat().getId());
+        sendMessage.setChatId(update.getMessage().getChat().getId());
         sendMessage.setText(text);
         try {
             execute(sendMessage);
@@ -155,7 +143,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     }
 
     public void sendVenue(SendVenue sendVenue) {
-        sendVenue.setChatId(telegramUpdate.getMessage().getChat().getId());
+        sendVenue.setChatId(update.getMessage().getChat().getId());
         try {
             execute(sendVenue);
         } catch (TelegramApiException e) {
@@ -164,7 +152,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     }
 
     public void sendSticker(SendSticker sticker) {
-        sticker.setChatId(telegramUpdate.getMessage().getChat().getId());
+        sticker.setChatId(update.getMessage().getChat().getId());
         try {
             execute(sticker);
         } catch (TelegramApiException e) {
@@ -173,7 +161,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     }
 
     public void sendContact(SendContact sendContact) {
-        sendContact.setChatId(telegramUpdate.getMessage().getChat().getId());
+        sendContact.setChatId(update.getMessage().getChat().getId());
         try {
             execute(sendContact);
         } catch (TelegramApiException e) {

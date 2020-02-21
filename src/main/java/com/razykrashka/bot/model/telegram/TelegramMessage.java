@@ -21,7 +21,7 @@ public class TelegramMessage {
     LocalDateTime creationDate;
     String text;
     @ManyToOne
-    TelegramUser from;
+    TelegramUserNOT from;
     @ManyToOne
     TelegramChat chat;
 }

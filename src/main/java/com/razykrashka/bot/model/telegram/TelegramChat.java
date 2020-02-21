@@ -24,5 +24,5 @@ public class TelegramChat {
     Boolean channelChat;
     Boolean superGroupChart;
     @ManyToOne
-    TelegramUser user;
+    TelegramUserNOT user;
 }

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TelegramUser {
+public class TelegramUserNOT {
     @Id
     Integer id;
     LocalDateTime creationDate;

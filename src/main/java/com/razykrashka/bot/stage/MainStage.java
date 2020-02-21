@@ -1,12 +1,12 @@
 package com.razykrashka.bot.stage;
 
-import com.razykrashka.bot.model.telegram.TelegramUpdate;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
@@ -24,7 +24,7 @@ public abstract class MainStage implements Stage {
 
     protected StageInfo stageInfo;
     protected boolean stageActivity;
-    protected TelegramUpdate telegramUpdate;
+    protected Update update;
 
     @Override
     public void handleRequest() {
@@ -32,7 +32,7 @@ public abstract class MainStage implements Stage {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(telegramUpdate.getMessage().getChat().getId());
+        sendMessage.setChatId(update.getMessage().getChat().getId());
         sendMessage.setText(stageInfo.getWelcomeMessageEn());
         sendMessage.setReplyMarkup(getKeyboard());
 //        if (stageInfo.getWelcomeMessageRu() != null) {
@@ -55,8 +55,8 @@ public abstract class MainStage implements Stage {
     }
 
     @Override
-    public Stage setMessage(TelegramUpdate message) {
-        this.telegramUpdate = message;
+    public Stage setMessage(Update message) {
+        this.update = message;
         return this;
     }
 

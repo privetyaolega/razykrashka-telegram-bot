@@ -87,9 +87,9 @@ public class NewMeetingCreationStage extends MainStage {
                     .findFirst().get();
 
             TelegramUser user = TelegramUser.builder()
-                    .lastName(telegramUpdate.getMessage().getFrom().getLastName())
-                    .firstName(telegramUpdate.getMessage().getFrom().getFirstName())
-                    .userName(telegramUpdate.getMessage().getFrom().getUserName())
+                    .lastName(update.getMessage().getFrom().getLastName())
+                    .firstName(update.getMessage().getFrom().getFirstName())
+                    .userName(update.getMessage().getFrom().getUserName())
                     .phoneNumber(meetingMap.get("CONTACT NUMBER"))
                     .build();
             telegramUserRepository1.save(user);

@@ -1,6 +1,5 @@
 package com.razykrashka.bot.stage;
 
-import com.razykrashka.bot.model.telegram.TelegramUpdate;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -139,12 +138,6 @@ public class IntroCreateMeetingStage extends MainStage {
     @Override
     public List<String> getValidKeywords() {
         return null;
-    }
-
-    @Override
-    public Stage setMessage(TelegramUpdate message) {
-        telegramUpdate = message;
-        return this;
     }
 
 
