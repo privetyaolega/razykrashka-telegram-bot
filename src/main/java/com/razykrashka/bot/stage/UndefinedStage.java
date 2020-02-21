@@ -34,12 +34,10 @@ public class UndefinedStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        if (processCallBackQuery()) return;
-
         SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
+        sendMessage.setParseMode("html");
         sendMessage.setChatId(update.getMessage().getChat().getId());
-        sendMessage.setText(update.getMessage().getText() + ": UNKNOWN COMMAND");
+        sendMessage.setText("<code>" + update.getMessage().getText() + "</code> : UNKNOWN COMMAND");
         sendMessage.setReplyMarkup(null);
 
         razykrashkaBot.executeBot(sendMessage);
