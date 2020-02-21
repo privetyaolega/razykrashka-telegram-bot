@@ -37,11 +37,9 @@ public class UndefinedStage extends MainStage {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setParseMode("html");
         sendMessage.setChatId(update.getMessage().getChat().getId());
-        sendMessage.setText("<code>" + update.getMessage().getText() + "</code> : UNKNOWN COMMAND");
+        sendMessage.setText(String.format(getStringMap().get("unknown"), update.getMessage().getText()));
         sendMessage.setReplyMarkup(null);
 
         razykrashkaBot.executeBot(sendMessage);
     }
-
-
 }

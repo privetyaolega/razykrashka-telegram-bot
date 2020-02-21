@@ -1,5 +1,8 @@
 package com.razykrashka.bot.stage;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -10,21 +13,38 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class MainStage implements Stage {
 
+    private static List<Map<String, Object>> data;
+
     @Autowired
     RazykrashkaBot razykrashkaBot;
 
-    protected StageInfo stageInfo;
     protected boolean stageActivity;
+    protected StageInfo stageInfo;
     protected Update update;
+
+    static {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+        try {
+            data = mapper.readValue(new File("src/main/resources/stage/stageStringStorage.json"),
+                    new TypeReference<List<Map<String, Map<String, String>>>>() {
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void handleRequest() {
@@ -80,5 +100,12 @@ public abstract class MainStage implements Stage {
                     getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
         }
         return true;
+    }
+
+    protected Map<String, String> getStringMap() {
+        String className = this.getClass().getSimpleName();
+        return (Map<String, String>) data.stream()
+                .filter(x -> x.containsKey(className))
+                .findFirst().get().get(className);
     }
 }

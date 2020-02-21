@@ -1,0 +1,19 @@
+[
+  {
+    "InformationStage": {
+      "enInformation": "\uD83C\uDF08 Welcome to community whose main goal is cohesion of people learning English; improvement, development and comprehensive support of all skills related to language. \uD83C\uDF08\nYou can create some meeting to speak or join to existing one. \uD83D\uDE4F\uD83C\uDFFB",
+      "ruInformation": "Прежде всего, это площадка имеет цель объединить людей-единомышленников, для практики английского, в который каждый может организовать встречу, в любое для него удобное время, месте и по любым другим критериями, например, уровень языка, пол, расовая принадлежность (смотрите пример ниже).\nВы можете организовать свою встречу, можете присоединиться к существующей.\n\nТема для встречи НЕ является обязательным пунктом, но данный подход желателен (рекомендовано), так как имеет ряд преимуществ.\nЗаданная в заранее тема, позволяет  подтянуть вокабуляр, кому-то подтянуть знания в предметной области, кому-то эта тема может быть не интересна вовсе.\nТак разговор гораздо предметнее и эффективнее.\n\nКоличество людей на встрече так же зависит только от ваших желаний. Вы можете найти просто одного собеседника, можете собрать 50 человек\nПо наблюдению и опыту было выявлено, что количество человек больше 3-4, превращает спикинг клаб в лисенинг со всеми вытекающими недостатками и нюансами. \n\nТак как у некоторых, был опыт посещения спикинг клаба в «Лидо» на Якуба Колоса, я попробую сказать какие проблемы «Лидо» и большинства спикинг клабов, будет решать данный подход:\n\n1) большое количество участников (за столом может сидеть 6-8 человек, что существенно снижает персональное время говорения)\n2) примитивность и однообразность тем (знакомство, тревелинг, английский)\n3) разброс по уровню\n4) неудобное для кого-то время и локация\n\nРезюмируя\nЭто не коммерческая площадка, полностью держащаяся на инициативе участников\nВы можете создать запрос, используя шаблон (ищите его ниже); можете присоединиться к встрече\nЗадавайте вопросы, приглашайте друзей и, самое главное, будьте АКТИВНЫ.\nhttps://t.me/razykrashkaen\n"
+    }
+  },
+  {
+    "IntroCreateMeetingStage": {
+      "enInstruction": "Here you can create meeting using template and example :)",
+      "ruInstruction": "Здесь ты можешь создать встречу.\nИспользуй шаблон во вкладке 'Template' или пример на вкладке 'Example', для созданий встречи.\nПросто копируй пример или шаблон, после чего, заполни его необходимыми данными.\nПожалуйста, не используй смайлы и эмоджи при форматировании встречи, а также используй формат даты и номера телефона такой, как указан в примере.\n\nПосле формирования сообщения, просто отправь его боту.\n\nСпасибо!",
+      "template": "NEW MEETING REQUEST\n\nDATE: \n{WRITE DATE HERE IN FORMAT month.day.year  hour-minutes}\n\nLOCATION: \n{WRITE HERE ADDRESS OF LOCATION IN RUSSIAN}\n\nMAX PEOPLE: \n{WRITE HERE MAX AMOUNT OF ATTANDEE}\n\nSPEAKING LEVEL: \n{MINIMUM SPEAKING LEVE}\n\nCONTACT NUMBER: \n{WRITE HERE YOUR CONTACT NUMBER}\n\nTOPIC: \n{WRITE HERE TOPIC}\n\nQUESTIONS:\n{WRITE HERE QUESTIONS TO DISCUSS}",
+      "example": "NEW MEETING REQUEST:\n\nDATE: \n14.01.2020 19-00\n\nLOCATION: \nул. Немига 5, Лидо\n\nMAX PEOPLE: \n4\n\nSPEAKING LEVEL: \nUpper-Intermediate\n\nCONTACT NUMBER: \n+375295508809\n\nTOPIC: \nInternet and Computers\n\nQUESTIONS:\n● What are two disadvantages of using smartphones and tablets?\n● What do you think about Cybercafes? are they still useful?\n● Do you like a job in which you have to use computers?\n● Do you spend too much time online?\n● Does your mother of father know how to use a computer?\n● Do computers make life easier?\n● What websites do you visit in a regular basis?\n● What do you think about the Apple?\n● What are some advantages of using social networks?\n● Do you visit English websites?"
+    },
+    "UndefinedStage": {
+      "unknown" : "<code>%s</code> : UNKNOWN MESSAGE"
+    }
+  }
+]

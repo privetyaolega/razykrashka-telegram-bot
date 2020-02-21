@@ -82,7 +82,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     public void sendSimpleTextMessage(String text) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
         sendMessage.setChatId(update.getMessage().getChat().getId());
         sendMessage.setText(text);
         try {

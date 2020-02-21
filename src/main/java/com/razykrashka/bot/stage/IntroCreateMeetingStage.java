@@ -19,69 +19,6 @@ public class IntroCreateMeetingStage extends MainStage {
         stageInfo = StageInfo.INTRO_CREATE_MEETING;
     }
 
-    private final static String EN_INSTRUCTION = "Here you can create meeting using template and example :)";
-    private final static String RU_INSTRUCTION = "Здесь ты можешь создать встречу.\n" +
-            "Используй шаблон во вкладке 'Template' или пример на вкладке 'Example', для созданий встречи.\n" +
-            "Просто копируй пример или шаблон, после чего, заполни его необходимыми данными.\n" +
-            "Пожалуйста, не используй смайлы и эмоджи при форматировании встречи, а также используй формат даты и номера телефона такой, как указан в примере.\n" +
-            "\n" +
-            "После формирования сообщения, просто отправь его боту.\n" +
-            "\n" +
-            "Спасибо!";
-    private final static String TEMPLATE = "NEW MEETING REQUEST\n" +
-            "\n" +
-            "DATE: \n" +
-            "{WRITE DATE HERE IN FORMAT month.day.year  hour-minutes}\n" +
-            "\n" +
-            "LOCATION: \n" +
-            "{WRITE HERE ADDRESS OF LOCATION IN RUSSIAN}\n" +
-            "\n" +
-            "MAX PEOPLE: \n" +
-            "{WRITE HERE MAX AMOUNT OF ATTANDEE}\n" +
-            "\n" +
-            "SPEAKING LEVEL: \n" +
-            "{MINIMUM SPEAKING LEVE}\n" +
-            "\n" +
-            "CONTACT NUMBER: \n" +
-            "{WRITE HERE YOUR CONTACT NUMBER}\n" +
-            "\n" +
-            "TOPIC: \n" +
-            "{WRITE HERE TOPIC}\n" +
-            "\n" +
-            "QUESTIONS:\n" +
-            "{WRITE HERE QUESTIONS TO DISCUSS}";
-    private final static String EXAMPLE = "NEW MEETING REQUEST:\n" +
-            "\n" +
-            "DATE: \n" +
-            "14.01.2020 19-00\n" +
-            "\n" +
-            "LOCATION: \n" +
-            "ул. Немига 5, Лидо\n" +
-            "\n" +
-            "MAX PEOPLE: \n" +
-            "4\n" +
-            "\n" +
-            "SPEAKING LEVEL: \n" +
-            "Upper-Intermediate\n" +
-            "\n" +
-            "CONTACT NUMBER: \n" +
-            "+375295508809\n" +
-            "\n" +
-            "TOPIC: \n" +
-            "Internet and Computers\n" +
-            "\n" +
-            "QUESTIONS:\n" +
-            "● What are two disadvantages of using smartphones and tablets?\n" +
-            "● What do you think about Cybercafes? are they still useful?\n" +
-            "● Do you like a job in which you have to use computers?\n" +
-            "● Do you spend too much time online?\n" +
-            "● Does your mother of father know how to use a computer?\n" +
-            "● Do computers make life easier?\n" +
-            "● What websites do you visit in a regular basis?\n" +
-            "● What do you think about the Apple?\n" +
-            "● What are some advantages of using social networks?\n" +
-            "● Do you visit English websites?";
-
     @Override
     public ReplyKeyboard getKeyboard() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
@@ -102,7 +39,7 @@ public class IntroCreateMeetingStage extends MainStage {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId());
-        sendMessage.setText(EN_INSTRUCTION);
+        sendMessage.setText(getStringMap().get("enInstruction"));
         sendMessage.setReplyMarkup(getKeyboard());
 
         razykrashkaBot.executeBot(sendMessage);
@@ -114,18 +51,18 @@ public class IntroCreateMeetingStage extends MainStage {
     public boolean processCallBackQuery() {
         String callBackData = razykrashkaBot.getCallbackQuery().getData();
         if (callBackData.equals(stageInfo.getStageName() + "_en_instruction")) {
-            razykrashkaBot.updateMessage(EN_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
+            razykrashkaBot.updateMessage(getStringMap().get("enInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_ru_instruction")) {
-            razykrashkaBot.updateMessage(RU_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
+            razykrashkaBot.updateMessage(getStringMap().get("ruInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }
         if (callBackData.equals(stageInfo.getStageName() + "_template")) {
-            razykrashkaBot.updateMessage(TEMPLATE, (InlineKeyboardMarkup) getKeyboard());
+            razykrashkaBot.updateMessage(getStringMap().get("template"), (InlineKeyboardMarkup) getKeyboard());
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_example")) {
-            razykrashkaBot.updateMessage(EXAMPLE, (InlineKeyboardMarkup) getKeyboard());
+            razykrashkaBot.updateMessage(getStringMap().get("example"), (InlineKeyboardMarkup) getKeyboard());
         }
         return true;
     }
