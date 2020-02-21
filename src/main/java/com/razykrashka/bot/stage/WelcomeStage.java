@@ -32,7 +32,7 @@ public class WelcomeStage extends MainStage {
         keyboardFirstRow.add(new KeyboardButton("View Meetings"));
 
         KeyboardRow keyboardSecondRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton("Information :P").setRequestLocation(true));
+        keyboardSecondRow.add(new KeyboardButton("Information :P"));
 
         keyboard.add(keyboardFirstRow);
         keyboard.add(keyboardSecondRow);

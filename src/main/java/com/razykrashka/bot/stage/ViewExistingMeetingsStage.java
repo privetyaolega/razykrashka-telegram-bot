@@ -24,7 +24,7 @@ public class ViewExistingMeetingsStage extends MainStage {
 
     @Autowired
     private MeetingRepository meetingRepository;
-    List<Meeting> modelList;
+    List<Meeting> modelList = new ArrayList<>();
 
     public ViewExistingMeetingsStage() {
         stageInfo = StageInfo.VIEW_EXISTING_MEETINGS;
@@ -84,7 +84,7 @@ public class ViewExistingMeetingsStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
-        String callBackData = razykrashkaBot.getUpdate().getCallbackQuery().getData();
+        String callBackData = razykrashkaBot.getCallbackQuery().getData();
         Meeting meetingModel = modelList.stream().filter(x -> callBackData.contains(String.valueOf(x.getId()))).findFirst().get();
 
         if (callBackData.equals(stageInfo.getStageName() + "_contact" + meetingModel.getId())) {

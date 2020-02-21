@@ -99,8 +99,6 @@ public class IntroCreateMeetingStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        if (this.processCallBackQuery()) return;
-
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId());
@@ -114,25 +112,22 @@ public class IntroCreateMeetingStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getUpdate().hasCallbackQuery()) {
-            String callBackData = razykrashkaBot.getUpdate().getCallbackQuery().getData();
-            if (callBackData.equals(stageInfo.getStageName() + "_en_instruction")) {
-                razykrashkaBot.updateMessage(EN_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
-            }
-
-            if (callBackData.equals(stageInfo.getStageName() + "_ru_instruction")) {
-                razykrashkaBot.updateMessage(RU_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
-            }
-            if (callBackData.equals(stageInfo.getStageName() + "_template")) {
-                razykrashkaBot.updateMessage(TEMPLATE, (InlineKeyboardMarkup) getKeyboard());
-            }
-
-            if (callBackData.equals(stageInfo.getStageName() + "_example")) {
-                razykrashkaBot.updateMessage(EXAMPLE, (InlineKeyboardMarkup) getKeyboard());
-            }
-            return true;
+        String callBackData = razykrashkaBot.getCallbackQuery().getData();
+        if (callBackData.equals(stageInfo.getStageName() + "_en_instruction")) {
+            razykrashkaBot.updateMessage(EN_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
         }
-        return false;
+
+        if (callBackData.equals(stageInfo.getStageName() + "_ru_instruction")) {
+            razykrashkaBot.updateMessage(RU_INSTRUCTION, (InlineKeyboardMarkup) getKeyboard());
+        }
+        if (callBackData.equals(stageInfo.getStageName() + "_template")) {
+            razykrashkaBot.updateMessage(TEMPLATE, (InlineKeyboardMarkup) getKeyboard());
+        }
+
+        if (callBackData.equals(stageInfo.getStageName() + "_example")) {
+            razykrashkaBot.updateMessage(EXAMPLE, (InlineKeyboardMarkup) getKeyboard());
+        }
+        return true;
     }
 
     @Override

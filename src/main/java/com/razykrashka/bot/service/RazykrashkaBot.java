@@ -52,30 +52,25 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        if (!update.hasCallbackQuery()) {
-            this.update = update;
-        }
         callbackQuery = update.getCallbackQuery();
         undefinedStage = getContext().getBean(UndefinedStage.class);
 
         if (update.hasCallbackQuery()) {
-            stages.forEach(Stage::processCallBackQuery);
+            stages.stream().filter(x -> callbackQuery.getData().contains(x.getStageInfo().getStageName()))
+                    .findFirst().get().processCallBackQuery();
+        } else {
+            this.update = update;
+            stages.stream().peek(x -> x.setMessage(update))
+                    .filter(Stage::isStageActive).findFirst()
+                    .orElseGet(() -> undefinedStage)
+                    .handleRequest();
         }
-
-        stages.stream()
-                .peek(x -> {
-                    x.setMessage(update);
-                })
-                .filter(Stage::isStageActive).findFirst()
-                .orElseGet(() -> undefinedStage)
-                .handleRequest();
-
     }
 
     public void updateMessage(String text, InlineKeyboardMarkup inlineKeyboardMarkup) {
         EditMessageText editMessageReplyMarkup = new EditMessageText();
-        editMessageReplyMarkup.setChatId(update.getCallbackQuery().getMessage().getChat().getId());
-        editMessageReplyMarkup.setMessageId(update.getCallbackQuery().getMessage().getMessageId());
+        editMessageReplyMarkup.setChatId(callbackQuery.getMessage().getChat().getId());
+        editMessageReplyMarkup.setMessageId(callbackQuery.getMessage().getMessageId());
         editMessageReplyMarkup.setText(text);
         editMessageReplyMarkup.setParseMode(ParseMode.MARKDOWN);
         editMessageReplyMarkup.setReplyMarkup(inlineKeyboardMarkup);

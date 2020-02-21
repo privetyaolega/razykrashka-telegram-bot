@@ -72,18 +72,15 @@ public abstract class MainStage implements Stage {
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getUpdate().hasCallbackQuery()) {
-            String callBackData = razykrashkaBot.getUpdate().getCallbackQuery().getData();
-            if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
-                razykrashkaBot.updateMessage(stageInfo.getWelcomeMessageRu(),
-                        getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
-            }
-            if (callBackData.equals(stageInfo.getStageName() + "ru_en")) {
-                razykrashkaBot.updateMessage(stageInfo.getWelcomeMessageEn(),
-                        getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
-            }
-            return true;
+        String callBackData = razykrashkaBot.getCallbackQuery().getData();
+        if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
+            razykrashkaBot.updateMessage(stageInfo.getWelcomeMessageRu(),
+                    getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
         }
-        return false;
+        if (callBackData.equals(stageInfo.getStageName() + "ru_en")) {
+            razykrashkaBot.updateMessage(stageInfo.getWelcomeMessageEn(),
+                    getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
+        }
+        return true;
     }
 }
