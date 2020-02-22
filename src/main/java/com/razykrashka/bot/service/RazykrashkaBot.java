@@ -42,6 +42,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     @Value("${bot.avp256.token}")
     String botToken;
 
+
     @Autowired
     ApplicationContext context;
 
