@@ -4,7 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -28,15 +29,15 @@ public class TelegramUser {
     Integer telegramId;
 
     @Column
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "owner")
-    List<Meeting> createdMeetings;
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "telegramUser")
+    Set<Meeting> createdMeetings = new HashSet<>();
 
     @Column
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(
             name = "user_meeting",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id")
     )
-    List<Meeting> toGoMeetings;
+    Set<Meeting> toGoMeetings = new HashSet<>();
 }

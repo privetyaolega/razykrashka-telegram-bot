@@ -73,8 +73,7 @@ public class NewMeetingCreationStage extends MainStage {
                     .filter(x -> x.getDisplayName().contains("Minsk"))
                     .findFirst().get();
 
-            razykrashkaBot.getUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));
-            telegramUserRepository1.save(razykrashkaBot.getUser());
+
 
             MeetingInfo meetingInfo = MeetingInfo.builder()
                     .questions(meetingMap.get("QUESTIONS"))
@@ -96,13 +95,18 @@ public class NewMeetingCreationStage extends MainStage {
             locationRepository.save(location);
 
             meetingModel = Meeting.builder()
-                    .owner(razykrashkaBot.getUser())
+                    .telegramUser(razykrashkaBot.getUser())
                     .meetingDateTime(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
                     .creationDateTime(LocalDateTime.now())
                     .meetingInfo(meetingInfo)
                     .location(location)
                     .build();
             meetingRepository.save(meetingModel);
+
+            razykrashkaBot.getUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));
+            razykrashkaBot.getUser().getToGoMeetings().add(meetingModel);
+            razykrashkaBot.getUser().getCreatedMeetings().add(meetingModel);
+            telegramUserRepository1.save(razykrashkaBot.getUser());
 
             razykrashkaBot.sendSimpleTextMessage("MEETING CREATED");
             razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));

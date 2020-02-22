@@ -96,9 +96,9 @@ public class AllMeetingViewStage extends MainStage {
         Meeting meetingModel = modelList.stream().filter(x -> callBackData.contains(String.valueOf(x.getId()))).findFirst().get();
 
         if (callBackData.equals(stageInfo.getStageName() + "_contact" + meetingModel.getId())) {
-            razykrashkaBot.sendContact(new SendContact().setLastName(meetingModel.getOwner().getLastName())
-                    .setFirstName(meetingModel.getOwner().getFirstName())
-                    .setPhoneNumber(meetingModel.getOwner().getPhoneNumber()));
+            razykrashkaBot.sendContact(new SendContact().setLastName(meetingModel.getTelegramUser().getLastName())
+                    .setFirstName(meetingModel.getTelegramUser().getFirstName())
+                    .setPhoneNumber(meetingModel.getTelegramUser().getPhoneNumber()));
         }
         if (callBackData.equals(stageInfo.getStageName() + "_map" + meetingModel.getId())) {
             razykrashkaBot.sendVenue(new SendVenue().setTitle("TEST TITLE")

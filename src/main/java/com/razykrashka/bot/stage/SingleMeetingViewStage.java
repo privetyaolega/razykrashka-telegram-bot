@@ -93,9 +93,9 @@ public class SingleMeetingViewStage extends MainStage {
                 filter(x -> callBackData.contains(String.valueOf(x.getId()))).findFirst().get();
 
         if (callBackData.equals(stageInfo.getStageName() + "_contact" + meeting.getId())) {
-            razykrashkaBot.sendContact(new SendContact().setLastName(meeting.getOwner().getLastName())
-                    .setFirstName(meeting.getOwner().getFirstName())
-                    .setPhoneNumber(meeting.getOwner().getPhoneNumber()));
+            razykrashkaBot.sendContact(new SendContact().setLastName(meeting.getTelegramUser().getLastName())
+                    .setFirstName(meeting.getTelegramUser().getFirstName())
+                    .setPhoneNumber(meeting.getTelegramUser().getPhoneNumber()));
         }
         if (callBackData.equals(stageInfo.getStageName() + "_map" + meeting.getId())) {
             razykrashkaBot.sendVenue(new SendVenue().setTitle("TEST TITLE")

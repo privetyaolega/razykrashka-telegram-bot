@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,7 +29,7 @@ public class Meeting {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    TelegramUser owner;
+    TelegramUser telegramUser;
 
     @OneToOne
     @JoinColumn(name = "meeting_info_id")
@@ -45,5 +46,5 @@ public class Meeting {
             joinColumns = @JoinColumn(name = "meeting_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    List<TelegramUser> participants;
+    List<TelegramUser> participants = new ArrayList<>();
 }
