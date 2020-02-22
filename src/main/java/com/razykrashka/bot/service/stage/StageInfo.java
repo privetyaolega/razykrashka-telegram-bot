@@ -1,4 +1,4 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.service.stage;
 
 public enum StageInfo {
 

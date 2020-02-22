@@ -1,9 +1,9 @@
 package com.razykrashka.bot.service;
 
-import com.razykrashka.bot.db.entity.TelegramUser;
-import com.razykrashka.bot.db.repo.TelegramUserRepository;
-import com.razykrashka.bot.stage.Stage;
-import com.razykrashka.bot.stage.UndefinedStage;
+import com.razykrashka.bot.entity.TelegramUser;
+import com.razykrashka.bot.repository.TelegramUserRepository;
+import com.razykrashka.bot.service.stage.Stage;
+import com.razykrashka.bot.service.stage.UndefinedStage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;

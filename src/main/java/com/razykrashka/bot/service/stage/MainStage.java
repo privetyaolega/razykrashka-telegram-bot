@@ -1,12 +1,12 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.service.stage;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.razykrashka.bot.db.repo.LocationRepository;
-import com.razykrashka.bot.db.repo.MeetingInfoRepository;
-import com.razykrashka.bot.db.repo.MeetingRepository;
-import com.razykrashka.bot.db.repo.TelegramUserRepository;
+import com.razykrashka.bot.repository.LocationRepository;
+import com.razykrashka.bot.repository.MeetingInfoRepository;
+import com.razykrashka.bot.repository.MeetingRepository;
+import com.razykrashka.bot.repository.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

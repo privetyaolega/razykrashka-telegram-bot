@@ -1,4 +1,4 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.service.stage;
 
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
