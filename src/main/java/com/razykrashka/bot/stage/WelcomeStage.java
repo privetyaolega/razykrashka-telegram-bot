@@ -46,6 +46,4 @@ public class WelcomeStage extends MainStage {
         return null;
     }
 
-
-
 }
