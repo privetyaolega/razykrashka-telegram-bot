@@ -3,6 +3,10 @@ package com.razykrashka.bot.stage;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.razykrashka.bot.db.repo.LocationRepository;
+import com.razykrashka.bot.db.repo.MeetingInfoRepository;
+import com.razykrashka.bot.db.repo.MeetingRepository;
+import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,6 +30,15 @@ import java.util.Map;
 public abstract class MainStage implements Stage {
 
     private static List<Map<String, Object>> data;
+
+    @Autowired
+    protected MeetingRepository meetingRepository;
+    @Autowired
+    protected TelegramUserRepository telegramUserRepository1;
+    @Autowired
+    protected MeetingInfoRepository meetingInfoRepository;
+    @Autowired
+    protected LocationRepository locationRepository;
 
     @Autowired
     RazykrashkaBot razykrashkaBot;

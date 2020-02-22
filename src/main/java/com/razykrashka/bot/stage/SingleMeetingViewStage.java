@@ -1,9 +1,7 @@
 package com.razykrashka.bot.stage;
 
 import com.razykrashka.bot.db.entity.Meeting;
-import com.razykrashka.bot.db.repo.MeetingRepository;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -21,14 +19,12 @@ import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
-public class ViewSingleMeetingsStage extends MainStage {
+public class SingleMeetingViewStage extends MainStage {
 
-    @Autowired
-    private MeetingRepository meetingRepository;
     private Meeting meeting;
 
-    public ViewSingleMeetingsStage() {
-        stageInfo = StageInfo.VIEW_SINGLE_MEETING;
+    public SingleMeetingViewStage() {
+        stageInfo = StageInfo.SINGLE_MEETING_VIEW;
     }
 
     @Override
@@ -42,8 +38,9 @@ public class ViewSingleMeetingsStage extends MainStage {
                 .replace(this.getStageInfo().getKeyword(), ""));
         meeting = meetingRepository.findById(id).get();
 
-        String messageText = meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
-                Locale.ENGLISH)) + "\n"
+        String messageText = "<code>MEETING # " + meeting.getId() + "</code>\n" +
+                meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
+                        Locale.ENGLISH)) + "\n"
                 + meeting.getLocation().getLocationLink().toString() + "\n"
                 + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
                 + meeting.getMeetingInfo().getQuestions() + "\n"
@@ -75,16 +72,13 @@ public class ViewSingleMeetingsStage extends MainStage {
 
     public ReplyKeyboard getKeyboard(Meeting model) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Information")
-                .setSwitchInlineQueryCurrentChat("TEST MESSSAGE"));
 
 //                .setCallbackData(stageInfo.getStageName() + "_information" + model.getId()));
 
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList();
         keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Contact").setCallbackData(stageInfo.getStageName() + "_contact" + meeting.getId()));
         keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Map").setCallbackData(stageInfo.getStageName() + "_map" + meeting.getId()));
-        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1, keyboardButtonsRow2));
+        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow2));
         return inlineKeyboardMarkup;
     }
 
@@ -106,10 +100,6 @@ public class ViewSingleMeetingsStage extends MainStage {
                     .setLatitude(meeting.getLocation().getLatitude())
                     .setLongitude(meeting.getLocation().getLongitude())
                     .setAddress("TEST ADDRESS"));
-        }
-        if (callBackData.equals(stageInfo.getStageName() + "_information" + meeting.getId())) {
-            String message = meeting.getMeetingInfo().getQuestions() + "\\n" + meeting.getMeetingInfo().getTopic() + "\\n" + meeting.getId();
-            razykrashkaBot.updateMessage(message, (InlineKeyboardMarkup) getKeyboard(meeting));
         }
         return true;
     }

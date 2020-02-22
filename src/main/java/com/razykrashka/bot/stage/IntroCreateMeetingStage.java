@@ -30,7 +30,11 @@ public class IntroCreateMeetingStage extends MainStage {
         keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Template").setCallbackData(stageInfo.getStageName() + "_template"));
         keyboardButtonsRow3.add(new InlineKeyboardButton().setText("Example").setCallbackData(stageInfo.getStageName() + "_example"));
 
-        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1, keyboardButtonsRow2, keyboardButtonsRow3));
+        List<InlineKeyboardButton> keyboardButtonsRow4 = new ArrayList();
+        keyboardButtonsRow4.add(new InlineKeyboardButton().setText("FAST MEETING CREATION DEBUG")
+                .setSwitchInlineQueryCurrentChat(this.getStringMap().get("example")));
+
+        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1, keyboardButtonsRow2, keyboardButtonsRow3, keyboardButtonsRow4));
         return inlineKeyboardMarkup;
     }
 

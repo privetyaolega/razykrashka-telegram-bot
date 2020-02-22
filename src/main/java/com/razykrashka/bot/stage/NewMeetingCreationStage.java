@@ -3,12 +3,7 @@ package com.razykrashka.bot.stage;
 import com.razykrashka.bot.api.LoсationiqApi;
 import com.razykrashka.bot.api.model.locationiq.Locationiq;
 import com.razykrashka.bot.db.entity.*;
-import com.razykrashka.bot.db.repo.LocationRepository;
-import com.razykrashka.bot.db.repo.MeetingInfoRepository;
-import com.razykrashka.bot.db.repo.MeetingRepository;
-import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -32,14 +27,6 @@ public class NewMeetingCreationStage extends MainStage {
     private String message;
     private Meeting meetingModel;
 
-    @Autowired
-    private MeetingRepository meetingRepository;
-    @Autowired
-    private TelegramUserRepository telegramUserRepository1;
-    @Autowired
-    private MeetingInfoRepository meetingInfoRepository;
-    @Autowired
-    private LocationRepository locationRepository;
 
     public NewMeetingCreationStage() {
         stageInfo = StageInfo.NEW_MEETING_CREATION;
@@ -76,7 +63,7 @@ public class NewMeetingCreationStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        message = razykrashkaBot.getUpdate().getMessage().getText();
+        message = razykrashkaBot.getUpdate().getMessage().getText().replace("@Test7313494Bot", "").trim();
         try {
             Map<String, String> meetingMap = Arrays.stream(message.split("\\n\\n")).skip(1)
                     .map(x -> x.replace("\n", ""))
@@ -135,6 +122,6 @@ public class NewMeetingCreationStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return razykrashkaBot.getUpdate().getMessage().getText().startsWith(stageInfo.getKeyword());
+        return razykrashkaBot.getUpdate().getMessage().getText().contains(stageInfo.getKeyword());
     }
 }

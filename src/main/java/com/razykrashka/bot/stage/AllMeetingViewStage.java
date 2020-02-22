@@ -1,9 +1,7 @@
 package com.razykrashka.bot.stage;
 
 import com.razykrashka.bot.db.entity.Meeting;
-import com.razykrashka.bot.db.repo.MeetingRepository;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -22,14 +20,12 @@ import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
-public class ViewExistingMeetingsStage extends MainStage {
+public class AllMeetingViewStage extends MainStage {
 
-    @Autowired
-    private MeetingRepository meetingRepository;
     List<Meeting> modelList = new ArrayList<>();
 
-    public ViewExistingMeetingsStage() {
-        stageInfo = StageInfo.VIEW_EXISTING_MEETINGS;
+    public AllMeetingViewStage() {
+        stageInfo = StageInfo.ALL_MEETING_VIEW;
     }
 
     @Override
