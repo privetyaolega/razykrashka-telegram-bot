@@ -106,6 +106,10 @@ public class NewMeetingCreationStage extends MainStage {
                     .latitude(Float.parseFloat(getModel.getLat()))
                     .longitude(Float.parseFloat(getModel.getLon()))
                     .name(getModel.getDisplayName())
+                    .locationLink(TelegramLinkEmbedded.builder()
+                            .link("http://google.com")
+                            .textLink(meetingMap.get("LOCATION"))
+                            .build())
                     .build();
             locationRepository.save(location);
 

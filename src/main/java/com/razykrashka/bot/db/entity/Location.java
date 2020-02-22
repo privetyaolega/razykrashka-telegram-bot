@@ -3,10 +3,7 @@ package com.razykrashka.bot.db.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "location")
@@ -27,4 +24,7 @@ public class Location {
     Float longitude;
     String address;
     String name;
+
+    @Embedded
+    TelegramLinkEmbedded locationLink;
 }

@@ -61,6 +61,7 @@ public enum StageInfo {
             "● Do you visit English websites?", "Вставьте шаблон и отправьте его", "Create Meeting"),
     UNDEFINED("UndefinedStage", "Bot doesn't know this commant", null),
     VIEW_EXISTING_MEETINGS("ViewExistingMeetingsStage", "Existing meetings", null, "View Meetings"),
+    VIEW_SINGLE_MEETING("ViewSingleMeetingStage", "null", null, "/meeting"),
     NEW_MEETING_CREATION("NewMeetingCreationStage", "Your request in moderation...", "Запрос в обработке", "NEW MEETING REQUEST");
 
     private final String stageName;
