@@ -42,7 +42,7 @@ public class AllMeetingViewStage extends MainStage {
             String messageText = modelList.stream().skip(0).limit(5)
                     .map(model -> model.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
                             Locale.ENGLISH)) + "\n"
-                            + model.getLocation().getLocationLink().toString() + "\n"
+                            + "\uD83D\uDCCD" + model.getLocation().getLocationLink().toString() + "\n"
                             + model.getMeetingInfo().getSpeakingLevel().toString() + "\n"
                             + model.getMeetingInfo().getTopic() + "\n"
                             + "INFORMATION: /meeting" + model.getId())

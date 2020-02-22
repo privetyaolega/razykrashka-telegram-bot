@@ -41,7 +41,7 @@ public class SingleMeetingViewStage extends MainStage {
         String messageText = "<code>MEETING # " + meeting.getId() + "</code>\n" +
                 meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
                         Locale.ENGLISH)) + "\n"
-                + meeting.getLocation().getLocationLink().toString() + "\n"
+                + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
                 + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
                 + meeting.getMeetingInfo().getQuestions() + "\n"
                 + meeting.getMeetingInfo().getTopic() + "\n";
@@ -74,11 +74,13 @@ public class SingleMeetingViewStage extends MainStage {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
 //                .setCallbackData(stageInfo.getStageName() + "_information" + model.getId()));
+        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Join").setCallbackData(stageInfo.getStageName() + "_join" + meeting.getId()));
 
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList();
         keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Contact").setCallbackData(stageInfo.getStageName() + "_contact" + meeting.getId()));
         keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Map").setCallbackData(stageInfo.getStageName() + "_map" + meeting.getId()));
-        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow2));
+        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1, keyboardButtonsRow2));
         return inlineKeyboardMarkup;
     }
 
@@ -100,6 +102,10 @@ public class SingleMeetingViewStage extends MainStage {
                     .setLatitude(meeting.getLocation().getLatitude())
                     .setLongitude(meeting.getLocation().getLongitude())
                     .setAddress("TEST ADDRESS"));
+        }
+
+        if (callBackData.equals(stageInfo.getStageName() + "_join" + meeting.getId())) {
+
         }
         return true;
     }

@@ -73,13 +73,8 @@ public class NewMeetingCreationStage extends MainStage {
                     .filter(x -> x.getDisplayName().contains("Minsk"))
                     .findFirst().get();
 
-            TelegramUser user = TelegramUser.builder()
-                    .lastName(update.getMessage().getFrom().getLastName())
-                    .firstName(update.getMessage().getFrom().getFirstName())
-                    .userName(update.getMessage().getFrom().getUserName())
-                    .phoneNumber(meetingMap.get("CONTACT NUMBER"))
-                    .build();
-            telegramUserRepository1.save(user);
+            razykrashkaBot.getUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));
+            telegramUserRepository1.save(razykrashkaBot.getUser());
 
             MeetingInfo meetingInfo = MeetingInfo.builder()
                     .questions(meetingMap.get("QUESTIONS"))
@@ -100,9 +95,8 @@ public class NewMeetingCreationStage extends MainStage {
                     .build();
             locationRepository.save(location);
 
-
             meetingModel = Meeting.builder()
-                    .owner(user)
+                    .owner(razykrashkaBot.getUser())
                     .meetingDateTime(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
                     .creationDateTime(LocalDateTime.now())
                     .meetingInfo(meetingInfo)

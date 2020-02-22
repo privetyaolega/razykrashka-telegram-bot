@@ -25,6 +25,7 @@ public class TelegramUser {
     String lastName;
     String firstName;
     String phoneNumber;
+    Integer telegramId;
 
     @Column
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "owner")
