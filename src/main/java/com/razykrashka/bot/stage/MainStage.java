@@ -8,6 +8,7 @@ import com.razykrashka.bot.db.repo.MeetingInfoRepository;
 import com.razykrashka.bot.db.repo.MeetingRepository;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
+import com.razykrashka.bot.ui.helpers.KeyboardBuilder;
 import com.razykrashka.bot.ui.helpers.sender.MessageSender;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -46,6 +47,8 @@ public abstract class MainStage implements Stage {
 
     @Autowired
     protected MessageSender messageSender;
+    @Autowired
+    protected KeyboardBuilder keyboardBuilder;
 
     protected boolean stageActivity;
     protected StageInfo stageInfo;

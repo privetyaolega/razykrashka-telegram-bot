@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.view;
 
+import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
@@ -7,14 +8,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.stream.StreamSupport;
 
@@ -42,37 +38,18 @@ public class SingleMeetingViewStage extends MainStage {
                 + meeting.getMeetingInfo().getQuestions() + "\n"
                 + meeting.getMeetingInfo().getTopic() + "\n";
 
-        messageSender.sendSimpleTextMessage(messageText, getKeyboard(meeting));
+        messageSender.sendSimpleTextMessage(messageText, this.getKeyboard());
     }
 
     @Override
     public ReplyKeyboard getKeyboard() {
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Information").setCallbackData(stageInfo.getStageName() + "_information"));
-
-        List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList();
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Contact").setCallbackData(stageInfo.getStageName() + "_contact"));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Map").setCallbackData(stageInfo.getStageName() + "_map"));
-
-        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1, keyboardButtonsRow2));
-        return inlineKeyboardMarkup;
+        return keyboardBuilder.getKeyboard()
+                .setRow("Join", stageInfo.getStageName() + "_join" + meeting.getId())
+                .setRow(ImmutableMap.of(
+                        "Contact", stageInfo.getStageName() + "_contact" + meeting.getId(),
+                        "Map", stageInfo.getStageName() + "_map" + meeting.getId()))
+                .build();
     }
-
-    public ReplyKeyboard getKeyboard(Meeting model) {
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-
-//                .setCallbackData(stageInfo.getStageName() + "_information" + model.getId()));
-        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Join").setCallbackData(stageInfo.getStageName() + "_join" + meeting.getId()));
-
-        List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList();
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Contact").setCallbackData(stageInfo.getStageName() + "_contact" + meeting.getId()));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Map").setCallbackData(stageInfo.getStageName() + "_map" + meeting.getId()));
-        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1, keyboardButtonsRow2));
-        return inlineKeyboardMarkup;
-    }
-
 
     @Override
     public boolean processCallBackQuery() {
@@ -87,10 +64,12 @@ public class SingleMeetingViewStage extends MainStage {
                     .setPhoneNumber(meeting.getTelegramUser().getPhoneNumber()));
         }
         if (callBackData.equals(stageInfo.getStageName() + "_map" + meeting.getId())) {
-            razykrashkaBot.sendVenue(new SendVenue().setTitle("TEST TITLE")
+            razykrashkaBot.sendVenue(new SendVenue()
+                    .setTitle(meeting.getMeetingDateTime().format(DateTimeFormatter
+                            .ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH)))
                     .setLatitude(meeting.getLocation().getLatitude())
                     .setLongitude(meeting.getLocation().getLongitude())
-                    .setAddress("TEST ADDRESS"));
+                    .setAddress(meeting.getLocation().getAddress()));
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_join" + meeting.getId())) {

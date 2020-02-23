@@ -42,11 +42,9 @@ public class NewMeetingCreationStage extends MainStage {
                     .map(x -> x.replace("\n", ""))
                     .collect(Collectors.toMap((line) -> line.split(":")[0].trim(), (x) -> x.split(":")[1].trim()));
 
-            Locationiq getModel = LoсationiqApi.getLocationModel(meetingMap.get("LOCATION")).stream()
+            Locationiq getModel = LoсationiqApi.getLocationModel(meetingMap.get("LOCATION") + ", Минск").stream()
                     .filter(x -> x.getDisplayName().contains("Minsk"))
                     .findFirst().get();
-
-
 
             MeetingInfo meetingInfo = MeetingInfo.builder()
                     .questions(meetingMap.get("QUESTIONS"))

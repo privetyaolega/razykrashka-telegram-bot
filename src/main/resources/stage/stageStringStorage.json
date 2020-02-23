@@ -17,6 +17,9 @@
     },
     "SelectWayMeetingCreationStage": {
       "enMain": "Please, choose the way to create new meeting!\n\n☝\uD83C\uDFFBTemplate.\nUsing template (plain text) to create new meeting.\nJust copy existing template and fill it with all required data such as date, location, english level etc...\n\n\n✌\uD83C\uDFFBStep by step.\nCreate new meeting by answering questions about meeting details."
+    },
+    "AllMeetingViewStage": {
+      "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n"
     }
   }
 ]
