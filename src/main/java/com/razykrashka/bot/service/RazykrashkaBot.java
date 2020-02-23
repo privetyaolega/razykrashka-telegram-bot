@@ -74,8 +74,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     }
 
     private void userInit(Update update) {
-        Integer id = update.hasCallbackQuery() ? update.getCallbackQuery().getFrom().getId() : update.getMessage().getFrom().getId();
-        Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(id);
+        Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(update.getMessage().getFrom().getId());
         if (telegramUser.isPresent()) {
             user = telegramUser.get();
         } else {

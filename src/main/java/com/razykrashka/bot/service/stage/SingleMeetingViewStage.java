@@ -105,12 +105,7 @@ public class SingleMeetingViewStage extends MainStage {
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_join" + meeting.getId())) {
-            if (razykrashkaBot.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-                razykrashkaBot.sendSimpleTextMessage("YOU ALREADY HAVE THIS MEETING");
-            } else {
-                razykrashkaBot.getUser().getToGoMeetings().add(meeting);
-                razykrashkaBot.sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
-            }
+
         }
         return true;
     }
