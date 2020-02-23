@@ -3,7 +3,7 @@ package com.razykrashka.bot.service;
 import com.razykrashka.bot.db.entity.TelegramUser;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.stage.Stage;
-import com.razykrashka.bot.stage.UndefinedStage;
+import com.razykrashka.bot.stage.information.UndefinedStage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -14,15 +14,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.List;
@@ -47,6 +43,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     List<Stage> stages;
     Stage undefinedStage;
+
     Update update;
     CallbackQuery callbackQuery;
     TelegramUser user;
@@ -66,8 +63,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
                     .findFirst().get().processCallBackQuery();
         } else {
             this.update = update;
-            stages.stream().peek(x -> x.setMessage(update))
-                    .filter(Stage::isStageActive).findFirst()
+            stages.stream().filter(Stage::isStageActive).findFirst()
                     .orElseGet(() -> undefinedStage)
                     .handleRequest();
         }
@@ -86,32 +82,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
                     .telegramId(update.getMessage().getFrom().getId())
                     .build();
             telegramUserRepository.save(user);
-        }
-    }
-
-    public void updateMessage(String text, InlineKeyboardMarkup inlineKeyboardMarkup) {
-        EditMessageText editMessageReplyMarkup = new EditMessageText();
-        editMessageReplyMarkup.setChatId(callbackQuery.getMessage().getChat().getId());
-        editMessageReplyMarkup.setMessageId(callbackQuery.getMessage().getMessageId());
-        editMessageReplyMarkup.setText(text);
-        editMessageReplyMarkup.setParseMode(ParseMode.MARKDOWN);
-        editMessageReplyMarkup.setReplyMarkup(inlineKeyboardMarkup);
-
-        try {
-            execute(editMessageReplyMarkup);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendSimpleTextMessage(String text) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(update.getMessage().getChat().getId());
-        sendMessage.setText(text);
-        try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
         }
     }
 
@@ -137,14 +107,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         sendContact.setChatId(update.getMessage().getChat().getId());
         try {
             execute(sendContact);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void executeBot(SendMessage sendMessage) {
-        try {
-            execute(sendMessage);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }

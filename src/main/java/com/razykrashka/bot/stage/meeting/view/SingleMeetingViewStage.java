@@ -1,10 +1,11 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.stage.meeting.view;
 
 import com.razykrashka.bot.db.entity.Meeting;
+import com.razykrashka.bot.stage.MainStage;
+import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -28,11 +29,6 @@ public class SingleMeetingViewStage extends MainStage {
     }
 
     @Override
-    public List<String> getValidKeywords() {
-        return null;
-    }
-
-    @Override
     public void handleRequest() {
         Integer id = Integer.valueOf(razykrashkaBot.getUpdate().getMessage().getText()
                 .replace(this.getStageInfo().getKeyword(), ""));
@@ -46,14 +42,7 @@ public class SingleMeetingViewStage extends MainStage {
                 + meeting.getMeetingInfo().getQuestions() + "\n"
                 + meeting.getMeetingInfo().getTopic() + "\n";
 
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId());
-        sendMessage.setParseMode("html");
-        sendMessage.setText(messageText);
-
-        sendMessage.setReplyMarkup(getKeyboard(meeting));
-        razykrashkaBot.executeBot(sendMessage);
-
+        messageSender.sendSimpleTextMessage(messageText, getKeyboard(meeting));
     }
 
     @Override
@@ -106,10 +95,10 @@ public class SingleMeetingViewStage extends MainStage {
 
         if (callBackData.equals(stageInfo.getStageName() + "_join" + meeting.getId())) {
             if (razykrashkaBot.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-                razykrashkaBot.sendSimpleTextMessage("YOU ALREADY HAVE THIS MEETING");
+                messageSender.sendSimpleTextMessage("YOU ALREADY HAVE THIS MEETING");
             } else {
                 razykrashkaBot.getUser().getToGoMeetings().add(meeting);
-                razykrashkaBot.sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
+                messageSender.sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
             }
         }
         return true;

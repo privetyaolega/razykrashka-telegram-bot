@@ -28,7 +28,7 @@ public enum StageInfo {
             "https://t.me/razykrashkaen\n" +
             "\n" +
             "Хорошего дня. \uD83D\uDE4F\uD83C\uDFFB", "Information :P"),
-    INTRO_CREATE_MEETING("CreateMeetingStage", "NEW MEETING REQUEST:\n" +
+    CREATE_MEETING_BY_TEMPLATE_STAGE("CreateMeetingStage", "NEW MEETING REQUEST:\n" +
             "\n" +
             "DATE: \n" +
             "14.01.2020 19-00\n" +
@@ -58,11 +58,13 @@ public enum StageInfo {
             "● What websites do you visit in a regular basis?\n" +
             "● What do you think about the Apple?\n" +
             "● What are some advantages of using social networks?\n" +
-            "● Do you visit English websites?", "Вставьте шаблон и отправьте его", "Create Meeting"),
+            "● Do you visit English websites?", "Вставьте шаблон и отправьте его", "Create Meeting By Template"),
     UNDEFINED("UndefinedStage", "Bot doesn't know this commant", null),
     ALL_MEETING_VIEW("AllMeetingViewStage", "Existing meetings", null, "View Meetings"),
     SINGLE_MEETING_VIEW("SingleMeetingViewStage", null, null, "/meeting"),
-    NEW_MEETING_CREATION("NewMeetingCreationStage", "Your request in moderation...", "Запрос в обработке", "NEW MEETING REQUEST");
+    NEW_MEETING_CREATION("NewMeetingCreationStage", "Your request in moderation...", "Запрос в обработке", "NEW MEETING REQUEST"),
+    CREATE_MEETING_ON_STEPS("NewMeetingCreationStage", null, null, "Create Meeting On Steps"),
+    SELECT_WAY_MEETING_CREATION("SelectWayMeetingCreationStage", null, null, "Create Meeting");
 
     private final String stageName;
     private final String welcomeMessageRu;

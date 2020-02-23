@@ -8,13 +8,14 @@ import com.razykrashka.bot.db.repo.MeetingInfoRepository;
 import com.razykrashka.bot.db.repo.MeetingRepository;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
+import com.razykrashka.bot.ui.helpers.sender.MessageSender;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.io.File;
@@ -41,7 +42,10 @@ public abstract class MainStage implements Stage {
     protected LocationRepository locationRepository;
 
     @Autowired
-    RazykrashkaBot razykrashkaBot;
+    protected RazykrashkaBot razykrashkaBot;
+
+    @Autowired
+    protected MessageSender messageSender;
 
     protected boolean stageActivity;
     protected StageInfo stageInfo;
@@ -61,18 +65,7 @@ public abstract class MainStage implements Stage {
 
     @Override
     public void handleRequest() {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(update.getMessage().getChat().getId());
-        sendMessage.setText(stageInfo.getWelcomeMessageEn());
-        sendMessage.setReplyMarkup(getKeyboard());
-//        if (stageInfo.getWelcomeMessageRu() != null) {
-//            sendMessage.setReplyMarkup(getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
-//        }
-
-        razykrashkaBot.executeBot(sendMessage);
-
-        stageActivity = false;
+        messageSender.sendSimpleTextMessage(stageInfo.getWelcomeMessageEn(), getKeyboard());
     }
 
     @Override
@@ -102,14 +95,24 @@ public abstract class MainStage implements Stage {
     }
 
     @Override
+    public ReplyKeyboard getKeyboard() {
+        throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
+    }
+
+    @Override
+    public List<String> getValidKeywords() {
+        return Arrays.asList(this.getStageInfo().getKeyword());
+    }
+
+    @Override
     public boolean processCallBackQuery() {
         String callBackData = razykrashkaBot.getCallbackQuery().getData();
         if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
-            razykrashkaBot.updateMessage(stageInfo.getWelcomeMessageRu(),
+            messageSender.updateMessage(stageInfo.getWelcomeMessageRu(),
                     getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
         }
         if (callBackData.equals(stageInfo.getStageName() + "ru_en")) {
-            razykrashkaBot.updateMessage(stageInfo.getWelcomeMessageEn(),
+            messageSender.updateMessage(stageInfo.getWelcomeMessageEn(),
                     getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
         }
         return true;

@@ -1,8 +1,9 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.stage.meeting.creation;
 
+import com.razykrashka.bot.stage.MainStage;
+import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
@@ -13,10 +14,10 @@ import java.util.List;
 
 @Log4j2
 @Component
-public class IntroCreateMeetingStage extends MainStage {
+public class CreateMeetingByTemplateStage extends MainStage {
 
-    public IntroCreateMeetingStage() {
-        stageInfo = StageInfo.INTRO_CREATE_MEETING;
+    public CreateMeetingByTemplateStage() {
+        stageInfo = StageInfo.CREATE_MEETING_BY_TEMPLATE_STAGE;
     }
 
     @Override
@@ -40,41 +41,26 @@ public class IntroCreateMeetingStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId());
-        sendMessage.setText(getStringMap().get("enInstruction"));
-        sendMessage.setReplyMarkup(getKeyboard());
-
-        razykrashkaBot.executeBot(sendMessage);
-
-        stageActivity = false;
+        messageSender.sendSimpleTextMessage(getStringMap().get("enInstruction"), getKeyboard());
     }
 
     @Override
     public boolean processCallBackQuery() {
         String callBackData = razykrashkaBot.getCallbackQuery().getData();
         if (callBackData.equals(stageInfo.getStageName() + "_en_instruction")) {
-            razykrashkaBot.updateMessage(getStringMap().get("enInstruction"), (InlineKeyboardMarkup) getKeyboard());
+            messageSender.updateMessage(getStringMap().get("enInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_ru_instruction")) {
-            razykrashkaBot.updateMessage(getStringMap().get("ruInstruction"), (InlineKeyboardMarkup) getKeyboard());
+            messageSender.updateMessage(getStringMap().get("ruInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }
         if (callBackData.equals(stageInfo.getStageName() + "_template")) {
-            razykrashkaBot.updateMessage(getStringMap().get("template"), (InlineKeyboardMarkup) getKeyboard());
+            messageSender.updateMessage(getStringMap().get("template"), (InlineKeyboardMarkup) getKeyboard());
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_example")) {
-            razykrashkaBot.updateMessage(getStringMap().get("example"), (InlineKeyboardMarkup) getKeyboard());
+            messageSender.updateMessage(getStringMap().get("example"), (InlineKeyboardMarkup) getKeyboard());
         }
         return true;
     }
-
-    @Override
-    public List<String> getValidKeywords() {
-        return null;
-    }
-
-
 }

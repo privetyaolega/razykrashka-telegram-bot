@@ -1,10 +1,11 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.stage.meeting.view;
 
 import com.razykrashka.bot.db.entity.Meeting;
+import com.razykrashka.bot.stage.MainStage;
+import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -37,7 +38,7 @@ public class AllMeetingViewStage extends MainStage {
     public void handleRequest() {
         modelList = StreamSupport.stream(meetingRepository.findAll().spliterator(), false).collect(Collectors.toList());
         if (modelList.size() == 0) {
-            razykrashkaBot.sendSimpleTextMessage("NO MEETINGS :(");
+            messageSender.sendSimpleTextMessage("NO MEETINGS :(");
         } else {
             String messageText = modelList.stream().skip(0).limit(5)
                     .map(model -> model.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
@@ -47,16 +48,11 @@ public class AllMeetingViewStage extends MainStage {
                             + model.getMeetingInfo().getTopic() + "\n"
                             + "INFORMATION: /meeting" + model.getId())
                     .collect(Collectors.joining("\n\n", "\uD83D\uDCAB Найдено " + modelList.size() + " встреч(и)\n\n", ""));
-
-            SendMessage sendMessage = new SendMessage();
-            sendMessage.setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId());
-            sendMessage.setParseMode("html");
-            sendMessage.setText(messageText);
             if (modelList.size() > 5) {
                 // PAGINATION INLINE KEYBOARD
-                sendMessage.setReplyMarkup(getKeyboard(null));
+                messageSender.sendSimpleTextMessage(messageText, getKeyboard(null));
             }
-            razykrashkaBot.executeBot(sendMessage);
+            messageSender.sendSimpleTextMessage(messageText);
         }
     }
 
@@ -64,11 +60,11 @@ public class AllMeetingViewStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Information").setCallbackData(stageInfo.getStageName() + "_information"));
+        keyboardButtonsRow1.add(new InlineKeyboardButton("Information").setCallbackData(stageInfo.getStageName() + "_information"));
 
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList();
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Contact").setCallbackData(stageInfo.getStageName() + "_contact"));
-        keyboardButtonsRow2.add(new InlineKeyboardButton().setText("Map").setCallbackData(stageInfo.getStageName() + "_map"));
+        keyboardButtonsRow2.add(new InlineKeyboardButton("Contact").setCallbackData(stageInfo.getStageName() + "_contact"));
+        keyboardButtonsRow2.add(new InlineKeyboardButton("Map").setCallbackData(stageInfo.getStageName() + "_map"));
 
         inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1, keyboardButtonsRow2));
         return inlineKeyboardMarkup;
@@ -108,7 +104,7 @@ public class AllMeetingViewStage extends MainStage {
         }
         if (callBackData.equals(stageInfo.getStageName() + "_information" + meetingModel.getId())) {
             String message = meetingModel.getMeetingInfo().getQuestions() + "\\n" + meetingModel.getMeetingInfo().getTopic() + "\\n" + meetingModel.getId();
-            razykrashkaBot.updateMessage(message, (InlineKeyboardMarkup) getKeyboard(meetingModel));
+            messageSender.updateMessage(message, (InlineKeyboardMarkup) getKeyboard(meetingModel));
         }
         return true;
     }

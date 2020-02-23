@@ -1,20 +1,17 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.stage.meeting.creation;
 
 import com.razykrashka.bot.api.LoсationiqApi;
 import com.razykrashka.bot.api.model.locationiq.Locationiq;
 import com.razykrashka.bot.db.entity.*;
+import com.razykrashka.bot.stage.MainStage;
+import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -27,32 +24,8 @@ public class NewMeetingCreationStage extends MainStage {
     private String message;
     private Meeting meetingModel;
 
-
     public NewMeetingCreationStage() {
         stageInfo = StageInfo.NEW_MEETING_CREATION;
-    }
-
-    @Override
-    public ReplyKeyboard getKeyboard() {
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(false);
-
-        List<KeyboardRow> keyboard = new ArrayList<>();
-
-        KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("All Meeting"));
-        keyboardFirstRow.add(new KeyboardButton("Template"));
-
-        KeyboardRow keyboardSecondRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton("Information :P"));
-
-        keyboard.add(keyboardFirstRow);
-        keyboard.add(keyboardSecondRow);
-        replyKeyboardMarkup.setKeyboard(keyboard);
-
-        return replyKeyboardMarkup;
     }
 
     @Override
@@ -108,13 +81,13 @@ public class NewMeetingCreationStage extends MainStage {
             razykrashkaBot.getUser().getCreatedMeetings().add(meetingModel);
             telegramUserRepository1.save(razykrashkaBot.getUser());
 
-            razykrashkaBot.sendSimpleTextMessage("MEETING CREATED");
+            messageSender.sendSimpleTextMessage("MEETING CREATED");
             razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));
         } catch (Exception e) {
             e.printStackTrace();
-            razykrashkaBot.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION");
+            messageSender.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION");
             razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/failSticker.png")));
-            razykrashkaBot.getContext().getBean(IntroCreateMeetingStage.class).handleRequest();
+            razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();
         }
     }
 
