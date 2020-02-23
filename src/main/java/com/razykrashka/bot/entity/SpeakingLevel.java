@@ -1,4 +1,4 @@
-package com.razykrashka.bot.db.entity;
+package com.razykrashka.bot.entity;
 
 public enum SpeakingLevel {
     ELEMENTARY,
