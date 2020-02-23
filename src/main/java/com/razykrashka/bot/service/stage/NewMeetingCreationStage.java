@@ -1,8 +1,7 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.service.stage;
 
 import com.razykrashka.bot.api.LoсationiqApi;
 import com.razykrashka.bot.api.model.locationiq.Locationiq;
-import com.razykrashka.bot.db.entity.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;

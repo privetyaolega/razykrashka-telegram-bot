@@ -1,4 +1,4 @@
-package com.razykrashka.bot.stage;
+package com.razykrashka.bot.service.stage;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
