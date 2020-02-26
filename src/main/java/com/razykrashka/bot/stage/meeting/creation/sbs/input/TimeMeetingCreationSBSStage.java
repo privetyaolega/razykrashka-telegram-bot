@@ -13,9 +13,15 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
-        messageSender.updateMessage(super.getMeetingPrettyString() +
-                "\n\nPlease, choose time (e.g 19-30)", (InlineKeyboardMarkup) getKeyboard());
+        messageSender.updateMessage(super.getMeetingPrettyString() + "\n\nPlease, choose time (e.g 19-30)",
+                (InlineKeyboardMarkup) getKeyboard());
         super.setActiveNextStage(AcceptTimeMeetingCreationSBSStage.class);
+    }
+
+    @Override
+    public boolean processCallBackQuery() {
+        handleRequest();
+        return true;
     }
 
     @Override

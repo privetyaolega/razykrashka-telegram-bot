@@ -18,6 +18,7 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 .setRow("Intermediate", "Intermediate")
                 .setRow("Upper-Intermediate", "Upper_Intermediate")
                 .setRow("Advanced", "Advanced")
+                .setRow("BACK TO LOCATION EDIT", LocationMeetingCreationSBSStage.class.getSimpleName())
                 .build();
         messageSender.updateMessage(getMeetingPrettyString() + "\n\nPlease, input speaking level.", keyboardMarkup);
         setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);

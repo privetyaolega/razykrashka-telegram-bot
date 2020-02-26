@@ -7,7 +7,7 @@ import com.razykrashka.bot.db.entity.TelegramLinkEmbedded;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
@@ -25,11 +25,11 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
             getModel = LoсationiqApi.getLocationModel(address + ", Минск").stream()
                     .filter(x -> x.getDisplayName().contains("Minsk"))
                     .findFirst().get();
-            messageSender.deleteLastMessage();
         } catch (Exception e) {
+            // TODO: Create informative error message
             razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
-            setActiveNextStage(TimeMeetingCreationSBSStage.class);
-            razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
+            setActiveNextStage(LocationMeetingCreationSBSStage.class);
+            razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
             return;
         }
 
@@ -39,6 +39,7 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
                 .longitude(Float.parseFloat(getModel.getLon()))
                 .name(getModel.getDisplayName())
                 .locationLink(TelegramLinkEmbedded.builder()
+                        // TODO: Create link to google map
                         .link("http://google.com")
                         .textLink(address)
                         .build())
@@ -47,5 +48,19 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
 
         razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
         super.setActiveNextStage(LevelMeetingCreationSBSStage.class);
+    }
+
+    @Override
+    public boolean processCallBackQuery() {
+        handleRequest();
+        return true;
+    }
+
+    @Override
+    public boolean isStageActive() {
+        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
+            return false;
+        }
+        return super.getStageActivity();
     }
 }

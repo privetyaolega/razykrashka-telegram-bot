@@ -1,6 +1,5 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
-import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
@@ -13,26 +12,24 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
 
     @Override
     public void handleRequest() {
-        // TODO (arutski): time validation;
-        if (!razykrashkaBot.getMessageOptional().isPresent() // If data came from callBackData
-                || !razykrashkaBot.getRealUpdate().getMessage().getText().matches(".*\\d.*") // Need to create regex for time
-        ) {
-            razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
-            setActiveNextStage(TimeMeetingCreationSBSStage.class);
+        String message = razykrashkaBot.getRealUpdate().getMessage().getText();
+        if (!isStringTimeFormat(message)) {
+            messageSender.sendSimpleTextMessage(String.format(super.getStringMap().get("incorrectTimeFormat"), message));
             razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
             return;
         }
-
         messageSender.deleteLastMessage();
 
         String time = razykrashkaBot.getMessageOptional().get().getText();
         super.getMeeting().setMeetingDateTime(super.getMeeting().getMeetingDateTime()
                 .withHour(Integer.parseInt(time.substring(0, 2)))
                 .withMinute(Integer.parseInt(time.substring(3))));
-
-        super.setActiveNextStage(LocationMeetingCreationSBSStage.class);
+        razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
     }
 
+    private boolean isStringTimeFormat(String time) {
+        return time.matches("\\d{2}[:-]\\d{2}");
+    }
 
     @Override
     public boolean isStageActive() {

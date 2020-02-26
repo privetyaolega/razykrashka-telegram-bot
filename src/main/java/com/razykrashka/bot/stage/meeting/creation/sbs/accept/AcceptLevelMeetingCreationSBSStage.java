@@ -29,7 +29,8 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
                 .speakingLevel(SpeakingLevel.valueOf(callbackQuery.getData().toUpperCase()))
                 .build());
         messageSender.updateMessage(super.getMeetingPrettyString());
-        setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
+        razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
+        super.setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
         return true;
     }
 
