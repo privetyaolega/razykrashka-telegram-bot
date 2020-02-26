@@ -29,7 +29,7 @@ public class AllMeetingViewStage extends MainStage {
         if (modelList.size() == 0) {
             messageSender.sendSimpleTextMessage("NO MEETINGS :(");
         } else {
-            String messageText = modelList.stream().skip(0).limit(5)
+            String messageText = modelList.stream().skip(0).limit(20)
                     .map(model -> model.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
                             Locale.ENGLISH)) + "\n"
                             + "\uD83D\uDCCD" + model.getLocation().getLocationLink().toString() + "\n"

@@ -18,11 +18,15 @@ import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @Log4j2
@@ -44,7 +48,9 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     List<Stage> stages;
     Stage undefinedStage;
 
+    Update realUpdate;
     Update update;
+    Optional<Message> messageOptional;
     CallbackQuery callbackQuery;
     TelegramUser user;
 
@@ -55,11 +61,17 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        this.realUpdate = update;
+        messageOptional = Optional.ofNullable(update.getMessage());
         userInit(update);
-        undefinedStage = getContext().getBean(UndefinedStage.class);
+        this.undefinedStage = getContext().getBean(UndefinedStage.class);
+
         if (update.hasCallbackQuery()) {
             this.callbackQuery = update.getCallbackQuery();
-            stages.stream().filter(x -> callbackQuery.getData().contains(x.getStageInfo().getStageName()))
+            stages.stream()
+                    .filter(x -> callbackQuery.getData().contains(x.getStageInfo().getStageName())
+                            || callbackQuery.getData().contains(x.getClass().getSimpleName())
+                            || x.isStageActive())
                     .findFirst().get().processCallBackQuery();
         } else {
             this.update = update;
@@ -110,5 +122,34 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean executeMethodCallBackQuery() {
+        if (this.getRealUpdate().getCallbackQuery() != null) {
+            Optional<Stage> stage = this.getStages().stream()
+                    .filter(st -> this.getRealUpdate().getCallbackQuery().getData()
+                            .startsWith(st.getClass().getSimpleName() + "?"))
+                    .findFirst();
+            if (stage.isPresent()) {
+                String callBackDate = this.getRealUpdate().getCallbackQuery().getData();
+                String stageName = callBackDate.split("\\?")[0];
+                String methodName = callBackDate.replace(stageName + "?", "").split(":")[0];
+                String[] variables = callBackDate.replace(stageName + "?" + methodName + ":", "")
+                        .replace(methodName, "")
+                        .split("&");
+
+                Class<String>[] clazz = Arrays.stream(variables).map(str -> String.class)
+                        .collect(Collectors.toList())
+                        .stream().toArray(Class[]::new);
+                try {
+                    Method method = stage.get().getClass().getMethod(methodName, clazz);
+                    method.invoke(stage.get(), variables);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }

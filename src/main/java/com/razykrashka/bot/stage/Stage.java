@@ -20,4 +20,6 @@ public interface Stage {
     Stage setMessage(Update message);
 
     boolean processCallBackQuery();
+
+    void setActive(boolean isActive);
 }

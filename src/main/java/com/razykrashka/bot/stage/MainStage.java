@@ -66,6 +66,10 @@ public abstract class MainStage implements Stage {
         }
     }
 
+    {
+        stageInfo = StageInfo.DEFAULT;
+    }
+
     @Override
     public void handleRequest() {
         messageSender.sendSimpleTextMessage(stageInfo.getWelcomeMessageEn(), getKeyboard());
@@ -78,7 +82,11 @@ public abstract class MainStage implements Stage {
 
     @Override
     public boolean isStageActive() {
-        return stageActivity = stageInfo.getKeyword().equals(razykrashkaBot.getUpdate().getMessage().getText());
+        if (razykrashkaBot.getMessageOptional().isPresent()) {
+            return razykrashkaBot.getMessageOptional().get().getText()
+                    .equals(this.getStageInfo().getKeyword());
+        }
+        return false;
     }
 
     @Override
@@ -121,10 +129,30 @@ public abstract class MainStage implements Stage {
         return true;
     }
 
+    protected String getCallBackString(String callBackData) {
+        return this.getClass().getSimpleName() + callBackData;
+    }
+
+    @Override
+    public void setActive(boolean isActive) {
+        this.stageActivity = isActive;
+    }
+
     protected Map<String, String> getStringMap() {
         String className = this.getClass().getSimpleName();
         return (Map<String, String>) data.stream()
                 .filter(x -> x.containsKey(className))
                 .findFirst().get().get(className);
     }
+
+    public boolean getStageActivity() {
+        return stageActivity;
+    }
+
+    protected void setActiveNextStage(Class clazz) {
+        ((Stage) razykrashkaBot.getContext().getBean(clazz)).setActive(true);
+        this.setActive(false);
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.razykrashka.bot.ui.helpers;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
@@ -46,6 +47,19 @@ public class KeyboardBuilder {
                 .setText(buttonText)
                 .setCallbackData(callBackData);
         row.add(button);
+        inlineKeyboardButtons.add(row);
+        return this;
+    }
+
+    public KeyboardBuilder setRow(List<Pair<String, String>> textCallBackList) {
+        row = new ArrayList<>();
+        for (Pair pair : textCallBackList) {
+            button = new InlineKeyboardButton()
+                    .setText((String) pair.getFirst())
+                    .setCallbackData(String.valueOf(pair.getSecond()));
+            row.add(button);
+        }
+
         inlineKeyboardButtons.add(row);
         return this;
     }

@@ -6,8 +6,10 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -22,6 +24,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class MessageSender extends Sender {
 
     SendMessage sendMessage;
+    Integer lastBotMessageId;
+
 
     public MessageSender() {
         this.sendMessage = new SendMessage();
@@ -34,12 +38,18 @@ public class MessageSender extends Sender {
                 .setText(message)
                 .setReplyMarkup(keyboard);
         try {
-            razykrashkaBot.execute(sendMessage);
+            lastBotMessageId = razykrashkaBot.execute(sendMessage)
+                    .getMessageId();
         } catch (TelegramApiException e) {
             log.error("Error during message sending!");
             log.error("FOR USER: {}", razykrashkaBot.getUser().getUserName());
             log.error("CHAT ID: {}", chatId);
             log.error("MESSAGE: {}", message);
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return this;
@@ -53,7 +63,7 @@ public class MessageSender extends Sender {
         Message callBackMessage = razykrashkaBot.getCallbackQuery().getMessage();
         EditMessageText editMessageReplyMarkup = new EditMessageText()
                 .setChatId(callBackMessage.getChat().getId())
-                .setMessageId(callBackMessage.getMessageId())
+                .setMessageId(lastBotMessageId)
                 .setText(message)
                 .setParseMode(ParseMode.HTML)
                 .setReplyMarkup(inlineKeyboardMarkup);
@@ -67,10 +77,49 @@ public class MessageSender extends Sender {
             log.error("MESSAGE ID: {}", callBackMessage.getMessageId());
             e.printStackTrace();
         }
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
     public MessageSender updateMessage(String message) {
         return updateMessage(message, null);
+    }
+
+    public MessageSender deleteLastMessage() {
+        try {
+            razykrashkaBot.execute(new DeleteMessage()
+                    .setChatId(razykrashkaBot.getUpdate().getMessage().getChatId())
+                    .setMessageId(razykrashkaBot.getUpdate().getMessage().getMessageId()));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public MessageSender sendAlertMessage(String alertMessage) {
+        try {
+            razykrashkaBot.execute(new AnswerCallbackQuery()
+                    .setCallbackQueryId(razykrashkaBot.getCallbackQuery().getId())
+                    .setText(alertMessage)
+                    .setShowAlert(false));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public MessageSender deleteLastBotMessage() {
+        try {
+            razykrashkaBot.execute(new DeleteMessage()
+                    .setChatId(razykrashkaBot.getUpdate().getMessage().getChatId())
+                    .setMessageId(lastBotMessageId));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

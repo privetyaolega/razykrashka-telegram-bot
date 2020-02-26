@@ -32,11 +32,10 @@ public class SingleMeetingViewStage extends MainStage {
 
         String messageText = "<code>MEETING # " + meeting.getId() + "</code>\n" +
                 meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
-                        Locale.ENGLISH)) + "\n"
-                + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
+                        Locale.ENGLISH)) + "\n" + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
                 + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
-                + meeting.getMeetingInfo().getQuestions() + "\n"
-                + meeting.getMeetingInfo().getTopic() + "\n";
+                + meeting.getMeetingInfo().getTopic() + "\n"
+                + meeting.getMeetingInfo().getQuestions().replace("●", "\n●") + "\n";
 
         messageSender.sendSimpleTextMessage(messageText, this.getKeyboard());
     }
