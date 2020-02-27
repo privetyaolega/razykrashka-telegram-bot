@@ -26,7 +26,6 @@ public class MessageSender extends Sender {
     SendMessage sendMessage;
     Integer lastBotMessageId;
 
-
     public MessageSender() {
         this.sendMessage = new SendMessage();
     }
@@ -45,11 +44,6 @@ public class MessageSender extends Sender {
             log.error("FOR USER: {}", razykrashkaBot.getUser().getUserName());
             log.error("CHAT ID: {}", chatId);
             log.error("MESSAGE: {}", message);
-            e.printStackTrace();
-        }
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return this;
@@ -75,11 +69,6 @@ public class MessageSender extends Sender {
             log.error("CHAT ID: {}", callBackMessage.getChat().getId());
             log.error("MESSAGE: {}", message);
             log.error("MESSAGE ID: {}", callBackMessage.getMessageId());
-            e.printStackTrace();
-        }
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return this;

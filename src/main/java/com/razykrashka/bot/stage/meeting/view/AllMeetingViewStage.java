@@ -39,7 +39,7 @@ public class AllMeetingViewStage extends MainStage {
                     .collect(Collectors.joining(getStringMap().get("delimiterLine"),
                             "\uD83D\uDCAB Найдено " + modelList.size() + " встреч(и)\n\n", ""));
             if (modelList.size() > 5) {
-                // PAGINATION INLINE KEYBOARD
+                //TODO: PAGINATION INLINE KEYBOARD
             }
             messageSender.sendSimpleTextMessage(messageText);
         }

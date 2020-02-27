@@ -32,6 +32,7 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
             razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
             return;
         }
+        messageSender.deleteLastMessage();
 
         Location location = Location.builder()
                 .address(address)

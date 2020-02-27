@@ -23,4 +23,12 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         messageSender.updateMessage(getMeetingPrettyString() + "\n\nPlease, input speaking level.", keyboardMarkup);
         setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
     }
+
+    @Override
+    public boolean isStageActive() {
+        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
+            return false;
+        }
+        return super.getStageActivity();
+    }
 }

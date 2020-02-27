@@ -19,6 +19,7 @@ public class MeetingInfo {
     @Id
     @GeneratedValue
     Integer id;
+    Integer participantLimit;
 
     @Enumerated(EnumType.STRING)
     SpeakingLevel speakingLevel;

@@ -37,7 +37,7 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     @Override
     public boolean isStageActive() {
         CallbackQuery callbackQuery = razykrashkaBot.getRealUpdate().getCallbackQuery();
-        if (callbackQuery != null || this.getStageActivity()) {
+        if (callbackQuery != null) {
             return Arrays.stream(SpeakingLevel.values()).anyMatch(level -> level.getLevel()
                     .equalsIgnoreCase(callbackQuery.getData())) || this.getStageActivity();
         }

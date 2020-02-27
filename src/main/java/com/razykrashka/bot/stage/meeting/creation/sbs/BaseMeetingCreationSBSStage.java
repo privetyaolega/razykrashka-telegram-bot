@@ -48,6 +48,14 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             sb.append("\n\nLEVEL: " + meeting.getMeetingInfo().getSpeakingLevel());
         }
 
+        if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getParticipantLimit() != null) {
+            sb.append("\n\nPARTICIPANT LIMIT: " + meeting.getMeetingInfo().getParticipantLimit());
+        }
+
+        if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getTopic() != null) {
+            sb.append("\n\nTOPIC: " + meeting.getMeetingInfo().getTopic());
+        }
+
         return sb.toString();
     }
 
