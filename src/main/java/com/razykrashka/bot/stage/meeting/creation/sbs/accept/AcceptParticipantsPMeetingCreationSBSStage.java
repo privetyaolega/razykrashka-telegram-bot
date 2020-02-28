@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Log4j2
 @Component
-public class AcceptParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
+public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean processCallBackQuery() {

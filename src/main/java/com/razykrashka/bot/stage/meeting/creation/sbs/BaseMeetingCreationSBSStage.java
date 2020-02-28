@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -15,7 +14,6 @@ import java.util.Locale;
 @Log4j2
 @Getter
 @Setter
-@Component
 public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
     @Autowired

@@ -2,10 +2,15 @@ package com.razykrashka.bot.stage.meeting.creation;
 
 import com.razykrashka.bot.api.LoсationiqApi;
 import com.razykrashka.bot.api.model.locationiq.Locationiq;
-import com.razykrashka.bot.db.entity.*;
+import com.razykrashka.bot.db.entity.Location;
+import com.razykrashka.bot.db.entity.Meeting;
+import com.razykrashka.bot.db.entity.MeetingInfo;
+import com.razykrashka.bot.db.entity.SpeakingLevel;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
+import com.razykrashka.bot.ui.helpers.MapLocationHelper;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 
@@ -20,6 +25,9 @@ import java.util.stream.Collectors;
 @Log4j2
 @Component
 public class NewMeetingCreationStage extends MainStage {
+
+    @Autowired
+    MapLocationHelper mapLocationHelper;
 
     private String message;
     private Meeting meetingModel;
@@ -53,16 +61,7 @@ public class NewMeetingCreationStage extends MainStage {
                     .build();
             meetingInfoRepository.save(meetingInfo);
 
-            Location location = Location.builder()
-                    .address(meetingMap.get("LOCATION"))
-                    .latitude(Float.parseFloat(getModel.getLat()))
-                    .longitude(Float.parseFloat(getModel.getLon()))
-                    .name(getModel.getDisplayName())
-                    .locationLink(TelegramLinkEmbedded.builder()
-                            .link("http://google.com")
-                            .textLink(meetingMap.get("LOCATION"))
-                            .build())
-                    .build();
+            Location location = mapLocationHelper.getLocation(meetingMap.get("LOCATION"));
             locationRepository.save(location);
 
             meetingModel = Meeting.builder()

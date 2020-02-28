@@ -35,7 +35,8 @@ public class MessageSender extends Sender {
         sendMessage = new SendMessage().setParseMode(ParseMode.HTML)
                 .setChatId(chatId)
                 .setText(message)
-                .setReplyMarkup(keyboard);
+                .setReplyMarkup(keyboard)
+                .disableWebPagePreview();
         try {
             lastBotMessageId = razykrashkaBot.execute(sendMessage)
                     .getMessageId();
@@ -60,7 +61,8 @@ public class MessageSender extends Sender {
                 .setMessageId(lastBotMessageId)
                 .setText(message)
                 .setParseMode(ParseMode.HTML)
-                .setReplyMarkup(inlineKeyboardMarkup);
+                .setReplyMarkup(inlineKeyboardMarkup)
+                .disableWebPagePreview();
         try {
             razykrashkaBot.execute(editMessageReplyMarkup);
         } catch (TelegramApiException e) {

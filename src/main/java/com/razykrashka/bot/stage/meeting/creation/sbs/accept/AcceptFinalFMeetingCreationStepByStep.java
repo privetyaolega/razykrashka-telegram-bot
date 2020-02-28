@@ -11,12 +11,13 @@ import java.time.LocalDateTime;
 
 @Log4j2
 @Component
-public class AcceptFinalMeetingCreationStepByStep extends BaseMeetingCreationSBSStage {
+public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
         Meeting meeting = super.getMeeting();
         meeting.setCreationDateTime(LocalDateTime.now());
+        meeting.getMeetingInfo().setQuestions("");
 
         locationRepository.save(meeting.getLocation());
         meetingInfoRepository.save(meeting.getMeetingInfo());
