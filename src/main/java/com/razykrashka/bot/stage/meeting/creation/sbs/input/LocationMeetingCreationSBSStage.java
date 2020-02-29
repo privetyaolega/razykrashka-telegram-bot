@@ -5,7 +5,6 @@ import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStag
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLocationMeetingCreationStepByStep;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 @Log4j2
@@ -19,8 +18,8 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         meeting.setLocation(null);
         meetingRepository.save(meeting);
 
-        messageSender.updateMessage(super.getMeetingPrettyString() +
-                "\n\nPlease, attach or write location (e.g ул. Немига 6)", (InlineKeyboardMarkup) getKeyboard());
+        messageSender.sendSimpleTextMessage(super.getMeetingPrettyString() +
+                "\n\nPlease, attach or write location (e.g ул. Немига 6)", getKeyboard());
         super.setActiveNextStage(AcceptLocationMeetingCreationStepByStep.class);
     }
 

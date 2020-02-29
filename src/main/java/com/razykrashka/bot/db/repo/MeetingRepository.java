@@ -11,5 +11,5 @@ import java.util.List;
 public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
     List<Meeting> findAllByTelegramUser(TelegramUser user);
 
-    List<Meeting> findAllByStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
+    List<Meeting> findAllByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
 }

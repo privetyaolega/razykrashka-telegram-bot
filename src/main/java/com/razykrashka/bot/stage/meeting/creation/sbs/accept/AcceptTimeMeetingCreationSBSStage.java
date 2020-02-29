@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.exception.IncorrectInputDataFormat;
+import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
@@ -30,7 +30,7 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
             String message = String.format(super.getStringMap().get("incorrectTimeFormat"), timeMessage);
             messageSender.sendSimpleTextMessage(message);
             razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
-            throw new IncorrectInputDataFormat(timeMessage + ": incorrect time format!");
+            throw new IncorrectInputDataFormatException(timeMessage + ": incorrect time format!");
         }
     }
 

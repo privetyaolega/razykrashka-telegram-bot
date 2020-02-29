@@ -70,7 +70,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     }
 
     protected Meeting getMeetingInCreation() {
-        List<Meeting> meetingsInCreation = meetingRepository.findAllByStatusEqualsAndTelegramUser(
+        List<Meeting> meetingsInCreation = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(
                 CreationStatus.IN_PROGRESS, razykrashkaBot.getUser());
         if (meetingsInCreation.size() == 0) {
             meeting = new Meeting();

@@ -2,7 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.stage.information.UndefinedStage;
+import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
@@ -24,10 +24,9 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
         Location location;
         try {
             location = mapLocationHelper.getLocation(address);
-        } catch (Exception e) {
+        } catch (YandexMapApiException e) {
             // TODO: Create informative error message
-            razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
-            setActiveNextStage(LocationMeetingCreationSBSStage.class);
+            messageSender.sendSimpleTextMessage("Nothing were found by this street. Please, clarify!");
             razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
             return;
         }
