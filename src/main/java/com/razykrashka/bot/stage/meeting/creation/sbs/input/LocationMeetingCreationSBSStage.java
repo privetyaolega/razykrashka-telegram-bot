@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLocationMeetingCreationStepByStep;
 import lombok.extern.log4j.Log4j2;
@@ -14,7 +15,10 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
     @Override
     public void handleRequest() {
         //TODO: Set information for edited field ( RIGHT NOW EDIT LOCATION: Previous value)
-        super.getMeeting().setLocation(null);
+        Meeting meeting = getMeetingInCreation();
+        meeting.setLocation(null);
+        meetingRepository.save(meeting);
+
         messageSender.updateMessage(super.getMeetingPrettyString() +
                 "\n\nPlease, attach or write location (e.g ул. Немига 6)", (InlineKeyboardMarkup) getKeyboard());
         super.setActiveNextStage(AcceptLocationMeetingCreationStepByStep.class);

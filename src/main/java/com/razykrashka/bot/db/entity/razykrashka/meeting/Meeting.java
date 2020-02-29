@@ -1,5 +1,7 @@
-package com.razykrashka.bot.db.entity.razykrashka;
+package com.razykrashka.bot.db.entity.razykrashka.meeting;
 
+import com.razykrashka.bot.db.entity.razykrashka.Location;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
@@ -21,7 +23,6 @@ import java.util.List;
 @AllArgsConstructor
 @Component
 public class Meeting {
-
     @Id
     @GeneratedValue
     Integer id;
@@ -40,6 +41,9 @@ public class Meeting {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
     Location location;
+
+    @Enumerated(EnumType.STRING)
+    CreationStatus creationStatus;
 
     @Column
     @ManyToMany(cascade = {CascadeType.ALL})

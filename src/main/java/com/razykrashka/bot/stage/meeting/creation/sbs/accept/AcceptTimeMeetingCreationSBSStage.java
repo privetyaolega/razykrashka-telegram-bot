@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.exception.IncorrectInputDataFormat;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
@@ -16,9 +17,11 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
     public void handleRequest() {
         timeMessage = razykrashkaBot.getRealUpdate().getMessage().getText();
         inputDataValidation();
-        super.getMeeting().setMeetingDateTime(super.getMeeting().getMeetingDateTime()
+        Meeting meeting = super.getMeetingInCreation();
+        meeting.setMeetingDateTime(meeting.getMeetingDateTime()
                 .withHour(Integer.parseInt(timeMessage.substring(0, 2)))
                 .withMinute(Integer.parseInt(timeMessage.substring(3))));
+        meetingRepository.save(meeting);
         razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
     }
 

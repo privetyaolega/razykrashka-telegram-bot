@@ -1,5 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.ParticipantsMeetingCreationSBSStage;
@@ -21,7 +23,12 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
         }
         Integer participantsLimit = Integer.valueOf(razykrashkaBot.getRealUpdate().getCallbackQuery().getData()
                 .replace(this.getClass().getSimpleName(), ""));
-        super.getMeeting().getMeetingInfo().setParticipantLimit(participantsLimit);
+
+        Meeting meeting = getMeetingInCreation();
+        MeetingInfo meetingInfo = meeting.getMeetingInfo();
+        meetingInfo.setParticipantLimit(participantsLimit);
+        meetingInfoRepository.save(meetingInfo);
+        meetingRepository.save(meeting);
 
         messageSender.updateMessage(super.getMeetingPrettyString());
         razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).handleRequest();

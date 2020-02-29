@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.DateMeetingCreationSBSStage;
@@ -25,11 +26,18 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
         LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
                 Integer.parseInt(ddMMyyyy.substring(2, 4)),
                 Integer.parseInt(ddMMyyyy.substring(0, 2)), 0, 0);
-        super.getMeeting().setMeetingDateTime(localDateTime);
 
-        super.getMeeting().setMeetingDateTime(super.getMeeting().getMeetingDateTime().withHour(0).withMinute(0));
+        Meeting meeting = getMeetingInCreation();
+        meeting.setMeetingDateTime(localDateTime.withHour(0).withMinute(0));
+        meetingRepository.save(meeting);
+
+        if (!razykrashkaBot.getUser().getToGoMeetings().contains(meeting)) {
+            razykrashkaBot.getUser().getToGoMeetings().add(meeting);
+            razykrashkaBot.getUser().getCreatedMeetings().add(meeting);
+            telegramUserRepository.save(razykrashkaBot.getUser());
+        }
+
         razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
-
         return true;
     }
 
@@ -40,11 +48,10 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
-            if (razykrashkaBot.getRealUpdate().getCallbackQuery().getData().contains(DateMeetingCreationSBSStage.class.getSimpleName())) {
-                this.setActive(false);
-                return false;
-            }
+        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null
+                && razykrashkaBot.getRealUpdate().getCallbackQuery().getData().contains(DateMeetingCreationSBSStage.class.getSimpleName())) {
+            this.setActive(false);
+            return false;
         }
         return super.getStageActivity();
     }

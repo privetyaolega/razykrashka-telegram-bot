@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.Location;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
@@ -30,8 +31,11 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
             razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
             return;
         }
-        messageSender.deleteLastMessage();
-        super.getMeeting().setLocation(location);
+        locationRepository.save(location);
+
+        Meeting meeting = getMeetingInCreation();
+        meeting.setLocation(location);
+        meetingRepository.save(meeting);
 
         razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
         super.setActiveNextStage(LevelMeetingCreationSBSStage.class);

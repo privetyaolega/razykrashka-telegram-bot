@@ -1,6 +1,6 @@
 package com.razykrashka.bot.stage.meeting.view;
 
-import com.razykrashka.bot.db.entity.razykrashka.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;

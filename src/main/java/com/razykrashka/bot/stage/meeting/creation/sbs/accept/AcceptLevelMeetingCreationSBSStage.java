@@ -1,7 +1,8 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
-import com.razykrashka.bot.db.entity.razykrashka.MeetingInfo;
-import com.razykrashka.bot.db.entity.razykrashka.SpeakingLevel;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.SpeakingLevel;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
@@ -25,9 +26,16 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
             return true;
         }
         CallbackQuery callbackQuery = razykrashkaBot.getRealUpdate().getCallbackQuery();
-        super.getMeeting().setMeetingInfo(MeetingInfo.builder()
+
+        MeetingInfo meetingInfo = MeetingInfo.builder()
                 .speakingLevel(SpeakingLevel.valueOf(callbackQuery.getData().toUpperCase()))
-                .build());
+                .build();
+        meetingInfoRepository.save(meetingInfo);
+
+        Meeting meeting = getMeetingInCreation();
+        meeting.setMeetingInfo(meetingInfo);
+        meetingRepository.save(meeting);
+
         messageSender.updateMessage(super.getMeetingPrettyString());
         razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
         return true;

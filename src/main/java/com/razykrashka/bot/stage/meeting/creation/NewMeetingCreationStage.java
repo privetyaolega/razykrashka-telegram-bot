@@ -1,11 +1,10 @@
 package com.razykrashka.bot.stage.meeting.creation;
 
-import com.razykrashka.bot.api.LoсationiqApi;
-import com.razykrashka.bot.api.model.locationiq.Locationiq;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
-import com.razykrashka.bot.db.entity.razykrashka.Meeting;
-import com.razykrashka.bot.db.entity.razykrashka.MeetingInfo;
-import com.razykrashka.bot.db.entity.razykrashka.SpeakingLevel;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.SpeakingLevel;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.ui.helpers.MapLocationHelper;
@@ -50,10 +49,6 @@ public class NewMeetingCreationStage extends MainStage {
                     .map(x -> x.replace("\n", ""))
                     .collect(Collectors.toMap((line) -> line.split(":")[0].trim(), (x) -> x.split(":")[1].trim()));
 
-            Locationiq getModel = LoсationiqApi.getLocationModel(meetingMap.get("LOCATION") + ", Минск").stream()
-                    .filter(x -> x.getDisplayName().contains("Minsk"))
-                    .findFirst().get();
-
             MeetingInfo meetingInfo = MeetingInfo.builder()
                     .questions(meetingMap.get("QUESTIONS"))
                     .topic(meetingMap.get("TOPIC"))
@@ -70,6 +65,7 @@ public class NewMeetingCreationStage extends MainStage {
                     .creationDateTime(LocalDateTime.now())
                     .meetingInfo(meetingInfo)
                     .location(location)
+                    .creationStatus(CreationStatus.DONE)
                     .build();
             meetingRepository.save(meetingModel);
 

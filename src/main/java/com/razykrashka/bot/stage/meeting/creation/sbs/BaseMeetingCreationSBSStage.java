@@ -1,14 +1,15 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs;
 
-import com.razykrashka.bot.db.entity.razykrashka.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 
 @Log4j2
@@ -16,7 +17,6 @@ import java.util.Locale;
 @Setter
 public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
-    @Autowired
     private Meeting meeting;
 
     @Override
@@ -25,8 +25,8 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     }
 
     public String getMeetingPrettyString() {
-
         StringBuilder sb = new StringBuilder();
+        meeting = getMeetingInCreation();
 
         if (meeting.getMeetingDateTime() != null) {
             sb.append("DATE: ").append(this.meeting.getMeetingDateTime()
@@ -69,4 +69,15 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
         stage.setActive(true);
     }
 
+    protected Meeting getMeetingInCreation() {
+        List<Meeting> meetingsInCreation = meetingRepository.findAllByStatusEqualsAndTelegramUser(
+                CreationStatus.IN_PROGRESS, razykrashkaBot.getUser());
+        if (meetingsInCreation.size() == 0) {
+            meeting = new Meeting();
+            meeting.setCreationStatus(CreationStatus.IN_PROGRESS);
+            meeting.setTelegramUser(razykrashkaBot.getUser());
+            return meeting;
+        }
+        return meetingsInCreation.get(0);
+    }
 }

@@ -1,5 +1,6 @@
 package com.razykrashka.bot.db.entity.razykrashka;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
