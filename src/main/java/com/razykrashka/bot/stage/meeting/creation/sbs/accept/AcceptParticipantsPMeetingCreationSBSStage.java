@@ -25,7 +25,6 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
 
         messageSender.updateMessage(super.getMeetingPrettyString());
         razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).handleRequest();
-        super.setActiveNextStage(TopicMeetingCreationSBSStage.class);
         return true;
     }
 

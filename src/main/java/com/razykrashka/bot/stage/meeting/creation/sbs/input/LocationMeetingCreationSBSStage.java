@@ -26,15 +26,4 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
                 .setRow("BACK TO TIME EDIT", TimeMeetingCreationSBSStage.class.getSimpleName())
                 .build();
     }
-
-    @Override
-    public boolean processCallBackQuery() {
-        handleRequest();
-        return true;
-    }
-
-    @Override
-    public boolean isStageActive() {
-        return super.getStageActivity();
-    }
 }

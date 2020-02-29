@@ -115,8 +115,4 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         }
         return super.getStageActivity();
     }
-
-    public void testMethod(String var1, String var2) {
-        System.out.println(var1 + var2);
-    }
 }

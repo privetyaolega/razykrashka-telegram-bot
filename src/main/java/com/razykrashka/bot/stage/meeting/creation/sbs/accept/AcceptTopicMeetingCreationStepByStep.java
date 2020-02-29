@@ -15,12 +15,13 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
         super.getMeeting().getMeetingInfo().setTopic(topic);
 
         razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
-        super.setActiveNextStage(FinalMeetingCreationSBSStage.class);
     }
 
     @Override
-    public boolean processCallBackQuery() {
-        handleRequest();
-        return true;
+    public boolean isStageActive() {
+        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
+            return false;
+        }
+        return super.getStageActivity();
     }
 }

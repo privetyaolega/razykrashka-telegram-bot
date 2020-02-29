@@ -36,7 +36,7 @@ public abstract class MainStage implements Stage {
     @Autowired
     protected MeetingRepository meetingRepository;
     @Autowired
-    protected TelegramUserRepository telegramUserRepository1;
+    protected TelegramUserRepository telegramUserRepository;
     @Autowired
     protected MeetingInfoRepository meetingInfoRepository;
     @Autowired
@@ -150,9 +150,8 @@ public abstract class MainStage implements Stage {
     }
 
     protected void setActiveNextStage(Class clazz) {
-        ((Stage) razykrashkaBot.getContext().getBean(clazz)).setActive(true);
-        this.setActive(false);
+        razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
+        Stage stage = ((Stage) razykrashkaBot.getContext().getBean(clazz));
+        stage.setActive(true);
     }
-
-
 }

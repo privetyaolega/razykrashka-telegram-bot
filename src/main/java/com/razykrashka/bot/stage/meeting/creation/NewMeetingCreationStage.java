@@ -76,7 +76,7 @@ public class NewMeetingCreationStage extends MainStage {
             razykrashkaBot.getUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));
             razykrashkaBot.getUser().getToGoMeetings().add(meetingModel);
             razykrashkaBot.getUser().getCreatedMeetings().add(meetingModel);
-            telegramUserRepository1.save(razykrashkaBot.getUser());
+            telegramUserRepository.save(razykrashkaBot.getUser());
 
             messageSender.sendSimpleTextMessage("MEETING CREATED");
             razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));

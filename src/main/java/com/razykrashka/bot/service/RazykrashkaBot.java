@@ -54,6 +54,8 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     CallbackQuery callbackQuery;
     TelegramUser user;
 
+    List<Stage> activeStages;
+
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
         this.stages = stages;
@@ -68,32 +70,48 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
         if (update.hasCallbackQuery()) {
             this.callbackQuery = update.getCallbackQuery();
-            stages.stream()
+            activeStages = stages.stream()
                     .filter(x -> callbackQuery.getData().contains(x.getStageInfo().getStageName())
                             || callbackQuery.getData().contains(x.getClass().getSimpleName())
-                            || x.isStageActive())
-                    .findFirst().get().processCallBackQuery();
+                            || x.isStageActive()).collect(Collectors.toList());
+            updateInfoLog(update.getCallbackQuery().getData());
+
+            activeStages.get(0).processCallBackQuery();
         } else {
             this.update = update;
-            stages.stream().filter(Stage::isStageActive).findFirst()
-                    .orElseGet(() -> undefinedStage)
-                    .handleRequest();
+            activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
+            updateInfoLog(update.getMessage().getText());
+
+            if (activeStages.size() == 0) {
+                undefinedStage.handleRequest();
+            } else {
+                activeStages.get(0).handleRequest();
+            }
         }
     }
 
+    private void updateInfoLog(String query) {
+        log.info("UPDATE: String Message to process: '{}'", query);
+        log.info("UPDATE: Active stages: {}", activeStages.stream()
+                .map(x -> x.getClass().getSimpleName())
+                .collect(Collectors.joining(" ,", "[", "]")));
+    }
+
     private void userInit(Update update) {
-        Integer id = update.hasCallbackQuery() ? update.getCallbackQuery().getFrom().getId() : update.getMessage().getFrom().getId();
-        Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(id);
-        if (telegramUser.isPresent()) {
-            user = telegramUser.get();
-        } else {
-            user = TelegramUser.builder()
-                    .lastName(update.getMessage().getFrom().getLastName())
-                    .firstName(update.getMessage().getFrom().getFirstName())
-                    .userName(update.getMessage().getFrom().getUserName())
-                    .telegramId(update.getMessage().getFrom().getId())
-                    .build();
-            telegramUserRepository.save(user);
+        if (!realUpdate.hasCallbackQuery()) {
+            Integer id = update.getMessage().getFrom().getId();
+            Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(id);
+            if (telegramUser.isPresent()) {
+                user = telegramUser.get();
+            } else {
+                user = TelegramUser.builder()
+                        .lastName(update.getMessage().getFrom().getLastName())
+                        .firstName(update.getMessage().getFrom().getFirstName())
+                        .userName(update.getMessage().getFrom().getUserName())
+                        .telegramId(update.getMessage().getFrom().getId())
+                        .build();
+                telegramUserRepository.save(user);
+            }
         }
     }
 

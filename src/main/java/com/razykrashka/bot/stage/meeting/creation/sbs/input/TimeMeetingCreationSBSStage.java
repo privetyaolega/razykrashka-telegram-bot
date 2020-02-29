@@ -19,12 +19,6 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     }
 
     @Override
-    public boolean processCallBackQuery() {
-        handleRequest();
-        return true;
-    }
-
-    @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
                 .setRow("BACK TO DATE EDIT", DateMeetingCreationSBSStage.class.getSimpleName())

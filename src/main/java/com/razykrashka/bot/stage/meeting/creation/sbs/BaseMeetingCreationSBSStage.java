@@ -57,6 +57,12 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
         return sb.toString();
     }
 
+    @Override
+    public boolean processCallBackQuery() {
+        handleRequest();
+        return true;
+    }
+
     protected void setActiveNextStage(Class clazz) {
         razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
         Stage stage = ((Stage) razykrashkaBot.getContext().getBean(clazz));

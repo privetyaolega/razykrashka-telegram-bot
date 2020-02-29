@@ -30,7 +30,6 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
                 .build());
         messageSender.updateMessage(super.getMeetingPrettyString());
         razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
-        super.setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
         return true;
     }
 

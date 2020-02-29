@@ -18,10 +18,14 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
         Meeting meeting = super.getMeeting();
         meeting.setCreationDateTime(LocalDateTime.now());
         meeting.getMeetingInfo().setQuestions("");
-
         locationRepository.save(meeting.getLocation());
         meetingInfoRepository.save(meeting.getMeetingInfo());
         meetingRepository.save(meeting);
+
+        razykrashkaBot.getUser().getToGoMeetings().add(meeting);
+        razykrashkaBot.getUser().getCreatedMeetings().add(meeting);
+        telegramUserRepository.save(razykrashkaBot.getUser());
+
         super.setMeeting(null);
 
         messageSender.sendSimpleTextMessage("MEETING CREATED");
@@ -29,16 +33,12 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
     }
 
     @Override
-    public boolean processCallBackQuery() {
-        handleRequest();
-        return true;
-    }
-
-    @Override
     public boolean isStageActive() {
         if (razykrashkaBot.getRealUpdate().getCallbackQuery() == null) {
             return false;
+        } else {
+            return super.getStageActivity() && razykrashkaBot.getRealUpdate().getCallbackQuery()
+                    .equals(this.getClass().getSimpleName());
         }
-        return super.getStageActivity();
     }
 }

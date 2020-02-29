@@ -16,7 +16,8 @@ public class FinalMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 .setRow("Confirm", AcceptFinalFMeetingCreationStepByStep.class.getSimpleName())
                 .setRow("BACK TO TOPIC EDIT", TopicMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageSender.updateMessage(getMeetingPrettyString(), keyboardMarkup);
+        messageSender.updateMessage(getMeetingPrettyString() +
+                "\nPlease, confirm meeting creation.", keyboardMarkup);
         setActiveNextStage(AcceptFinalFMeetingCreationStepByStep.class);
     }
 }

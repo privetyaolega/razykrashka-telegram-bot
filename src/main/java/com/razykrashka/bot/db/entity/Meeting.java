@@ -29,15 +29,15 @@ public class Meeting {
     LocalDateTime creationDateTime;
     LocalDateTime meetingDateTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     TelegramUser telegramUser;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "meeting_info_id")
     MeetingInfo meetingInfo;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
     Location location;
 
