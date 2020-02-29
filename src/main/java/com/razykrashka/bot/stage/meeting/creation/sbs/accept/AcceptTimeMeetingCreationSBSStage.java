@@ -28,7 +28,8 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
     private void inputDataValidation() {
         if (!timeMessage.matches(TIME_REGEX)) {
             String message = String.format(super.getStringMap().get("incorrectTimeFormat"), timeMessage);
-            messageSender.sendSimpleTextMessage(message);
+            messageSender.disableKeyboardLastBotMessage();
+            messageSender.replyLastMessage(message);
             razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
             throw new IncorrectInputDataFormatException(timeMessage + ": incorrect time format!");
         }

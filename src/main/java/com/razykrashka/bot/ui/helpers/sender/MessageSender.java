@@ -1,10 +1,14 @@
 package com.razykrashka.bot.ui.helpers.sender;
 
+import com.google.common.collect.Iterables;
+import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
+import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -16,12 +20,17 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.List;
+
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
 @Log4j2
 public class MessageSender extends Sender {
+
+    @Autowired
+    protected TelegramMessageRepository telegramMessageRepository;
 
     SendMessage sendMessage;
     Integer lastBotMessageId;
@@ -47,6 +56,42 @@ public class MessageSender extends Sender {
             log.error("MESSAGE: {}", message);
             e.printStackTrace();
         }
+        saveUpdate(chatId, message);
+        return this;
+    }
+
+    public MessageSender disableKeyboardLastBotMessage() {
+        try {
+            List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrue();
+            TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
+            EditMessageText editMessageReplyMarkup = new EditMessageText()
+                    .setChatId(telegramMessage.getChatId())
+                    .setMessageId(telegramMessage.getId())
+                    .setText(telegramMessage.getText() + " ")
+                    .setParseMode(ParseMode.HTML)
+                    .disableWebPagePreview();
+            razykrashkaBot.execute(editMessageReplyMarkup);
+        } catch (Exception ignored) {
+        }
+        return this;
+    }
+
+    public MessageSender replyLastMessage(String textMessage) {
+        Message message = razykrashkaBot.getRealUpdate().getMessage();
+        sendMessage = new SendMessage()
+                .setParseMode(ParseMode.HTML)
+                .setChatId(message.getChatId())
+                .setText(textMessage)
+                .setReplyToMessageId(message.getMessageId());
+        try {
+            lastBotMessageId = razykrashkaBot.execute(sendMessage)
+                    .getMessageId();
+        } catch (TelegramApiException e) {
+            log.error("Error during message sending!");
+            log.error("FOR USER: {}", razykrashkaBot.getUser().getUserName());
+            log.error("MESSAGE: {}", message);
+            e.printStackTrace();
+        }
         return this;
     }
 
@@ -54,14 +99,14 @@ public class MessageSender extends Sender {
         return sendSimpleTextMessage(message, null);
     }
 
-    public MessageSender updateMessage(String message, InlineKeyboardMarkup inlineKeyboardMarkup) {
+    public MessageSender updateMessage(String message, ReplyKeyboard inlineKeyboardMarkup) {
         Message callBackMessage = razykrashkaBot.getCallbackQuery().getMessage();
         EditMessageText editMessageReplyMarkup = new EditMessageText()
                 .setChatId(callBackMessage.getChat().getId())
                 .setMessageId(lastBotMessageId)
                 .setText(message)
                 .setParseMode(ParseMode.HTML)
-                .setReplyMarkup(inlineKeyboardMarkup)
+                .setReplyMarkup((InlineKeyboardMarkup) inlineKeyboardMarkup)
                 .disableWebPagePreview();
         try {
             razykrashkaBot.execute(editMessageReplyMarkup);
@@ -112,5 +157,15 @@ public class MessageSender extends Sender {
             e.printStackTrace();
         }
         return this;
+    }
+
+    private void saveUpdate(Long chatId, String messageText) {
+        TelegramMessage telegramMessage = TelegramMessage.builder()
+                .id(lastBotMessageId)
+                .chatId(chatId)
+                .botMessage(true)
+                .text(messageText)
+                .build();
+        telegramMessageRepository.save(telegramMessage);
     }
 }

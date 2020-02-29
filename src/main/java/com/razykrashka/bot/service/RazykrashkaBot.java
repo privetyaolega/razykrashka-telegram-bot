@@ -1,9 +1,12 @@
 package com.razykrashka.bot.service;
 
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
+import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
+import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.information.UndefinedStage;
+import com.razykrashka.bot.ui.helpers.sender.MessageSender;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -36,6 +39,8 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Autowired
     protected TelegramUserRepository telegramUserRepository;
+    @Autowired
+    protected TelegramMessageRepository telegramMessageRepository;
 
     @Value("${bot.avp256.username}")
     String botUsername;
@@ -44,6 +49,9 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Autowired
     ApplicationContext context;
+
+    @Autowired
+    MessageSender messageSender;
 
     List<Stage> stages;
     Stage undefinedStage;
@@ -79,6 +87,8 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
             activeStages.get(0).processCallBackQuery();
         } else {
             this.update = update;
+            saveUpdate();
+            messageSender.disableKeyboardLastBotMessage();
             activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
             updateInfoLog(update.getMessage().getText());
 
@@ -113,6 +123,18 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
                 telegramUserRepository.save(user);
             }
         }
+    }
+
+    private void saveUpdate() {
+        Message message = this.getRealUpdate().getMessage();
+        TelegramMessage telegramMessage = TelegramMessage.builder()
+                .id(message.getMessageId())
+                .chatId(message.getChatId())
+                .fromUserId(message.getFrom().getId())
+                .botMessage(false)
+                .text(message.getText())
+                .build();
+        telegramMessageRepository.save(telegramMessage);
     }
 
     public void sendVenue(SendVenue sendVenue) {
