@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
-import com.razykrashka.bot.db.entity.MeetingInfo;
-import com.razykrashka.bot.db.entity.SpeakingLevel;
+import com.razykrashka.bot.db.entity.razykrashka.MeetingInfo;
+import com.razykrashka.bot.db.entity.razykrashka.SpeakingLevel;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;

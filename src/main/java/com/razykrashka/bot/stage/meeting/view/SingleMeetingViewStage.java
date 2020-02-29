@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.meeting.view;
 
 import com.google.common.collect.ImmutableMap;
-import com.razykrashka.bot.db.entity.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;

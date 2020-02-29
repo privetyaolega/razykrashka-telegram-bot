@@ -1,6 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
-import com.razykrashka.bot.db.entity.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.Meeting;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;

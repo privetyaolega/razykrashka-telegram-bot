@@ -1,4 +1,4 @@
-package com.razykrashka.bot.db.entity;
+package com.razykrashka.bot.db.entity.razykrashka;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "location")
+@Table(name = "meeting_info")
 @Getter
 @Setter
 @Data
@@ -15,16 +15,15 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location {
-
+public class MeetingInfo {
     @Id
     @GeneratedValue
     Integer id;
-    Float latitude;
-    Float longitude;
-    String address;
-    String name;
+    Integer participantLimit;
 
-    @Embedded
-    TelegramLinkEmbedded locationLink;
+    @Enumerated(EnumType.STRING)
+    SpeakingLevel speakingLevel;
+    String topic;
+    @Lob
+    String questions;
 }

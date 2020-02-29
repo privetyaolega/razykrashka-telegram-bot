@@ -1,6 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs;
 
-import com.razykrashka.bot.db.entity.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.Stage;
 import lombok.Getter;

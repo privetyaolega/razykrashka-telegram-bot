@@ -2,8 +2,8 @@ package com.razykrashka.bot.ui.helpers;
 
 import com.razykrashka.bot.api.YandexMapApi;
 import com.razykrashka.bot.api.model.yandex.FeatureYandex;
-import com.razykrashka.bot.db.entity.Location;
-import com.razykrashka.bot.db.entity.TelegramLinkEmbedded;
+import com.razykrashka.bot.db.entity.razykrashka.Location;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramLinkEmbedded;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

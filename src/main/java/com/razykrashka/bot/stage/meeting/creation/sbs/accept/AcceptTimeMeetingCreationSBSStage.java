@@ -1,34 +1,34 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
+import com.razykrashka.bot.exception.IncorrectInputDataFormat;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
-@Log4j2
 @Component
 public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
+    private final static String TIME_REGEX = "^([0-1][0-9]|[2][0-3])[:-]([0-5][0-9])$";
+    private String timeMessage;
+
     @Override
     public void handleRequest() {
-        String message = razykrashkaBot.getRealUpdate().getMessage().getText();
-        if (!isStringTimeFormat(message)) {
-            messageSender.sendSimpleTextMessage(String.format(super.getStringMap().get("incorrectTimeFormat"), message));
-            razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
-            return;
-        }
-        messageSender.deleteLastMessage();
-
-        String time = razykrashkaBot.getMessageOptional().get().getText();
+        timeMessage = razykrashkaBot.getRealUpdate().getMessage().getText();
+        inputDataValidation();
         super.getMeeting().setMeetingDateTime(super.getMeeting().getMeetingDateTime()
-                .withHour(Integer.parseInt(time.substring(0, 2)))
-                .withMinute(Integer.parseInt(time.substring(3))));
+                .withHour(Integer.parseInt(timeMessage.substring(0, 2)))
+                .withMinute(Integer.parseInt(timeMessage.substring(3))));
         razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
     }
 
-    private boolean isStringTimeFormat(String time) {
-        return time.matches("\\d{2}[:-]\\d{2}");
+    private void inputDataValidation() {
+        if (!timeMessage.matches(TIME_REGEX)) {
+            String message = String.format(super.getStringMap().get("incorrectTimeFormat"), timeMessage);
+            messageSender.sendSimpleTextMessage(message);
+            razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
+            throw new IncorrectInputDataFormat(timeMessage + ": incorrect time format!");
+        }
     }
 
     @Override

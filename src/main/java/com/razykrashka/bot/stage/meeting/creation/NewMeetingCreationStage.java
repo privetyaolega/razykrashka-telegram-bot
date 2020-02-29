@@ -2,10 +2,10 @@ package com.razykrashka.bot.stage.meeting.creation;
 
 import com.razykrashka.bot.api.LoсationiqApi;
 import com.razykrashka.bot.api.model.locationiq.Locationiq;
-import com.razykrashka.bot.db.entity.Location;
-import com.razykrashka.bot.db.entity.Meeting;
-import com.razykrashka.bot.db.entity.MeetingInfo;
-import com.razykrashka.bot.db.entity.SpeakingLevel;
+import com.razykrashka.bot.db.entity.razykrashka.Location;
+import com.razykrashka.bot.db.entity.razykrashka.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.MeetingInfo;
+import com.razykrashka.bot.db.entity.razykrashka.SpeakingLevel;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.ui.helpers.MapLocationHelper;

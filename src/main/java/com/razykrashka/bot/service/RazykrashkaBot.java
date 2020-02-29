@@ -1,6 +1,6 @@
 package com.razykrashka.bot.service;
 
-import com.razykrashka.bot.db.entity.TelegramUser;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.information.UndefinedStage;

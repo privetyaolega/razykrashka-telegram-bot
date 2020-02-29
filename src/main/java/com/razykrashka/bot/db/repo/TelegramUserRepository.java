@@ -1,6 +1,6 @@
 package com.razykrashka.bot.db.repo;
 
-import com.razykrashka.bot.db.entity.TelegramUser;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

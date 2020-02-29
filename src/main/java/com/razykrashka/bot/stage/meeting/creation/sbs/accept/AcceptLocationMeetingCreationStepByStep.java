@@ -1,6 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
-import com.razykrashka.bot.db.entity.Location;
+import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
@@ -35,12 +35,6 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
 
         razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
         super.setActiveNextStage(LevelMeetingCreationSBSStage.class);
-    }
-
-    @Override
-    public boolean processCallBackQuery() {
-        handleRequest();
-        return true;
     }
 
     @Override
