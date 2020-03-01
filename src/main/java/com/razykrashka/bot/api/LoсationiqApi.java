@@ -23,6 +23,6 @@ public class LoсationiqApi extends RestBuilder {
     static String endpoint = "https://eu1.locationiq.com/v1/search.php?&format=json";
 
     public static List<Locationiq> getLocationModel(String address) {
-        return getRequest(endpoint, ImmutableMap.of("key", token, "q", address), Locationiq.class);
+        return getListRequest(endpoint, ImmutableMap.of("key", token, "q", address), Locationiq.class);
     }
 }
