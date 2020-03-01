@@ -1,5 +1,6 @@
 package com.razykrashka.bot.service.stage;
 
+import com.razykrashka.bot.entity.Meeting;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
@@ -10,6 +11,8 @@ public interface Stage {
     StageInfo getStageInfo();
 
     ReplyKeyboard getKeyboard();
+
+    ReplyKeyboard getKeyboard(Meeting model);
 
     List<String> getValidKeywords();
 

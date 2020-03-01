@@ -1,0 +1,56 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="clob.type" value="longtext" dbms="mysql"/>
+<changeSet id="2" author="brokorenko" runAlways="true">
+    <comment>Upload 3 users</comment>
+    <sql>
+        INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+        Select 'Olega', 'Rutski', '+375295508809', '532965560', 'privetyolega'
+        WHERE NOT EXISTS (
+        SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Olega'
+        AND last_name = 'Rutski'
+        AND phone_number = '+375295508809'
+        AND telegram_id = '532965560'
+        AND user_name = 'privetyolega'
+        ) LIMIT 1;
+
+        INSERT INTO location (address, latitude, link, text_link, longitude, name)
+        VALUES ('ул. Немига 5, Лидо', '53.902', 'http://google.com', 'ул. Немига 5, Лидо', '27.5496', 'OLEG');
+
+        INSERT INTO meeting_info (questions, speaking_level, topic)
+        VALUES ('? What are two disadvantages of using smartphones and tablets?? What do you think about Cybercafes? are they still useful?? Do you like a job in which you have to use computers?? Do you spend too much time online?? Does your mother of father know how to use a computer?? Do computers make life easier?? What websites do you visit in a regular basis?? What do you think about the Apple?? What are some advantages of using social networks?? Do you visit English websites?', 'ADVANCED', 'Internet and Computers');
+
+        INSERT INTO meeting (creation_date_time, meeting_date_time, location_id, meeting_info_id, owner_id)
+        VALUES ('2020-03-01 09:32:27', '2020-01-14 16:00:00', (SELECT id from location WHERE name = 'OLEG' LIMIT 1), (SELECT id from meeting_info WHERE topic = 'Internet and Computers' LIMIT 1), (SELECT id from user WHERE telegram_id = '532965560' LIMIT 1));
+
+        INSERT INTO user_meeting (meeting_id, user_id)
+        VALUES ((SELECT id from meeting WHERE owner_id = ((SELECT id from user WHERE telegram_id = '532965560' LIMIT 1)) LIMIT 1), (SELECT id from user WHERE telegram_id = '532965560' LIMIT 1));
+
+        INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+        Select 'Andrew', '', '+375293489901', '431957763', ''
+        WHERE NOT EXISTS (
+        SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE
+        first_name = 'Andrew'
+        AND last_name = ''
+        AND phone_number = '+375293489901'
+        AND telegram_id = '431957763'
+        AND user_name = ''
+        ) LIMIT 1;
+
+        INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+        Select 'Dmitry', '', '', '50678728', 'dmitrylen'
+        WHERE NOT EXISTS (
+        SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Dmitry'
+        AND last_name = ''
+        AND phone_number = ''
+        AND telegram_id = '50678728'
+        AND user_name = 'dmitrylen'
+        ) LIMIT 1;
+
+
+    </sql>
+</changeSet>
+</databaseChangeLog>

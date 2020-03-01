@@ -15,20 +15,18 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
-public class AllMeetingViewStage extends MainStage {
+public class MyMeetingsViewStage extends MainStage {
 
     @Autowired
     private SendMessageUtils sendMessageUtils;
 
     private List<Meeting> userMeetings = new ArrayList<>();
 
-    public AllMeetingViewStage() {
-        stageInfo = StageInfo.ALL_MEETING_VIEW;
+    public MyMeetingsViewStage() {
+        stageInfo = StageInfo.MY_MEETING_VIEW;
     }
 
     @Override
@@ -38,7 +36,9 @@ public class AllMeetingViewStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        userMeetings = StreamSupport.stream(meetingRepository.findAll().spliterator(), false).collect(Collectors.toList());
+       // userMeetings = new ArrayList<>(razykrashkaBot.getTelegramUser().getToGoMeetings());
+        userMeetings = meetingRepository.findAllByTelegramUserTelegramId((razykrashkaBot.getUpdate().getMessage()).getFrom().getId());
+
         if (userMeetings.isEmpty()) {
             razykrashkaBot.sendSimpleTextMessage("NO MEETINGS :(");
         } else {

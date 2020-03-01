@@ -49,7 +49,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     Stage undefinedStage;
     Update update;
     CallbackQuery callbackQuery;
-    TelegramUser user;
+    TelegramUser telegramUser;
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
@@ -77,15 +77,15 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         Integer id = update.hasCallbackQuery() ? update.getCallbackQuery().getFrom().getId() : update.getMessage().getFrom().getId();
         Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(id);
         if (telegramUser.isPresent()) {
-            user = telegramUser.get();
+            this.telegramUser = telegramUser.get();
         } else {
-            user = TelegramUser.builder()
+            this.telegramUser = TelegramUser.builder()
                     .lastName(update.getMessage().getFrom().getLastName())
                     .firstName(update.getMessage().getFrom().getFirstName())
                     .userName(update.getMessage().getFrom().getUserName())
                     .telegramId(update.getMessage().getFrom().getId())
                     .build();
-            telegramUserRepository.save(user);
+            telegramUserRepository.save(this.telegramUser);
         }
     }
 

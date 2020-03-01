@@ -2,6 +2,11 @@ package com.razykrashka.bot.service.stage;
 
 import com.razykrashka.bot.api.LoсationiqApi;
 import com.razykrashka.bot.api.model.locationiq.Locationiq;
+import com.razykrashka.bot.entity.Location;
+import com.razykrashka.bot.entity.Meeting;
+import com.razykrashka.bot.entity.MeetingInfo;
+import com.razykrashka.bot.entity.SpeakingLevel;
+import com.razykrashka.bot.entity.TelegramLinkEmbedded;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
@@ -94,7 +99,7 @@ public class NewMeetingCreationStage extends MainStage {
             locationRepository.save(location);
 
             meetingModel = Meeting.builder()
-                    .telegramUser(razykrashkaBot.getUser())
+                    .telegramUser(razykrashkaBot.getTelegramUser())
                     .meetingDateTime(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
                     .creationDateTime(LocalDateTime.now())
                     .meetingInfo(meetingInfo)
@@ -102,10 +107,10 @@ public class NewMeetingCreationStage extends MainStage {
                     .build();
             meetingRepository.save(meetingModel);
 
-            razykrashkaBot.getUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));
-            razykrashkaBot.getUser().getToGoMeetings().add(meetingModel);
-            razykrashkaBot.getUser().getCreatedMeetings().add(meetingModel);
-            telegramUserRepository1.save(razykrashkaBot.getUser());
+            razykrashkaBot.getTelegramUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));
+            razykrashkaBot.getTelegramUser().getToGoMeetings().add(meetingModel);
+            razykrashkaBot.getTelegramUser().getCreatedMeetings().add(meetingModel);
+            telegramUserRepository1.save(razykrashkaBot.getTelegramUser());
 
             razykrashkaBot.sendSimpleTextMessage("MEETING CREATED");
             razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));

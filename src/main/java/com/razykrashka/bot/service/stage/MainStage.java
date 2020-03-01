@@ -3,6 +3,7 @@ package com.razykrashka.bot.service.stage;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.razykrashka.bot.entity.Meeting;
 import com.razykrashka.bot.repository.LocationRepository;
 import com.razykrashka.bot.repository.MeetingInfoRepository;
 import com.razykrashka.bot.repository.MeetingRepository;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.io.File;
@@ -93,7 +95,7 @@ public abstract class MainStage implements Stage {
 
     public InlineKeyboardMarkup getInlineRuEnKeyboard(String callBackData, String textButton) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
+        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
         keyboardButtonsRow1.add(new InlineKeyboardButton().setText(textButton)
                 .setCallbackData(stageInfo.getStageName() + callBackData));
 
@@ -113,6 +115,12 @@ public abstract class MainStage implements Stage {
                     getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
         }
         return true;
+    }
+
+
+    @Override
+    public ReplyKeyboard getKeyboard(Meeting model) {
+        return null;
     }
 
     protected Map<String, String> getStringMap() {
