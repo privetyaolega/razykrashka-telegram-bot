@@ -21,7 +21,6 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
         meetingInfoRepository.save(meetingInfo);
         meetingRepository.save(meeting);
 
-        messageSender.deleteLastMessage();
         razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
     }
 

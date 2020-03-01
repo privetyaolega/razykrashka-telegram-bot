@@ -37,7 +37,7 @@ public class SingleMeetingViewStage extends MainStage {
                 + meeting.getMeetingInfo().getTopic() + "\n"
                 + meeting.getMeetingInfo().getQuestions().replace("●", "\n●") + "\n";
 
-        messageSender.sendSimpleTextMessage(messageText, this.getKeyboard());
+        messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
     }
 
     @Override
@@ -73,10 +73,10 @@ public class SingleMeetingViewStage extends MainStage {
 
         if (callBackData.equals(stageInfo.getStageName() + "_join" + meeting.getId())) {
             if (razykrashkaBot.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-                messageSender.sendSimpleTextMessage("YOU ALREADY HAVE THIS MEETING");
+                messageManager.sendSimpleTextMessage("YOU ALREADY HAVE THIS MEETING");
             } else {
                 razykrashkaBot.getUser().getToGoMeetings().add(meeting);
-                messageSender.sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
+                messageManager.sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
             }
         }
         return true;

@@ -21,7 +21,7 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
         meeting.setCreationStatus(CreationStatus.DONE);
         meetingRepository.save(meeting);
 
-        messageSender.updateMessage("MEETING CREATED");
+        messageManager.updateMessage("MEETING CREATED");
         razykrashkaBot.sendSticker(new SendSticker()
                 .setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));
     }

@@ -31,7 +31,7 @@ public class AllMeetingViewStage extends MainStage {
                 .filter(meeting -> meeting.getCreationStatus().equals(CreationStatus.DONE))
                 .collect(Collectors.toList());
         if (modelList.size() == 0) {
-            messageSender.sendSimpleTextMessage("NO MEETINGS :(");
+            messageManager.sendSimpleTextMessage("NO MEETINGS :(");
         } else {
             String messageText = modelList.stream().skip(0).limit(20)
                     .map(model -> model.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
@@ -45,7 +45,7 @@ public class AllMeetingViewStage extends MainStage {
             if (modelList.size() > 5) {
                 //TODO: PAGINATION INLINE KEYBOARD
             }
-            messageSender.sendSimpleTextMessage(messageText);
+            messageManager.sendSimpleTextMessage(messageText);
         }
     }
 

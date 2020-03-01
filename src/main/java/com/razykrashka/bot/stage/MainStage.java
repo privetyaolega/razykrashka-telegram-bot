@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.razykrashka.bot.db.repo.*;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import com.razykrashka.bot.ui.helpers.KeyboardBuilder;
-import com.razykrashka.bot.ui.helpers.sender.MessageSender;
+import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -45,7 +45,7 @@ public abstract class MainStage implements Stage {
     protected RazykrashkaBot razykrashkaBot;
 
     @Autowired
-    protected MessageSender messageSender;
+    protected MessageManager messageManager;
     @Autowired
     protected KeyboardBuilder keyboardBuilder;
 
@@ -71,7 +71,7 @@ public abstract class MainStage implements Stage {
 
     @Override
     public void handleRequest() {
-        messageSender.sendSimpleTextMessage(stageInfo.getWelcomeMessageEn(), getKeyboard());
+        messageManager.sendSimpleTextMessage(stageInfo.getWelcomeMessageEn(), getKeyboard());
     }
 
     @Override
@@ -118,11 +118,11 @@ public abstract class MainStage implements Stage {
     public boolean processCallBackQuery() {
         String callBackData = razykrashkaBot.getCallbackQuery().getData();
         if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
-            messageSender.updateMessage(stageInfo.getWelcomeMessageRu(),
+            messageManager.updateMessage(stageInfo.getWelcomeMessageRu(),
                     getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
         }
         if (callBackData.equals(stageInfo.getStageName() + "ru_en")) {
-            messageSender.updateMessage(stageInfo.getWelcomeMessageEn(),
+            messageManager.updateMessage(stageInfo.getWelcomeMessageEn(),
                     getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
         }
         return true;

@@ -16,7 +16,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
     @Override
     public boolean processCallBackQuery() {
         if (razykrashkaBot.getRealUpdate().getMessage() != null) {
-            messageSender.disableKeyboardLastBotMessage();
+            messageManager.disableKeyboardLastBotMessage();
             setActiveNextStage(DateMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
             return true;
@@ -36,7 +36,6 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
             telegramUserRepository.save(razykrashkaBot.getUser());
         }
 
-        messageSender.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
         return true;
     }

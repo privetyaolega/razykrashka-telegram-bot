@@ -27,19 +27,18 @@ import java.util.List;
 @Getter
 @Setter
 @Log4j2
-public class MessageSender extends Sender {
+public class MessageManager extends Sender {
 
     @Autowired
     protected TelegramMessageRepository telegramMessageRepository;
 
     SendMessage sendMessage;
-    Integer lastBotMessageId;
 
-    public MessageSender() {
+    public MessageManager() {
         this.sendMessage = new SendMessage();
     }
 
-    public MessageSender sendSimpleTextMessage(String message, ReplyKeyboard keyboard) {
+    public MessageManager sendSimpleTextMessage(String message, ReplyKeyboard keyboard) {
         Long chatId = razykrashkaBot.getUpdate().getMessage().getChat().getId();
         sendMessage = new SendMessage().setParseMode(ParseMode.HTML)
                 .setChatId(chatId)
@@ -47,8 +46,19 @@ public class MessageSender extends Sender {
                 .setReplyMarkup(keyboard)
                 .disableWebPagePreview();
         try {
-            lastBotMessageId = razykrashkaBot.execute(sendMessage)
+            Integer sentMessageId = razykrashkaBot.execute(sendMessage)
                     .getMessageId();
+
+            boolean hasKeyboard = keyboard != null;
+            TelegramMessage telegramMessage = TelegramMessage.builder()
+                    .id(sentMessageId)
+                    .chatId(chatId)
+                    .botMessage(true)
+                    .hasKeyboard(hasKeyboard)
+                    .text(message)
+                    .build();
+            telegramMessageRepository.save(telegramMessage);
+
         } catch (TelegramApiException e) {
             log.error("Error during message sending!");
             log.error("FOR USER: {}", razykrashkaBot.getUser().getUserName());
@@ -56,11 +66,10 @@ public class MessageSender extends Sender {
             log.error("MESSAGE: {}", message);
             e.printStackTrace();
         }
-        saveUpdate(chatId, message);
         return this;
     }
 
-    public MessageSender disableKeyboardLastBotMessage() {
+    public MessageManager disableKeyboardLastBotMessage() {
         try {
             List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrue();
             TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
@@ -76,7 +85,7 @@ public class MessageSender extends Sender {
         return this;
     }
 
-    public MessageSender replyLastMessage(String textMessage, ReplyKeyboard keyboard) {
+    public MessageManager replyLastMessage(String textMessage, ReplyKeyboard keyboard) {
         Message message = razykrashkaBot.getRealUpdate().getMessage();
         sendMessage = new SendMessage()
                 .setParseMode(ParseMode.HTML)
@@ -84,9 +93,20 @@ public class MessageSender extends Sender {
                 .setText(textMessage)
                 .setReplyMarkup(keyboard)
                 .setReplyToMessageId(message.getMessageId());
+        Integer sentMessageId;
         try {
-            lastBotMessageId = razykrashkaBot.execute(sendMessage)
+            sentMessageId = razykrashkaBot.execute(sendMessage)
                     .getMessageId();
+
+            boolean hasKeyboard = keyboard != null;
+            TelegramMessage telegramMessage = TelegramMessage.builder()
+                    .id(sentMessageId)
+                    .chatId(message.getChatId())
+                    .botMessage(true)
+                    .hasKeyboard(hasKeyboard)
+                    .text(textMessage)
+                    .build();
+            telegramMessageRepository.save(telegramMessage);
         } catch (TelegramApiException e) {
             log.error("Error during message sending!");
             log.error("FOR USER: {}", razykrashkaBot.getUser().getUserName());
@@ -96,25 +116,37 @@ public class MessageSender extends Sender {
         return this;
     }
 
-    public MessageSender replyLastMessage(String textMessage) {
+    public MessageManager replyLastMessage(String textMessage) {
         return replyLastMessage(textMessage, null);
     }
 
-    public MessageSender sendSimpleTextMessage(String message) {
+    public MessageManager sendSimpleTextMessage(String message) {
         return sendSimpleTextMessage(message, null);
     }
 
-    public MessageSender updateMessage(String message, ReplyKeyboard inlineKeyboardMarkup) {
+    public MessageManager updateMessage(String message, ReplyKeyboard keyboard) {
         Message callBackMessage = razykrashkaBot.getCallbackQuery().getMessage();
+        Integer messageId = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(razykrashkaBot.getCurrentChatId()).getId();
         EditMessageText editMessageReplyMarkup = new EditMessageText()
                 .setChatId(callBackMessage.getChat().getId())
-                .setMessageId(lastBotMessageId)
+                .setMessageId(messageId)
                 .setText(message)
                 .setParseMode(ParseMode.HTML)
-                .setReplyMarkup((InlineKeyboardMarkup) inlineKeyboardMarkup)
+                .setReplyMarkup((InlineKeyboardMarkup) keyboard)
                 .disableWebPagePreview();
         try {
             razykrashkaBot.execute(editMessageReplyMarkup);
+
+            // TODO: Create separate method;
+            boolean hasKeyboard = keyboard != null;
+            TelegramMessage telegramMessage = TelegramMessage.builder()
+                    .id(messageId)
+                    .chatId(callBackMessage.getChat().getId())
+                    .botMessage(true)
+                    .hasKeyboard(hasKeyboard)
+                    .text(message)
+                    .build();
+            telegramMessageRepository.save(telegramMessage);
         } catch (TelegramApiException e) {
             log.error("Error during message sending!");
             log.error("FOR USER: {}", razykrashkaBot.getUser().getUserName());
@@ -126,11 +158,11 @@ public class MessageSender extends Sender {
         return this;
     }
 
-    public MessageSender updateMessage(String message) {
+    public MessageManager updateMessage(String message) {
         return updateMessage(message, null);
     }
 
-    public MessageSender deleteLastMessage() {
+    public MessageManager deleteLastMessage() {
         try {
             razykrashkaBot.execute(new DeleteMessage()
                     .setChatId(razykrashkaBot.getUpdate().getMessage().getChatId())
@@ -141,7 +173,7 @@ public class MessageSender extends Sender {
         return this;
     }
 
-    public MessageSender sendAlertMessage(String alertMessage) {
+    public MessageManager sendAlertMessage(String alertMessage) {
         try {
             razykrashkaBot.execute(new AnswerCallbackQuery()
                     .setCallbackQueryId(razykrashkaBot.getCallbackQuery().getId())
@@ -153,25 +185,16 @@ public class MessageSender extends Sender {
         return this;
     }
 
-    public MessageSender deleteLastBotMessage() {
+    public MessageManager deleteLastBotMessage() {
+        TelegramMessage lastBotMessage = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(razykrashkaBot.getCurrentChatId());
         try {
             razykrashkaBot.execute(new DeleteMessage()
-                    .setChatId(razykrashkaBot.getUpdate().getMessage().getChatId())
-                    .setMessageId(lastBotMessageId));
+                    .setChatId(lastBotMessage.getChatId())
+                    .setMessageId(lastBotMessage.getId()));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
         return this;
-    }
-
-    private void saveUpdate(Long chatId, String messageText) {
-        TelegramMessage telegramMessage = TelegramMessage.builder()
-                .id(lastBotMessageId)
-                .chatId(chatId)
-                .botMessage(true)
-                .text(messageText)
-                .build();
-        telegramMessageRepository.save(telegramMessage);
     }
 
     public void updateOrSendDependsOnMessageOwner(String textMessage, ReplyKeyboard replyKeyboard) {
@@ -182,6 +205,12 @@ public class MessageSender extends Sender {
             updateMessage(textMessage, replyKeyboard);
         } else {
             sendSimpleTextMessage(textMessage, replyKeyboard);
+        }
+    }
+
+    public void deleteLastBotMessageIfHasKeyboard() {
+        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(razykrashkaBot.getCurrentChatId()).isHasKeyboard()) {
+            deleteLastBotMessage();
         }
     }
 }

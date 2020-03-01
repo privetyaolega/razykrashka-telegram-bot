@@ -30,16 +30,21 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
         meetingInfoRepository.save(meetingInfo);
         meetingRepository.save(meeting);
 
-        messageSender.updateMessage(super.getMeetingPrettyString());
+        messageManager.updateMessage(super.getMeetingPrettyString());
         razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).handleRequest();
         return true;
     }
 
     @Override
-    public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
-            return false;
-        }
-        return super.getStageActivity();
+    public void handleRequest() {
+        processCallBackQuery();
     }
+//
+//    @Override
+//    public boolean isStageActive() {
+//        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
+//            return false;
+//        }
+//        return super.getStageActivity();
+//    }
 }

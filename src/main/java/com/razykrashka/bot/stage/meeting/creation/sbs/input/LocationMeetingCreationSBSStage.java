@@ -17,8 +17,10 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         Meeting meeting = getMeetingInCreation();
         meeting.setLocation(null);
         meetingRepository.save(meeting);
-
-        messageSender.sendSimpleTextMessage(super.getMeetingPrettyString() +
+        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(razykrashkaBot.getCurrentChatId()).isHasKeyboard()) {
+            messageManager.deleteLastBotMessage();
+        }
+        messageManager.sendSimpleTextMessage(super.getMeetingPrettyString() +
                 "\n\nPlease, attach or write location (e.g ул. Немига 6)", getKeyboard());
         super.setActiveNextStage(AcceptLocationMeetingCreationStepByStep.class);
     }

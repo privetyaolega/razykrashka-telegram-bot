@@ -17,8 +17,8 @@ public class CreateMeetingOnStepsStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
-        messageSender.disableKeyboardLastBotMessage();
-        messageSender.sendSimpleTextMessage("Start creation meeting step by step! Enjoy!");
+        messageManager.disableKeyboardLastBotMessage();
+        messageManager.sendSimpleTextMessage("Start creation meeting step by step! Enjoy!");
         setActiveNextStage(DateMeetingCreationSBSStage.class);
         razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
         return true;

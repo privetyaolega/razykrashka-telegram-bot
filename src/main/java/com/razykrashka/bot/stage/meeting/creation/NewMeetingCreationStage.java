@@ -74,11 +74,11 @@ public class NewMeetingCreationStage extends MainStage {
             razykrashkaBot.getUser().getCreatedMeetings().add(meetingModel);
             telegramUserRepository.save(razykrashkaBot.getUser());
 
-            messageSender.sendSimpleTextMessage("MEETING CREATED");
+            messageManager.sendSimpleTextMessage("MEETING CREATED");
             razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));
         } catch (Exception e) {
             e.printStackTrace();
-            messageSender.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION");
+            messageManager.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION");
             razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/failSticker.png")));
             razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();
         }

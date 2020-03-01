@@ -11,6 +11,11 @@ public interface TelegramMessageRepository extends CrudRepository<TelegramMessag
     Optional<TelegramMessage> findById(Long id);
 
     List<TelegramMessage> findAllByBotMessageIsTrue();
+
     List<TelegramMessage> findAllByChatIdEquals(Long chatId);
+
+    TelegramMessage findTop1ByChatIdOrderByIdDesc(Long id);
+
+    TelegramMessage findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(Long id);
 
 }

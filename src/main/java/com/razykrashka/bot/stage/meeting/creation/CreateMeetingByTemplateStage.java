@@ -33,25 +33,25 @@ public class CreateMeetingByTemplateStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        messageSender.sendSimpleTextMessage(getStringMap().get("enInstruction"), getKeyboard());
+        messageManager.sendSimpleTextMessage(getStringMap().get("enInstruction"), getKeyboard());
     }
 
     @Override
     public boolean processCallBackQuery() {
         String callBackData = razykrashkaBot.getCallbackQuery().getData();
         if (callBackData.equals(stageInfo.getStageName() + "_en_instruction") || razykrashkaBot.getRealUpdate().getCallbackQuery().getData().equals(this.getClass().getSimpleName())) {
-            messageSender.updateMessage(getStringMap().get("enInstruction"), (InlineKeyboardMarkup) getKeyboard());
+            messageManager.updateMessage(getStringMap().get("enInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_ru_instruction")) {
-            messageSender.updateMessage(getStringMap().get("ruInstruction"), (InlineKeyboardMarkup) getKeyboard());
+            messageManager.updateMessage(getStringMap().get("ruInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }
         if (callBackData.equals(stageInfo.getStageName() + "_template")) {
-            messageSender.updateMessage(getStringMap().get("template"), (InlineKeyboardMarkup) getKeyboard());
+            messageManager.updateMessage(getStringMap().get("template"), (InlineKeyboardMarkup) getKeyboard());
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_example")) {
-            messageSender.updateMessage(getStringMap().get("example"), (InlineKeyboardMarkup) getKeyboard());
+            messageManager.updateMessage(getStringMap().get("example"), (InlineKeyboardMarkup) getKeyboard());
         }
         return true;
     }

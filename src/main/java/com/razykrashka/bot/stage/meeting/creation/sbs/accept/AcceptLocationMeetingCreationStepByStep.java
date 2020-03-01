@@ -2,7 +2,6 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
@@ -24,9 +23,9 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
         Location location;
         try {
             location = mapLocationHelper.getLocation(address);
-        } catch (YandexMapApiException e) {
+        } catch (Exception e) {
             // TODO: Create informative error message
-            messageSender.replyLastMessage("Nothing were found by this street. Please, clarify!");
+            messageManager.replyLastMessage("Nothing were found by this street. Please, clarify!");
             razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
             return;
         }
@@ -36,8 +35,8 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
         meeting.setLocation(location);
         meetingRepository.save(meeting);
 
-        messageSender.deleteLastMessage();
-        messageSender.deleteLastBotMessage();
+        messageManager.deleteLastMessage();
+        messageManager.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
         super.setActiveNextStage(LevelMeetingCreationSBSStage.class);
     }

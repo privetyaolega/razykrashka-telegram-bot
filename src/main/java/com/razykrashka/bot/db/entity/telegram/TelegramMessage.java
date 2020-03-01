@@ -29,5 +29,6 @@ public class TelegramMessage {
     String text;
 
     boolean botMessage;
+    boolean hasKeyboard;
 
 }

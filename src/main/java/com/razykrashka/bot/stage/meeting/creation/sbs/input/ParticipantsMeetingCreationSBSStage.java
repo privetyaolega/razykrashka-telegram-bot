@@ -13,6 +13,9 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
 
     @Override
     public void handleRequest() {
+        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(razykrashkaBot.getCurrentChatId()).isHasKeyboard()) {
+            messageManager.deleteLastBotMessage();
+        }
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
                         "1", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "1",
@@ -25,7 +28,7 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
                         "6", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "6"))
                 .setRow("BACK TO LEVEL EDIT", LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageSender.sendSimpleTextMessage(getMeetingPrettyString() + "\n\nPlease, input max people", keyboardMarkup);
+        messageManager.sendSimpleTextMessage(getMeetingPrettyString() + "\n\nPlease, input max people", keyboardMarkup);
         super.setActiveNextStage(AcceptParticipantsPMeetingCreationSBSStage.class);
     }
 

@@ -25,12 +25,12 @@ public class SelectWayMeetingCreationStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        messageSender.sendSimpleTextMessage(this.getStringMap().get("enMain"), this.getKeyboard());
+        messageManager.sendSimpleTextMessage(this.getStringMap().get("enMain"), this.getKeyboard());
     }
 
     @Override
     public boolean processCallBackQuery() {
-        messageSender.updateMessage("YOOOHOO, Let's create new meeting together! \uD83D\uDE0D");
+        messageManager.updateMessage("YOOOHOO, Let's create new meeting together! \uD83D\uDE0D");
         razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();
         return true;
     }

@@ -13,7 +13,7 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
-        messageSender.updateMessage(super.getMeetingPrettyString() +
+        messageManager.updateMessage(super.getMeetingPrettyString() +
                 "\n\nPlease, input topic", (InlineKeyboardMarkup) getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationStepByStep.class);
     }

@@ -12,6 +12,7 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
+        messageManager.deleteLastBotMessageIfHasKeyboard();
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow("Elementary", "Elementary")
                 .setRow("Pre-Intermediate", "Pre_Intermediate")
@@ -20,7 +21,7 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 .setRow("Advanced", "Advanced")
                 .setRow("BACK TO LOCATION EDIT", LocationMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageSender.sendSimpleTextMessage(getMeetingPrettyString() + "\n\nPlease, input speaking level.", keyboardMarkup);
+        messageManager.sendSimpleTextMessage(getMeetingPrettyString() + "\n\nPlease, input speaking level.", keyboardMarkup);
         setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
     }
 

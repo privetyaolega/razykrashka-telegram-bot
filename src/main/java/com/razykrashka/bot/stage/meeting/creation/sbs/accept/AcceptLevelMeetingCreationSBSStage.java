@@ -11,8 +11,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
-import java.util.Arrays;
-
 @Log4j2
 @Component
 public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
@@ -36,18 +34,13 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meeting.setMeetingInfo(meetingInfo);
         meetingRepository.save(meeting);
 
-        messageSender.deleteLastBotMessage();
+        messageManager.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
         return true;
     }
 
     @Override
-    public boolean isStageActive() {
-        CallbackQuery callbackQuery = razykrashkaBot.getRealUpdate().getCallbackQuery();
-        if (callbackQuery != null) {
-            return Arrays.stream(SpeakingLevel.values()).anyMatch(level -> level.getLevel()
-                    .equalsIgnoreCase(callbackQuery.getData())) || this.getStageActivity();
-        }
-        return false;
+    public void handleRequest() {
+        processCallBackQuery();
     }
 }

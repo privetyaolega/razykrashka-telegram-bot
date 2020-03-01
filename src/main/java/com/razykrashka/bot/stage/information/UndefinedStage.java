@@ -22,7 +22,7 @@ public class UndefinedStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        messageSender.replyLastMessage(String.format(getStringMap().get("unknown"),
+        messageManager.replyLastMessage(String.format(getStringMap().get("unknown"),
                 razykrashkaBot.getRealUpdate().getMessage().getText()));
     }
 }

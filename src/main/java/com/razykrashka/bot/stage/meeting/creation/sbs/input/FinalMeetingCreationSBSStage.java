@@ -12,11 +12,12 @@ public class FinalMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
+        messageManager.deleteLastBotMessageIfHasKeyboard();
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow("Confirm", AcceptFinalFMeetingCreationStepByStep.class.getSimpleName())
                 .setRow("BACK TO TOPIC EDIT", TopicMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageSender.sendSimpleTextMessage(getMeetingPrettyString() +
+        messageManager.sendSimpleTextMessage(getMeetingPrettyString() +
                 "\nPlease, confirm meeting creation.", keyboardMarkup);
         setActiveNextStage(AcceptFinalFMeetingCreationStepByStep.class);
     }

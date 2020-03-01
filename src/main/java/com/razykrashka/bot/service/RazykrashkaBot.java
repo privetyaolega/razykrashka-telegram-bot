@@ -6,7 +6,7 @@ import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.information.UndefinedStage;
-import com.razykrashka.bot.ui.helpers.sender.MessageSender;
+import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -50,7 +50,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     @Autowired
     ApplicationContext context;
     @Autowired
-    MessageSender messageSender;
+    MessageManager messageManager;
 
     List<Stage> stages;
     Stage undefinedStage;
@@ -89,7 +89,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
             }
             this.update = update;
             saveUpdate();
-            messageSender.disableKeyboardLastBotMessage();
+            messageManager.disableKeyboardLastBotMessage();
             activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
             updateInfoLog(update.getMessage().getText());
 
@@ -192,5 +192,10 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
             }
         }
         return false;
+    }
+
+    public Long getCurrentChatId() {
+        return this.getRealUpdate().getMessage() != null ? this.getRealUpdate().getMessage().getChat().getId() :
+                this.getRealUpdate().getCallbackQuery().getMessage().getChat().getId();
     }
 }

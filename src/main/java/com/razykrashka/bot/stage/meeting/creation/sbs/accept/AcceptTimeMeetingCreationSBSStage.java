@@ -23,15 +23,15 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
                 .withMinute(Integer.parseInt(timeMessage.substring(3))));
         meetingRepository.save(meeting);
 
-        messageSender.deleteLastBotMessage();
+        messageManager.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
     }
 
     private void inputDataValidation() {
         if (!timeMessage.matches(TIME_REGEX)) {
             String message = String.format(super.getStringMap().get("incorrectTimeFormat"), timeMessage);
-            messageSender.disableKeyboardLastBotMessage();
-            messageSender.replyLastMessage(message);
+            messageManager.disableKeyboardLastBotMessage();
+            messageManager.replyLastMessage(message);
             razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
             throw new IncorrectInputDataFormatException(timeMessage + ": incorrect time format!");
         }
