@@ -13,7 +13,7 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
 
     @Override
     public void handleRequest() {
-        String topic = razykrashkaBot.getMessageOptional().get().getText();
+        String topic = razykrashkaBot.getRealUpdate().getMessage().getText();
         Meeting meeting = getMeetingInCreation();
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         meetingInfo.setTopic(topic);
@@ -21,6 +21,7 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
         meetingInfoRepository.save(meetingInfo);
         meetingRepository.save(meeting);
 
+        messageSender.deleteLastMessage();
         razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
     }
 

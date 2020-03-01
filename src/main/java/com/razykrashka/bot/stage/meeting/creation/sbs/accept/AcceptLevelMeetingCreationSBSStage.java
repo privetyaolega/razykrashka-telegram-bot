@@ -19,7 +19,7 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getMessageOptional().isPresent()) {
+        if (razykrashkaBot.getRealUpdate().getMessage() != null) {
             razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
             setActiveNextStage(LevelMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
@@ -36,7 +36,7 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meeting.setMeetingInfo(meetingInfo);
         meetingRepository.save(meeting);
 
-        messageSender.updateMessage(super.getMeetingPrettyString());
+        messageSender.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
         return true;
     }

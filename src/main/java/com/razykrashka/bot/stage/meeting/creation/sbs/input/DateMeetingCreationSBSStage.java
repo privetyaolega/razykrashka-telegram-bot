@@ -31,8 +31,14 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     public boolean processCallBackQuery() {
         String callBackData = razykrashkaBot.getCallbackQuery().getData();
         if (this.getClass().getSimpleName().equals(callBackData) || this.getStageActivity()) {
-            messageSender.sendSimpleTextMessage("Please, choose meeting date.",
-                    generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+            // TODO: Informative error message;
+            if (razykrashkaBot.getRealUpdate().getMessage() != null) {
+                messageSender.replyLastMessage("Please, choose meeting date.",
+                        generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+            } else {
+                messageSender.updateOrSendDependsOnMessageOwner("Please, choose meeting date.",
+                        generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+            }
         } else {
             if (callBackData.contains(NO_DATE)) {
                 messageSender.sendAlertMessage("Пожалуйста, введита дату");
@@ -41,7 +47,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             String monthYear = callBackData.replace(this.getClass().getSimpleName(), "");
             int month = Integer.parseInt(monthYear.substring(0, 2));
             int year = Integer.parseInt("20" + monthYear.substring(2, 4));
-            messageSender.updateMessage("Please, choose meeting date.", generateCalendarKeyboard(month, year));
+            messageSender.updateOrSendDependsOnMessageOwner("Please, choose meeting date.", generateCalendarKeyboard(month, year));
         }
         return true;
     }

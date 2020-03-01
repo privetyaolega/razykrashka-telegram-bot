@@ -1,10 +1,12 @@
 package com.razykrashka.bot.stage.meeting.view;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,7 +27,9 @@ public class AllMeetingViewStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        modelList = StreamSupport.stream(meetingRepository.findAll().spliterator(), false).collect(Collectors.toList());
+        modelList = StreamSupport.stream(meetingRepository.findAll().spliterator(), false)
+                .filter(meeting -> meeting.getCreationStatus().equals(CreationStatus.DONE))
+                .collect(Collectors.toList());
         if (modelList.size() == 0) {
             messageSender.sendSimpleTextMessage("NO MEETINGS :(");
         } else {
@@ -47,6 +51,12 @@ public class AllMeetingViewStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return razykrashkaBot.getUpdate().getMessage().getText().startsWith(stageInfo.getKeyword());
+        Message message = razykrashkaBot.getRealUpdate().getMessage();
+        if (message == null) {
+            return false;
+        } else {
+            boolean res = message.getText().equals("View Meetings");
+            return res;
+        }
     }
 }

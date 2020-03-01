@@ -25,7 +25,7 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
                         "6", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "6"))
                 .setRow("BACK TO LEVEL EDIT", LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageSender.updateMessage(getMeetingPrettyString() + "\n\nPlease, input max people", keyboardMarkup);
+        messageSender.sendSimpleTextMessage(getMeetingPrettyString() + "\n\nPlease, input max people", keyboardMarkup);
         super.setActiveNextStage(AcceptParticipantsPMeetingCreationSBSStage.class);
     }
 

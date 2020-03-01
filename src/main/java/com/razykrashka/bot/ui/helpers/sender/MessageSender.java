@@ -76,12 +76,13 @@ public class MessageSender extends Sender {
         return this;
     }
 
-    public MessageSender replyLastMessage(String textMessage) {
+    public MessageSender replyLastMessage(String textMessage, ReplyKeyboard keyboard) {
         Message message = razykrashkaBot.getRealUpdate().getMessage();
         sendMessage = new SendMessage()
                 .setParseMode(ParseMode.HTML)
                 .setChatId(message.getChatId())
                 .setText(textMessage)
+                .setReplyMarkup(keyboard)
                 .setReplyToMessageId(message.getMessageId());
         try {
             lastBotMessageId = razykrashkaBot.execute(sendMessage)
@@ -93,6 +94,10 @@ public class MessageSender extends Sender {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public MessageSender replyLastMessage(String textMessage) {
+        return replyLastMessage(textMessage, null);
     }
 
     public MessageSender sendSimpleTextMessage(String message) {
@@ -167,5 +172,16 @@ public class MessageSender extends Sender {
                 .text(messageText)
                 .build();
         telegramMessageRepository.save(telegramMessage);
+    }
+
+    public void updateOrSendDependsOnMessageOwner(String textMessage, ReplyKeyboard replyKeyboard) {
+        List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrue();
+        TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
+
+        if (telegramMessage.isBotMessage()) {
+            updateMessage(textMessage, replyKeyboard);
+        } else {
+            sendSimpleTextMessage(textMessage, replyKeyboard);
+        }
     }
 }

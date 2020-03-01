@@ -1,7 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.DateMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
@@ -16,8 +15,8 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getMessageOptional().isPresent()) {
-            razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
+        if (razykrashkaBot.getRealUpdate().getMessage() != null) {
+            messageSender.disableKeyboardLastBotMessage();
             setActiveNextStage(DateMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
             return true;
@@ -37,6 +36,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
             telegramUserRepository.save(razykrashkaBot.getUser());
         }
 
+        messageSender.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
         return true;
     }

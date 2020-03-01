@@ -15,7 +15,7 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getMessageOptional().isPresent()) {
+        if (razykrashkaBot.getRealUpdate().getMessage() != null) {
             razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
             setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();

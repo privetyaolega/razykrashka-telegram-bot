@@ -22,6 +22,8 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
                 .withHour(Integer.parseInt(timeMessage.substring(0, 2)))
                 .withMinute(Integer.parseInt(timeMessage.substring(3))));
         meetingRepository.save(meeting);
+
+        messageSender.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
     }
 

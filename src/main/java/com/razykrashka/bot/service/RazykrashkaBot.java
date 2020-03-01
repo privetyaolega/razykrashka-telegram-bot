@@ -49,7 +49,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Autowired
     ApplicationContext context;
-
     @Autowired
     MessageSender messageSender;
 
@@ -58,11 +57,11 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     Update realUpdate;
     Update update;
-    Optional<Message> messageOptional;
     CallbackQuery callbackQuery;
     TelegramUser user;
 
     List<Stage> activeStages;
+    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "Information :P");
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
@@ -72,7 +71,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         this.realUpdate = update;
-        messageOptional = Optional.ofNullable(update.getMessage());
         userInit(update);
         this.undefinedStage = getContext().getBean(UndefinedStage.class);
 
@@ -86,6 +84,9 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
             activeStages.get(0).processCallBackQuery();
         } else {
+            if (keyWordsList.contains(update.getMessage().getText())) {
+                this.getStages().forEach(stage -> stage.setActive(false));
+            }
             this.update = update;
             saveUpdate();
             messageSender.disableKeyboardLastBotMessage();

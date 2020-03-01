@@ -20,13 +20,13 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
 
     @Override
     public void handleRequest() {
-        String address = razykrashkaBot.getMessageOptional().get().getText();
+        String address = razykrashkaBot.getRealUpdate().getMessage().getText();
         Location location;
         try {
             location = mapLocationHelper.getLocation(address);
         } catch (YandexMapApiException e) {
             // TODO: Create informative error message
-            messageSender.sendSimpleTextMessage("Nothing were found by this street. Please, clarify!");
+            messageSender.replyLastMessage("Nothing were found by this street. Please, clarify!");
             razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
             return;
         }
@@ -36,6 +36,8 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
         meeting.setLocation(location);
         meetingRepository.save(meeting);
 
+        messageSender.deleteLastMessage();
+        messageSender.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
         super.setActiveNextStage(LevelMeetingCreationSBSStage.class);
     }

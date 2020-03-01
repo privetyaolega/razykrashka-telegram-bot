@@ -3,10 +3,7 @@ package com.razykrashka.bot.stage;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.razykrashka.bot.db.repo.LocationRepository;
-import com.razykrashka.bot.db.repo.MeetingInfoRepository;
-import com.razykrashka.bot.db.repo.MeetingRepository;
-import com.razykrashka.bot.db.repo.TelegramUserRepository;
+import com.razykrashka.bot.db.repo.*;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import com.razykrashka.bot.ui.helpers.KeyboardBuilder;
 import com.razykrashka.bot.ui.helpers.sender.MessageSender;
@@ -41,6 +38,8 @@ public abstract class MainStage implements Stage {
     protected MeetingInfoRepository meetingInfoRepository;
     @Autowired
     protected LocationRepository locationRepository;
+    @Autowired
+    protected TelegramMessageRepository telegramMessageRepository;
 
     @Autowired
     protected RazykrashkaBot razykrashkaBot;
@@ -82,8 +81,8 @@ public abstract class MainStage implements Stage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getMessageOptional().isPresent()) {
-            return razykrashkaBot.getMessageOptional().get().getText()
+        if (razykrashkaBot.getRealUpdate().getMessage() != null) {
+            return razykrashkaBot.getRealUpdate().getMessage().getText()
                     .equals(this.getStageInfo().getKeyword());
         }
         return false;
