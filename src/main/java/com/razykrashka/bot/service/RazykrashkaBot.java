@@ -1,9 +1,12 @@
 package com.razykrashka.bot.service;
 
-import com.razykrashka.bot.entity.TelegramUser;
-import com.razykrashka.bot.repository.TelegramUserRepository;
-import com.razykrashka.bot.service.stage.Stage;
-import com.razykrashka.bot.service.stage.UndefinedStage;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
+import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
+import com.razykrashka.bot.db.repo.TelegramMessageRepository;
+import com.razykrashka.bot.db.repo.TelegramUserRepository;
+import com.razykrashka.bot.stage.Stage;
+import com.razykrashka.bot.stage.information.UndefinedStage;
+import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -14,19 +17,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @Log4j2
@@ -36,6 +39,8 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Autowired
     protected TelegramUserRepository telegramUserRepository;
+    @Autowired
+    protected TelegramMessageRepository telegramMessageRepository;
 
     @Value("${bot.avp256.username}")
     String botUsername;
@@ -44,12 +49,19 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Autowired
     ApplicationContext context;
+    @Autowired
+    MessageManager messageManager;
 
     List<Stage> stages;
     Stage undefinedStage;
+
+    Update realUpdate;
     Update update;
     CallbackQuery callbackQuery;
-    TelegramUser telegramUser;
+    TelegramUser user;
+
+    List<Stage> activeStages;
+    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "Information :P");
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
@@ -58,61 +70,72 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        this.realUpdate = update;
         userInit(update);
-        undefinedStage = getContext().getBean(UndefinedStage.class);
+        this.undefinedStage = getContext().getBean(UndefinedStage.class);
+
         if (update.hasCallbackQuery()) {
             this.callbackQuery = update.getCallbackQuery();
-            stages.stream().filter(x -> callbackQuery.getData().contains(x.getStageInfo().getStageName()))
-                    .findFirst().get().processCallBackQuery();
+            activeStages = stages.stream()
+                    .filter(x -> callbackQuery.getData().contains(x.getStageInfo().getStageName())
+                            || callbackQuery.getData().contains(x.getClass().getSimpleName())
+                            || x.isStageActive()).collect(Collectors.toList());
+            updateInfoLog(update.getCallbackQuery().getData());
+
+            activeStages.get(0).processCallBackQuery();
         } else {
+            if (keyWordsList.contains(update.getMessage().getText())) {
+                this.getStages().forEach(stage -> stage.setActive(false));
+            }
             this.update = update;
-            stages.stream().peek(x -> x.setMessage(update))
-                    .filter(Stage::isStageActive).findFirst()
-                    .orElseGet(() -> undefinedStage)
-                    .handleRequest();
+            saveUpdate();
+            messageManager.disableKeyboardLastBotMessage();
+            activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
+            updateInfoLog(update.getMessage().getText());
+
+            if (activeStages.size() == 0) {
+                undefinedStage.handleRequest();
+            } else {
+                activeStages.get(0).handleRequest();
+            }
         }
+    }
+
+    private void updateInfoLog(String query) {
+        log.info("UPDATE: String Message to process: '{}'", query);
+        log.info("UPDATE: Active stages: {}", activeStages.stream()
+                .map(x -> x.getClass().getSimpleName())
+                .collect(Collectors.joining(" ,", "[", "]")));
     }
 
     private void userInit(Update update) {
-        Integer id = update.hasCallbackQuery() ? update.getCallbackQuery().getFrom().getId() : update.getMessage().getFrom().getId();
-        Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(id);
-        if (telegramUser.isPresent()) {
-            this.telegramUser = telegramUser.get();
-        } else {
-            this.telegramUser = TelegramUser.builder()
-                    .lastName(update.getMessage().getFrom().getLastName())
-                    .firstName(update.getMessage().getFrom().getFirstName())
-                    .userName(update.getMessage().getFrom().getUserName())
-                    .telegramId(update.getMessage().getFrom().getId())
-                    .build();
-            telegramUserRepository.save(this.telegramUser);
+        if (!realUpdate.hasCallbackQuery()) {
+            Integer id = update.getMessage().getFrom().getId();
+            Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(id);
+            if (telegramUser.isPresent()) {
+                user = telegramUser.get();
+            } else {
+                user = TelegramUser.builder()
+                        .lastName(update.getMessage().getFrom().getLastName())
+                        .firstName(update.getMessage().getFrom().getFirstName())
+                        .userName(update.getMessage().getFrom().getUserName())
+                        .telegramId(update.getMessage().getFrom().getId())
+                        .build();
+                telegramUserRepository.save(user);
+            }
         }
     }
 
-    public void updateMessage(String text, InlineKeyboardMarkup inlineKeyboardMarkup) {
-        EditMessageText editMessageReplyMarkup = new EditMessageText();
-        editMessageReplyMarkup.setChatId(callbackQuery.getMessage().getChat().getId());
-        editMessageReplyMarkup.setMessageId(callbackQuery.getMessage().getMessageId());
-        editMessageReplyMarkup.setText(text);
-        editMessageReplyMarkup.setParseMode(ParseMode.MARKDOWN);
-        editMessageReplyMarkup.setReplyMarkup(inlineKeyboardMarkup);
-
-        try {
-            execute(editMessageReplyMarkup);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendSimpleTextMessage(String text) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(update.getMessage().getChat().getId());
-        sendMessage.setText(text);
-        try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+    private void saveUpdate() {
+        Message message = this.getRealUpdate().getMessage();
+        TelegramMessage telegramMessage = TelegramMessage.builder()
+                .id(message.getMessageId())
+                .chatId(message.getChatId())
+                .fromUserId(message.getFrom().getId())
+                .botMessage(false)
+                .text(message.getText())
+                .build();
+        telegramMessageRepository.save(telegramMessage);
     }
 
     public void sendVenue(SendVenue sendVenue) {
@@ -142,11 +165,37 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         }
     }
 
-    public void executeBot(SendMessage sendMessage) {
-        try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
+    public boolean executeMethodCallBackQuery() {
+        if (this.getRealUpdate().getCallbackQuery() != null) {
+            Optional<Stage> stage = this.getStages().stream()
+                    .filter(st -> this.getRealUpdate().getCallbackQuery().getData()
+                            .startsWith(st.getClass().getSimpleName() + "?"))
+                    .findFirst();
+            if (stage.isPresent()) {
+                String callBackDate = this.getRealUpdate().getCallbackQuery().getData();
+                String stageName = callBackDate.split("\\?")[0];
+                String methodName = callBackDate.replace(stageName + "?", "").split(":")[0];
+                String[] variables = callBackDate.replace(stageName + "?" + methodName + ":", "")
+                        .replace(methodName, "")
+                        .split("&");
+
+                Class<String>[] clazz = Arrays.stream(variables).map(str -> String.class)
+                        .collect(Collectors.toList())
+                        .stream().toArray(Class[]::new);
+                try {
+                    Method method = stage.get().getClass().getMethod(methodName, clazz);
+                    method.invoke(stage.get(), variables);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
         }
+        return false;
+    }
+
+    public Long getCurrentChatId() {
+        return this.getRealUpdate().getMessage() != null ? this.getRealUpdate().getMessage().getChat().getId() :
+                this.getRealUpdate().getCallbackQuery().getMessage().getChat().getId();
     }
 }
