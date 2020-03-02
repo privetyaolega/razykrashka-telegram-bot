@@ -20,7 +20,6 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     public boolean processCallBackQuery() {
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
             razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
-            setActiveNextStage(LevelMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
             return true;
         }
