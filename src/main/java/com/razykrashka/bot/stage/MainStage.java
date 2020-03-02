@@ -81,7 +81,7 @@ public abstract class MainStage implements Stage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getMessage() != null) {
+        if (razykrashkaBot.getRealUpdate().hasMessage()) {
             return razykrashkaBot.getRealUpdate().getMessage().getText()
                     .equals(this.getStageInfo().getKeyword());
         }

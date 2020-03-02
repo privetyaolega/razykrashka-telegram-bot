@@ -15,7 +15,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getRealUpdate().getMessage() != null) {
+        if (razykrashkaBot.getRealUpdate().hasMessage()) {
             messageManager.disableKeyboardLastBotMessage();
             setActiveNextStage(DateMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
@@ -47,8 +47,9 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null
-                && razykrashkaBot.getRealUpdate().getCallbackQuery().getData().contains(DateMeetingCreationSBSStage.class.getSimpleName())) {
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()
+                && razykrashkaBot.getRealUpdate().getCallbackQuery().getData()
+                .contains(DateMeetingCreationSBSStage.class.getSimpleName())) {
             this.setActive(false);
             return false;
         }

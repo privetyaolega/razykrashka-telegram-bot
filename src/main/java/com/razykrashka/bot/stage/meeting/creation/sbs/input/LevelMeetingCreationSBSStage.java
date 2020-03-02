@@ -15,9 +15,9 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         messageManager.deleteLastBotMessageIfHasKeyboard();
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow("Elementary", "Elementary")
-                .setRow("Pre-Intermediate", "Pre_Intermediate")
+                .setRow("Pre-Intermediate", "Pre-Intermediate")
                 .setRow("Intermediate", "Intermediate")
-                .setRow("Upper-Intermediate", "Upper_Intermediate")
+                .setRow("Upper-Intermediate", "Upper-Intermediate")
                 .setRow("Advanced", "Advanced")
                 .setRow("BACK TO LOCATION EDIT", LocationMeetingCreationSBSStage.class.getSimpleName())
                 .build();
@@ -27,7 +27,7 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
             return false;
         }
         return super.getStageActivity();
