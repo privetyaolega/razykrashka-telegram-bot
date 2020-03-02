@@ -22,6 +22,7 @@ public class UndefinedStage extends MainStage {
 
     @Override
     public void handleRequest() {
+        messageManager.disableKeyboardLastBotMessage();
         messageManager.replyLastMessage(String.format(getStringMap().get("unknown"),
                 razykrashkaBot.getRealUpdate().getMessage().getText()));
     }
