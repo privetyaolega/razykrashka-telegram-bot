@@ -15,7 +15,7 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getRealUpdate().getMessage() != null) {
+        if (razykrashkaBot.getRealUpdate().hasMessage()) {
             razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
             setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
@@ -39,12 +39,13 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
     public void handleRequest() {
         processCallBackQuery();
     }
-//
-//    @Override
-//    public boolean isStageActive() {
-//        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
-//            return false;
-//        }
-//        return super.getStageActivity();
-//    }
+
+    @Override
+    public boolean isStageActive() {
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+            return razykrashkaBot.getRealUpdate().getCallbackQuery()
+                    .getData().contains(this.getClass().getSimpleName());
+        }
+        return super.isStageActive();
+    }
 }
