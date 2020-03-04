@@ -3,7 +3,7 @@ package com.razykrashka.bot.service;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
-import com.razykrashka.bot.db.repo.TelegramUserRepository;
+import com.razykrashka.bot.repository.TelegramUserRepository;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
