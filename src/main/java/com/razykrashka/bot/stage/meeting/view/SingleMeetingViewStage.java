@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
+import com.razykrashka.bot.ui.helpers.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
@@ -42,8 +43,13 @@ public class SingleMeetingViewStage extends MainStage {
 
     @Override
     public ReplyKeyboard getKeyboard() {
-        return keyboardBuilder.getKeyboard()
-                .setRow("Join", stageInfo.getStageName() + "_join" + meeting.getId())
+        KeyboardBuilder builder = keyboardBuilder.getKeyboard();
+        if (razykrashkaBot.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
+            builder.setRow("Unsubscribe", stageInfo.getStageName() + "_unsubscribe" + meeting.getId());
+        } else {
+            builder.setRow("Join", stageInfo.getStageName() + "_join" + meeting.getId());
+        }
+        return builder
                 .setRow(ImmutableMap.of(
                         "Contact", stageInfo.getStageName() + "_contact" + meeting.getId(),
                         "Map", stageInfo.getStageName() + "_map" + meeting.getId()))
@@ -72,12 +78,17 @@ public class SingleMeetingViewStage extends MainStage {
         }
 
         if (callBackData.equals(stageInfo.getStageName() + "_join" + meeting.getId())) {
-            if (razykrashkaBot.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-                messageManager.sendSimpleTextMessage("YOU ALREADY HAVE THIS MEETING");
-            } else {
-                razykrashkaBot.getUser().getToGoMeetings().add(meeting);
-                messageManager.sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
-            }
+            razykrashkaBot.getUser().addMeetingTotoGoMeetings(meeting);
+            telegramUserRepository.save(razykrashkaBot.getUser());
+            messageManager.sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
+        }
+
+        if (callBackData.equals(stageInfo.getStageName() + "_unsubscribe" + meeting.getId())) {
+            //meetingRepository.deleteMeeting(meeting.getId());
+            razykrashkaBot.getUser().removeFromToGoMeetings(meeting);
+            telegramUserRepository.save(razykrashkaBot.getUser());
+            messageManager.sendSimpleTextMessage(":(");
+
         }
         return true;
     }
