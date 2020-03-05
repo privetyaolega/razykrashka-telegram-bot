@@ -34,11 +34,18 @@ public class TelegramUser {
     Set<Meeting> createdMeetings = new HashSet<>();
 
     @Column
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_meeting",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id")
     )
-    Set<Meeting> toGoMeetings = new HashSet<>();
+    Set<Meeting> toGoMeetings;
+
+    public void addMeetingTotoGoMeetings(Meeting meeting) {
+        toGoMeetings.add(meeting);
+    }
+    public void removeFromToGoMeetings(Meeting meeting) {
+        toGoMeetings.remove(meeting);
+    }
 }

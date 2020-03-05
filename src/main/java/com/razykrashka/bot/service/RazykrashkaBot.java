@@ -61,7 +61,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     TelegramUser user;
 
     List<Stage> activeStages;
-    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "Information :P");
+    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "View My Meetings", "Information :P");
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
