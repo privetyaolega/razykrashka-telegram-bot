@@ -17,6 +17,8 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
     public void handleRequest() {
         timeMessage = razykrashkaBot.getRealUpdate().getMessage().getText();
         inputDataValidation();
+
+        messageManager.deleteLastMessage();
         Meeting meeting = super.getMeetingInCreation();
         meeting.setMeetingDateTime(meeting.getMeetingDateTime()
                 .withHour(Integer.parseInt(timeMessage.substring(0, 2)))
@@ -39,7 +41,7 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
             return false;
         }
         return super.getStageActivity();

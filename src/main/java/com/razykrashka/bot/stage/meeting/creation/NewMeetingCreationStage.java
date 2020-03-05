@@ -86,7 +86,7 @@ public class NewMeetingCreationStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getMessage() != null) {
+        if (razykrashkaBot.getRealUpdate().hasMessage()) {
             return razykrashkaBot.getRealUpdate().getMessage().getText().contains(this.getStageInfo().getKeyword());
         }
         return false;

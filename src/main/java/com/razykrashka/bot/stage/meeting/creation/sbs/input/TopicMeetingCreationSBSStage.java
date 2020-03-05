@@ -4,7 +4,6 @@ import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStag
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptTopicMeetingCreationStepByStep;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 @Log4j2
@@ -13,14 +12,14 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
-        messageManager.updateMessage(super.getMeetingPrettyString() +
-                "\n\nPlease, input topic", (InlineKeyboardMarkup) getKeyboard());
+        messageManager.updateMessage(super.getMeetingPrettyString() + "Please, input topic", getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationStepByStep.class);
     }
 
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
+                .setRow("Random Topic", AcceptTopicMeetingCreationStepByStep.class.getSimpleName() + "Random")
                 .setRow("BACK TO PARTICIPANT LIMIT EDIT", ParticipantsMeetingCreationSBSStage.class.getSimpleName())
                 .build();
     }
