@@ -60,6 +60,7 @@ public enum StageInfo {
             "● What are some advantages of using social networks?\n" +
             "● Do you visit English websites?", "Вставьте шаблон и отправьте его", "Create Meeting By Template"),
     UNDEFINED("UndefinedStage", "Bot doesn't know this commant", null),
+    MY_MEETING_VIEW("MyMeetingsViewStage", "My meetings", null, "View My Meetings"),
     ALL_MEETING_VIEW("AllMeetingViewStage", "Existing meetings", null, "View Meetings"),
     SINGLE_MEETING_VIEW("SingleMeetingViewStage", null, null, "/meeting"),
     NEW_MEETING_CREATION("NewMeetingCreationStage", "Your request in moderation...", "Запрос в обработке", "NEW MEETING REQUEST"),

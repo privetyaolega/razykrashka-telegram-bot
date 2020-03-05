@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "meeting")
@@ -46,11 +47,18 @@ public class Meeting {
     CreationStatus creationStatus;
 
     @Column
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_meeting",
             joinColumns = @JoinColumn(name = "meeting_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    List<TelegramUser> participants = new ArrayList<>();
+    Set<TelegramUser> participants;
+
+    public void addParticipant(TelegramUser user) {
+        participants.add(user);
+    }
+    public void removeParticipant(TelegramUser user) {
+        participants.remove(user);
+    }
 }
