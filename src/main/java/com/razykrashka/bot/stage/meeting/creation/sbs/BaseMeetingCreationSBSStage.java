@@ -54,6 +54,10 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             sb.append("\n\nTOPIC: " + meeting.getMeetingInfo().getTopic());
         }
 
+        if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getQuestions() != null) {
+            sb.append("\n\nQUESTION: \n" + meeting.getMeetingInfo().getQuestions());
+        }
+
         sb.append("\n\n\n\n");
 
         return sb.toString();

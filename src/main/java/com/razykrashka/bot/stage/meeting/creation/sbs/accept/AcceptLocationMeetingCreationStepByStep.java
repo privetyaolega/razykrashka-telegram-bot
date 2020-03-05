@@ -38,12 +38,11 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
         messageManager.deleteLastMessage();
         messageManager.deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
-        super.setActiveNextStage(LevelMeetingCreationSBSStage.class);
     }
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
             return false;
         }
         return super.getStageActivity();

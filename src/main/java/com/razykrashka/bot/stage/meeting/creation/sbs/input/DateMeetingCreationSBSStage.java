@@ -32,7 +32,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         String callBackData = razykrashkaBot.getCallbackQuery().getData();
         if (this.getClass().getSimpleName().equals(callBackData) || this.getStageActivity()) {
             // TODO: Informative error message;
-            if (razykrashkaBot.getRealUpdate().getMessage() != null) {
+            if (razykrashkaBot.getRealUpdate().hasMessage()) {
                 messageManager.disableKeyboardLastBotMessage();
                 messageManager.replyLastMessage("Please, choose meeting date.",
                         generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
@@ -115,7 +115,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() != null) {
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
             if (razykrashkaBot.getRealUpdate().getCallbackQuery().getData().contains(this.getClass().getSimpleName())) {
                 return true;
             }

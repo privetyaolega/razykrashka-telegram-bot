@@ -13,9 +13,7 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
 
     @Override
     public void handleRequest() {
-        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(razykrashkaBot.getCurrentChatId()).isHasKeyboard()) {
-            messageManager.deleteLastBotMessage();
-        }
+        messageManager.deleteLastBotMessageIfHasKeyboard();
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
                         "1", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "1",
@@ -34,6 +32,11 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
 
     @Override
     public boolean isStageActive() {
-        return getStageActivity();
+        boolean isQueryContainsClass = false;
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+            isQueryContainsClass = razykrashkaBot.getRealUpdate().getCallbackQuery()
+                    .getData().contains(this.getClass().getSimpleName());
+        }
+        return super.isStageActive() || isQueryContainsClass;
     }
 }
