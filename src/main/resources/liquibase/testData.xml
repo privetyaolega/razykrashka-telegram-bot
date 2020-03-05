@@ -4,53 +4,149 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <property name="clob.type" value="longtext" dbms="mysql"/>
-<changeSet id="2" author="brokorenko" runAlways="true">
-    <comment>Upload 3 users with 3 meetings</comment>
-    <sql>
-        INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-        Select 'Olega', 'Rutski', '+375295508809', '532965560', 'privetyolega'
-        WHERE NOT EXISTS (
-        SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Olega'
-        AND last_name = 'Rutski'
-        AND phone_number = '+375295508809'
-        AND telegram_id = '532965560'
-        AND user_name = 'privetyolega'
-        ) LIMIT 1;
+    <changeSet id="1" author="brokorenko" runOnChange="true">
+        <comment>Upload 3 users</comment>
+        <sql>
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            Select 'Olega', 'Rutski', '+375295508809', '532965560', 'privetyolega'
+            WHERE NOT EXISTS (
+            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Olega'
+            AND last_name = 'Rutski'
+            AND phone_number = '+375295508809'
+            AND telegram_id = '532965560'
+            AND user_name = 'privetyolega'
+            ) LIMIT 1;
 
-        INSERT INTO location (address, latitude, link, text_link, longitude, name)
-        VALUES ('ул. Немига 5, Лидо', '53.902', 'http://google.com', 'ул. Немига 5, Лидо', '27.5496', 'OLEG');
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            Select 'Andrew', '', '+375293489901', '431957763', ''
+            WHERE NOT EXISTS (
+            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE
+            first_name = 'Andrew'
+            AND last_name = ''
+            AND phone_number = '+375293489901'
+            AND telegram_id = '431957763'
+            AND user_name = ''
+            ) LIMIT 1;
 
-        INSERT INTO meeting_info (questions, speaking_level, topic)
-        VALUES ('? What are two disadvantages of using smartphones and tablets?? What do you think about Cybercafes? are they still useful?? Do you like a job in which you have to use computers?? Do you spend too much time online?? Does your mother of father know how to use a computer?? Do computers make life easier?? What websites do you visit in a regular basis?? What do you think about the Apple?? What are some advantages of using social networks?? Do you visit English websites?', 'ADVANCED', 'Internet and Computers');
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            Select 'Dmitry', '', '', '50678728', 'dmitrylen'
+            WHERE NOT EXISTS (
+            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Dmitry'
+            AND last_name = ''
+            AND phone_number = ''
+            AND telegram_id = '50678728'
+            AND user_name = 'dmitrylen'
+            ) LIMIT 1;
+        </sql>
+    </changeSet>
 
-        INSERT INTO meeting (creation_date_time, creation_status, meeting_date_time, location_id, meeting_info_id, owner_id)
-        VALUES ('2020-03-01 09:32:27', 'DONE' '2020-01-14 16:00:00', (SELECT id from location WHERE name = 'OLEG' LIMIT 1), (SELECT id from meeting_info WHERE topic = 'Internet and Computers' LIMIT 1), (SELECT id from user WHERE telegram_id = '532965560' LIMIT 1));
+    <changeSet id="2" author="brokorenko" runOnChange="true">
+        <comment>Upload 3 locations</comment>
+        <sql>
+            INSERT INTO location (address, latitude, link, text_link, longitude, name)
+            VALUES ('ул. Немига 5, Лидо', '53.902', 'http://google.com', 'ул. Немига 5, Лидо', '27.5496', 'OLEG');
 
-        INSERT INTO user_meeting (meeting_id, user_id)
-        VALUES ((SELECT id from meeting WHERE owner_id = ((SELECT id from user WHERE telegram_id = '532965560' LIMIT 1)) LIMIT 1), (SELECT id from user WHERE telegram_id = '532965560' LIMIT 1));
+            INSERT INTO location (address, latitude, link, text_link, longitude, name)
+            VALUES ('ул. Кульман 5а, Лидо', '53.918885', 'http://google.com', 'ул. Кульман 5а, Лидо', '27.581235',
+            'Andrew');
 
-        INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-        Select 'Andrew', '', '+375293489901', '431957763', ''
-        WHERE NOT EXISTS (
-        SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE
-        first_name = 'Andrew'
-        AND last_name = ''
-        AND phone_number = '+375293489901'
-        AND telegram_id = '431957763'
-        AND user_name = ''
-        ) LIMIT 1;
-
-        INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-        Select 'Dmitry', '', '', '50678728', 'dmitrylen'
-        WHERE NOT EXISTS (
-        SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Dmitry'
-        AND last_name = ''
-        AND phone_number = ''
-        AND telegram_id = '50678728'
-        AND user_name = 'dmitrylen'
-        ) LIMIT 1;
+            INSERT INTO location (address, latitude, link, text_link, longitude, name)
+            VALUES ('ул. Кульман 5а, Лидо', '53.918885', 'http://google.com', 'ул. Кульман 5а, Лидо', '27.581235',
+            'Dmitry');
+        </sql>
+    </changeSet>
 
 
-    </sql>
-</changeSet>
+    <changeSet id="3" author="brokorenko" runOnChange="true">
+        <comment>Upload 3 meeting_info</comment>
+        <sql>
+            INSERT INTO meeting_info (questions, speaking_level, topic)
+            VALUES ('? What are two disadvantages of using smartphones and tablets?? What do you think about Cybercafes?
+            are
+            they still useful?? Do you like a job in which you have to use computers?? Do you spend too much time
+            online??
+            Does your mother of father know how to use a computer?? Do computers make life easier?? What websites do you
+            visit in a regular basis?? What do you think about the Apple?? What are some advantages of using social
+            networks?? Do you visit English websites?', 'ADVANCED', 'Internet and Computers');
+
+            INSERT INTO meeting_info (questions, speaking_level, topic)
+            VALUES (' How does having children change someones life?
+            1. What kinds of things do people have to give up when they have children?
+            2. What are some of the benefits of having children?
+            3. Do you think it is better to have children when you are older or younger?
+            4. What is the best number of children to have? How many boys or girls?
+            5. What do you think about "childfree"?
+            6. Do you want to have children?
+            - If not: Why not? Have you told your parents about your decision? What do they think about it?
+            - If so: When do you want to have children and how many do you want to have?
+            7. Do you want your first child to be a boy or a girl? Why?
+            8. How do children who have no brothers or sisters act?
+            9. What do you think about kids from a childrens home? Would you take a child from an orphanage? ',
+            'INTERMEDIATE', 'Having children');
+
+            INSERT INTO meeting_info (questions, speaking_level, topic)
+            VALUES ('1. Are you good at making friends?
+            2. Can you remember your first friend?
+            3. Whats the best age for making friends?
+            4. How long has your strongest friendship lasted?
+            5. How often do you contact with your long-distance friends?
+            6. How difficult is it to maintain a friendship?
+            7. What can break a good relationship?
+            8. Is it a good idea to go on holiday with a friend?
+            9. What do you think about lending/borrowing money to/from a friend?
+            10. Would it be difficult if your friend was your boss or subordinate?
+            11. Is it a good idea to start business with a friend?
+            12. Is it possible to establish a strong friendship through the Internet?
+            13. Is it possible to have the best friend from a different generation?
+            14. Is it possible to have the best friend from a different social or cultural background?
+            15. Is it possible to have the best friend of the opposite sex without falling in love?
+            16. Describe your ideal girlfriend/boyfriend.
+            17. Is it possible to be friends with an ex-spouse?
+            18. Is it possible to be friends with your teacher?
+            19. Can you imagine your life without friends? ',
+            'INTERMEDIATE', 'Friends');
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="brokorenko" runOnChange="true">
+        <comment>Upload 3 meetings</comment>
+        <sql>
+            INSERT INTO meeting (creation_date_time, creation_status, meeting_date_time, location_id, meeting_info_id,
+            owner_id)
+            VALUES ('2020-03-01 09:32:27', 'DONE', '2020-01-14 16:00:00', (SELECT id from location WHERE name = 'OLEG'
+            LIMIT
+            1), (SELECT id from meeting_info WHERE topic = 'Internet and Computers' LIMIT 1), (SELECT id from user WHERE
+            telegram_id = '532965560' LIMIT 1));
+
+            INSERT INTO meeting (creation_date_time, creation_status, meeting_date_time, location_id, meeting_info_id,
+            owner_id)
+            VALUES ('2020-03-05 06:32:27', 'DONE', '2020-03-13 19:00:00', (SELECT id from location WHERE name = 'Andrew'
+            LIMIT 1), (SELECT id from meeting_info WHERE topic = 'Having children' LIMIT 1), (SELECT id from user
+            WHERE telegram_id = '431957763' LIMIT 1));
+
+            INSERT INTO meeting (creation_date_time, creation_status, meeting_date_time, location_id, meeting_info_id,
+            owner_id)
+            VALUES ('2020-03-04 11:32:27', 'DONE', '2020-03-17 20:00:00', (SELECT id from location WHERE name = 'Dmitry'
+            LIMIT 1), (SELECT id from meeting_info WHERE topic = 'Having children' LIMIT 1), (SELECT id from user
+            WHERE telegram_id = '50678728' LIMIT 1));
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="brokorenko" runOnChange="true">
+        <comment>Upload 3 user_meetings</comment>
+        <sql>
+            INSERT INTO user_meeting (meeting_id, user_id)
+            VALUES ((SELECT id from meeting WHERE owner_id = ((SELECT id from user WHERE telegram_id = '532965560' LIMIT
+            1))
+            LIMIT 1), (SELECT id from user WHERE telegram_id = '532965560' LIMIT 1));
+
+            INSERT INTO user_meeting (meeting_id, user_id)
+            VALUES ((SELECT id from meeting WHERE owner_id = ((SELECT id from user WHERE telegram_id = '431957763' LIMIT
+            1)) LIMIT 1), (SELECT id from user WHERE telegram_id = '431957763' LIMIT 1));
+
+            INSERT INTO user_meeting (meeting_id, user_id)
+            VALUES ((SELECT id from meeting WHERE owner_id = (SELECT id from user WHERE telegram_id = '50678728' LIMIT
+            1) LIMIT 1), (SELECT id from user WHERE telegram_id = '50678728' LIMIT 1));
+        </sql>
+    </changeSet>
 </databaseChangeLog>
