@@ -31,6 +31,7 @@ public class WelcomeStage extends MainStage {
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         keyboardFirstRow.add(new KeyboardButton("Create Meeting"));
+        keyboardFirstRow.add(new KeyboardButton("View My Meetings"));
         keyboardFirstRow.add(new KeyboardButton("View Meetings"));
 
         KeyboardRow keyboardSecondRow = new KeyboardRow();

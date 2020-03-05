@@ -21,6 +21,9 @@
     "AllMeetingViewStage": {
       "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n"
     },
+    "MyMeetingsViewStage": {
+      "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n"
+    },
     "AcceptTimeMeetingCreationSBSStage": {
       "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>18:30</code>"
     }

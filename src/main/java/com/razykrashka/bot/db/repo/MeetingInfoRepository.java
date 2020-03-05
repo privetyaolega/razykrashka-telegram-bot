@@ -1,4 +1,4 @@
-package com.razykrashka.bot.db.repo;
+package com.razykrashka.bot.repository;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import org.springframework.data.repository.CrudRepository;

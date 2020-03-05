@@ -3,7 +3,7 @@ package com.razykrashka.bot.service;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
-import com.razykrashka.bot.db.repo.TelegramUserRepository;
+import com.razykrashka.bot.repository.TelegramUserRepository;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
@@ -61,7 +61,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     TelegramUser user;
 
     List<Stage> activeStages;
-    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "Information :P");
+    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "View My Meetings", "Information :P");
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
