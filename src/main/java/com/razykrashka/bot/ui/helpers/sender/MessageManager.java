@@ -197,7 +197,7 @@ public class MessageManager extends Sender {
         return this;
     }
 
-    public void updateOrSendDependsOnMessageOwner(String textMessage, ReplyKeyboard replyKeyboard) {
+    public void updateOrSendDependsOnLastMessageOwner(String textMessage, ReplyKeyboard replyKeyboard) {
         List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrue();
         TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
 

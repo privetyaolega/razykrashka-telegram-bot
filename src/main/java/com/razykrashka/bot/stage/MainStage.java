@@ -32,129 +32,135 @@ import java.util.Map;
 @AllArgsConstructor
 public abstract class MainStage implements Stage {
 
-    private static List<Map<String, Object>> data;
+	private static List<Map<String, Object>> data;
 
-    @Autowired
-    protected MeetingRepository meetingRepository;
-    @Autowired
-    protected TelegramUserRepository telegramUserRepository;
-    @Autowired
-    protected MeetingInfoRepository meetingInfoRepository;
-    @Autowired
-    protected LocationRepository locationRepository;
-    @Autowired
-    protected TelegramMessageRepository telegramMessageRepository;
+	@Autowired
+	protected MeetingRepository meetingRepository;
+	@Autowired
+	protected TelegramUserRepository telegramUserRepository;
+	@Autowired
+	protected MeetingInfoRepository meetingInfoRepository;
+	@Autowired
+	protected LocationRepository locationRepository;
+	@Autowired
+	protected TelegramMessageRepository telegramMessageRepository;
 
-    @Autowired
-    protected RazykrashkaBot razykrashkaBot;
+	@Autowired
+	protected RazykrashkaBot razykrashkaBot;
 
-    @Autowired
-    protected MessageManager messageManager;
-    @Autowired
-    protected KeyboardBuilder keyboardBuilder;
+	@Autowired
+	protected MessageManager messageManager;
+	@Autowired
+	protected KeyboardBuilder keyboardBuilder;
 
-    protected boolean stageActivity;
-    protected StageInfo stageInfo;
-    protected Update update;
+	protected boolean stageActivity;
+	protected StageInfo stageInfo;
+	protected Update update;
 
-    static {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-        try {
-            data = mapper.readValue(new File("src/main/resources/stage/stageStringStorage.json"),
-                    new TypeReference<List<Map<String, Map<String, String>>>>() {
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	static {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+		try {
+			data = mapper.readValue(new File("src/main/resources/stage/stageStringStorage.json"),
+					new TypeReference<List<Map<String, Map<String, String>>>>() {
+					});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    {
-        stageInfo = StageInfo.DEFAULT;
-    }
+	{
+		stageInfo = StageInfo.DEFAULT;
+	}
 
-    @Override
-    public void handleRequest() {
-        messageManager.sendSimpleTextMessage(stageInfo.getWelcomeMessageEn(), getKeyboard());
-    }
+	@Override
+	public void handleRequest() {
+		messageManager.sendSimpleTextMessage(stageInfo.getWelcomeMessageEn(), getKeyboard());
+	}
 
-    @Override
-    public StageInfo getStageInfo() {
-        return stageInfo;
-    }
+	@Override
+	public StageInfo getStageInfo() {
+		return stageInfo;
+	}
 
-    @Override
-    public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
-            return razykrashkaBot.getRealUpdate().getMessage().getText()
-                    .equals(this.getStageInfo().getKeyword());
-        }
-        return false;
-    }
+	@Override
+	public boolean isStageActive() {
+		if (razykrashkaBot.getRealUpdate().hasMessage()) {
+			return razykrashkaBot.getRealUpdate().getMessage().getText()
+					.equals(this.getStageInfo().getKeyword());
+		}
+		return false;
+	}
 
-    @Override
-    public Stage setMessage(Update message) {
-        this.update = message;
-        return this;
-    }
+	@Override
+	public Stage setMessage(Update message) {
+		this.update = message;
+		return this;
+	}
 
-    public InlineKeyboardMarkup getInlineRuEnKeyboard(String callBackData, String textButton) {
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(textButton)
-                .setCallbackData(stageInfo.getStageName() + callBackData));
+	public InlineKeyboardMarkup getInlineRuEnKeyboard(String callBackData, String textButton) {
+		InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+		List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
+		keyboardButtonsRow1.add(new InlineKeyboardButton().setText(textButton)
+				.setCallbackData(stageInfo.getStageName() + callBackData));
 
-        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1));
-        return inlineKeyboardMarkup;
-    }
+		inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1));
+		return inlineKeyboardMarkup;
+	}
 
-    @Override
-    public ReplyKeyboard getKeyboard() {
-        throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
-    }
+	@Override
+	public ReplyKeyboard getKeyboard() {
+		throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
+	}
 
-    @Override
-    public List<String> getValidKeywords() {
-        return Arrays.asList(this.getStageInfo().getKeyword());
-    }
+	@Override
+	public List<String> getValidKeywords() {
+		return Arrays.asList(this.getStageInfo().getKeyword());
+	}
 
-    @Override
-    public boolean processCallBackQuery() {
-        String callBackData = razykrashkaBot.getCallbackQuery().getData();
-        if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
-            messageManager.updateMessage(stageInfo.getWelcomeMessageRu(),
-                    getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
-        }
-        if (callBackData.equals(stageInfo.getStageName() + "ru_en")) {
-            messageManager.updateMessage(stageInfo.getWelcomeMessageEn(),
-                    getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
-        }
-        return true;
-    }
+	@Override
+	public boolean processCallBackQuery() {
+		String callBackData = razykrashkaBot.getCallbackQuery().getData();
+		if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
+			messageManager.updateMessage(stageInfo.getWelcomeMessageRu(),
+					getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
+		}
+		if (callBackData.equals(stageInfo.getStageName() + "ru_en")) {
+			messageManager.updateMessage(stageInfo.getWelcomeMessageEn(),
+					getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
+		}
+		return true;
+	}
 
-    protected String getCallBackString(String callBackData) {
-        return this.getClass().getSimpleName() + callBackData;
-    }
+	protected String getCallBackString(String callBackData) {
+		return this.getClass().getSimpleName() + callBackData;
+	}
 
-    @Override
-    public void setActive(boolean isActive) {
-        this.stageActivity = isActive;
-    }
+	@Override
+	public void setActive(boolean isActive) {
+		this.stageActivity = isActive;
+	}
 
-    protected Map<String, String> getStringMap() {
-        String className = this.getClass().getSimpleName();
-        return (Map<String, String>) data.stream()
-                .filter(x -> x.containsKey(className))
-                .findFirst().get().get(className);
-    }
+	protected Map<String, String> getStringMap() {
+		String className = this.getClass().getSimpleName();
+		return (Map<String, String>) data.stream()
+				.filter(x -> x.containsKey(className))
+				.findFirst().get().get(className);
+	}
 
-    public boolean getStageActivity() {
-        return stageActivity;
-    }
+	public boolean getStageActivity() {
+		return stageActivity;
+	}
 
-    protected void setActiveNextStage(Class clazz) {
-        razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
-        Stage stage = ((Stage) razykrashkaBot.getContext().getBean(clazz));
-        stage.setActive(true);
-    }
+	protected void setActiveNextStage(Class clazz) {
+		razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
+		Stage stage = ((Stage) razykrashkaBot.getContext().getBean(clazz));
+		stage.setActive(true);
+	}
+
+	protected String getPureCallBackData() {
+		return razykrashkaBot.getRealUpdate()
+				.getCallbackQuery().getData()
+				.replace(this.getClass().getSimpleName(), "");
+	}
 }
