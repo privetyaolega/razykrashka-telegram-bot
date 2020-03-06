@@ -37,7 +37,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 messageManager.replyLastMessage("Please, choose meeting date.",
                         generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
             } else {
-                messageManager.updateOrSendDependsOnMessageOwner("Please, choose meeting date.",
+                messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.",
                         generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
             }
         } else {
@@ -48,7 +48,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             String monthYear = callBackData.replace(this.getClass().getSimpleName(), "");
             int month = Integer.parseInt(monthYear.substring(0, 2));
             int year = Integer.parseInt("20" + monthYear.substring(2, 4));
-            messageManager.updateOrSendDependsOnMessageOwner("Please, choose meeting date.", generateCalendarKeyboard(month, year));
+            messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", generateCalendarKeyboard(month, year));
         }
         return true;
     }
