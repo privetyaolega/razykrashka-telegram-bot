@@ -60,4 +60,29 @@ public class UpdateHelper {
 			return update.getCallbackQuery().getMessage().getChat().getId();
 		}
 	}
+
+	public String getStringPureCallBackData() {
+		String classCaller = getCallerClassName();
+		if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+			return razykrashkaBot.getRealUpdate()
+					.getCallbackQuery().getData()
+					.replace(classCaller, "");
+		}
+		throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have Call Back Query!");
+	}
+
+	public Integer getIntegerPureCallBackData() {
+		return Integer.valueOf(getStringPureCallBackData());
+	}
+
+	private String getCallerClassName() {
+		StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
+		for (int i = 1; i < stElements.length; i++) {
+			StackTraceElement ste = stElements[i];
+			if (!ste.getClassName().equals(UpdateHelper.class.getName()) && ste.getClassName().indexOf("java.lang.Thread") != 0) {
+				return ste.getClassName();
+			}
+		}
+		return null;
+	}
 }

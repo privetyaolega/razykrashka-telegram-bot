@@ -33,17 +33,29 @@ public class AllMeetingViewStage extends MainStage {
 		if (meetings.size() == 0) {
 			messageManager.sendSimpleTextMessage("NO MEETINGS :(");
 		} else {
-			if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-				pageNumToShow = Integer.parseInt(getPureCallBackData());
-			}
+			initPageNumToShow();
 			int firstMeetingIndex = (pageNumToShow - 1) * MEETINGS_PER_PAGE;
 			List<Meeting> meetingsToShow = meetings.subList(firstMeetingIndex, firstMeetingIndex + MEETINGS_PER_PAGE);
 			String messageText = meetingMessageUtils.createMeetingsText(meetingsToShow);
 
 			if (meetings.size() > MEETINGS_PER_PAGE) {
 				keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, meetings.size());
+				messageManager.updateMessage(messageText, keyboard);
 			}
 			messageManager.sendSimpleTextMessage(messageText, keyboard);
+		}
+	}
+
+	/**
+	 *
+	 *  Presence of Call Back Query indicates that we need to display
+	 *  not the first page, but page that goes from CBQ
+	 *  CBQ Example: 'AllMeetingViewStage3' - need to display the third page
+	 *
+	 */
+	private void initPageNumToShow() {
+		if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+			pageNumToShow = updateHelper.getIntegerPureCallBackData();
 		}
 	}
 }
