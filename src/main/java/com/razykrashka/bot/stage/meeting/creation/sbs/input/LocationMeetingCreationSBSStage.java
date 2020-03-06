@@ -17,7 +17,7 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         Meeting meeting = getMeetingInCreation();
         meeting.setLocation(null);
         meetingRepository.save(meeting);
-        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(razykrashkaBot.getCurrentChatId()).isHasKeyboard()) {
+        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(updateHelper.getChatId()).isHasKeyboard()) {
             messageManager.deleteLastBotMessage();
         }
         messageManager.sendSimpleTextMessage(super.getMeetingPrettyString() +

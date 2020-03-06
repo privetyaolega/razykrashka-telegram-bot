@@ -11,13 +11,9 @@ public interface Stage {
 
     ReplyKeyboard getKeyboard();
 
-    List<String> getValidKeywords();
-
     void handleRequest();
 
     boolean isStageActive();
-
-    Stage setMessage(Update message);
 
     boolean processCallBackQuery();
 

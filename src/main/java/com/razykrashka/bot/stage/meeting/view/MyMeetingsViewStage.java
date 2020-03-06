@@ -28,11 +28,6 @@ public class MyMeetingsViewStage extends MainStage {
 	}
 
 	@Override
-	public List<String> getValidKeywords() {
-		return null;
-	}
-
-	@Override
 	public void handleRequest() {
 		List<Meeting> userMeetings = meetingRepository.findAllByTelegramUser(razykrashkaBot.getUser());
 

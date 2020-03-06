@@ -36,12 +36,6 @@ public class NewMeetingCreationStage extends MainStage {
     }
 
     @Override
-    public List<String> getValidKeywords() {
-        return null;
-    }
-
-
-    @Override
     public void handleRequest() {
         message = razykrashkaBot.getUpdate().getMessage().getText().replace("@Test7313494Bot", "").trim();
         try {

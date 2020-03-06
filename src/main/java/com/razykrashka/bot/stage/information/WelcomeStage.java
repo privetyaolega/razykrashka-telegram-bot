@@ -44,9 +44,4 @@ public class WelcomeStage extends MainStage {
         return replyKeyboardMarkup;
     }
 
-    @Override
-    public List<String> getValidKeywords() {
-        return null;
-    }
-
 }
