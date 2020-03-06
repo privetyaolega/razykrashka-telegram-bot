@@ -27,8 +27,8 @@ public class MeetingMessageUtils {
 		return sendMessage;
 	}
 
-	private String createMeetingsText(List<Meeting> userMeetings) {
-		return userMeetings.stream().skip(0).limit(5)
+	public String createMeetingsText(List<Meeting> userMeetings) {
+		return userMeetings.stream()
 				.map(this::createSingleMeetingMainInformationText)
 				.collect(Collectors.joining("\n\n", "\uD83D\uDCAB Найдено " + userMeetings.size() + " встреч(и)\n\n", ""));
 	}

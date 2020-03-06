@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Component
@@ -20,7 +19,8 @@ public class AllMeetingViewStage extends MainStage {
 	@Autowired
 	private MeetingMessageUtils meetingMessageUtils;
 	private Integer pageNumToShow = 1;
-	private static final Integer PAGE_MEETINGS_AMOUNT = 5;
+	private static final Integer MEETINGS_PER_PAGE = 5;
+	private InlineKeyboardMarkup keyboard = null;
 
 	public AllMeetingViewStage() {
 		stageInfo = StageInfo.ALL_MEETING_VIEW;
@@ -28,7 +28,6 @@ public class AllMeetingViewStage extends MainStage {
 
 	@Override
 	public void handleRequest() {
-
 		List<Meeting> meetings = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(CreationStatus.DONE, razykrashkaBot.getUser());
 
 		if (meetings.size() == 0) {
@@ -37,23 +36,14 @@ public class AllMeetingViewStage extends MainStage {
 			if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
 				pageNumToShow = Integer.parseInt(getPureCallBackData());
 			}
-			String messageText = meetings.stream()
-					.skip(pageNumToShow * PAGE_MEETINGS_AMOUNT)
-					.limit(PAGE_MEETINGS_AMOUNT)
-					.map(meeting -> meetingMessageUtils.createSingleMeetingMainInformationText(meeting))
-					.collect(Collectors.joining(getStringMap().get("delimiterLine"),
-							String.format(getStringMap().get("delimiterLine"), meetings.size()), ""));
-			if (meetings.size() > 5) {
-				InlineKeyboardMarkup keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(),
-						pageNumToShow, meetings.size());
-				messageManager.sendSimpleTextMessage(messageText, keyboard);
-			}
-			messageManager.sendSimpleTextMessage(messageText);
-		}
-	}
+			int firstMeetingIndex = pageNumToShow * MEETINGS_PER_PAGE;
+			List<Meeting> meetingsToShow = meetings.subList(firstMeetingIndex, firstMeetingIndex + MEETINGS_PER_PAGE);
+			String messageText = meetingMessageUtils.createMeetingsText(meetingsToShow);
 
-	@Override
-	public boolean isStageActive() {
-		return updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
+			if (meetings.size() > MEETINGS_PER_PAGE) {
+				keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, meetings.size());
+			}
+			messageManager.sendSimpleTextMessage(messageText, keyboard);
+		}
 	}
 }
