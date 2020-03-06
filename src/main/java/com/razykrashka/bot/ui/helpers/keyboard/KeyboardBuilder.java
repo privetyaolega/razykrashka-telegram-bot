@@ -1,4 +1,4 @@
-package com.razykrashka.bot.ui.helpers;
+package com.razykrashka.bot.ui.helpers.keyboard;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

@@ -5,6 +5,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
 @Log4j2
@@ -58,5 +60,46 @@ public class AllMeetingViewStage extends MainStage {
             boolean res = message.getText().equals("View Meetings");
             return res;
         }
+    }
+
+    public void getPaginationKeyboard(int currentPageNum, int totalPagesSize) {
+        List<Pair<String, String>> list = new ArrayList<>();
+        if (currentPageNum < 5) {
+            printKeyBoardLow(currentPageNum, totalPagesSize);
+        } else if (currentPageNum + 3 > totalPagesSize) {
+            printKeyBoardHigh(currentPageNum, totalPagesSize);
+        } else {
+            list.add(Pair.of("« 1", getCallBackQuery(1)));
+            list.add(Pair.of("‹ " + (currentPageNum - 1), getCallBackQuery(currentPageNum - 1)));
+            list.add(Pair.of(String.format("⋅%s⋅", currentPageNum), getCallBackQuery(currentPageNum)));
+            list.add(Pair.of((currentPageNum + 1) + " ›", getCallBackQuery(currentPageNum + 1)));
+            list.add(Pair.of(totalPagesSize + " »", getCallBackQuery(totalPagesSize)));
+            System.out.println(list);
+        }
+    }
+
+    private void printKeyBoardLow(int currentPageNum, int totalPagesSize) {
+        List<Pair<String, String>> list = new ArrayList<>();
+        IntStream.range(1, 5).forEach(i -> {
+            if (i == currentPageNum) {
+                list.add(Pair.of(String.format("⋅%s⋅", i), getCallBackQuery(i)));
+                return;
+            }
+            list.add(Pair.of(String.valueOf(i), getCallBackQuery(i)));
+        });
+        list.add(Pair.of(String.valueOf(totalPagesSize), getCallBackQuery(totalPagesSize)));
+    }
+
+    public void printKeyBoardHigh(int currentPageNum, int totalPagesSize) {
+        List<Pair<String, String>> list = new ArrayList<>();
+        list.add(Pair.of("« 1", getCallBackQuery(1)));
+        list.add(Pair.of(String.valueOf(totalPagesSize - 3), getCallBackQuery(totalPagesSize - 3)));
+        list.add(Pair.of(String.valueOf(totalPagesSize - 2), getCallBackQuery(totalPagesSize - 2)));
+        list.add(Pair.of(String.valueOf(totalPagesSize - 1), getCallBackQuery(totalPagesSize - 1)));
+        list.add(Pair.of(String.valueOf(totalPagesSize), getCallBackQuery(totalPagesSize)));
+    }
+
+    private String getCallBackQuery(int pageNum) {
+        return this.getClass().getSimpleName() + pageNum;
     }
 }

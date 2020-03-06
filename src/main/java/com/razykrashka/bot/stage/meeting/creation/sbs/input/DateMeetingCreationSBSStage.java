@@ -3,7 +3,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptDateMeetingCreationStepByStepStage;
-import com.razykrashka.bot.ui.helpers.KeyboardBuilder;
+import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
