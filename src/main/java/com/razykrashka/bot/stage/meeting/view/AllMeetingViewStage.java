@@ -30,9 +30,8 @@ public class AllMeetingViewStage extends MainStage {
 
 	@Override
 	public void handleRequest() {
-		List<Meeting> meetings = StreamSupport.stream(meetingRepository.findAll().spliterator(), false)
-				.filter(meeting -> meeting.getCreationStatus().equals(CreationStatus.DONE))
-				.collect(Collectors.toList());
+
+		List<Meeting> meetings = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(CreationStatus.DONE, razykrashkaBot.getUser());
 
 		if (meetings.size() == 0) {
 			messageManager.sendSimpleTextMessage("NO MEETINGS :(");
