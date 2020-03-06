@@ -2,7 +2,6 @@ package com.razykrashka.bot.stage.meeting.view.utils;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.service.RazykrashkaBot;
-
 import com.razykrashka.bot.stage.Stage;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -34,17 +33,20 @@ public class MeetingMessageUtils {
 	}
 
 	public SendMessage createSendMessageForSingleMeeting(Stage stage, Meeting userMeeting, RazykrashkaBot razykrashkaBot) {
-		String meetingText = createSingleMeetingText(userMeeting);
+		String meetingText = createSingleMeetingFullText(userMeeting);
 		SendMessage sendMessage = createSendMessage(razykrashkaBot, meetingText);
 
 		// sendMessage.setReplyMarkup(stage.getKeyboard(userMeeting));
 		return sendMessage;
 	}
 
-	private String createSingleMeetingText(Meeting meeting) {
+	private String createSingleMeetingFullText(Meeting meeting) {
 		return "<code>MEETING # " + meeting.getId() + "</code>\n" +
-				createSingleMeetingMainInformationText(meeting)
-				+ meeting.getMeetingInfo().getQuestions() + "\n";
+				meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
+						Locale.ENGLISH)) + "\n" + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
+				+ meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
+				+ meeting.getMeetingInfo().getTopic() + "\n"
+				+ meeting.getMeetingInfo().getQuestions().replace("●", "\n●") + "\n";
 	}
 
 	private SendMessage createSendMessage(RazykrashkaBot razykrashkaBot, String messageText) {

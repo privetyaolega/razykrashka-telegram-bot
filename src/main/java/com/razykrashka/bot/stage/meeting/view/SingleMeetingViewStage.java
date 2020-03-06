@@ -4,8 +4,10 @@ import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
+import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
@@ -19,6 +21,8 @@ import java.util.stream.StreamSupport;
 @Component
 public class SingleMeetingViewStage extends MainStage {
 
+	@Autowired
+	private MeetingMessageUtils meetingMessageUtils;
 	private Meeting meeting;
 
 	public SingleMeetingViewStage() {
@@ -31,13 +35,7 @@ public class SingleMeetingViewStage extends MainStage {
 				.replace(this.getStageInfo().getKeyword(), ""));
 		meeting = meetingRepository.findById(id).get();
 
-		String messageText = "<code>MEETING # " + meeting.getId() + "</code>\n" +
-				meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
-						Locale.ENGLISH)) + "\n" + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
-				+ meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
-				+ meeting.getMeetingInfo().getTopic() + "\n"
-				+ meeting.getMeetingInfo().getQuestions().replace("●", "\n●") + "\n";
-
+		String messageText = meetingMessageUtils.createSingleMeetingMainInformationText(meeting);
 		messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
 	}
 
@@ -94,6 +92,6 @@ public class SingleMeetingViewStage extends MainStage {
 
 	@Override
 	public boolean isStageActive() {
-		return razykrashkaBot.getUpdate().getMessage().getText().startsWith(stageInfo.getKeyword());
+		return updateHelper.isMessageContains(stageInfo.getKeyword());
 	}
 }
