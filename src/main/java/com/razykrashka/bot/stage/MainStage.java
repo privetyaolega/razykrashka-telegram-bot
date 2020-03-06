@@ -9,7 +9,7 @@ import com.razykrashka.bot.repository.MeetingInfoRepository;
 import com.razykrashka.bot.repository.MeetingRepository;
 import com.razykrashka.bot.repository.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
-import com.razykrashka.bot.ui.helpers.KeyboardBuilder;
+import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
