@@ -143,8 +143,11 @@ public abstract class MainStage implements Stage {
 	}
 
 	protected String getPureCallBackData() {
-		return razykrashkaBot.getRealUpdate()
-				.getCallbackQuery().getData()
-				.replace(this.getClass().getSimpleName(), "");
+		if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+			return razykrashkaBot.getRealUpdate()
+					.getCallbackQuery().getData()
+					.replace(this.getClass().getSimpleName(), "");
+		}
+		throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have Call Back Query!");
 	}
 }

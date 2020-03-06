@@ -52,14 +52,4 @@ public class MyMeetingsViewStage extends MainStage {
 			return "";
 		}
 	}
-
-	@Override
-	public boolean isStageActive() {
-		Message message = razykrashkaBot.getRealUpdate().getMessage();
-		if (message == null) {
-			return false;
-		} else {
-			return message.getText().equals("View My Meetings");
-		}
-	}
 }
