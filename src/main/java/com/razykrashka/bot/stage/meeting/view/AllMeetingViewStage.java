@@ -36,7 +36,7 @@ public class AllMeetingViewStage extends MainStage {
 			if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
 				pageNumToShow = Integer.parseInt(getPureCallBackData());
 			}
-			int firstMeetingIndex = pageNumToShow * MEETINGS_PER_PAGE;
+			int firstMeetingIndex = (pageNumToShow - 1) * MEETINGS_PER_PAGE;
 			List<Meeting> meetingsToShow = meetings.subList(firstMeetingIndex, firstMeetingIndex + MEETINGS_PER_PAGE);
 			String messageText = meetingMessageUtils.createMeetingsText(meetingsToShow);
 
