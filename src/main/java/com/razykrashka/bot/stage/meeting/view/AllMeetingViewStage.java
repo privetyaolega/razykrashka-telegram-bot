@@ -8,12 +8,10 @@ import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
@@ -56,11 +54,6 @@ public class AllMeetingViewStage extends MainStage {
 
 	@Override
 	public boolean isStageActive() {
-		Message message = razykrashkaBot.getRealUpdate().getMessage();
-		if (message == null) {
-			return false;
-		} else {
-			return message.getText().equals("View Meetings");
-		}
+		return updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
 	}
 }

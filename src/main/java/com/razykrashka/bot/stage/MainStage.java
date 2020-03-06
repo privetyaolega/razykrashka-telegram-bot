@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.razykrashka.bot.db.repo.*;
 import com.razykrashka.bot.service.RazykrashkaBot;
+import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AllArgsConstructor;
@@ -48,6 +49,8 @@ public abstract class MainStage implements Stage {
 	protected MessageManager messageManager;
 	@Autowired
 	protected KeyboardBuilder keyboardBuilder;
+	@Autowired
+	protected UpdateHelper updateHelper;
 
 	protected boolean stageActivity;
 	protected StageInfo stageInfo;
@@ -81,17 +84,7 @@ public abstract class MainStage implements Stage {
 
 	@Override
 	public boolean isStageActive() {
-		if (razykrashkaBot.getRealUpdate().hasMessage()) {
-			return razykrashkaBot.getRealUpdate().getMessage().getText()
-					.equals(this.getStageInfo().getKeyword());
-		}
-		return false;
-	}
-
-	@Override
-	public Stage setMessage(Update message) {
-		this.update = message;
-		return this;
+		return updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
 	}
 
 	public InlineKeyboardMarkup getInlineRuEnKeyboard(String callBackData, String textButton) {
@@ -107,11 +100,6 @@ public abstract class MainStage implements Stage {
 	@Override
 	public ReplyKeyboard getKeyboard() {
 		throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
-	}
-
-	@Override
-	public List<String> getValidKeywords() {
-		return Arrays.asList(this.getStageInfo().getKeyword());
 	}
 
 	@Override
