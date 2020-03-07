@@ -11,51 +11,72 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Component
 public class AllMeetingViewStage extends MainStage {
 
-	@Autowired
-	private MeetingMessageUtils meetingMessageUtils;
-	private Integer pageNumToShow = 1;
-	private static final Integer MEETINGS_PER_PAGE = 5;
-	private InlineKeyboardMarkup keyboard = null;
+    private static final Integer MEETINGS_PER_PAGE = 4;
+    @Autowired
+    private MeetingMessageUtils meetingMessageUtils;
+    private InlineKeyboardMarkup keyboard;
+    private List<Meeting> meetings;
+    private Integer pageNumToShow;
+    private Integer totalPagesAmount;
 
-	public AllMeetingViewStage() {
-		stageInfo = StageInfo.ALL_MEETING_VIEW;
-	}
+    public AllMeetingViewStage() {
+        stageInfo = StageInfo.ALL_MEETING_VIEW;
+    }
 
-	@Override
-	public void handleRequest() {
-		List<Meeting> meetings = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(CreationStatus.DONE, razykrashkaBot.getUser());
+    @Override
+    public void handleRequest() {
+        meetings = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(CreationStatus.DONE, razykrashkaBot.getUser());
 
-		if (meetings.size() == 0) {
-			messageManager.sendSimpleTextMessage("NO MEETINGS :(");
-		} else {
-			initPageNumToShow();
-			int firstMeetingIndex = (pageNumToShow - 1) * MEETINGS_PER_PAGE;
-			List<Meeting> meetingsToShow = meetings.subList(firstMeetingIndex, firstMeetingIndex + MEETINGS_PER_PAGE);
-			String messageText = meetingMessageUtils.createMeetingsText(meetingsToShow);
+        if (meetings.size() == 0) {
+            messageManager.sendSimpleTextMessage("NO MEETINGS :(");
+        } else {
+            initPageNumToShow();
+            totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(MEETINGS_PER_PAGE));
+            List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage();
 
-			if (meetings.size() > MEETINGS_PER_PAGE) {
-				keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, meetings.size());
-				messageManager.updateMessage(messageText, keyboard);
-			}
-			messageManager.sendSimpleTextMessage(messageText, keyboard);
-		}
-	}
+            String messageText = meetingMessageUtils.createMeetingsText(meetingsToShow, meetings.size());
+            if (meetings.size() > MEETINGS_PER_PAGE) {
+                keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
+            }
+            if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+                messageManager.updateMessage(messageText, keyboard);
+            } else {
+                messageManager.sendSimpleTextMessage(messageText, keyboard);
+            }
+        }
+    }
 
-	/**
-	 *
-	 *  Presence of Call Back Query indicates that we need to display
-	 *  not the first page, but page that goes from CBQ
-	 *  CBQ Example: 'AllMeetingViewStage3' - need to display the third page
-	 *
-	 */
-	private void initPageNumToShow() {
-		if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-			pageNumToShow = updateHelper.getIntegerPureCallBackData();
-		}
-	}
+    @Override
+    public boolean processCallBackQuery() {
+        handleRequest();
+        return true;
+    }
+
+    /**
+     * By default, first page is shown
+     * <p>
+     * Presence of Call Back Query indicates that we need to display
+     * not the first page, but page that goes from CBQ
+     * CBQ Example: 'AllMeetingViewStage3' - need to display the third page
+     */
+    private void initPageNumToShow() {
+        pageNumToShow = razykrashkaBot.getRealUpdate().hasCallbackQuery() ? updateHelper.getIntegerPureCallBackData() : 1;
+    }
+
+    private List<Meeting> getMeetingsSublistForCurrentPage() {
+        int limit = MEETINGS_PER_PAGE;
+        if (totalPagesAmount.equals(pageNumToShow) && totalPagesAmount * MEETINGS_PER_PAGE - meetings.size() != 0) {
+            limit = totalPagesAmount * MEETINGS_PER_PAGE - meetings.size();
+        }
+        return meetings.stream()
+                .skip((pageNumToShow - 1) * MEETINGS_PER_PAGE)
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
 }

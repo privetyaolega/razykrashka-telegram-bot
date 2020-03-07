@@ -66,7 +66,8 @@ public enum StageInfo {
     NEW_MEETING_CREATION("NewMeetingCreationStage", "Your request in moderation...", "Запрос в обработке", "NEW MEETING REQUEST"),
     CREATE_MEETING_ON_STEPS("NewMeetingCreationStage", null, null, "Create Meeting Step By Step"),
     DEFAULT("MainAbstractStage", null, null, "NoKeyWords!"),
-    SELECT_WAY_MEETING_CREATION("SelectWayMeetingCreationStage", null, null, "Create Meeting");
+    SELECT_WAY_MEETING_CREATION("SelectWayMeetingCreationStage", null, null, "Create Meeting"),
+    TEST_BULK_MEETING_CREATION("TestBulkMeetingCreation", null, null, "/create_meetings");
 
     private final String stageName;
     private final String welcomeMessageRu;
