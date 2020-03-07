@@ -16,51 +16,51 @@ import java.util.stream.Collectors;
 @Component
 public class MeetingMessageUtils {
 
-	public SendMessage createSendMessageWithMeetings(Stage stage, List<Meeting> userMeetings, RazykrashkaBot razykrashkaBot) {
-		String meetingsText = createMeetingsText(userMeetings);
-		SendMessage sendMessage = createSendMessage(razykrashkaBot, meetingsText);
-		if (userMeetings.size() > 5) {
-			// PAGINATION INLINE KEYBOARD
-			// sendMessage.setReplyMarkup(stage.getKeyboard(null));
-		}
-		return sendMessage;
-	}
+    public SendMessage createSendMessageWithMeetings(Stage stage, List<Meeting> userMeetings, RazykrashkaBot razykrashkaBot) {
+        String meetingsText = createMeetingsText(userMeetings, userMeetings.size());
+        SendMessage sendMessage = createSendMessage(razykrashkaBot, meetingsText);
+        if (userMeetings.size() > 5) {
+            // PAGINATION INLINE KEYBOARD
+            // sendMessage.setReplyMarkup(stage.getKeyboard(null));
+        }
+        return sendMessage;
+    }
 
-	public String createMeetingsText(List<Meeting> userMeetings) {
-		return userMeetings.stream()
-				.map(this::createSingleMeetingMainInformationText)
-				.collect(Collectors.joining("\n\n", "\uD83D\uDCAB Найдено " + userMeetings.size() + " встреч(и)\n\n", ""));
-	}
+    public String createMeetingsText(List<Meeting> userMeetings, int meetingAmount) {
+        return userMeetings.stream()
+                .map(this::createSingleMeetingMainInformationText)
+                .collect(Collectors.joining("\n\n", "\uD83D\uDCAB Найдено " + meetingAmount + " встреч(и)\n\n", ""));
+    }
 
-	public SendMessage createSendMessageForSingleMeeting(Stage stage, Meeting userMeeting, RazykrashkaBot razykrashkaBot) {
-		String meetingText = createSingleMeetingFullText(userMeeting);
-		SendMessage sendMessage = createSendMessage(razykrashkaBot, meetingText);
+    public SendMessage createSendMessageForSingleMeeting(Stage stage, Meeting userMeeting, RazykrashkaBot razykrashkaBot) {
+        String meetingText = createSingleMeetingFullText(userMeeting);
+        SendMessage sendMessage = createSendMessage(razykrashkaBot, meetingText);
 
-		// sendMessage.setReplyMarkup(stage.getKeyboard(userMeeting));
-		return sendMessage;
-	}
+        // sendMessage.setReplyMarkup(stage.getKeyboard(userMeeting));
+        return sendMessage;
+    }
 
-	private String createSingleMeetingFullText(Meeting meeting) {
-		return "<code>MEETING # " + meeting.getId() + "</code>\n" +
-				meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
-						Locale.ENGLISH)) + "\n" + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
-				+ meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
-				+ meeting.getMeetingInfo().getTopic() + "\n"
-				+ meeting.getMeetingInfo().getQuestions().replace("●", "\n●") + "\n";
-	}
+    private String createSingleMeetingFullText(Meeting meeting) {
+        return "<code>MEETING # " + meeting.getId() + "</code>\n" +
+                meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
+                        Locale.ENGLISH)) + "\n" + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
+                + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
+                + meeting.getMeetingInfo().getTopic() + "\n"
+                + meeting.getMeetingInfo().getQuestions().replace("●", "\n●") + "\n";
+    }
 
-	private SendMessage createSendMessage(RazykrashkaBot razykrashkaBot, String messageText) {
-		return new SendMessage()
-				.setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId())
-				.setParseMode("html")
-				.setText(messageText);
-	}
+    private SendMessage createSendMessage(RazykrashkaBot razykrashkaBot, String messageText) {
+        return new SendMessage()
+                .setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId())
+                .setParseMode("html")
+                .setText(messageText);
+    }
 
-	public String createSingleMeetingMainInformationText(Meeting meeting) {
-		return meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH)) + "\n"
-				+ "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
-				+ meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
-				+ meeting.getMeetingInfo().getTopic() + "\n"
-				+ "INFORMATION: /meeting" + meeting.getId();
-	}
+    public String createSingleMeetingMainInformationText(Meeting meeting) {
+        return meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH)) + "\n"
+                + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
+                + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
+                + meeting.getMeetingInfo().getTopic() + "\n"
+                + "INFORMATION: /meeting" + meeting.getId();
+    }
 }
