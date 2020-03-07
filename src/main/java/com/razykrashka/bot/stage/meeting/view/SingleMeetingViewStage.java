@@ -35,7 +35,7 @@ public class SingleMeetingViewStage extends MainStage {
 				.replace(this.getStageInfo().getKeyword(), ""));
 		meeting = meetingRepository.findById(id).get();
 
-		String messageText = meetingMessageUtils.createSingleMeetingMainInformationText(meeting);
+		String messageText = meetingMessageUtils.createSingleMeetingFullText(meeting);
 		messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
 	}
 
