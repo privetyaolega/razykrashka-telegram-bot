@@ -31,6 +31,10 @@
     "LevelMeetingCreationSBSStage": {
       "input": "Please, enter speaking level",
       "back": "⬅️ Back to Location edit"
+    },
+    "ParticipantsMeetingCreationSBSStage": {
+      "input": "Please, enter participants limit amount",
+      "back": "⬅️ Back to Level edit"
     }
   }
 ]

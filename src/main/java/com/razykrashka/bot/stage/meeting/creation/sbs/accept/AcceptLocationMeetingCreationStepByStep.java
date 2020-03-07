@@ -19,16 +19,23 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
 
     @Override
     public void handleRequest() {
-        String address = razykrashkaBot.getRealUpdate().getMessage().getText();
         Location location;
+
         try {
-            location = mapLocationHelper.getLocation(address);
+            if (razykrashkaBot.getRealUpdate().getMessage().hasLocation()) {
+                location = mapLocationHelper.getLocationByCoordinate(razykrashkaBot
+                        .getRealUpdate().getMessage().getLocation());
+            } else {
+                String address = razykrashkaBot.getRealUpdate().getMessage().getText();
+                location = mapLocationHelper.getLocation(address);
+            }
         } catch (Exception e) {
             // TODO: Create informative error message
             messageManager.replyLastMessage("Nothing were found by this street. Please, clarify!");
             razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
             return;
         }
+
         locationRepository.save(location);
 
         Meeting meeting = getMeetingInCreation();

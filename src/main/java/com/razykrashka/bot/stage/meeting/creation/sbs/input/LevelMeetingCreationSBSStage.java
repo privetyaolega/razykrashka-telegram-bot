@@ -21,7 +21,7 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                         "Upper-Intermediate", "UPPER_INTERMEDIATE"))
                 .setRow(ImmutableMap.of("Advanced", "ADVANCED",
                         "Native", "NATIVE"))
-                .setRow(super.getString("back"), this.getClass().getSimpleName())
+                .setRow(super.getString("back"), LocationMeetingCreationSBSStage.class.getSimpleName())
                 .build();
         messageManager.sendSimpleTextMessage(getMeetingPrettyString() +
                 super.getString("input"), keyboardMarkup);
