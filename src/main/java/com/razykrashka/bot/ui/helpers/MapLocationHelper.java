@@ -2,6 +2,7 @@ package com.razykrashka.bot.ui.helpers;
 
 import com.razykrashka.bot.api.YandexMapApi;
 import com.razykrashka.bot.api.model.yandex.FeatureYandex;
+import com.razykrashka.bot.api.model.yandex.Properties;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramLinkEmbedded;
 import com.razykrashka.bot.exception.YandexMapApiException;
@@ -25,7 +26,7 @@ public class MapLocationHelper {
 
     public Location getLocation(String address) throws YandexMapApiException {
         // TODO: Filter by category (cafe, restaurants etc) and city
-        List<FeatureYandex> yandexMapModelList = YandexMapApi.getYandexMapModel(address).getFeatures();
+        List<FeatureYandex> yandexMapModelList = YandexMapApi.getYandexMapModelBiz(address + " Минск").getFeatures();
 
         FeatureYandex yandexMapModel;
         if (yandexMapModelList.size() == 0) {
@@ -42,5 +43,11 @@ public class MapLocationHelper {
                     .build());
             return location;
         }
+    }
+
+    public Location getLocationByCoordinate(org.telegram.telegrambots.meta.api.objects.Location location) throws YandexMapApiException {
+        String text = location.getLatitude() + "," + location.getLongitude();
+        Properties properties = YandexMapApi.getYandexMapModel(text).getFeatures().get(0).getProperties();
+        return getLocation(properties.getName());
     }
 }

@@ -24,7 +24,7 @@ public class PaginationKeyboardHelper {
 
     protected List<Pair<String, String>> getPaginationKeyboard() {
         list = new ArrayList<>();
-        if (pageNumToShow <= 3) {
+        if (pageNumToShow <= 3 || totalPagesSize < 6) {
             getLowLimitKeyboard();
         } else if (pageNumToShow + 3 > totalPagesSize) {
             getHighLimitKeyboard();

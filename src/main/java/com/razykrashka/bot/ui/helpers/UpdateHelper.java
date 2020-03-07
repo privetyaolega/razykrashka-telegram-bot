@@ -25,6 +25,10 @@ public class UpdateHelper {
         return false;
     }
 
+    public boolean isCallBackDataContains() {
+        return isCallBackDataContains(getCallerClass().getSimpleName());
+    }
+
     public boolean isCallBackDataEquals(String string) {
         if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
             return razykrashkaBot.getRealUpdate()
@@ -35,7 +39,8 @@ public class UpdateHelper {
     }
 
     public boolean isMessageContains(String string) {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
+        if (razykrashkaBot.getRealUpdate().hasMessage()
+                && razykrashkaBot.getRealUpdate().getMessage().hasText()) {
             return razykrashkaBot.getRealUpdate()
                     .getMessage().getText()
                     .contains(string);
@@ -44,10 +49,12 @@ public class UpdateHelper {
     }
 
     public boolean isMessageTextEquals(String string) {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
+        if (razykrashkaBot.getRealUpdate().hasMessage()
+                && razykrashkaBot.getRealUpdate().getMessage().hasText()) {
             return razykrashkaBot.getRealUpdate()
                     .getMessage().getText()
                     .equals(string);
+
         }
         return false;
     }

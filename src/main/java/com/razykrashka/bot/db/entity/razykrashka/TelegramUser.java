@@ -40,7 +40,7 @@ public class TelegramUser {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id")
     )
-    Set<Meeting> toGoMeetings;
+    Set<Meeting> toGoMeetings = new HashSet<>();
 
     public void addMeetingTotoGoMeetings(Meeting meeting) {
         toGoMeetings.add(meeting);

@@ -22,12 +22,20 @@ public class YandexMapApi extends RestBuilder {
     @Value("${endpoint}")
     static String endpoint = "https://search-maps.yandex.ru/v1/";
 
+    public static FeaturesYandex getYandexMapModelBiz(String address) {
+        return getRequest(endpoint, ImmutableMap.of(
+                "apikey", token,
+                "text", address,
+                "lang", "ru_RU",
+                "type", "biz"
+        ), FeaturesYandex.class);
+    }
+
     public static FeaturesYandex getYandexMapModel(String address) {
         return getRequest(endpoint, ImmutableMap.of(
                 "apikey", token,
                 "text", address,
-                "lang", "en_US",
-                "type", "biz"
+                "lang", "ru_RU"
         ), FeaturesYandex.class);
     }
 }
