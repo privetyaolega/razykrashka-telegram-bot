@@ -40,7 +40,7 @@ public class MeetingMessageUtils {
         return sendMessage;
     }
 
-    private String createSingleMeetingFullText(Meeting meeting) {
+    public String createSingleMeetingFullText(Meeting meeting) {
         return "<code>MEETING # " + meeting.getId() + "</code>\n" +
                 meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
                         Locale.ENGLISH)) + "\n" + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"

@@ -60,6 +60,8 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     CallbackQuery callbackQuery;
     TelegramUser user;
 
+    Integer testGroupChatId = -454425882;
+
     List<Stage> activeStages;
     List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "View My Meetings", "Information :P");
 
