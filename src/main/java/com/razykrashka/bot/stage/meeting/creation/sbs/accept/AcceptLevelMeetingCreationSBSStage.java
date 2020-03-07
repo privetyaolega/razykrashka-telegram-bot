@@ -26,7 +26,7 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         CallbackQuery callbackQuery = razykrashkaBot.getRealUpdate().getCallbackQuery();
 
         MeetingInfo meetingInfo = MeetingInfo.builder()
-                .speakingLevel(SpeakingLevel.valueOf(callbackQuery.getData().toUpperCase()))
+                .speakingLevel(SpeakingLevel.valueOf(callbackQuery.getData()))
                 .build();
         meetingInfoRepository.save(meetingInfo);
 

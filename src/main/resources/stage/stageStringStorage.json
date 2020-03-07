@@ -27,6 +27,10 @@
     },
     "AcceptTimeMeetingCreationSBSStage": {
       "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>18:30</code>"
+    },
+    "LevelMeetingCreationSBSStage": {
+      "input": "Please, enter speaking level",
+      "back": "⬅️ Back to Location edit"
     }
   }
 ]
