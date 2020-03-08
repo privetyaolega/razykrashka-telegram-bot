@@ -17,10 +17,10 @@ import java.util.List;
 @Setter
 public class LoсationiqApi extends RestBuilder {
 
-    @Value("${api.locationiq.token}")
-    static String token = "9ee08192129152";
-    @Value("${api.locationiq.endpoint}")
-    static String endpoint = "https://eu1.locationiq.com/v1/search.php?&format=json";
+    @Value("${locationq.api.token}")
+    static String token;
+    @Value("${locationq.api.endpoint}")
+    static String endpoint;
 
     public static List<Locationiq> getLocationModel(String address) {
         return getListRequest(endpoint, ImmutableMap.of("key", token, "q", address), Locationiq.class);

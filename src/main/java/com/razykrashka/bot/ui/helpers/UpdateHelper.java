@@ -104,4 +104,11 @@ public class UpdateHelper {
         }
         throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have message!");
     }
+
+    public String getCallBackData() {
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+            return razykrashkaBot.getRealUpdate().getCallbackQuery().getData();
+        }
+        throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have call back query!");
+    }
 }

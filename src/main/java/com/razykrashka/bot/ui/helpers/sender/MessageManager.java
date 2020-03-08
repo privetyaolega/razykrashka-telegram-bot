@@ -131,7 +131,7 @@ public class MessageManager extends Sender {
 
     public MessageManager updateMessage(String message, ReplyKeyboard keyboard) {
         Message callBackMessage = razykrashkaBot.getCallbackQuery().getMessage();
-        Integer messageId = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(razykrashkaBot.getCurrentChatId()).getId();
+        Integer messageId = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(updateHelper.getChatId()).getId();
         EditMessageText editMessageReplyMarkup = new EditMessageText()
                 .setChatId(callBackMessage.getChat().getId())
                 .setMessageId(messageId)
@@ -191,7 +191,7 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager deleteLastBotMessage() {
-        TelegramMessage lastBotMessage = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(razykrashkaBot.getCurrentChatId());
+        TelegramMessage lastBotMessage = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(updateHelper.getChatId());
         try {
             razykrashkaBot.execute(new DeleteMessage()
                     .setChatId(lastBotMessage.getChatId())
