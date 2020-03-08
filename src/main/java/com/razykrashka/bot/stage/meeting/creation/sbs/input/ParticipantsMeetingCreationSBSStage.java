@@ -16,17 +16,20 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
         messageManager.deleteLastBotMessageIfHasKeyboard();
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
-                        "1", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "1",
-                        "2", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "2"))
+                        "2️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "2",
+                        "3️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "3",
+                        "4️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "4"))
                 .setRow(ImmutableMap.of(
-                        "3", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "3",
-                        "4", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "4"))
+                        "5️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "5",
+                        "6️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "6",
+                        "7️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "7"))
                 .setRow(ImmutableMap.of(
-                        "5", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "5",
-                        "6", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "6"))
-                .setRow("BACK TO LEVEL EDIT", LevelMeetingCreationSBSStage.class.getSimpleName())
+                        "8️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "8",
+                        "9️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "9",
+                        "\uD83D\uDD1F", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "10"))
+                .setRow(getString("back"), LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageManager.sendSimpleTextMessage(getMeetingPrettyString() + "\n\nPlease, input max people", keyboardMarkup);
+        messageManager.sendSimpleTextMessage(getMeetingPrettyString() + getString("input"), keyboardMarkup);
         super.setActiveNextStage(AcceptParticipantsPMeetingCreationSBSStage.class);
     }
 

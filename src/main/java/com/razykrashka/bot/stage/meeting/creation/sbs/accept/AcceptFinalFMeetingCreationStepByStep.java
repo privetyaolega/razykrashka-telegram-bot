@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
+import com.razykrashka.bot.ui.helpers.loading.LoadingThread;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
@@ -16,10 +17,19 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
 
     @Override
     public void handleRequest() {
+        LoadingThread thread = new LoadingThread();
+        razykrashkaBot.getContext().getAutowireCapableBeanFactory().autowireBean(thread);
+        thread.start();
+
         Meeting meeting = super.getMeetingInCreation();
         meeting.setCreationDateTime(LocalDateTime.now());
         meeting.setCreationStatus(CreationStatus.DONE);
         meetingRepository.save(meeting);
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         messageManager.updateMessage("MEETING CREATED");
         razykrashkaBot.sendSticker(new SendSticker()
@@ -28,11 +38,6 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() == null) {
-            return false;
-        } else {
-            return super.getStageActivity() && razykrashkaBot.getRealUpdate().getCallbackQuery()
-                    .equals(this.getClass().getSimpleName());
-        }
+        return super.getStageActivity() && updateHelper.isCallBackDataContains();
     }
 }

@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
+import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLevelMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
@@ -14,22 +15,21 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     public void handleRequest() {
         messageManager.deleteLastBotMessageIfHasKeyboard();
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
-                .setRow("Elementary", "Elementary")
-                .setRow("Pre-Intermediate", "Pre-Intermediate")
-                .setRow("Intermediate", "Intermediate")
-                .setRow("Upper-Intermediate", "Upper-Intermediate")
-                .setRow("Advanced", "Advanced")
-                .setRow("BACK TO LOCATION EDIT", LocationMeetingCreationSBSStage.class.getSimpleName())
+                .setRow(ImmutableMap.of("Elementary", "ELEMENTARY",
+                        "Pre-Intermediate", "PRE_INTERMEDIATE"))
+                .setRow(ImmutableMap.of("Intermediate", "INTERMEDIATE",
+                        "Upper-Intermediate", "UPPER_INTERMEDIATE"))
+                .setRow(ImmutableMap.of("Advanced", "ADVANCED",
+                        "Native", "NATIVE"))
+                .setRow(super.getString("back"), LocationMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageManager.sendSimpleTextMessage(getMeetingPrettyString() + "\n\nPlease, input speaking level.", keyboardMarkup);
+        messageManager.sendSimpleTextMessage(getMeetingPrettyString() +
+                super.getString("input"), keyboardMarkup);
         setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
     }
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            return false;
-        }
-        return super.getStageActivity();
+        return super.getStageActivity() || updateHelper.isCallBackDataContains();
     }
 }

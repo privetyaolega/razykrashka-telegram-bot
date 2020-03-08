@@ -21,8 +21,7 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
             razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
             return true;
         }
-        Integer participantsLimit = Integer.valueOf(razykrashkaBot.getRealUpdate().getCallbackQuery().getData()
-                .replace(this.getClass().getSimpleName(), ""));
+        Integer participantsLimit = updateHelper.getIntegerPureCallBackData();
 
         Meeting meeting = getMeetingInCreation();
         MeetingInfo meetingInfo = meeting.getMeetingInfo();

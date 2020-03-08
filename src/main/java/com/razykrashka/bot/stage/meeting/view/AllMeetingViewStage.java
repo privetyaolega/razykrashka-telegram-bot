@@ -4,22 +4,26 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
+import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
 public class AllMeetingViewStage extends MainStage {
 
-    List<Meeting> modelList = new ArrayList<>();
+    private static final Integer MEETINGS_PER_PAGE = 4;
+    @Autowired
+    private MeetingMessageUtils meetingMessageUtils;
+    private InlineKeyboardMarkup keyboard;
+    private List<Meeting> meetings;
+    private Integer pageNumToShow;
+    private Integer totalPagesAmount;
 
     public AllMeetingViewStage() {
         stageInfo = StageInfo.ALL_MEETING_VIEW;
@@ -27,36 +31,52 @@ public class AllMeetingViewStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        modelList = StreamSupport.stream(meetingRepository.findAll().spliterator(), false)
-                .filter(meeting -> meeting.getCreationStatus().equals(CreationStatus.DONE))
-                .collect(Collectors.toList());
-        if (modelList.size() == 0) {
+        meetings = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(CreationStatus.DONE, razykrashkaBot.getUser());
+
+        if (meetings.size() == 0) {
             messageManager.sendSimpleTextMessage("NO MEETINGS :(");
         } else {
-            String messageText = modelList.stream().skip(0).limit(20)
-                    .map(model -> model.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm",
-                            Locale.ENGLISH)) + "\n"
-                            + "\uD83D\uDCCD" + model.getLocation().getLocationLink().toString() + "\n"
-                            + model.getMeetingInfo().getSpeakingLevel().toString() + "\n"
-                            + model.getMeetingInfo().getTopic() + "\n"
-                            + "INFORMATION: /meeting" + model.getId())
-                    .collect(Collectors.joining(getStringMap().get("delimiterLine"),
-                            "\uD83D\uDCAB Найдено " + modelList.size() + " встреч(и)\n\n", ""));
-            if (modelList.size() > 5) {
-                //TODO: PAGINATION INLINE KEYBOARD
+            initPageNumToShow();
+            totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(MEETINGS_PER_PAGE));
+            List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage();
+
+            String messageText = meetingMessageUtils.createMeetingsText(meetingsToShow, meetings.size());
+            if (meetings.size() > MEETINGS_PER_PAGE) {
+                keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }
-            messageManager.sendSimpleTextMessage(messageText);
+            if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+                messageManager.updateMessage(messageText, keyboard);
+            } else {
+                messageManager.sendSimpleTextMessage(messageText, keyboard);
+            }
         }
     }
 
     @Override
-    public boolean isStageActive() {
-        Message message = razykrashkaBot.getRealUpdate().getMessage();
-        if (message == null) {
-            return false;
-        } else {
-            boolean res = message.getText().equals("View Meetings");
-            return res;
+    public boolean processCallBackQuery() {
+        handleRequest();
+        return true;
+    }
+
+    /**
+     * By default, first page is shown
+     * <p>
+     * Presence of Call Back Query indicates that we need to display
+     * not the first page, but page that goes from CBQ
+     * CBQ Example: 'AllMeetingViewStage3' - need to display the third page
+     */
+    private void initPageNumToShow() {
+        pageNumToShow = razykrashkaBot.getRealUpdate().hasCallbackQuery() ? updateHelper.getIntegerPureCallBackData() : 1;
+    }
+
+    private List<Meeting> getMeetingsSublistForCurrentPage() {
+        int limit = MEETINGS_PER_PAGE;
+        if (totalPagesAmount.equals(pageNumToShow) && totalPagesAmount * MEETINGS_PER_PAGE - meetings.size() != 0) {
+            limit = totalPagesAmount * MEETINGS_PER_PAGE - meetings.size();
         }
+        return meetings.stream()
+                .skip((pageNumToShow - 1) * MEETINGS_PER_PAGE)
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 }

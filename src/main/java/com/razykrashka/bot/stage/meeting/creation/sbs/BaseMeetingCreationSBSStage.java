@@ -43,7 +43,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
         }
 
         if (meeting.getMeetingInfo() != null) {
-            sb.append("\n\nLEVEL: " + meeting.getMeetingInfo().getSpeakingLevel());
+            sb.append("\n\nLEVEL: " + meeting.getMeetingInfo().getSpeakingLevel().getLevel());
         }
 
         if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getParticipantLimit() != null) {
@@ -58,7 +58,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             sb.append("\n\nQUESTION: \n" + meeting.getMeetingInfo().getQuestions());
         }
 
-        sb.append("\n\n\n\n");
+        sb.append("\n\n\n");
 
         return sb.toString();
     }

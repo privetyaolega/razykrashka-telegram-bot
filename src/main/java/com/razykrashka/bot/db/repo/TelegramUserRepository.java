@@ -1,4 +1,4 @@
-package com.razykrashka.bot.repository;
+package com.razykrashka.bot.db.repo;
 
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import org.springframework.data.jpa.repository.Query;

@@ -13,19 +13,28 @@
       "example": "NEW MEETING REQUEST:\n\nDATE: \n14.01.2020 19-00\n\nLOCATION: \nул. Немига 5, Лидо\n\nMAX PEOPLE: \n4\n\nSPEAKING LEVEL: \nUpper-Intermediate\n\nCONTACT NUMBER: \n+375295508809\n\nTOPIC: \nInternet and Computers\n\nQUESTIONS:\n● What are two disadvantages of using smartphones and tablets?\n● What do you think about Cybercafes? are they still useful?\n● Do you like a job in which you have to use computers?\n● Do you spend too much time online?\n● Does your mother of father know how to use a computer?\n● Do computers make life easier?\n● What websites do you visit in a regular basis?\n● What do you think about the Apple?\n● What are some advantages of using social networks?\n● Do you visit English websites?"
     },
     "UndefinedStage": {
-      "unknown": "<code>%s</code> : UNKNOWN MESSAGE"
+      "unknown": "<code>%s</code> : UNKNOWN COMMAND"
     },
     "SelectWayMeetingCreationStage": {
       "enMain": "Please, choose the way to create new meeting!\n\n☝\uD83C\uDFFBTemplate.\nUsing template (plain text) to create new meeting.\nJust copy existing template and fill it with all required data such as date, location, english level etc...\n\n\n✌\uD83C\uDFFBStep by step.\nCreate new meeting by answering questions about meeting details."
     },
     "AllMeetingViewStage": {
-      "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n"
+      "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n",
+      "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n"
     },
     "MyMeetingsViewStage": {
       "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n"
     },
     "AcceptTimeMeetingCreationSBSStage": {
       "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>18:30</code>"
+    },
+    "LevelMeetingCreationSBSStage": {
+      "input": "Please, enter speaking level",
+      "back": "⬅️ Back to Location edit"
+    },
+    "ParticipantsMeetingCreationSBSStage": {
+      "input": "Please, enter participants limit amount",
+      "back": "⬅️ Back to Level edit"
     }
   }
 ]

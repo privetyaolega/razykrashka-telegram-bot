@@ -1,6 +1,9 @@
 package com.razykrashka.bot.ui.helpers.sender;
 
 import com.google.common.collect.Iterables;
+import com.razykrashka.bot.db.entity.razykrashka.Location;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import lombok.AccessLevel;
@@ -12,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
+import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -20,7 +25,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -39,7 +46,7 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager sendSimpleTextMessage(String message, ReplyKeyboard keyboard) {
-        Long chatId = razykrashkaBot.getUpdate().getMessage().getChat().getId();
+        Long chatId = updateHelper.getChatId();
         sendMessage = new SendMessage().setParseMode(ParseMode.HTML)
                 .setChatId(chatId)
                 .setText(message)
@@ -125,8 +132,8 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager updateMessage(String message, ReplyKeyboard keyboard) {
-        Message callBackMessage = razykrashkaBot.getCallbackQuery().getMessage();
-        Integer messageId = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(razykrashkaBot.getCurrentChatId()).getId();
+        Message callBackMessage = razykrashkaBot.getRealUpdate().getCallbackQuery().getMessage();
+        Integer messageId = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(updateHelper.getChatId()).getId();
         EditMessageText editMessageReplyMarkup = new EditMessageText()
                 .setChatId(callBackMessage.getChat().getId())
                 .setMessageId(messageId)
@@ -165,8 +172,8 @@ public class MessageManager extends Sender {
     public MessageManager deleteLastMessage() {
         try {
             razykrashkaBot.execute(new DeleteMessage()
-                    .setChatId(razykrashkaBot.getUpdate().getMessage().getChatId())
-                    .setMessageId(razykrashkaBot.getUpdate().getMessage().getMessageId()));
+                    .setChatId(updateHelper.getChatId())
+                    .setMessageId(razykrashkaBot.getRealUpdate().getMessage().getMessageId()));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
@@ -176,7 +183,7 @@ public class MessageManager extends Sender {
     public MessageManager sendAlertMessage(String alertMessage) {
         try {
             razykrashkaBot.execute(new AnswerCallbackQuery()
-                    .setCallbackQueryId(razykrashkaBot.getCallbackQuery().getId())
+                    .setCallbackQueryId(razykrashkaBot.getRealUpdate().getCallbackQuery().getId())
                     .setText(alertMessage)
                     .setShowAlert(false));
         } catch (TelegramApiException e) {
@@ -186,7 +193,7 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager deleteLastBotMessage() {
-        TelegramMessage lastBotMessage = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(razykrashkaBot.getCurrentChatId());
+        TelegramMessage lastBotMessage = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(updateHelper.getChatId());
         try {
             razykrashkaBot.execute(new DeleteMessage()
                     .setChatId(lastBotMessage.getChatId())
@@ -197,7 +204,7 @@ public class MessageManager extends Sender {
         return this;
     }
 
-    public void updateOrSendDependsOnMessageOwner(String textMessage, ReplyKeyboard replyKeyboard) {
+    public void updateOrSendDependsOnLastMessageOwner(String textMessage, ReplyKeyboard replyKeyboard) {
         List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrue();
         TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
 
@@ -209,8 +216,36 @@ public class MessageManager extends Sender {
     }
 
     public void deleteLastBotMessageIfHasKeyboard() {
-        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(razykrashkaBot.getCurrentChatId()).isHasKeyboard()) {
+        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(updateHelper.getChatId()).isHasKeyboard()) {
             deleteLastBotMessage();
+        }
+    }
+
+    public void sendMap(Meeting meeting) {
+        Location location = meeting.getLocation();
+        try {
+            razykrashkaBot.execute(new SendVenue()
+                    .setChatId(updateHelper.getChatId())
+                    .setTitle(meeting.getMeetingDateTime()
+                            .format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH)))
+                    .setLatitude(location.getLatitude())
+                    .setLongitude(location.getLongitude())
+                    .setAddress(location.getAddress()));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendContact(TelegramUser user) {
+        SendContact sendContact = new SendContact()
+                .setLastName(user.getLastName())
+                .setFirstName(user.getFirstName())
+                .setPhoneNumber(user.getPhoneNumber())
+                .setChatId(updateHelper.getChatId());
+        try {
+            razykrashkaBot.execute(sendContact);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         }
     }
 }

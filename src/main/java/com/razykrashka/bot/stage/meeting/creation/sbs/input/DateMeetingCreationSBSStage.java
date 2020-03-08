@@ -3,7 +3,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptDateMeetingCreationStepByStepStage;
-import com.razykrashka.bot.ui.helpers.KeyboardBuilder;
+import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean processCallBackQuery() {
-        String callBackData = razykrashkaBot.getCallbackQuery().getData();
+        String callBackData = updateHelper.getCallBackData();
         if (this.getClass().getSimpleName().equals(callBackData) || this.getStageActivity()) {
             // TODO: Informative error message;
             if (razykrashkaBot.getRealUpdate().hasMessage()) {
@@ -37,7 +37,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 messageManager.replyLastMessage("Please, choose meeting date.",
                         generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
             } else {
-                messageManager.updateOrSendDependsOnMessageOwner("Please, choose meeting date.",
+                messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.",
                         generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
             }
         } else {
@@ -48,7 +48,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             String monthYear = callBackData.replace(this.getClass().getSimpleName(), "");
             int month = Integer.parseInt(monthYear.substring(0, 2));
             int year = Integer.parseInt("20" + monthYear.substring(2, 4));
-            messageManager.updateOrSendDependsOnMessageOwner("Please, choose meeting date.", generateCalendarKeyboard(month, year));
+            messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", generateCalendarKeyboard(month, year));
         }
         return true;
     }
