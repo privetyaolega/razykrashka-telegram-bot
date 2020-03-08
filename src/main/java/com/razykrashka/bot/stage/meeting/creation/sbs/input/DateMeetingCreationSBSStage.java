@@ -29,7 +29,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean processCallBackQuery() {
-        String callBackData = razykrashkaBot.getCallbackQuery().getData();
+        String callBackData = updateHelper.getCallBackData();
         if (this.getClass().getSimpleName().equals(callBackData) || this.getStageActivity()) {
             // TODO: Informative error message;
             if (razykrashkaBot.getRealUpdate().hasMessage()) {

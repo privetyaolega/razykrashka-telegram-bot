@@ -21,7 +21,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
             razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
             return true;
         }
-        String ddMMyyyy = razykrashkaBot.getCallbackQuery().getData();
+        String ddMMyyyy = updateHelper.getCallBackData();
         LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
                 Integer.parseInt(ddMMyyyy.substring(2, 4)),
                 Integer.parseInt(ddMMyyyy.substring(0, 2)), 0, 0);
