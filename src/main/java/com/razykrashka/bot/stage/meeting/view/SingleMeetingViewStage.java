@@ -54,7 +54,7 @@ public class SingleMeetingViewStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
-        String callBackData = razykrashkaBot.getCallbackQuery().getData();
+        String callBackData = updateHelper.getCallBackData();
 
         meeting = StreamSupport.stream(meetingRepository.findAll().spliterator(), false).
                 filter(x -> callBackData.contains(String.valueOf(x.getId()))).findFirst().get();

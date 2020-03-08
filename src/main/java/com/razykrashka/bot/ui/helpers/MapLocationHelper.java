@@ -1,5 +1,6 @@
 package com.razykrashka.bot.ui.helpers;
 
+import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.api.YandexMapApi;
 import com.razykrashka.bot.api.model.yandex.FeatureYandex;
 import com.razykrashka.bot.api.model.yandex.Properties;
@@ -11,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,9 +26,14 @@ public class MapLocationHelper {
     String googleMapLinkPattern = "https://www.google.com/maps/search/?api=1&query=%s,%s";
     Location location;
 
+    @Autowired
+    YandexMapApi yandexMapApi;
+
     public Location getLocation(String address) throws YandexMapApiException {
         // TODO: Filter by category (cafe, restaurants etc) and city
-        List<FeatureYandex> yandexMapModelList = YandexMapApi.getYandexMapModelBiz(address + " Минск").getFeatures();
+        String addresWithCountry = address + " Минск";
+        List<FeatureYandex> yandexMapModelList = yandexMapApi.getYandexMapModel(addresWithCountry,
+                ImmutableMap.of("type", "biz")).getFeatures();
 
         FeatureYandex yandexMapModel;
         if (yandexMapModelList.size() == 0) {
@@ -47,7 +54,7 @@ public class MapLocationHelper {
 
     public Location getLocationByCoordinate(org.telegram.telegrambots.meta.api.objects.Location location) throws YandexMapApiException {
         String text = location.getLatitude() + "," + location.getLongitude();
-        Properties properties = YandexMapApi.getYandexMapModel(text).getFeatures().get(0).getProperties();
+        Properties properties = yandexMapApi.getYandexMapModel(text).getFeatures().get(0).getProperties();
         return getLocation(properties.getName());
     }
 }

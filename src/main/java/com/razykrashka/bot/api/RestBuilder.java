@@ -7,9 +7,9 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import lombok.Getter;
-import lombok.Setter;
+import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,8 +18,7 @@ import java.util.Map;
 
 @Log4j2
 @Component
-@Getter
-@Setter
+@PropertySource(value = "classpath:/props/api.yaml", factory = YamlPropertyLoaderFactory.class)
 public class RestBuilder {
 
     private final static ObjectMapper MAPPER = getMapper();
@@ -68,4 +67,3 @@ public class RestBuilder {
         return mapper;
     }
 }
-
