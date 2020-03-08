@@ -26,6 +26,6 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        return super.getStageActivity();
+        return super.getStageActivity() || updateHelper.isCallBackDataContains();
     }
 }

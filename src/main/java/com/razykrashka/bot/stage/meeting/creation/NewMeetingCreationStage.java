@@ -17,7 +17,6 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -36,14 +35,8 @@ public class NewMeetingCreationStage extends MainStage {
     }
 
     @Override
-    public List<String> getValidKeywords() {
-        return null;
-    }
-
-
-    @Override
     public void handleRequest() {
-        message = razykrashkaBot.getUpdate().getMessage().getText().replace("@Test7313494Bot", "").trim();
+        message = updateHelper.getMessageText().replace("@Test7313494Bot", "").trim();
         try {
             Map<String, String> meetingMap = Arrays.stream(message.split("\\n\\n")).skip(1)
                     .map(x -> x.replace("\n", ""))
@@ -86,9 +79,6 @@ public class NewMeetingCreationStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
-            return razykrashkaBot.getRealUpdate().getMessage().getText().contains(this.getStageInfo().getKeyword());
-        }
-        return false;
+        return updateHelper.isMessageContains(this.getStageInfo().getKeyword());
     }
 }

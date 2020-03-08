@@ -1,4 +1,4 @@
-package com.razykrashka.bot.ui.helpers;
+package com.razykrashka.bot.ui.helpers.keyboard;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -72,5 +72,15 @@ public class KeyboardBuilder {
     public InlineKeyboardMarkup build() {
         this.keyboard.setKeyboard(inlineKeyboardButtons);
         return keyboard;
+    }
+
+    public InlineKeyboardMarkup getPaginationKeyboard(Class classCaller, int pageNumToShow, int totalPagesSize) {
+        List<Pair<String, String>> listPair = PaginationKeyboardHelper.builder()
+                .classCaller(classCaller)
+                .pageNumToShow(pageNumToShow)
+                .totalPagesSize(totalPagesSize)
+                .build()
+                .getPaginationKeyboard();
+        return getKeyboard().setRow(listPair).build();
     }
 }

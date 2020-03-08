@@ -3,13 +3,10 @@ package com.razykrashka.bot.stage;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.razykrashka.bot.db.repo.TelegramMessageRepository;
-import com.razykrashka.bot.repository.LocationRepository;
-import com.razykrashka.bot.repository.MeetingInfoRepository;
-import com.razykrashka.bot.repository.MeetingRepository;
-import com.razykrashka.bot.repository.TelegramUserRepository;
+import com.razykrashka.bot.db.repo.*;
 import com.razykrashka.bot.service.RazykrashkaBot;
-import com.razykrashka.bot.ui.helpers.KeyboardBuilder;
+import com.razykrashka.bot.ui.helpers.UpdateHelper;
+import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -52,6 +49,8 @@ public abstract class MainStage implements Stage {
     protected MessageManager messageManager;
     @Autowired
     protected KeyboardBuilder keyboardBuilder;
+    @Autowired
+    protected UpdateHelper updateHelper;
 
     protected boolean stageActivity;
     protected StageInfo stageInfo;
@@ -85,17 +84,7 @@ public abstract class MainStage implements Stage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
-            return razykrashkaBot.getRealUpdate().getMessage().getText()
-                    .equals(this.getStageInfo().getKeyword());
-        }
-        return false;
-    }
-
-    @Override
-    public Stage setMessage(Update message) {
-        this.update = message;
-        return this;
+        return updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
     }
 
     public InlineKeyboardMarkup getInlineRuEnKeyboard(String callBackData, String textButton) {
@@ -114,13 +103,8 @@ public abstract class MainStage implements Stage {
     }
 
     @Override
-    public List<String> getValidKeywords() {
-        return Arrays.asList(this.getStageInfo().getKeyword());
-    }
-
-    @Override
     public boolean processCallBackQuery() {
-        String callBackData = razykrashkaBot.getCallbackQuery().getData();
+        String callBackData = updateHelper.getCallBackData();
         if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
             messageManager.updateMessage(stageInfo.getWelcomeMessageRu(),
                     getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
@@ -148,6 +132,10 @@ public abstract class MainStage implements Stage {
                 .findFirst().get().get(className);
     }
 
+    protected String getString(String key) {
+        return getStringMap().get(key);
+    }
+
     public boolean getStageActivity() {
         return stageActivity;
     }
@@ -156,5 +144,14 @@ public abstract class MainStage implements Stage {
         razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
         Stage stage = ((Stage) razykrashkaBot.getContext().getBean(clazz));
         stage.setActive(true);
+    }
+
+    protected String getPureCallBackData() {
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+            return razykrashkaBot.getRealUpdate()
+                    .getCallbackQuery().getData()
+                    .replace(this.getClass().getSimpleName(), "");
+        }
+        throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have Call Back Query!");
     }
 }

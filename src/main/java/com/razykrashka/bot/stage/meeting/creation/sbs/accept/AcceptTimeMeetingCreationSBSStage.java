@@ -15,7 +15,7 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
 
     @Override
     public void handleRequest() {
-        timeMessage = razykrashkaBot.getRealUpdate().getMessage().getText();
+        timeMessage = updateHelper.getMessageText();
         inputDataValidation();
 
         messageManager.deleteLastMessage();
