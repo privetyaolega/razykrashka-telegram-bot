@@ -17,14 +17,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.lang.reflect.Method;
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -74,23 +73,17 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         this.realUpdate = update;
         userInit();
 
-        if (update.hasCallbackQuery()) {
-            String callBackData = update.getCallbackQuery().getData();
-            activeStages = stages.stream()
-                    .filter(x -> callBackData.contains(x.getStageInfo().getStageName())
-                            || callBackData.contains(x.getClass().getSimpleName())
-                            || x.isStageActive()).collect(Collectors.toList());
-            updateInfoLog(update.getCallbackQuery().getData());
+        activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
 
+        if (update.hasCallbackQuery()) {
+            updateInfoLog(update.getCallbackQuery().getData());
             activeStages.get(0).processCallBackQuery();
         } else {
             if (keyWordsList.contains(update.getMessage().getText())) {
                 this.getStages().forEach(stage -> stage.setActive(false));
             }
-            this.update = update;
             saveUpdate();
             messageManager.disableKeyboardLastBotMessage();
-            activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
             updateInfoLog(update.getMessage().getText());
 
             if (activeStages.size() == 0) {
@@ -146,44 +139,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-    }
-
-    public void sendContact(SendContact sendContact) {
-        sendContact.setChatId(update.getMessage().getChat().getId());
-        try {
-            execute(sendContact);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public boolean executeMethodCallBackQuery() {
-        if (this.getRealUpdate().getCallbackQuery() != null) {
-            Optional<Stage> stage = this.getStages().stream()
-                    .filter(st -> this.getRealUpdate().getCallbackQuery().getData()
-                            .startsWith(st.getClass().getSimpleName() + "?"))
-                    .findFirst();
-            if (stage.isPresent()) {
-                String callBackDate = this.getRealUpdate().getCallbackQuery().getData();
-                String stageName = callBackDate.split("\\?")[0];
-                String methodName = callBackDate.replace(stageName + "?", "").split(":")[0];
-                String[] variables = callBackDate.replace(stageName + "?" + methodName + ":", "")
-                        .replace(methodName, "")
-                        .split("&");
-
-                Class<String>[] clazz = Arrays.stream(variables).map(str -> String.class)
-                        .collect(Collectors.toList())
-                        .stream().toArray(Class[]::new);
-                try {
-                    Method method = stage.get().getClass().getMethod(methodName, clazz);
-                    method.invoke(stage.get(), variables);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return true;
-            }
-        }
-        return false;
     }
 
     public Long getCurrentChatId() {
