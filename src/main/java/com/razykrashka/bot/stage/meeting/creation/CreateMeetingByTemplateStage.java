@@ -38,7 +38,7 @@ public class CreateMeetingByTemplateStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
-        String callBackData = razykrashkaBot.getCallbackQuery().getData();
+        String callBackData = updateHelper.getCallBackData();
         if (callBackData.equals(stageInfo.getStageName() + "_en_instruction") || razykrashkaBot.getRealUpdate().getCallbackQuery().getData().equals(this.getClass().getSimpleName())) {
             messageManager.updateMessage(getStringMap().get("enInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }

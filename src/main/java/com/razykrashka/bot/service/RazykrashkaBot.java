@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.lang.reflect.Method;
@@ -56,7 +56,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     Update realUpdate;
     Update update;
-    CallbackQuery callbackQuery;
     TelegramUser user;
 
     Integer testGroupChatId = -454425882;
@@ -76,10 +75,10 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         this.undefinedStage = getContext().getBean(UndefinedStage.class);
 
         if (update.hasCallbackQuery()) {
-            this.callbackQuery = update.getCallbackQuery();
+            String callBackData = update.getCallbackQuery().getData();
             activeStages = stages.stream()
-                    .filter(x -> callbackQuery.getData().contains(x.getStageInfo().getStageName())
-                            || callbackQuery.getData().contains(x.getClass().getSimpleName())
+                    .filter(x -> callBackData.contains(x.getStageInfo().getStageName())
+                            || callBackData.contains(x.getClass().getSimpleName())
                             || x.isStageActive()).collect(Collectors.toList());
             updateInfoLog(update.getCallbackQuery().getData());
 
@@ -116,11 +115,12 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
             if (telegramUser.isPresent()) {
                 user = telegramUser.get();
             } else {
+                User userTelegram = update.getMessage().getFrom();
                 user = TelegramUser.builder()
-                        .lastName(update.getMessage().getFrom().getLastName())
-                        .firstName(update.getMessage().getFrom().getFirstName())
-                        .userName(update.getMessage().getFrom().getUserName())
-                        .telegramId(update.getMessage().getFrom().getId())
+                        .lastName(userTelegram.getLastName())
+                        .firstName(userTelegram.getFirstName())
+                        .userName(userTelegram.getUserName())
+                        .telegramId(userTelegram.getId())
                         .build();
                 telegramUserRepository.save(user);
             }

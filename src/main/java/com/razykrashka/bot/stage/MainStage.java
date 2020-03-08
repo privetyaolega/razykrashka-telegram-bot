@@ -104,7 +104,7 @@ public abstract class MainStage implements Stage {
 
     @Override
     public boolean processCallBackQuery() {
-        String callBackData = razykrashkaBot.getCallbackQuery().getData();
+        String callBackData = updateHelper.getCallBackData();
         if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
             messageManager.updateMessage(stageInfo.getWelcomeMessageRu(),
                     getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));

@@ -130,7 +130,7 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager updateMessage(String message, ReplyKeyboard keyboard) {
-        Message callBackMessage = razykrashkaBot.getCallbackQuery().getMessage();
+        Message callBackMessage = razykrashkaBot.getRealUpdate().getCallbackQuery().getMessage();
         Integer messageId = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(updateHelper.getChatId()).getId();
         EditMessageText editMessageReplyMarkup = new EditMessageText()
                 .setChatId(callBackMessage.getChat().getId())
@@ -181,7 +181,7 @@ public class MessageManager extends Sender {
     public MessageManager sendAlertMessage(String alertMessage) {
         try {
             razykrashkaBot.execute(new AnswerCallbackQuery()
-                    .setCallbackQueryId(razykrashkaBot.getCallbackQuery().getId())
+                    .setCallbackQueryId(razykrashkaBot.getRealUpdate().getCallbackQuery().getId())
                     .setText(alertMessage)
                     .setShowAlert(false));
         } catch (TelegramApiException e) {
