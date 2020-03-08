@@ -2,6 +2,7 @@ package com.razykrashka.bot.ui.helpers.sender;
 
 import com.google.common.collect.Iterables;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
+import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -214,7 +216,7 @@ public class MessageManager extends Sender {
     }
 
     public void deleteLastBotMessageIfHasKeyboard() {
-        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(razykrashkaBot.getCurrentChatId()).isHasKeyboard()) {
+        if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(updateHelper.getChatId()).isHasKeyboard()) {
             deleteLastBotMessage();
         }
     }
@@ -229,6 +231,19 @@ public class MessageManager extends Sender {
                     .setLatitude(location.getLatitude())
                     .setLongitude(location.getLongitude())
                     .setAddress(location.getAddress()));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendContact(TelegramUser user) {
+        SendContact sendContact = new SendContact()
+                .setLastName(user.getLastName())
+                .setFirstName(user.getFirstName())
+                .setPhoneNumber(user.getPhoneNumber())
+                .setChatId(updateHelper.getChatId());
+        try {
+            razykrashkaBot.execute(sendContact);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }

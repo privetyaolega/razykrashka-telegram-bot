@@ -21,10 +21,10 @@ public class CreateMeetingByTemplateStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
-                        "EN Instruction", stageInfo.getStageName() + "_en_instruction",
-                        "RU Instruction", stageInfo.getStageName() + "_ru_instruction"))
-                .setRow("Template", stageInfo.getStageName() + "_template")
-                .setRow("Example", stageInfo.getStageName() + "_example")
+                        "EN Instruction", this.getClass().getSimpleName() + "_en_instruction",
+                        "RU Instruction", this.getClass().getSimpleName() + "_ru_instruction"))
+                .setRow("Template", this.getClass().getSimpleName() + "_template")
+                .setRow("Example", this.getClass().getSimpleName() + "_example")
                 .setRow(new InlineKeyboardButton()
                         .setText("FAST MEETING CREATION DEBUG")
                         .setSwitchInlineQueryCurrentChat(this.getStringMap().get("example")))
@@ -39,20 +39,25 @@ public class CreateMeetingByTemplateStage extends MainStage {
     @Override
     public boolean processCallBackQuery() {
         String callBackData = updateHelper.getCallBackData();
-        if (callBackData.equals(stageInfo.getStageName() + "_en_instruction") || razykrashkaBot.getRealUpdate().getCallbackQuery().getData().equals(this.getClass().getSimpleName())) {
+        if (callBackData.equals(this.getClass().getSimpleName() + "_en_instruction") || razykrashkaBot.getRealUpdate().getCallbackQuery().getData().equals(this.getClass().getSimpleName())) {
             messageManager.updateMessage(getStringMap().get("enInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }
 
-        if (callBackData.equals(stageInfo.getStageName() + "_ru_instruction")) {
+        if (callBackData.equals(this.getClass().getSimpleName() + "_ru_instruction")) {
             messageManager.updateMessage(getStringMap().get("ruInstruction"), (InlineKeyboardMarkup) getKeyboard());
         }
-        if (callBackData.equals(stageInfo.getStageName() + "_template")) {
+        if (callBackData.equals(this.getClass().getSimpleName() + "_template")) {
             messageManager.updateMessage(getStringMap().get("template"), (InlineKeyboardMarkup) getKeyboard());
         }
 
-        if (callBackData.equals(stageInfo.getStageName() + "_example")) {
+        if (callBackData.equals(this.getClass().getSimpleName() + "_example")) {
             messageManager.updateMessage(getStringMap().get("example"), (InlineKeyboardMarkup) getKeyboard());
         }
         return true;
+    }
+
+    @Override
+    public boolean isStageActive() {
+        return updateHelper.isCallBackDataContains();
     }
 }

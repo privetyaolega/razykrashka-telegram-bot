@@ -20,14 +20,16 @@ public class LoadingThread extends Thread {
     public void run() {
         try {
             chatId = razykrashkaBot.getCurrentChatId();
-
             log.info("Start {}'Loading Thread' for chat # {}", Thread.currentThread().getName(), chatId);
 
             SendMessage sendMessage = new SendMessage(chatId, ".");
             messageId = razykrashkaBot.execute(sendMessage).getMessageId();
+            updateMessage("..", messageId);
+            Thread.sleep(200);
+            updateMessage("...", messageId);
 
             int count = 0;
-            while (count != 4) {
+            while (count != 3) {
                 updateMessage(".  ", messageId);
                 Thread.sleep(200);
                 updateMessage(".. ", messageId);
@@ -36,9 +38,7 @@ public class LoadingThread extends Thread {
                 Thread.sleep(200);
                 count++;
             }
-
             razykrashkaBot.execute(new DeleteMessage(chatId, messageId));
-
         } catch (Exception e) {
             e.printStackTrace();
         }

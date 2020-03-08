@@ -30,9 +30,6 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            return false;
-        }
-        return super.getStageActivity();
+        return super.getStageActivity() || updateHelper.isCallBackDataContains();
     }
 }

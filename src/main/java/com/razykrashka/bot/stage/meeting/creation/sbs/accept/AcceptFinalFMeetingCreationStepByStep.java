@@ -38,11 +38,6 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery() == null) {
-            return false;
-        } else {
-            return super.getStageActivity() && razykrashkaBot.getRealUpdate().getCallbackQuery()
-                    .equals(this.getClass().getSimpleName());
-        }
+        return super.getStageActivity() && updateHelper.isCallBackDataContains();
     }
 }

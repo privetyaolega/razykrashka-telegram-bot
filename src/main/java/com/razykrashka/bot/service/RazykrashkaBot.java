@@ -36,31 +36,27 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RazykrashkaBot extends TelegramLongPollingBot {
 
-    @Autowired
-    protected TelegramUserRepository telegramUserRepository;
-    @Autowired
-    protected TelegramMessageRepository telegramMessageRepository;
-
     @Value("${bot.avp256.username}")
     String botUsername;
     @Value("${bot.avp256.token}")
     String botToken;
 
     @Autowired
+    protected TelegramUserRepository telegramUserRepository;
+    @Autowired
+    protected TelegramMessageRepository telegramMessageRepository;
+    @Autowired
     ApplicationContext context;
     @Autowired
     MessageManager messageManager;
 
+    List<Stage> activeStages;
     List<Stage> stages;
     Stage undefinedStage;
 
     Update realUpdate;
-    Update update;
     TelegramUser user;
 
-    Integer testGroupChatId = -454425882;
-
-    List<Stage> activeStages;
     List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "View My Meetings", "Information :P");
 
     @Autowired
@@ -68,11 +64,15 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         this.stages = stages;
     }
 
+    @PostConstruct
+    private void init() {
+        this.undefinedStage = getContext().getBean(UndefinedStage.class);
+    }
+
     @Override
     public void onUpdateReceived(Update update) {
         this.realUpdate = update;
-        userInit(update);
-        this.undefinedStage = getContext().getBean(UndefinedStage.class);
+        userInit();
 
         if (update.hasCallbackQuery()) {
             String callBackData = update.getCallbackQuery().getData();
@@ -108,14 +108,14 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
                 .collect(Collectors.joining(" ,", "[", "]")));
     }
 
-    private void userInit(Update update) {
+    private void userInit() {
         if (!realUpdate.hasCallbackQuery()) {
-            Integer id = update.getMessage().getFrom().getId();
+            Integer id = realUpdate.getMessage().getFrom().getId();
             Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(id);
             if (telegramUser.isPresent()) {
                 user = telegramUser.get();
             } else {
-                User userTelegram = update.getMessage().getFrom();
+                User userTelegram = realUpdate.getMessage().getFrom();
                 user = TelegramUser.builder()
                         .lastName(userTelegram.getLastName())
                         .firstName(userTelegram.getFirstName())
