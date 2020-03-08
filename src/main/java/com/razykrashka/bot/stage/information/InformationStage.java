@@ -18,4 +18,9 @@ public class InformationStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         return getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA");
     }
+
+    @Override
+    public boolean isStageActive() {
+        return updateHelper.isCallBackDataContains() || updateHelper.isMessageContains(this.getStageInfo().getKeyword());
+    }
 }

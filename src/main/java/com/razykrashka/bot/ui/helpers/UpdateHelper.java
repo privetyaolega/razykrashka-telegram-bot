@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Log4j2
 public class UpdateHelper {
+    private final static Integer GROUP_CHAT_ID = -454425882;
 
     @Autowired
     protected RazykrashkaBot razykrashkaBot;

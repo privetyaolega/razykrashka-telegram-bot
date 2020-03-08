@@ -4,13 +4,13 @@ import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
+import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewContactStage;
 import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewMapStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.stream.StreamSupport;
@@ -47,7 +47,7 @@ public class SingleMeetingViewStage extends MainStage {
         }
         return builder
                 .setRow(ImmutableMap.of(
-                        "Contact", stageInfo.getStageName() + "_contact" + meeting.getId(),
+                        "Contact", SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
                         "Map", SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()))
                 .build();
     }
@@ -58,12 +58,6 @@ public class SingleMeetingViewStage extends MainStage {
 
         meeting = StreamSupport.stream(meetingRepository.findAll().spliterator(), false).
                 filter(x -> callBackData.contains(String.valueOf(x.getId()))).findFirst().get();
-
-        if (callBackData.equals(stageInfo.getStageName() + "_contact" + meeting.getId())) {
-            razykrashkaBot.sendContact(new SendContact().setLastName(meeting.getTelegramUser().getLastName())
-                    .setFirstName(meeting.getTelegramUser().getFirstName())
-                    .setPhoneNumber(meeting.getTelegramUser().getPhoneNumber()));
-        }
 
         if (callBackData.equals(stageInfo.getStageName() + "_join" + meeting.getId())) {
             razykrashkaBot.getUser().addMeetingTotoGoMeetings(meeting);
