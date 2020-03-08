@@ -36,7 +36,7 @@ public class NewMeetingCreationStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        message = razykrashkaBot.getUpdate().getMessage().getText().replace("@Test7313494Bot", "").trim();
+        message = updateHelper.getMessageText().replace("@Test7313494Bot", "").trim();
         try {
             Map<String, String> meetingMap = Arrays.stream(message.split("\\n\\n")).skip(1)
                     .map(x -> x.replace("\n", ""))
