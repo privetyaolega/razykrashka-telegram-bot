@@ -1,6 +1,7 @@
 package com.razykrashka.bot.ui.helpers.sender;
 
 import com.razykrashka.bot.service.RazykrashkaBot;
+import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +19,7 @@ public abstract class Sender {
 
     @Autowired
     RazykrashkaBot razykrashkaBot;
+    @Autowired
+    UpdateHelper updateHelper;
 
 }

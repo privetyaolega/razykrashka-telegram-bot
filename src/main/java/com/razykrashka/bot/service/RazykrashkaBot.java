@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
-import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -138,15 +137,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
                 .text(message.getText())
                 .build();
         telegramMessageRepository.save(telegramMessage);
-    }
-
-    public void sendVenue(SendVenue sendVenue) {
-        sendVenue.setChatId(update.getMessage().getChat().getId());
-        try {
-            execute(sendVenue);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
     }
 
     public void sendSticker(SendSticker sticker) {

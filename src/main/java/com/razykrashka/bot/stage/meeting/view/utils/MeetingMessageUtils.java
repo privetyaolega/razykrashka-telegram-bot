@@ -51,7 +51,7 @@ public class MeetingMessageUtils {
 
     private SendMessage createSendMessage(RazykrashkaBot razykrashkaBot, String messageText) {
         return new SendMessage()
-                .setChatId(razykrashkaBot.getUpdate().getMessage().getChat().getId())
+                .setChatId(razykrashkaBot.getRealUpdate().getMessage().getChat().getId())
                 .setParseMode("html")
                 .setText(messageText);
     }
