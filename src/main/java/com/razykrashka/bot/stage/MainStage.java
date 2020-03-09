@@ -116,7 +116,7 @@ public abstract class MainStage implements Stage {
         return true;
     }
 
-    protected String getCallBackString(String callBackData) {
+    protected String createCallBackString(String callBackData) {
         return this.getClass().getSimpleName() + callBackData;
     }
 

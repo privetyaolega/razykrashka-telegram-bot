@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,6 +26,7 @@ public class Meeting {
     @GeneratedValue
     Integer id;
 
+    LocalDateTime startCreationDateTime;
     LocalDateTime creationDateTime;
     LocalDateTime meetingDateTime;
 

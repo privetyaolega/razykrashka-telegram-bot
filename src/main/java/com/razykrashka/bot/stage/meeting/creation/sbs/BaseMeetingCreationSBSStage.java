@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -78,10 +79,13 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     protected Meeting getMeetingInCreation() {
         List<Meeting> meetingsInCreation = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(
                 CreationStatus.IN_PROGRESS, razykrashkaBot.getUser());
-        if (meetingsInCreation.size() == 0) {
+        if (meetingsInCreation.size() == 0 || meetingsInCreation.get(0)
+                .getCreationDateTime()
+                .plusMinutes(15).isBefore(LocalDateTime.now())) {
             meeting = new Meeting();
             meeting.setCreationStatus(CreationStatus.IN_PROGRESS);
             meeting.setTelegramUser(razykrashkaBot.getUser());
+            meeting.setCreationDateTime(LocalDateTime.now());
             return meeting;
         }
         return meetingsInCreation.get(0);
