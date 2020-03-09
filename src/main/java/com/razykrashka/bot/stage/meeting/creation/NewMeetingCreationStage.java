@@ -56,6 +56,7 @@ public class NewMeetingCreationStage extends MainStage {
                     .telegramUser(razykrashkaBot.getUser())
                     .meetingDateTime(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
                     .creationDateTime(LocalDateTime.now())
+                    .startCreationDateTime(LocalDateTime.now())
                     .meetingInfo(meetingInfo)
                     .location(location)
                     .creationStatus(CreationStatus.DONE)

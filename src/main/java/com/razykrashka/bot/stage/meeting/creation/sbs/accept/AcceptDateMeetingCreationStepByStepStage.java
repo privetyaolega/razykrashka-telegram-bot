@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @Component
 public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreationSBSStage {
 
+    private LocalDateTime localDateTime;
+
     @Override
     public boolean processCallBackQuery() {
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
@@ -22,9 +24,16 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
             return true;
         }
         String ddMMyyyy = updateHelper.getCallBackData();
-        LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
+        localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
                 Integer.parseInt(ddMMyyyy.substring(2, 4)),
                 Integer.parseInt(ddMMyyyy.substring(0, 2)), 0, 0);
+
+        if (localDateTime.isBefore(LocalDateTime.now())) {
+            messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.");
+            setActiveNextStage(DateMeetingCreationSBSStage.class);
+            razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
+            return true;
+        }
 
         Meeting meeting = getMeetingInCreation();
         meeting.setMeetingDateTime(localDateTime.withHour(0).withMinute(0));
@@ -48,8 +57,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
     @Override
     public boolean isStageActive() {
         if (razykrashkaBot.getRealUpdate().hasCallbackQuery()
-                && razykrashkaBot.getRealUpdate().getCallbackQuery().getData()
-                .contains(DateMeetingCreationSBSStage.class.getSimpleName())) {
+                && updateHelper.isCallBackDataContains(DateMeetingCreationSBSStage.class.getSimpleName())) {
             this.setActive(false);
             return false;
         }
