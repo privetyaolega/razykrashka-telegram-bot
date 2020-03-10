@@ -89,13 +89,13 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             return meeting;
         } else if (meetingsInCreation.get(0)
                 .getCreationDateTime()
-                .plusSeconds(35).isBefore(LocalDateTime.now())) {
+                .plusSeconds(20).isBefore(LocalDateTime.now())) {
 
             Meeting expiredMeeting = meetingsInCreation.get(0);
             razykrashkaBot.getUser().getCreatedMeetings().remove(expiredMeeting);
             razykrashkaBot.getUser().getToGoMeetings().remove(expiredMeeting);
             telegramUserRepository.save(razykrashkaBot.getUser());
-            meetingRepository.deleteMeetingById(expiredMeeting.getId());
+            meetingRepository.delete(expiredMeeting);
 
             messageManager.disableKeyboardLastBotMessage();
             messageManager.sendSimpleTextMessage("SESSION EXPIRED");
