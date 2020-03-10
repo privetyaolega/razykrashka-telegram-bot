@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @Component
 public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreationSBSStage {
 
-    private LocalDateTime localDateTime;
-
     @Override
     public boolean processCallBackQuery() {
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
@@ -24,12 +22,12 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
             return true;
         }
         String ddMMyyyy = updateHelper.getCallBackData();
-        localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
+        LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
                 Integer.parseInt(ddMMyyyy.substring(2, 4)),
                 Integer.parseInt(ddMMyyyy.substring(0, 2)), 0, 0);
 
         if (localDateTime.isBefore(LocalDateTime.now())) {
-            messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.");
+            messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.\uD83D\uDE30");
             setActiveNextStage(DateMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
             return true;

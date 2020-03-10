@@ -43,6 +43,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         } else {
             if (callBackData.contains(NO_DATE)) {
                 messageManager.sendAlertMessage("Пожалуйста, введита дату");
+                setActiveNextStage(this.getClass());
                 return true;
             }
             String monthYear = callBackData.replace(this.getClass().getSimpleName(), "");
@@ -61,11 +62,11 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         // First row: Month + Year
         List<Pair<String, String>> list = new ArrayList<>();
         keyboard.setRow(date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear(),
-                createCallBackString(NO_DATE));
+                getCallBackString(NO_DATE));
         keyboard.setRow(getDayOfWeekRow());
         // Create empty cells for first week
         for (int i = 0; i < date.withDayOfMonth(1).getDayOfWeek().getValue() - 1; i++) {
-            list.add(Pair.of(" ", createCallBackString(NO_DATE)));
+            list.add(Pair.of(" ", getCallBackString(NO_DATE)));
         }
         int dayNum = 1;
         while (dayNum != date.getMonth().maxLength() + 1) {
@@ -78,7 +79,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         }
         if (list.size() != 0) {
             while (list.size() != 7) {
-                list.add(Pair.of(" ", createCallBackString(NO_DATE)));
+                list.add(Pair.of(" ", getCallBackString(NO_DATE)));
             }
         }
 
@@ -103,18 +104,23 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     private List<Pair<String, String>> getDayOfWeekRow() {
         List<Pair<String, String>> map = new ArrayList<>();
-        map.add(Pair.of("Mon", createCallBackString(NO_DATE)));
-        map.add(Pair.of("Tue", createCallBackString(NO_DATE)));
-        map.add(Pair.of("Whd", createCallBackString(NO_DATE)));
-        map.add(Pair.of("Thu", createCallBackString(NO_DATE)));
-        map.add(Pair.of("Fri", createCallBackString(NO_DATE)));
-        map.add(Pair.of("Sun", createCallBackString(NO_DATE)));
-        map.add(Pair.of("Sat", createCallBackString(NO_DATE)));
+        map.add(Pair.of("Mon", getCallBackString(NO_DATE)));
+        map.add(Pair.of("Tue", getCallBackString(NO_DATE)));
+        map.add(Pair.of("Whd", getCallBackString(NO_DATE)));
+        map.add(Pair.of("Thu", getCallBackString(NO_DATE)));
+        map.add(Pair.of("Fri", getCallBackString(NO_DATE)));
+        map.add(Pair.of("Sun", getCallBackString(NO_DATE)));
+        map.add(Pair.of("Sat", getCallBackString(NO_DATE)));
         return map;
     }
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains() || super.getStageActivity();
+        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
+            if (razykrashkaBot.getRealUpdate().getCallbackQuery().getData().contains(this.getClass().getSimpleName())) {
+                return true;
+            }
+        }
+        return super.getStageActivity();
     }
 }
