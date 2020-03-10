@@ -10,13 +10,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -44,16 +43,11 @@ public class TelegramUser {
     Integer telegramId;
 
     @Column
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "telegramUser") // cascade = {CascadeType.PERSIST, CascadeType.REFRESH}
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "telegramUser")
     Set<Meeting> createdMeetings = new HashSet<>();
 
     @Column
-    @ManyToMany(fetch = FetchType.LAZY) //  cascade = {CascadeType.PERSIST, CascadeType.REFRESH}
-    @JoinTable(
-            name = "user_meeting",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "meeting_id")
-    )
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "participants")
     Set<Meeting> toGoMeetings = new HashSet<>();
 
     public void addMeetingTotoGoMeetings(Meeting meeting) {
