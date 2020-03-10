@@ -71,12 +71,17 @@ public class AllMeetingViewStage extends MainStage {
 
     private List<Meeting> getMeetingsSublistForCurrentPage() {
         int limit = MEETINGS_PER_PAGE;
-        if (totalPagesAmount.equals(pageNumToShow) && totalPagesAmount * MEETINGS_PER_PAGE - meetings.size() != 0) {
-            limit = totalPagesAmount * MEETINGS_PER_PAGE - meetings.size();
+        if (totalPagesAmount.equals(pageNumToShow) && totalPagesAmount * MEETINGS_PER_PAGE != meetings.size()) { //
+            limit = meetings.size() % MEETINGS_PER_PAGE;
         }
         return meetings.stream()
                 .skip((pageNumToShow - 1) * MEETINGS_PER_PAGE)
                 .limit(limit)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isStageActive() {
+        return updateHelper.isCallBackDataContains() || updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
     }
 }
