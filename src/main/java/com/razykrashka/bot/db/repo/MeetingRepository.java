@@ -10,7 +10,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
 
@@ -18,8 +17,8 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM user_meeting WHERE meeting_id = ?1", nativeQuery = true)
-    void deleteMeeting(Integer meetingId);
+    @Query(value = "DELETE FROM meeting WHERE id = ?1", nativeQuery = true)
+    void deleteMeetingById(Integer meetingId);
 
     List<Meeting> findAllByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
 }

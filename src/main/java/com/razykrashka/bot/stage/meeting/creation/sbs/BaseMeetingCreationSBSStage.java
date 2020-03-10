@@ -4,6 +4,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.Stage;
+import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -79,14 +80,29 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     protected Meeting getMeetingInCreation() {
         List<Meeting> meetingsInCreation = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(
                 CreationStatus.IN_PROGRESS, razykrashkaBot.getUser());
-        if (meetingsInCreation.size() == 0 || meetingsInCreation.get(0)
-                .getCreationDateTime()
-                .plusMinutes(15).isBefore(LocalDateTime.now())) {
+
+        if (meetingsInCreation.size() == 0) {
             meeting = new Meeting();
             meeting.setCreationStatus(CreationStatus.IN_PROGRESS);
             meeting.setTelegramUser(razykrashkaBot.getUser());
             meeting.setCreationDateTime(LocalDateTime.now());
             return meeting;
+        } else if (meetingsInCreation.get(0)
+                .getCreationDateTime()
+                .plusSeconds(35).isBefore(LocalDateTime.now())) {
+
+            Meeting expiredMeeting = meetingsInCreation.get(0);
+            razykrashkaBot.getUser().getCreatedMeetings().remove(expiredMeeting);
+            razykrashkaBot.getUser().getToGoMeetings().remove(expiredMeeting);
+            telegramUserRepository.save(razykrashkaBot.getUser());
+            meetingRepository.deleteMeetingById(expiredMeeting.getId());
+
+            messageManager.disableKeyboardLastBotMessage();
+            messageManager.sendSimpleTextMessage("SESSION EXPIRED");
+
+            razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
+            razykrashkaBot.getContext().getBean(SelectWayMeetingCreationStage.class).handleRequest();
+            throw new RuntimeException("SESSION EXPIRED");
         }
         return meetingsInCreation.get(0);
     }
