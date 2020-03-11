@@ -37,12 +37,6 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
         meeting.setMeetingDateTime(localDateTime.withHour(0).withMinute(0));
         meetingRepository.save(meeting);
 
-        if (!razykrashkaBot.getUser().getToGoMeetings().contains(meeting)) {
-            razykrashkaBot.getUser().getToGoMeetings().add(meeting);
-            razykrashkaBot.getUser().getCreatedMeetings().add(meeting);
-            telegramUserRepository.save(razykrashkaBot.getUser());
-        }
-
         razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
         return true;
     }

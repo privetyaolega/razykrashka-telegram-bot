@@ -19,11 +19,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -49,11 +51,11 @@ public class Meeting {
     @JoinColumn(name = "owner_id")
     TelegramUser telegramUser;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "meeting_info_id")
     MeetingInfo meetingInfo;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "location_id")
     Location location;
 
@@ -62,13 +64,10 @@ public class Meeting {
 
     @Column
     @ManyToMany
-    Set<TelegramUser> participants;
-
-    public void addParticipant(TelegramUser user) {
-        participants.add(user);
-    }
-
-    public void removeParticipant(TelegramUser user) {
-        participants.remove(user);
-    }
+    @JoinTable(
+            name = "user_meeting",
+            joinColumns = @JoinColumn(name = "meeting_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    Set<TelegramUser> participants = new HashSet<>();
 }
