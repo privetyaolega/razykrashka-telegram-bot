@@ -29,7 +29,7 @@ public class LoadingThread extends Thread {
             updateMessage("...", messageId);
 
             int count = 0;
-            while (count != 3) {
+            while (count != 2) {
                 updateMessage(".  ", messageId);
                 Thread.sleep(200);
                 updateMessage(".. ", messageId);

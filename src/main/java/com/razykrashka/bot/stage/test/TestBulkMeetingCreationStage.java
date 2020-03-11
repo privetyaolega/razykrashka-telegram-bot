@@ -5,6 +5,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.SpeakingLevel;
+import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.stage.meeting.creation.CreateMeetingByTemplateStage;
@@ -16,6 +17,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 
 @Log4j2
 @Component
@@ -24,7 +26,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
     @Autowired
     MapLocationHelper mapLocationHelper;
 
-    private Meeting meetingModel;
+    private Meeting meeting;
 
     public TestBulkMeetingCreationStage() {
         stageInfo = StageInfo.TEST_BULK_MEETING_CREATION;
@@ -43,26 +45,30 @@ public class TestBulkMeetingCreationStage extends MainStage {
                         .build();
                 meetingInfoRepository.save(meetingInfo);
 
-                Location location = mapLocationHelper.getLocation("Кальрийская 46");
+                Location location = null;
+                try {
+                    location = mapLocationHelper.getLocation("Кальварийская 46");
+                } catch (YandexMapApiException e) {
+                    e.printStackTrace();
+                }
                 locationRepository.save(location);
 
-                meetingModel = Meeting.builder()
+                meeting = Meeting.builder()
                         .telegramUser(razykrashkaBot.getUser())
                         .meetingDateTime(LocalDateTime.now())
                         .creationDateTime(LocalDateTime.now())
                         .meetingInfo(meetingInfo)
                         .location(location)
                         .creationStatus(CreationStatus.DONE)
+                        .telegramUser(razykrashkaBot.getUser())
+                        .participants(new HashSet<>())
                         .build();
-                meetingRepository.save(meetingModel);
 
-                razykrashkaBot.getUser().setPhoneNumber("+375295508809");
-                razykrashkaBot.getUser().getToGoMeetings().add(meetingModel);
-                razykrashkaBot.getUser().getCreatedMeetings().add(meetingModel);
-                telegramUserRepository.save(razykrashkaBot.getUser());
+                meeting.getParticipants().add(razykrashkaBot.getUser());
+                meetingRepository.save(meeting);
             }
         } catch (Exception e) {
-            messageManager.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION");
+            messageManager.sendSimpleTextMessage("SOMETHING WENT WRONG DURING MEETING CREATION");
             razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/failSticker.png")));
             razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();
         }

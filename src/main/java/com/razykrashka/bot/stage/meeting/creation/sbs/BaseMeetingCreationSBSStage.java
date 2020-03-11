@@ -11,8 +11,8 @@ import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Log4j2
 @Getter
@@ -78,23 +78,21 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     }
 
     protected Meeting getMeetingInCreation() {
-        List<Meeting> meetingsInCreation = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(
+        Optional<Meeting> meetingOptional = meetingRepository.findTop1ByCreationStatusEqualsAndTelegramUser(
                 CreationStatus.IN_PROGRESS, razykrashkaBot.getUser());
 
-        if (meetingsInCreation.size() == 0) {
-            meeting = new Meeting();
+        if (!meetingOptional.isPresent()) {
+            Meeting meeting = new Meeting();
             meeting.setCreationStatus(CreationStatus.IN_PROGRESS);
             meeting.setTelegramUser(razykrashkaBot.getUser());
             meeting.setCreationDateTime(LocalDateTime.now());
+            meeting.setStartCreationDateTime(LocalDateTime.now());
             return meeting;
-        } else if (meetingsInCreation.get(0)
-                .getCreationDateTime()
-                .plusSeconds(20).isBefore(LocalDateTime.now())) {
+        } else if (meetingOptional.get()
+                .getStartCreationDateTime()
+                .plusSeconds(40).isBefore(LocalDateTime.now())) {
 
-            Meeting expiredMeeting = meetingsInCreation.get(0);
-            razykrashkaBot.getUser().getCreatedMeetings().remove(expiredMeeting);
-            razykrashkaBot.getUser().getToGoMeetings().remove(expiredMeeting);
-            telegramUserRepository.save(razykrashkaBot.getUser());
+            Meeting expiredMeeting = meetingOptional.get();
             meetingRepository.delete(expiredMeeting);
 
             messageManager.disableKeyboardLastBotMessage();
@@ -104,6 +102,6 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             razykrashkaBot.getContext().getBean(SelectWayMeetingCreationStage.class).handleRequest();
             throw new RuntimeException("SESSION EXPIRED");
         }
-        return meetingsInCreation.get(0);
+        return meetingOptional.get();
     }
 }

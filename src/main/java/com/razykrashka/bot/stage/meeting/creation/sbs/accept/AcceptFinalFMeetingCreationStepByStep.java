@@ -24,6 +24,7 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
         Meeting meeting = super.getMeetingInCreation();
         meeting.setCreationDateTime(LocalDateTime.now());
         meeting.setCreationStatus(CreationStatus.DONE);
+        meeting.getParticipants().add(razykrashkaBot.getUser());
         meetingRepository.save(meeting);
         try {
             thread.join();

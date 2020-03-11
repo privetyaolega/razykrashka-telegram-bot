@@ -10,6 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
 
@@ -21,4 +22,6 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
     void deleteMeetingById(Integer meetingId);
 
     List<Meeting> findAllByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
+
+    Optional<Meeting> findTop1ByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
 }
