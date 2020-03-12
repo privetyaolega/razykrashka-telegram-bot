@@ -68,13 +68,13 @@ public class TestBulkMeetingCreationStage extends MainStage {
                 meetingRepository.save(meeting);
             }
         } catch (Exception e) {
-            messageManager.sendSimpleTextMessage("SOMETHING WENT WRONG DURING MEETING CREATION");
-            razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/failSticker.png")));
+            messageManager.sendSimpleTextMessage("SOMETHING WENT WRONG DURING MEETING CREATION")
+                    .sendSticker("failSticker.png");
             razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();
         }
 
-        messageManager.sendSimpleTextMessage("MEETING CREATED");
-        razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));
+        messageManager.sendSimpleTextMessage("MEETING CREATED")
+            .sendSticker("successMeetingCreationSticker.tgs");
     }
 
     @Override
