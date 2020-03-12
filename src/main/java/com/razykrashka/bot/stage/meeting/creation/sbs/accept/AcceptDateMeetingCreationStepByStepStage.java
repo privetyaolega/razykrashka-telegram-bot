@@ -22,11 +22,11 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
     @Override
     public boolean processCallBackQuery() {
         messageInputHandler();
+
         String ddMMyyyy = updateHelper.getCallBackData();
         localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
                 Integer.parseInt(ddMMyyyy.substring(2, 4)),
                 Integer.parseInt(ddMMyyyy.substring(0, 2)), 0, 0);
-
         pastDateHandler();
 
         Meeting meeting = getMeetingInCreation();
@@ -40,6 +40,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
     private void messageInputHandler() {
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
             messageManager.disableKeyboardLastBotMessage();
+            setActiveNextStage(DateMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
             throw new IncorrectInputDataFormatException("Stage does not support text message date input!");
         }
@@ -48,6 +49,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
     private void pastDateHandler() {
         if (localDateTime.isBefore(LocalDateTime.now())) {
             messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.\uD83D\uDE30");
+            setActiveNextStage(DateMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
             throw new IncorrectInputDataFormatException("Selected date is in the past!");
         }

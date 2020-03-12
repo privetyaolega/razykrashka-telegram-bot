@@ -22,6 +22,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     @Autowired
     protected MeetingMessageUtils meetingMessageUtils;
     protected Meeting meeting;
+    private static final long SESSION_TIME_MINUTES = 2;
 
     @Override
     public boolean isStageActive() {
@@ -53,7 +54,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             return meeting;
         } else if (meetingOptional.get()
                 .getStartCreationDateTime()
-                .plusSeconds(40).isBefore(LocalDateTime.now())) {
+                .plusMinutes(SESSION_TIME_MINUTES).isBefore(LocalDateTime.now())) {
 
             Meeting expiredMeeting = meetingOptional.get();
             meetingRepository.delete(expiredMeeting);
