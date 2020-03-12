@@ -13,9 +13,7 @@ import com.razykrashka.bot.ui.helpers.MapLocationHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
@@ -74,7 +72,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
         }
 
         messageManager.sendSimpleTextMessage("MEETING CREATED")
-            .sendSticker("successMeetingCreationSticker.tgs");
+                .sendSticker("successMeetingCreationSticker.tgs");
     }
 
     @Override

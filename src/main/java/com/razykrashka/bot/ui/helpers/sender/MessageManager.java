@@ -41,8 +41,7 @@ import java.util.Locale;
 public class MessageManager extends Sender {
 
 	@Autowired
-	protected TelegramMessageRepository telegramMessageRepository;
-
+	TelegramMessageRepository telegramMessageRepository;
 	SendMessage sendMessage;
 
 	public MessageManager() {
@@ -257,7 +256,7 @@ public class MessageManager extends Sender {
 
 	public MessageManager sendSticker(String stickerFileName) {
 		try {
-			File stickerFile = new ClassPathResource("sticker/" + stickerFileName).getFile();
+			File stickerFile = new ClassPathResource("stickers/" + stickerFileName).getFile();
 			SendSticker sendSticker = new SendSticker()
 					.setSticker(stickerFile)
 					.setChatId(updateHelper.getChatId());
