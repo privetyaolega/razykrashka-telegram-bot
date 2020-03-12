@@ -62,11 +62,6 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
 
     @Override
     public boolean isStageActive() {
-        boolean isEdit = false;
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            isEdit = razykrashkaBot.getRealUpdate().getCallbackQuery()
-                    .getData().contains(ParticipantsMeetingCreationSBSStage.class.getSimpleName());
-        }
-        return super.isStageActive() && !isEdit;
+        return super.isStageActive() && !updateHelper.isCallBackDataContains(ParticipantsMeetingCreationSBSStage.class.getSimpleName());
     }
 }

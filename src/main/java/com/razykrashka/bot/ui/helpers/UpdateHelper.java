@@ -112,4 +112,8 @@ public class UpdateHelper {
         }
         throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have call back query!");
     }
+
+    public boolean hasCallBackQuery() {
+        return razykrashkaBot.getRealUpdate().hasCallbackQuery();
+    }
 }

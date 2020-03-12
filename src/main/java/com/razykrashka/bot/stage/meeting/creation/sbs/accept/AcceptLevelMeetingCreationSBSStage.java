@@ -45,11 +45,6 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public boolean isStageActive() {
-        boolean isEdit = false;
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            isEdit = razykrashkaBot.getRealUpdate().getCallbackQuery()
-                    .getData().contains(LocationMeetingCreationSBSStage.class.getSimpleName());
-        }
-        return super.isStageActive() && !isEdit;
+        return super.isStageActive() && !updateHelper.isCallBackDataContains(LocationMeetingCreationSBSStage.class.getSimpleName());
     }
 }

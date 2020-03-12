@@ -1,9 +1,12 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.DateMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
@@ -11,27 +14,20 @@ import java.time.LocalDateTime;
 
 @Log4j2
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreationSBSStage {
+
+    LocalDateTime localDateTime;
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
-            messageManager.disableKeyboardLastBotMessage();
-            setActiveNextStage(DateMeetingCreationSBSStage.class);
-            razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
-            return true;
-        }
+        messageInputHandler();
         String ddMMyyyy = updateHelper.getCallBackData();
-        LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
+        localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
                 Integer.parseInt(ddMMyyyy.substring(2, 4)),
                 Integer.parseInt(ddMMyyyy.substring(0, 2)), 0, 0);
 
-        if (localDateTime.isBefore(LocalDateTime.now())) {
-            messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.\uD83D\uDE30");
-            setActiveNextStage(DateMeetingCreationSBSStage.class);
-            razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
-            return true;
-        }
+        pastDateHandler();
 
         Meeting meeting = getMeetingInCreation();
         meeting.setMeetingDateTime(localDateTime.withHour(0).withMinute(0));
@@ -41,6 +37,22 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
         return true;
     }
 
+    private void messageInputHandler() {
+        if (razykrashkaBot.getRealUpdate().hasMessage()) {
+            messageManager.disableKeyboardLastBotMessage();
+            razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
+            throw new IncorrectInputDataFormatException("Stage does not support text message date input!");
+        }
+    }
+
+    private void pastDateHandler() {
+        if (localDateTime.isBefore(LocalDateTime.now())) {
+            messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.\uD83D\uDE30");
+            razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
+            throw new IncorrectInputDataFormatException("Selected date is in the past!");
+        }
+    }
+
     @Override
     public void handleRequest() {
         processCallBackQuery();
@@ -48,8 +60,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()
-                && updateHelper.isCallBackDataContains(DateMeetingCreationSBSStage.class.getSimpleName())) {
+        if (updateHelper.isCallBackDataContains(DateMeetingCreationSBSStage.class.getSimpleName())) {
             this.setActive(false);
             return false;
         }
