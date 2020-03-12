@@ -6,6 +6,7 @@ import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
+import com.razykrashka.bot.ui.helpers.loading.LoadingThread;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -67,5 +68,12 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             throw new RuntimeException("SESSION EXPIRED");
         }
         return meetingOptional.get();
+    }
+
+    protected LoadingThread startLoadingThread() {
+        LoadingThread thread = new LoadingThread();
+        razykrashkaBot.getContext().getAutowireCapableBeanFactory().autowireBean(thread);
+        thread.start();
+        return thread;
     }
 }
