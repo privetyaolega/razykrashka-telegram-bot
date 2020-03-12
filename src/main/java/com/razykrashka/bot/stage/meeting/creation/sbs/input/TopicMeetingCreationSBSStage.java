@@ -12,7 +12,8 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
-        messageManager.updateMessage(super.getMeetingPrettyString() + "Please, input topic", getKeyboard());
+        String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation());
+        messageManager.updateMessage(meetingInfo + "Please, input topic", getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationStepByStep.class);
     }
 

@@ -5,13 +5,13 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
+import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Optional;
 
 @Log4j2
@@ -19,50 +19,13 @@ import java.util.Optional;
 @Setter
 public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
-    private Meeting meeting;
+    @Autowired
+    protected MeetingMessageUtils meetingMessageUtils;
+    protected Meeting meeting;
 
     @Override
     public boolean isStageActive() {
         return super.getStageActivity();
-    }
-
-    public String getMeetingPrettyString() {
-        StringBuilder sb = new StringBuilder();
-        meeting = getMeetingInCreation();
-
-        if (meeting.getMeetingDateTime() != null) {
-            sb.append("DATE: ").append(this.meeting.getMeetingDateTime()
-                    .format(DateTimeFormatter.ofPattern("dd MMMM (EEEE)", Locale.ENGLISH)));
-        }
-
-        if (meeting.getMeetingDateTime() != null && meeting.getMeetingDateTime().getHour() != 0) {
-            sb.append("\n\nTIME: ").append(this.meeting.getMeetingDateTime()
-                    .format(DateTimeFormatter.ofPattern("HH:mm")));
-        }
-
-        if (meeting.getLocation() != null) {
-            sb.append("\n\nADDRESS: " + meeting.getLocation().getLocationLink());
-        }
-
-        if (meeting.getMeetingInfo() != null) {
-            sb.append("\n\nLEVEL: " + meeting.getMeetingInfo().getSpeakingLevel().getLevel());
-        }
-
-        if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getParticipantLimit() != null) {
-            sb.append("\n\nPARTICIPANT LIMIT: " + meeting.getMeetingInfo().getParticipantLimit());
-        }
-
-        if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getTopic() != null) {
-            sb.append("\n\nTOPIC: " + meeting.getMeetingInfo().getTopic());
-        }
-
-        if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getQuestions() != null) {
-            sb.append("\n\nQUESTION: \n" + meeting.getMeetingInfo().getQuestions());
-        }
-
-        sb.append("\n\n\n");
-
-        return sb.toString();
     }
 
     @Override
