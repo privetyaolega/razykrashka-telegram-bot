@@ -10,7 +10,6 @@ import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreat
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.ParticipantsMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
 @Log4j2
 @Component
@@ -23,10 +22,10 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
             razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
             return true;
         }
-        CallbackQuery callbackQuery = razykrashkaBot.getRealUpdate().getCallbackQuery();
 
+        SpeakingLevel level = SpeakingLevel.valueOf(updateHelper.getCallBackData());
         MeetingInfo meetingInfo = MeetingInfo.builder()
-                .speakingLevel(SpeakingLevel.valueOf(callbackQuery.getData()))
+                .speakingLevel(level)
                 .build();
         meetingInfoRepository.save(meetingInfo);
 

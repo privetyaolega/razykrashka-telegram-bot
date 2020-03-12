@@ -2,6 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
+import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.ParticipantsMeetingCreationSBSStage;
@@ -15,12 +16,7 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
-            razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
-            setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
-            razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
-            return true;
-        }
+        messageInputHandler();
         Integer participantsLimit = updateHelper.getIntegerPureCallBackData();
 
         Meeting meeting = getMeetingInCreation();
@@ -33,6 +29,15 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
         messageManager.updateMessage(messageInfoText);
         razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).handleRequest();
         return true;
+    }
+
+    private void messageInputHandler() {
+        if (razykrashkaBot.getRealUpdate().hasMessage()) {
+            razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
+            setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
+            razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
+            throw new IncorrectInputDataFormatException("Stage does not support text message date input!");
+        }
     }
 
     @Override
