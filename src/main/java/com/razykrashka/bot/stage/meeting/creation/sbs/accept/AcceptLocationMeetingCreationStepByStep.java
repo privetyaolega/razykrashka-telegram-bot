@@ -49,9 +49,6 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            return false;
-        }
-        return super.getStageActivity();
+        return !updateHelper.hasCallBackQuery() && super.getStageActivity();
     }
 }

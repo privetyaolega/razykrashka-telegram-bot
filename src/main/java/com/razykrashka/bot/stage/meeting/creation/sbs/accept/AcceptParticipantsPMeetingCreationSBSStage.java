@@ -42,10 +42,6 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            return razykrashkaBot.getRealUpdate().getCallbackQuery()
-                    .getData().contains(this.getClass().getSimpleName());
-        }
-        return super.isStageActive();
+        return updateHelper.isCallBackDataContains() || super.isStageActive();
     }
 }
