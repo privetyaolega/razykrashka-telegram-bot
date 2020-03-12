@@ -29,7 +29,9 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
                         "\uD83D\uDD1F", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "10"))
                 .setRow(getString("back"), LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageManager.sendSimpleTextMessage(getMeetingPrettyString() + getString("input"), keyboardMarkup);
+
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation());
+        messageManager.sendSimpleTextMessage(messageText + getString("input"), keyboardMarkup);
         super.setActiveNextStage(AcceptParticipantsPMeetingCreationSBSStage.class);
     }
 

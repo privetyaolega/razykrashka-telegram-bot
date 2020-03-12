@@ -23,7 +23,9 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                         "Native", "NATIVE"))
                 .setRow(super.getString("back"), LocationMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageManager.sendSimpleTextMessage(getMeetingPrettyString() +
+
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation());
+        messageManager.sendSimpleTextMessage(messageText +
                 super.getString("input"), keyboardMarkup);
         setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
     }

@@ -29,7 +29,8 @@ public class AcceptParticipantsPMeetingCreationSBSStage extends BaseMeetingCreat
         meetingInfoRepository.save(meetingInfo);
         meetingRepository.save(meeting);
 
-        messageManager.updateMessage(super.getMeetingPrettyString());
+        String messageInfoText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
+        messageManager.updateMessage(messageInfoText);
         razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).handleRequest();
         return true;
     }

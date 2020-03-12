@@ -63,4 +63,40 @@ public class MeetingMessageUtils {
                 + meeting.getMeetingInfo().getTopic() + "\n"
                 + "INFORMATION: /meeting" + meeting.getId();
     }
+
+	public String createMeetingInfoDuringCreation(Meeting meeting) {
+		StringBuilder sb = new StringBuilder();
+
+		if (meeting.getMeetingDateTime() != null) {
+			String pattern = "dd MMMM (EEEE)";
+			if (meeting.getMeetingDateTime().getHour() != 0) {
+				pattern = "dd MMMM (EEEE) ⏰ HH:mm";
+			}
+			sb.append("DATE: ").append(meeting.getMeetingDateTime()
+					.format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH)));
+		}
+
+		if (meeting.getLocation() != null) {
+			sb.append("\n\nADDRESS: ").append(meeting.getLocation().getLocationLink());
+		}
+
+		if (meeting.getMeetingInfo() != null) {
+			sb.append("\n\nLEVEL: ").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel());
+		}
+
+		if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getParticipantLimit() != null) {
+			sb.append("\n\nPARTICIPANT LIMIT: ").append(meeting.getMeetingInfo().getParticipantLimit());
+		}
+
+		if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getTopic() != null) {
+			sb.append("\n\nTOPIC: ").append(meeting.getMeetingInfo().getTopic());
+		}
+
+		if (meeting.getMeetingInfo() != null && meeting.getMeetingInfo().getQuestions() != null) {
+			sb.append("\n\nQUESTION: \n").append(meeting.getMeetingInfo().getQuestions());
+		}
+		sb.append("\n\n\n");
+
+		return sb.toString();
+	}
 }
