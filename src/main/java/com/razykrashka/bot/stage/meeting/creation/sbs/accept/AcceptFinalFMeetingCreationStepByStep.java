@@ -32,9 +32,8 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
             e.printStackTrace();
         }
 
-        messageManager.updateMessage("MEETING CREATED");
-        razykrashkaBot.sendSticker(new SendSticker()
-                .setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));
+        messageManager.updateMessage("MEETING CREATED")
+            .sendSticker("successMeetingCreationSticker.tgs");
     }
 
     @Override
