@@ -13,29 +13,27 @@ import java.time.LocalDateTime;
 @Component
 public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSBSStage {
 
-	@Override
-	public void handleRequest() {
-		LoadingThread thread = new LoadingThread();
-		razykrashkaBot.getContext().getAutowireCapableBeanFactory().autowireBean(thread);
-		thread.start();
+    @Override
+    public void handleRequest() {
+        LoadingThread loadingThread = startLoadingThread();
 
-		Meeting meeting = super.getMeetingInCreation();
-		meeting.setCreationDateTime(LocalDateTime.now());
-		meeting.setCreationStatus(CreationStatus.DONE);
-		meeting.getParticipants().add(razykrashkaBot.getUser());
-		meetingRepository.save(meeting);
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        Meeting meeting = super.getMeetingInCreation();
+        meeting.setCreationDateTime(LocalDateTime.now());
+        meeting.setCreationStatus(CreationStatus.DONE);
+        meeting.getParticipants().add(razykrashkaBot.getUser());
+        meetingRepository.save(meeting);
+        try {
+            loadingThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-		messageManager.updateMessage("MEETING CREATED")
-				.sendSticker("successMeetingCreationSticker.tgs");
-	}
+        messageManager.updateMessage("MEETING CREATED")
+                .sendSticker("success2.tgs");
+    }
 
-	@Override
-	public boolean isStageActive() {
-		return super.getStageActivity() && updateHelper.isCallBackDataContains();
-	}
+    @Override
+    public boolean isStageActive() {
+        return super.getStageActivity() && updateHelper.isCallBackDataContains();
+    }
 }
