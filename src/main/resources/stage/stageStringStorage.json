@@ -35,6 +35,9 @@
     "ParticipantsMeetingCreationSBSStage": {
       "input": "Please, enter participants limit amount",
       "back": "⬅️ Back to Level edit"
+    },
+    "LocationMeetingCreationSBSStage": {
+      "input": "Please, attach or write location (e.g ул. Немига 6)"
     }
   }
 ]

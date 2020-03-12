@@ -218,10 +218,11 @@ public class MessageManager extends Sender {
 		}
 	}
 
-	public void deleteLastBotMessageIfHasKeyboard() {
+	public MessageManager deleteLastBotMessageIfHasKeyboard() {
 		if (telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(updateHelper.getChatId()).isHasKeyboard()) {
 			deleteLastBotMessage();
 		}
+		return this;
 	}
 
 	public MessageManager sendMap(Meeting meeting) {

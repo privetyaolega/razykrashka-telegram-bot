@@ -140,7 +140,7 @@ public abstract class MainStage implements Stage {
         return getStringMap().get(key);
     }
 
-    public boolean getStageActivity() {
+    protected boolean getStageActivity() {
         return stageActivity;
     }
 
