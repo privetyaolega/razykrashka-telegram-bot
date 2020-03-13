@@ -31,7 +31,7 @@ public class AllMeetingViewStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        meetings = meetingRepository.findAllByCreationStatusEqualsAndTelegramUser(CreationStatus.DONE, razykrashkaBot.getUser());
+        meetings = meetingRepository.findAllByStatusEqualsMeetings(CreationStatus.DONE);
 
         if (meetings.size() == 0) {
             messageManager.sendSimpleTextMessage("NO MEETINGS :(");

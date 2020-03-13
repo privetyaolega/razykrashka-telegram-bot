@@ -24,4 +24,6 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
     List<Meeting> findAllByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
 
     Optional<Meeting> findTop1ByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
+
+    List<Meeting> findAllByStatusEqualsMeetings(CreationStatus creationStatus);
 }
