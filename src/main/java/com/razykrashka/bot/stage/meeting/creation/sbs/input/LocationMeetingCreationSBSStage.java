@@ -21,7 +21,7 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
 	@Override
 	public ReplyKeyboard getKeyboard() {
 		return keyboardBuilder.getKeyboard()
-				.setRow("BACK TO TIME EDIT", TimeMeetingCreationSBSStage.class.getSimpleName())
+				.setRow(getString("backButton"), TimeMeetingCreationSBSStage.class.getSimpleName())
 				.build();
 	}
 
