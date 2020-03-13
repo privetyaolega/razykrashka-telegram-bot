@@ -6,9 +6,7 @@ import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStag
 import com.razykrashka.bot.ui.helpers.loading.LoadingThread;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 
-import java.io.File;
 import java.time.LocalDateTime;
 
 @Log4j2
@@ -17,23 +15,21 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
 
     @Override
     public void handleRequest() {
-        LoadingThread thread = new LoadingThread();
-        razykrashkaBot.getContext().getAutowireCapableBeanFactory().autowireBean(thread);
-        thread.start();
+        LoadingThread loadingThread = startLoadingThread();
 
         Meeting meeting = super.getMeetingInCreation();
         meeting.setCreationDateTime(LocalDateTime.now());
         meeting.setCreationStatus(CreationStatus.DONE);
+        meeting.getParticipants().add(razykrashkaBot.getUser());
         meetingRepository.save(meeting);
         try {
-            thread.join();
+            loadingThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        messageManager.updateMessage("MEETING CREATED");
-        razykrashkaBot.sendSticker(new SendSticker()
-                .setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));
+        messageManager.updateMessage("MEETING CREATED")
+                .sendSticker("success2.tgs");
     }
 
     @Override

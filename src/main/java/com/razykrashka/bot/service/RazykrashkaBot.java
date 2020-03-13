@@ -132,15 +132,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         telegramMessageRepository.save(telegramMessage);
     }
 
-    public void sendSticker(SendSticker sticker) {
-        sticker.setChatId(getCurrentChatId());
-        try {
-            execute(sticker);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
     public Long getCurrentChatId() {
         return this.getRealUpdate().getMessage() != null ? this.getRealUpdate().getMessage().getChat().getId() :
                 this.getRealUpdate().getCallbackQuery().getMessage().getChat().getId();

@@ -1,10 +1,26 @@
 package com.razykrashka.bot.db.entity.razykrashka;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +28,6 @@ import java.util.Set;
 @Table(name = "user")
 @Getter
 @Setter
-@Data
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
@@ -30,11 +45,11 @@ public class TelegramUser {
     Integer telegramId;
 
     @Column
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "telegramUser")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "telegramUser")
     Set<Meeting> createdMeetings = new HashSet<>();
 
     @Column
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_meeting",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -45,6 +60,7 @@ public class TelegramUser {
     public void addMeetingTotoGoMeetings(Meeting meeting) {
         toGoMeetings.add(meeting);
     }
+
     public void removeFromToGoMeetings(Meeting meeting) {
         toGoMeetings.remove(meeting);
     }

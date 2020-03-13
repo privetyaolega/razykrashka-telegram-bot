@@ -25,7 +25,7 @@ public class SelectWayMeetingCreationStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        messageManager.sendSimpleTextMessage(this.getStringMap().get("enMain"), this.getKeyboard());
+        messageManager.sendSimpleTextMessage(getString("enMain"), this.getKeyboard());
     }
 
     @Override

@@ -13,8 +13,9 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     @Override
     public void handleRequest() {
         messageManager.deleteLastBotMessageIfHasKeyboard();
-        String textMessage = super.getMeetingPrettyString() + "Please, choose time (e.g 19-30)";
-        messageManager.sendSimpleTextMessage(textMessage, getKeyboard());
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation());
+        messageManager.sendSimpleTextMessage(messageText +
+                "Please, choose time (e.g 19-30)", getKeyboard());
         super.setActiveNextStage(AcceptTimeMeetingCreationSBSStage.class);
     }
 

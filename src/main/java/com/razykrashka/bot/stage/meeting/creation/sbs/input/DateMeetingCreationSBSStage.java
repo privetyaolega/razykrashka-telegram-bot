@@ -4,10 +4,13 @@ import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptDateMeetingCreationStepByStepStage;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,9 +21,11 @@ import java.util.Locale;
 
 @Log4j2
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
-    private final static String NO_DATE = "noDate";
+    final static String NO_DATE = "noDate";
+    ReplyKeyboard keyboard;
 
     @Override
     public void handleRequest() {
@@ -32,23 +37,24 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         String callBackData = updateHelper.getCallBackData();
         if (this.getClass().getSimpleName().equals(callBackData) || this.getStageActivity()) {
             // TODO: Informative error message;
+            keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
             if (razykrashkaBot.getRealUpdate().hasMessage()) {
-                messageManager.disableKeyboardLastBotMessage();
-                messageManager.replyLastMessage("Please, choose meeting date.",
-                        generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+                messageManager.disableKeyboardLastBotMessage()
+                        .replyLastMessage("Please, choose meeting date.", keyboard);
             } else {
-                messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.",
-                        generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear()));
+                messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", keyboard);
             }
         } else {
             if (callBackData.contains(NO_DATE)) {
                 messageManager.sendAlertMessage("Пожалуйста, введита дату");
+                setActiveNextStage(this.getClass());
                 return true;
             }
             String monthYear = callBackData.replace(this.getClass().getSimpleName(), "");
             int month = Integer.parseInt(monthYear.substring(0, 2));
             int year = Integer.parseInt("20" + monthYear.substring(2, 4));
-            messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", generateCalendarKeyboard(month, year));
+            keyboard = generateCalendarKeyboard(month, year);
+            messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", keyboard);
         }
         return true;
     }
@@ -115,11 +121,6 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            if (razykrashkaBot.getRealUpdate().getCallbackQuery().getData().contains(this.getClass().getSimpleName())) {
-                return true;
-            }
-        }
-        return super.getStageActivity();
+        return updateHelper.isCallBackDataContains() || super.getStageActivity();
     }
 }

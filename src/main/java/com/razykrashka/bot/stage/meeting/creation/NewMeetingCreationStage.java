@@ -11,9 +11,7 @@ import com.razykrashka.bot.ui.helpers.MapLocationHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -24,61 +22,62 @@ import java.util.stream.Collectors;
 @Component
 public class NewMeetingCreationStage extends MainStage {
 
-    @Autowired
-    MapLocationHelper mapLocationHelper;
+	@Autowired
+	MapLocationHelper mapLocationHelper;
 
-    private String message;
-    private Meeting meetingModel;
+	private String message;
+	private Meeting meetingModel;
 
-    public NewMeetingCreationStage() {
-        stageInfo = StageInfo.NEW_MEETING_CREATION;
-    }
+	public NewMeetingCreationStage() {
+		stageInfo = StageInfo.NEW_MEETING_CREATION;
+	}
 
-    @Override
-    public void handleRequest() {
-        message = updateHelper.getMessageText().replace("@Test7313494Bot", "").trim();
-        try {
-            Map<String, String> meetingMap = Arrays.stream(message.split("\\n\\n")).skip(1)
-                    .map(x -> x.replace("\n", ""))
-                    .collect(Collectors.toMap((line) -> line.split(":")[0].trim(), (x) -> x.split(":")[1].trim()));
+	@Override
+	public void handleRequest() {
+		message = updateHelper.getMessageText().replace("@Test7313494Bot", "").trim();
+		try {
+			Map<String, String> meetingMap = Arrays.stream(message.split("\\n\\n")).skip(1)
+					.map(x -> x.replace("\n", ""))
+					.collect(Collectors.toMap((line) -> line.split(":")[0].trim(), (x) -> x.split(":")[1].trim()));
 
-            MeetingInfo meetingInfo = MeetingInfo.builder()
-                    .questions(meetingMap.get("QUESTIONS"))
-                    .topic(meetingMap.get("TOPIC"))
-                    .speakingLevel(SpeakingLevel.ADVANCED)
-                    .build();
-            meetingInfoRepository.save(meetingInfo);
+			MeetingInfo meetingInfo = MeetingInfo.builder()
+					.questions(meetingMap.get("QUESTIONS"))
+					.topic(meetingMap.get("TOPIC"))
+					.speakingLevel(SpeakingLevel.ADVANCED)
+					.build();
+			meetingInfoRepository.save(meetingInfo);
 
-            Location location = mapLocationHelper.getLocation(meetingMap.get("LOCATION"));
-            locationRepository.save(location);
+			Location location = mapLocationHelper.getLocation(meetingMap.get("LOCATION"));
+			locationRepository.save(location);
 
-            meetingModel = Meeting.builder()
-                    .telegramUser(razykrashkaBot.getUser())
-                    .meetingDateTime(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
-                    .creationDateTime(LocalDateTime.now())
-                    .meetingInfo(meetingInfo)
-                    .location(location)
-                    .creationStatus(CreationStatus.DONE)
-                    .build();
-            meetingRepository.save(meetingModel);
+			meetingModel = Meeting.builder()
+					.telegramUser(razykrashkaBot.getUser())
+					.meetingDateTime(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
+					.creationDateTime(LocalDateTime.now())
+					.startCreationDateTime(LocalDateTime.now())
+					.meetingInfo(meetingInfo)
+					.location(location)
+					.creationStatus(CreationStatus.DONE)
+					.build();
+			meetingRepository.save(meetingModel);
 
-            razykrashkaBot.getUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));
-            razykrashkaBot.getUser().getToGoMeetings().add(meetingModel);
-            razykrashkaBot.getUser().getCreatedMeetings().add(meetingModel);
-            telegramUserRepository.save(razykrashkaBot.getUser());
+			razykrashkaBot.getUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));
+			razykrashkaBot.getUser().getToGoMeetings().add(meetingModel);
+			razykrashkaBot.getUser().getCreatedMeetings().add(meetingModel);
+			telegramUserRepository.save(razykrashkaBot.getUser());
 
-            messageManager.sendSimpleTextMessage("MEETING CREATED");
-            razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/successMeetingCreationSticker.tgs")));
-        } catch (Exception e) {
-            e.printStackTrace();
-            messageManager.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION");
-            razykrashkaBot.sendSticker(new SendSticker().setSticker(new File("src/main/resources/stickers/failSticker.png")));
-            razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();
-        }
-    }
+			messageManager.sendSimpleTextMessage("MEETING CREATED")
+					.sendSticker("successMeetingCreationSticker");
+		} catch (Exception e) {
+			e.printStackTrace();
+			messageManager.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION")
+					.sendSticker("failSticker.png");
+			razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();
+		}
+	}
 
-    @Override
-    public boolean isStageActive() {
-        return updateHelper.isMessageContains(this.getStageInfo().getKeyword());
-    }
+	@Override
+	public boolean isStageActive() {
+		return updateHelper.isMessageContains(this.getStageInfo().getKeyword());
+	}
 }
