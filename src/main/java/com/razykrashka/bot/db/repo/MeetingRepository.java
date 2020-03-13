@@ -17,9 +17,11 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
     List<Meeting> findAllByTelegramUser(TelegramUser telegramUser);
 
     @Transactional
-    @Modifying
-    @Query(value = "DELETE FROM user_meeting WHERE meeting_id = ?1", nativeQuery = true)
-    void deleteMeeting(Integer meetingId);
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Query(value = "DELETE FROM meeting WHERE id = ?1", nativeQuery = true)
+    void deleteMeetingById(Integer meetingId);
 
     List<Meeting> findAllByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
+
+    Optional<Meeting> findTop1ByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
 }

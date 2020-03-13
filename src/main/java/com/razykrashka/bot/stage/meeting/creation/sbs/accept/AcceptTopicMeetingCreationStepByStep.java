@@ -23,19 +23,20 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
     @Override
     public void handleRequest() {
         String topic = razykrashkaBot.getRealUpdate().getMessage().getText();
-        saveTopicToDb(topic, "");
+        saveTopic(topic, "");
         razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
     }
 
     @Override
     public boolean processCallBackQuery() {
-        if (razykrashkaBot.getRealUpdate().getCallbackQuery().getData().equals(ACCEPT_RANDOM_TOPIC_CBQ)) {
+        if (updateHelper.isCallBackDataEquals(ACCEPT_RANDOM_TOPIC_CBQ)) {
             razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
             return true;
         }
+
         List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
         MeetingInfo meetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
-        saveTopicToDb(meetingInfo.getTopic(), meetingInfo.getQuestions());
+        saveTopic(meetingInfo.getTopic(), meetingInfo.getQuestions());
 
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
@@ -43,14 +44,15 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
                         "Accept Topic", ACCEPT_RANDOM_TOPIC_CBQ))
                 .setRow("BACK TO PARTICIPANT LIMIT EDIT", ParticipantsMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        messageManager.updateMessage(super.getMeetingPrettyString() +
+        String meetingInfoMessage = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
+        messageManager.updateMessage(meetingInfoMessage +
                 "Please, input topic or generate random one.", keyboardMarkup);
         super.setActiveNextStage(AcceptTopicMeetingCreationStepByStep.class);
         return true;
     }
 
-    private void saveTopicToDb(String topic, String questions) {
-        Meeting meeting = getMeetingInCreation();
+    private void saveTopic(String topic, String questions) {
+        meeting = getMeetingInCreation();
         MeetingInfo currentMeetingInfo = meeting.getMeetingInfo();
         currentMeetingInfo.setTopic(topic);
         currentMeetingInfo.setQuestions(questions);
@@ -60,11 +62,6 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
 
     @Override
     public boolean isStageActive() {
-        boolean isEdit = false;
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            isEdit = razykrashkaBot.getRealUpdate().getCallbackQuery()
-                    .getData().contains(ParticipantsMeetingCreationSBSStage.class.getSimpleName());
-        }
-        return super.isStageActive() && !isEdit;
+        return super.isStageActive() && !updateHelper.isCallBackDataContains(ParticipantsMeetingCreationSBSStage.class.getSimpleName());
     }
 }

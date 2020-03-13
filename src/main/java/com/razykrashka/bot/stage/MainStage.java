@@ -3,7 +3,11 @@ package com.razykrashka.bot.stage;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.razykrashka.bot.db.repo.*;
+import com.razykrashka.bot.db.repo.LocationRepository;
+import com.razykrashka.bot.db.repo.MeetingInfoRepository;
+import com.razykrashka.bot.db.repo.MeetingRepository;
+import com.razykrashka.bot.db.repo.TelegramMessageRepository;
+import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
@@ -136,7 +140,7 @@ public abstract class MainStage implements Stage {
         return getStringMap().get(key);
     }
 
-    public boolean getStageActivity() {
+    protected boolean getStageActivity() {
         return stageActivity;
     }
 
@@ -144,14 +148,5 @@ public abstract class MainStage implements Stage {
         razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
         Stage stage = ((Stage) razykrashkaBot.getContext().getBean(clazz));
         stage.setActive(true);
-    }
-
-    protected String getPureCallBackData() {
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            return razykrashkaBot.getRealUpdate()
-                    .getCallbackQuery().getData()
-                    .replace(this.getClass().getSimpleName(), "");
-        }
-        throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have Call Back Query!");
     }
 }

@@ -18,22 +18,22 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
         timeMessage = updateHelper.getMessageText();
         inputDataValidation();
 
-        messageManager.deleteLastMessage();
         Meeting meeting = super.getMeetingInCreation();
         meeting.setMeetingDateTime(meeting.getMeetingDateTime()
                 .withHour(Integer.parseInt(timeMessage.substring(0, 2)))
                 .withMinute(Integer.parseInt(timeMessage.substring(3))));
         meetingRepository.save(meeting);
 
-        messageManager.deleteLastBotMessage();
+        messageManager.deleteLastMessage()
+                .deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
     }
 
     private void inputDataValidation() {
         if (!timeMessage.matches(TIME_REGEX)) {
             String message = String.format(super.getStringMap().get("incorrectTimeFormat"), timeMessage);
-            messageManager.disableKeyboardLastBotMessage();
-            messageManager.replyLastMessage(message);
+            messageManager.disableKeyboardLastBotMessage()
+                    .replyLastMessage(message);
             razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
             throw new IncorrectInputDataFormatException(timeMessage + ": incorrect time format!");
         }
@@ -41,9 +41,6 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
 
     @Override
     public boolean isStageActive() {
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            return false;
-        }
-        return super.getStageActivity();
+        return !updateHelper.hasCallBackQuery() && super.getStageActivity();
     }
 }
