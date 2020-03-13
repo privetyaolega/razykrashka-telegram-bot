@@ -67,7 +67,7 @@ public class NewMeetingCreationStage extends MainStage {
 			telegramUserRepository.save(razykrashkaBot.getUser());
 
 			messageManager.sendSimpleTextMessage("MEETING CREATED")
-					.sendSticker("successMeetingCreationSticker");
+					.sendSticker("successMeetingCreationSticker.tgs");
 		} catch (Exception e) {
 			e.printStackTrace();
 			messageManager.sendSimpleTextMessage("SOMETHING WENT WROND DURING MEETING CREATION")
