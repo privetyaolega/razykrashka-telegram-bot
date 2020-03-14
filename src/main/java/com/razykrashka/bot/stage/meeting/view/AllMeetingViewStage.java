@@ -31,7 +31,7 @@ public class AllMeetingViewStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        meetings = meetingRepository.findAllByStatusEqualsMeetings(CreationStatus.DONE);
+        meetings = meetingRepository.findAllByCreationStatus(CreationStatus.DONE);
 
         if (meetings.size() == 0) {
             messageManager.sendSimpleTextMessage("NO MEETINGS :(");
