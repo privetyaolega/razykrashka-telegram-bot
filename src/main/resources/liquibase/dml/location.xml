@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="clob.type" value="longtext" dbms="mysql"/>
+    <changeSet id="2" author="brokorenko" runOnChange="true">
+        <comment>Upload 3 locations</comment>
+        <sql>
+            INSERT INTO location (address, latitude, link, text_link, longitude, name)
+            VALUES ('ул. Немига 5, Лидо', '53.902', 'http://google.com', 'ул. Немига 5, Лидо', '27.5496', 'OLEG');
+
+            INSERT INTO location (address, latitude, link, text_link, longitude, name)
+            VALUES ('ул. Кульман 5а, Лидо', '53.918885', 'http://google.com', 'ул. Кульман 5а, Лидо', '27.581235',
+            'Andrew');
+
+            INSERT INTO location (address, latitude, link, text_link, longitude, name)
+            VALUES ('ул. Кульман 5а, Лидо', '53.918885', 'http://google.com', 'ул. Кульман 5а, Лидо', '27.581235',
+            'Dmitry');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
