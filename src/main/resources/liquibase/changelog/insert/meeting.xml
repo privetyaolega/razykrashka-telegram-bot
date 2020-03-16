@@ -3,7 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <changeSet id="4" author="brokorenko" runOnChange="true">
+    <changeSet id="4" author="brokorenko">
         <comment>Upload 3 meetings</comment>
         <sql>
             INSERT INTO meeting (creation_date_time, creation_status, meeting_date_time, location_id, meeting_info_id,

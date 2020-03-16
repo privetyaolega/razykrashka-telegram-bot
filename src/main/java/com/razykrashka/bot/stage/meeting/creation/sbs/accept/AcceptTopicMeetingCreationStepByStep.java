@@ -1,7 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.google.common.collect.ImmutableMap;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.FinalMeetingCreationSBSStage;
@@ -17,52 +16,52 @@ import java.util.Random;
 @Component
 public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBSStage {
 
-	private final static String RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationStepByStep.class.getSimpleName() + "Random";
-	private final static String ACCEPT_RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationStepByStep.class.getSimpleName() + "Accept";
+    private final static String RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationStepByStep.class.getSimpleName() + "Random";
+    private final static String ACCEPT_RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationStepByStep.class.getSimpleName() + "Accept";
 
-	@Override
-	public void handleRequest() {
-		String topic = updateHelper.getMessageText();
-		saveTopic(topic, "");
-		razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
-	}
+    @Override
+    public void handleRequest() {
+        String topic = updateHelper.getMessageText();
+        saveTopic(topic, "");
+        razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
+    }
 
-	@Override
-	public boolean processCallBackQuery() {
-		if (updateHelper.isCallBackDataEquals(ACCEPT_RANDOM_TOPIC_CBQ)) {
-			razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
-			return true;
-		}
+    @Override
+    public boolean processCallBackQuery() {
+        if (updateHelper.isCallBackDataEquals(ACCEPT_RANDOM_TOPIC_CBQ)) {
+            razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
+            return true;
+        }
 
-		List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
-		MeetingInfo meetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
-		saveTopic(meetingInfo.getTopic(), meetingInfo.getQuestions());
+        List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
+        MeetingInfo meetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
+        saveTopic(meetingInfo.getTopic(), meetingInfo.getQuestions());
 
-		InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
-				.setRow(ImmutableMap.of(
-						"Random Topic", RANDOM_TOPIC_CBQ,
-						"Accept Topic", ACCEPT_RANDOM_TOPIC_CBQ))
-				.setRow("BACK TO PARTICIPANT LIMIT EDIT", ParticipantsMeetingCreationSBSStage.class.getSimpleName())
-				.build();
-		String meetingInfoMessage = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-		messageManager.updateMessage(meetingInfoMessage +
-				"Please, input topic or generate random one.", keyboardMarkup);
-		super.setActiveNextStage(AcceptTopicMeetingCreationStepByStep.class);
-		return true;
-	}
+        InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
+                .setRow(ImmutableMap.of(
+                        "Random Topic", RANDOM_TOPIC_CBQ,
+                        "Accept Topic", ACCEPT_RANDOM_TOPIC_CBQ))
+                .setRow("BACK TO PARTICIPANT LIMIT EDIT", ParticipantsMeetingCreationSBSStage.class.getSimpleName())
+                .build();
+        String meetingInfoMessage = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
+        messageManager.updateMessage(meetingInfoMessage +
+                "Please, input topic or generate random one.", keyboardMarkup);
+        super.setActiveNextStage(AcceptTopicMeetingCreationStepByStep.class);
+        return true;
+    }
 
-	private void saveTopic(String topic, String questions) {
-		meeting = getMeetingInCreation();
-		MeetingInfo currentMeetingInfo = meeting.getMeetingInfo();
-		currentMeetingInfo.setTopic(topic);
-		currentMeetingInfo.setQuestions(questions);
-		meetingInfoRepository.save(currentMeetingInfo);
-		meetingRepository.save(meeting);
-	}
+    private void saveTopic(String topic, String questions) {
+        meeting = getMeetingInCreation();
+        MeetingInfo currentMeetingInfo = meeting.getMeetingInfo();
+        currentMeetingInfo.setTopic(topic);
+        currentMeetingInfo.setQuestions(" " + questions.replaceAll(" +", " "));
+        meetingInfoRepository.save(currentMeetingInfo);
+        meetingRepository.save(meeting);
+    }
 
-	@Override
-	public boolean isStageActive() {
-		return (super.isStageActive() && !updateHelper.isCallBackDataContains(ParticipantsMeetingCreationSBSStage.class.getSimpleName())
-				|| updateHelper.isCallBackDataContains());
-	}
+    @Override
+    public boolean isStageActive() {
+        return (super.isStageActive() && !updateHelper.isCallBackDataContains(ParticipantsMeetingCreationSBSStage.class.getSimpleName())
+                || updateHelper.isCallBackDataContains());
+    }
 }
