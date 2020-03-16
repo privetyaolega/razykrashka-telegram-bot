@@ -1,0 +1,14 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <include file="classpath:liquibase/ddl/main.xml"/>
+
+    <include file="classpath:liquibase/dml/user.xml"/>
+    <include file="classpath:liquibase/dml/location.xml"/>
+    <include file="classpath:liquibase/dml/meeting_info.xml"/>
+    <include file="classpath:liquibase/dml/meeting.xml"/>
+    <include file="classpath:liquibase/dml/user_meeting.xml"/>
+
+</databaseChangeLog>
