@@ -1,0 +1,41 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="2" author="brokorenko" runOnChange="true">
+        <comment>Upload 3 users</comment>
+        <sql>
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            Select 'Olega', 'Rutski', '+375295508809', '532965560', 'privetyolega'
+            WHERE NOT EXISTS (
+            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Olega'
+            AND last_name = 'Rutski'
+            AND phone_number = '+375295508809'
+            AND telegram_id = '532965560'
+            AND user_name = 'privetyolega'
+            ) LIMIT 1;
+
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            Select 'Andrew', '', '+375293489901', '431957763', ''
+            WHERE NOT EXISTS (
+            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE
+            first_name = 'Andrew'
+            AND last_name = ''
+            AND phone_number = '+375293489901'
+            AND telegram_id = '431957763'
+            AND user_name = ''
+            ) LIMIT 1;
+
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            Select 'Dmitry', '', '+375259514749', '50678728', 'dmitrylen'
+            WHERE NOT EXISTS (
+            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Dmitry'
+            AND last_name = ''
+            AND phone_number = ''
+            AND telegram_id = '50678728'
+            AND user_name = 'dmitrylen'
+            ) LIMIT 1;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

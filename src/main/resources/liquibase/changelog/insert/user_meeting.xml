@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="6" author="brokorenko">
+        <comment>Upload 3 user_meetings</comment>
+        <sql>
+            INSERT INTO user_meeting (meeting_id, user_id)
+            VALUES ((SELECT id from meeting WHERE owner_id = ((SELECT id from user WHERE telegram_id = '532965560' LIMIT
+            1))
+            LIMIT 1), (SELECT id from user WHERE telegram_id = '532965560' LIMIT 1));
+
+            INSERT INTO user_meeting (meeting_id, user_id)
+            VALUES ((SELECT id from meeting WHERE owner_id = ((SELECT id from user WHERE telegram_id = '431957763' LIMIT
+            1)) LIMIT 1), (SELECT id from user WHERE telegram_id = '431957763' LIMIT 1));
+
+            INSERT INTO user_meeting (meeting_id, user_id)
+            VALUES ((SELECT id from meeting WHERE owner_id = (SELECT id from user WHERE telegram_id = '50678728' LIMIT
+            1) LIMIT 1), (SELECT id from user WHERE telegram_id = '50678728' LIMIT 1));
+        </sql>
+    </changeSet>
+</databaseChangeLog>
