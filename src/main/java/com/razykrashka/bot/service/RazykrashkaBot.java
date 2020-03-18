@@ -70,16 +70,15 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         this.realUpdate = update;
         userInit();
-
+        if (update.hasMessage() && keyWordsList.contains(update.getMessage().getText())) {
+            this.getStages().forEach(stage -> stage.setActive(false));
+        }
         activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
 
         if (update.hasCallbackQuery()) {
             updateInfoLog(update.getCallbackQuery().getData());
             activeStages.get(0).processCallBackQuery();
         } else {
-            if (keyWordsList.contains(update.getMessage().getText())) {
-                this.getStages().forEach(stage -> stage.setActive(false));
-            }
             saveUpdate();
             messageManager.disableKeyboardLastBotMessage();
             updateInfoLog(update.getMessage().getText());
