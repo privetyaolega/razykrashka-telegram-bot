@@ -40,7 +40,7 @@ public class AcceptFinalFMeetingCreationStepByStep extends BaseMeetingCreationSB
         messageManager.updateMessage("MEETING CREATED")
                 .sendSticker("success2.tgs");
 
-        String meetingInfo = meetingMessageUtils.createGroupMeetingInfo(meeting);
+        String meetingInfo = meetingMessageUtils.createMeetingInfoGroup(meeting);
         messageManager.sendMessage(new SendMessage()
                 .setParseMode(ParseMode.HTML)
                 .setChatId(groupChatId)
