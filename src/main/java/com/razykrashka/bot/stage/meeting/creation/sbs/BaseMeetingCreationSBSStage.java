@@ -60,8 +60,8 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             Meeting expiredMeeting = meetingOptional.get();
             meetingRepository.delete(expiredMeeting);
 
-            messageManager.disableKeyboardLastBotMessage();
-            messageManager.sendSimpleTextMessage("SESSION EXPIRED");
+            messageManager.disableKeyboardLastBotMessage()
+                    .sendSimpleTextMessage("SESSION EXPIRED");
 
             razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
             razykrashkaBot.getContext().getBean(SelectWayMeetingCreationStage.class).handleRequest();
