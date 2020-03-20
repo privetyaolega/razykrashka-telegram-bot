@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.view.utils;
 
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
@@ -38,7 +39,7 @@ public class MeetingMessageUtils {
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         return "<code>MEETING # " + meeting.getId() + "</code>\n" +
                 meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
-                + "\uD83D\uDCCD" + getLocationLink(meeting.getLocation()) + "\n"
+                + "\uD83D\uDCCD" + getLocationLink(meeting) + "\n"
                 + meetingInfo.getSpeakingLevel().toString() + "\n"
                 + meetingInfo.getTopic() + "\n"
                 + meetingInfo.getQuestions().replace("●", "\n●") + "\n";
@@ -46,7 +47,7 @@ public class MeetingMessageUtils {
 
     public String createSingleMeetingMainInformationText(Meeting meeting) {
         return meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
-                + "\uD83D\uDCCD" + getLocationLink(meeting.getLocation()) + "\n"
+                + "\uD83D\uDCCD" + getLocationLink(meeting) + "\n"
                 + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
                 + meeting.getMeetingInfo().getTopic() + "\n"
                 + "INFORMATION: /meeting" + meeting.getId();
@@ -65,7 +66,7 @@ public class MeetingMessageUtils {
         }
 
         if (meeting.getLocation() != null) {
-            String locationLink = getLocationLink(meeting.getLocation());
+            String locationLink = getLocationLink(meeting);
             sb.append("\n\nADDRESS: \uD83D\uDCCD").append(locationLink);
         }
 
@@ -85,19 +86,27 @@ public class MeetingMessageUtils {
         return sb.append("\n\n\n").toString();
     }
 
-    public String createGroupMeetingInfo(Meeting meeting) {
-        return "\uD83D\uDD25NEW MEETING!\uD83D\uDD25" + "\n\n"
-                + meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
-                + "\uD83D\uDCCD" + getLocationLink(meeting.getLocation()) + "\n"
-                + "Level: " + TextFormatter.getCodeString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()) + "\n"
-                + "Topic: " + TextFormatter.getCodeString(meeting.getMeetingInfo().getTopic()) + "\n\n"
-                + "You can find all the information about meeting, join to it and find other ones inside our bot @"
-                + botUserName + " in 'View Meeting' section." + "\n"
-                + "Hurry up! There are only " + TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit()) +
-                " free places! \uD83D\uDE31";
+    public String createMeetingInfoGroup(Meeting meeting) {
+        return Emoji.FIRE + " NEW MEETING! " + Emoji.FIRE + "\n" + "\n" +
+                Emoji.BIG_SUN + "\n" +
+                Emoji.SMALL_SUN + "   " + Emoji.CLOCK + "   " + meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n" +
+                Emoji.BIG_SUN + "\n" +
+                Emoji.SMALL_SUN + "   " + Emoji.LOCATION + "   " + getLocationLink(meeting) + "\n" +
+                Emoji.BIG_SUN + "\n" +
+                Emoji.SMALL_SUN + "   " + Emoji.PEOPLE + "   " + meeting.getMeetingInfo().getParticipantLimit() + "\n" +
+                Emoji.BIG_SUN + "\n" +
+                Emoji.SMALL_SUN + "   " + Emoji.SPEECH_CLOUD + "   " + meeting.getMeetingInfo().getTopic() + " (" + meeting.getMeetingInfo().getSpeakingLevel().getLevel() + ")" + "\n" +
+                Emoji.BIG_SUN +
+                "\n" +
+                "\n" +
+                "Hey, guys! " + Emoji.WAVE_HAND +
+                "\n" +
+                "Using " + TextFormatter.getBoldString("@" + botUserName) + ", you can find all information about meeting, join to it and find other ones.\n" +
+                "Hurry up! There are only " + TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit()) + " free places! " + Emoji.SCREAM;
     }
 
-    public String getLocationLink(Location location) {
+    public String getLocationLink(Meeting meeting) {
+        Location location = meeting.getLocation();
         String url = String.format(GOOGLE_MAP_LINK_PATTERN, location.getLatitude(), location.getLongitude());
         return TextFormatter.getLink(location.getAddress(), url);
     }
