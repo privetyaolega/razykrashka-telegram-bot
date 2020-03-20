@@ -1,5 +1,7 @@
 package com.razykrashka.bot.ui.helpers;
 
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
+import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -15,7 +17,10 @@ public class UpdateHelper {
     private final static Integer GROUP_CHAT_ID = -454425882;
 
     @Autowired
-    protected RazykrashkaBot razykrashkaBot;
+    RazykrashkaBot razykrashkaBot;
+
+    @Autowired
+    TelegramUserRepository telegramUserRepository;
 
     public boolean isCallBackDataContains(String string) {
         if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
@@ -110,7 +115,31 @@ public class UpdateHelper {
         if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
             return razykrashkaBot.getRealUpdate().getCallbackQuery().getData();
         }
-        throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have call back query!");
+        return "";
+    }
+
+    public boolean isNewChatMember() {
+        if (razykrashkaBot.getRealUpdate().hasMessage()) {
+            return razykrashkaBot.getRealUpdate()
+                    .getMessage()
+                    .getNewChatMembers().size() != 0;
+        }
+        return false;
+    }
+
+    public Update getUpdate() {
+        return razykrashkaBot.getRealUpdate();
+    }
+
+    public TelegramUser getUser() {
+        Integer userId;
+        Update realUpdate = razykrashkaBot.getRealUpdate();
+        if (realUpdate.hasMessage()) {
+            userId = realUpdate.getMessage().getFrom().getId();
+        } else {
+            userId = realUpdate.getCallbackQuery().getFrom().getId();
+        }
+        return telegramUserRepository.findByTelegramId(userId).get();
     }
 
     public boolean hasCallBackQuery() {

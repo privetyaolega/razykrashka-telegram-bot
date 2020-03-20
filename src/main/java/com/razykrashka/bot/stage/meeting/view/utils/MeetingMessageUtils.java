@@ -1,9 +1,13 @@
 package com.razykrashka.bot.stage.meeting.view.utils;
 
+import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
+import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
@@ -13,10 +17,15 @@ import java.util.stream.Collectors;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public class MeetingMessageUtils {
 
-    final static String DATE_PATTERN = "dd MMMM (EEEE)";
+    @Value("${razykrashka.bot.username}")
+    String botUserName;
+
+    final static String GOOGLE_MAP_LINK_PATTERN = "https://www.google.com/maps/search/?api=1&query=%s,%s";
     final static String DATE_TIME_PATTERN = "dd MMMM (EEEE) ⏰ HH:mm";
+    final static String DATE_PATTERN = "dd MMMM (EEEE)";
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
 
     public String createMeetingsText(List<Meeting> userMeetings, int meetingAmount) {
@@ -29,7 +38,7 @@ public class MeetingMessageUtils {
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         return "<code>MEETING # " + meeting.getId() + "</code>\n" +
                 meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
-                + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
+                + "\uD83D\uDCCD" + getLocationLink(meeting.getLocation()) + "\n"
                 + meetingInfo.getSpeakingLevel().toString() + "\n"
                 + meetingInfo.getTopic() + "\n"
                 + meetingInfo.getQuestions().replace("●", "\n●") + "\n";
@@ -37,7 +46,7 @@ public class MeetingMessageUtils {
 
     public String createSingleMeetingMainInformationText(Meeting meeting) {
         return meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
-                + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
+                + "\uD83D\uDCCD" + getLocationLink(meeting.getLocation()) + "\n"
                 + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
                 + meeting.getMeetingInfo().getTopic() + "\n"
                 + "INFORMATION: /meeting" + meeting.getId();
@@ -56,7 +65,8 @@ public class MeetingMessageUtils {
         }
 
         if (meeting.getLocation() != null) {
-            sb.append("\n\nADDRESS: \uD83D\uDCCD").append(meeting.getLocation().getLocationLink());
+            String locationLink = getLocationLink(meeting.getLocation());
+            sb.append("\n\nADDRESS: \uD83D\uDCCD").append(locationLink);
         }
 
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
@@ -73,5 +83,22 @@ public class MeetingMessageUtils {
             }
         }
         return sb.append("\n\n\n").toString();
+    }
+
+    public String createGroupMeetingInfo(Meeting meeting) {
+        return "\uD83D\uDD25NEW MEETING!\uD83D\uDD25" + "\n\n"
+                + meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
+                + "\uD83D\uDCCD" + getLocationLink(meeting.getLocation()) + "\n"
+                + "Level: " + TextFormatter.getCodeString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()) + "\n"
+                + "Topic: " + TextFormatter.getCodeString(meeting.getMeetingInfo().getTopic()) + "\n\n"
+                + "You can find all the information about meeting, join to it and find other ones inside our bot @"
+                + botUserName + " in 'View Meeting' section." + "\n"
+                + "Hurry up! There are only " + TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit()) +
+                " free places! \uD83D\uDE31";
+    }
+
+    public String getLocationLink(Location location) {
+        String url = String.format(GOOGLE_MAP_LINK_PATTERN, location.getLatitude(), location.getLongitude());
+        return TextFormatter.getLink(location.getAddress(), url);
     }
 }
