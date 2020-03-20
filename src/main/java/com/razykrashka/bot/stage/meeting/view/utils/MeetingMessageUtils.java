@@ -89,23 +89,21 @@ public class MeetingMessageUtils {
     }
 
     public String createMeetingInfoGroup(Meeting meeting) {
-        return Emoji.FIRE + " NEW MEETING! " + Emoji.FIRE + "\n" + "\n" +
-                Emoji.BIG_SUN + "\n" +
-                Emoji.SMALL_SUN + "   " + Emoji.CLOCK + "   " + meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n" +
-                Emoji.BIG_SUN + "\n" +
-                Emoji.SMALL_SUN + "   " + Emoji.LOCATION + "   " + getLocationLink(meeting) + "\n" +
-                Emoji.BIG_SUN + "\n" +
-                Emoji.SMALL_SUN + "   " + Emoji.PEOPLE + "   " + meeting.getMeetingInfo().getParticipantLimit() + "\n" +
-                Emoji.BIG_SUN + "\n" +
-                Emoji.SMALL_SUN + "   " + Emoji.SPEECH_CLOUD + "   " + meeting.getMeetingInfo().getTopic() +
-                " (" + meeting.getMeetingInfo().getSpeakingLevel().getLevel() + ")" + "\n" +
-                Emoji.BIG_SUN +
-                "\n" +
-                "\n" +
-                "Hey, guys! " + Emoji.WAVE_HAND +
-                "\n" +
-                "Using " + TextFormatter.getBoldString("@" + botUserName) + ", you can find all information about meeting, join to it and find other ones.\n" +
-                "Hurry up! There are only " + TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit()) + " free places! " + Emoji.SCREAM;
+        return new StringBuilder().append(Emoji.FIRE).append(" NEW MEETING! ").append(Emoji.FIRE).append("\n").append("\n")
+                .append(Emoji.BIG_SUN).append("\n")
+                .append(Emoji.SMALL_SUN).append("   ").append(Emoji.CLOCK).append("   ")
+                .append(meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH))).append("\n")
+                .append(Emoji.BIG_SUN).append("\n")
+                .append(Emoji.SMALL_SUN).append("   ").append(Emoji.LOCATION).append("   ").append(getLocationLink(meeting)).append("\n")
+                .append(Emoji.BIG_SUN).append("\n")
+                .append(Emoji.SMALL_SUN).append("   ").append(Emoji.PEOPLE).append("   ").append(meeting.getMeetingInfo().getParticipantLimit()).append("\n")
+                .append(Emoji.BIG_SUN).append("\n")
+                .append(Emoji.SMALL_SUN).append("   ").append(Emoji.SPEECH_CLOUD).append("   ").append(meeting.getMeetingInfo().getTopic()).append(" (").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append(")").append("\n")
+                .append(Emoji.BIG_SUN).append("\n").append("\n")
+                .append("Hey, guys! ").append(Emoji.WAVE_HAND).append("\n")
+                .append("Using ").append(TextFormatter.getBoldString("@" + botUserName))
+                .append(", you can find all information about meeting, join to it and find other ones.\n")
+                .append("Hurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit())).append(" free places! ").append(Emoji.SCREAM).toString();
     }
 
     public String getLocationLink(Meeting meeting) {
