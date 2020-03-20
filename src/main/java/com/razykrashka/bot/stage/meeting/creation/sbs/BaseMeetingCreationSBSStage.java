@@ -44,12 +44,12 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
     protected Meeting getMeetingInCreation() {
         Optional<Meeting> meetingOptional = meetingRepository.findTop1ByCreationStatusEqualsAndTelegramUser(
-                CreationStatus.IN_PROGRESS, razykrashkaBot.getUser());
+                CreationStatus.IN_PROGRESS, updateHelper.getUser());
 
         if (!meetingOptional.isPresent()) {
             Meeting meeting = new Meeting();
             meeting.setCreationStatus(CreationStatus.IN_PROGRESS);
-            meeting.setTelegramUser(razykrashkaBot.getUser());
+            meeting.setTelegramUser(updateHelper.getUser());
             meeting.setCreationDateTime(LocalDateTime.now());
             meeting.setStartCreationDateTime(LocalDateTime.now());
             return meeting;

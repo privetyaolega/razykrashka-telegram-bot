@@ -9,7 +9,7 @@ import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.stage.meeting.creation.CreateMeetingByTemplateStage;
-import com.razykrashka.bot.ui.helpers.MapLocationHelper;
+import com.razykrashka.bot.ui.helpers.LocationHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ import java.util.HashSet;
 public class TestBulkMeetingCreationStage extends MainStage {
 
     @Autowired
-    MapLocationHelper mapLocationHelper;
+    LocationHelper locationHelper;
 
     private Meeting meeting;
 
@@ -45,24 +45,24 @@ public class TestBulkMeetingCreationStage extends MainStage {
 
                 Location location = null;
                 try {
-                    location = mapLocationHelper.getLocation("Кальварийская 46");
+                    location = locationHelper.getLocation("Кальварийская 46");
                 } catch (YandexMapApiException e) {
                     e.printStackTrace();
                 }
                 locationRepository.save(location);
 
                 meeting = Meeting.builder()
-                        .telegramUser(razykrashkaBot.getUser())
+                        .telegramUser(updateHelper.getUser())
                         .meetingDateTime(LocalDateTime.now())
                         .creationDateTime(LocalDateTime.now())
                         .meetingInfo(meetingInfo)
                         .location(location)
                         .creationStatus(CreationStatus.DONE)
-                        .telegramUser(razykrashkaBot.getUser())
+                        .telegramUser(updateHelper.getUser())
                         .participants(new HashSet<>())
                         .build();
 
-                meeting.getParticipants().add(razykrashkaBot.getUser());
+                meeting.getParticipants().add(updateHelper.getUser());
                 meetingRepository.save(meeting);
             }
         } catch (Exception e) {

@@ -5,7 +5,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
-import com.razykrashka.bot.ui.helpers.MapLocationHelper;
+import com.razykrashka.bot.ui.helpers.LocationHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreationSBSStage {
 
     @Autowired
-    MapLocationHelper mapLocationHelper;
+    LocationHelper locationHelper;
 
     @Override
     public void handleRequest() {
@@ -23,11 +23,11 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
 
         try {
             if (razykrashkaBot.getRealUpdate().getMessage().hasLocation()) {
-                location = mapLocationHelper.getLocationByCoordinate(razykrashkaBot
+                location = locationHelper.getLocationByCoordinate(razykrashkaBot
                         .getRealUpdate().getMessage().getLocation());
             } else {
                 String address = razykrashkaBot.getRealUpdate().getMessage().getText();
-                location = mapLocationHelper.getLocation(address);
+                location = locationHelper.getLocation(address);
             }
         } catch (Exception e) {
             // TODO: Create informative error message

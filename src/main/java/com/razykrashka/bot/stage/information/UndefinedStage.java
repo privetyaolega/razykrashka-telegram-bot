@@ -20,10 +20,12 @@ public class UndefinedStage extends MainStage {
         return false;
     }
 
-	@Override
-	public void handleRequest() {
-		String message = String.format(getString("unknown"), updateHelper.getMessageText());
-		messageManager.disableKeyboardLastBotMessage()
-				.replyLastMessage(message);
-	}
+    @Override
+    public void handleRequest() {
+        if (updateHelper.getUpdate().hasMessage() && updateHelper.getUpdate().getMessage().hasText()) {
+            String message = String.format(getString("unknown"), updateHelper.getMessageText());
+            messageManager.disableKeyboardLastBotMessage()
+                    .replyLastMessage(message);
+        }
+    }
 }

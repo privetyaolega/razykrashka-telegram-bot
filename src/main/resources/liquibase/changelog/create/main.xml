@@ -36,8 +36,6 @@
             `id` int NOT NULL AUTO_INCREMENT,
             `address` varchar(255) DEFAULT NULL,
             `latitude` float DEFAULT NULL,
-            `link` varchar(255) DEFAULT NULL,
-            `text_link` varchar(255) DEFAULT NULL,
             `longitude` float DEFAULT NULL,
             `name` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`id`)
