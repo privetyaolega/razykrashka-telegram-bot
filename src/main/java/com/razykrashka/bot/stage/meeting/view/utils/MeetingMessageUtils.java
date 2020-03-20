@@ -72,7 +72,9 @@ public class MeetingMessageUtils {
 
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         if (meetingInfo != null) {
-            sb.append("\n\nLEVEL: ").append(meetingInfo.getSpeakingLevel().getLevel());
+            if (meetingInfo.getSpeakingLevel() != null) {
+                sb.append("\n\nLEVEL: ").append(meetingInfo.getSpeakingLevel().getLevel());
+            }
             if (meetingInfo.getParticipantLimit() != null) {
                 sb.append("\n\nPARTICIPANT LIMIT: ").append(meetingInfo.getParticipantLimit());
             }
@@ -95,7 +97,8 @@ public class MeetingMessageUtils {
                 Emoji.BIG_SUN + "\n" +
                 Emoji.SMALL_SUN + "   " + Emoji.PEOPLE + "   " + meeting.getMeetingInfo().getParticipantLimit() + "\n" +
                 Emoji.BIG_SUN + "\n" +
-                Emoji.SMALL_SUN + "   " + Emoji.SPEECH_CLOUD + "   " + meeting.getMeetingInfo().getTopic() + " (" + meeting.getMeetingInfo().getSpeakingLevel().getLevel() + ")" + "\n" +
+                Emoji.SMALL_SUN + "   " + Emoji.SPEECH_CLOUD + "   " + meeting.getMeetingInfo().getTopic() +
+                " (" + meeting.getMeetingInfo().getSpeakingLevel().getLevel() + ")" + "\n" +
                 Emoji.BIG_SUN +
                 "\n" +
                 "\n" +

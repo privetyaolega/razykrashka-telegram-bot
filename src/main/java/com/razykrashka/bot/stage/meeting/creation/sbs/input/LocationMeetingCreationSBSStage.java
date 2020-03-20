@@ -10,23 +10,27 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 @Component
 public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
-	@Override
-	public void handleRequest() {
-		String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation());
-		messageManager.deleteLastBotMessageIfHasKeyboard()
-				.sendSimpleTextMessage(meetingInfo + getString("input"), getKeyboard());
-		super.setActiveNextStage(AcceptLocationMeetingCreationStepByStep.class);
-	}
+    @Override
+    public void handleRequest() {
+        meeting = getMeetingInCreation();
+        meeting.setLocation(null);
+        meetingRepository.save(meeting);
 
-	@Override
-	public ReplyKeyboard getKeyboard() {
-		return keyboardBuilder.getKeyboard()
-				.setRow(getString("backButton"), TimeMeetingCreationSBSStage.class.getSimpleName())
-				.build();
-	}
+        String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
+        messageManager.deleteLastBotMessageIfHasKeyboard()
+                .sendSimpleTextMessage(meetingInfo + getString("input"), getKeyboard());
+        super.setActiveNextStage(AcceptLocationMeetingCreationStepByStep.class);
+    }
 
-	@Override
-	public boolean isStageActive() {
-		return super.isStageActive() || updateHelper.isCallBackDataContains();
-	}
+    @Override
+    public ReplyKeyboard getKeyboard() {
+        return keyboardBuilder.getKeyboard()
+                .setRow(getString("backButton"), TimeMeetingCreationSBSStage.class.getSimpleName())
+                .build();
+    }
+
+    @Override
+    public boolean isStageActive() {
+        return super.isStageActive() || updateHelper.isCallBackDataContains();
+    }
 }
