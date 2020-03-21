@@ -24,35 +24,32 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
             meetingRepository.save(meeting);
         }
 
-        messageManager.deleteLastBotMessageIfHasKeyboard();
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
-                        "2️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "2",
-                        "3️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "3",
-                        "4️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "4"))
+                        "2", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "2",
+                        "3", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "3"))
                 .setRow(ImmutableMap.of(
-                        "5️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "5",
-                        "6️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "6",
-                        "7️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "7"))
+                        "4", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "5",
+                        "5", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "6"))
                 .setRow(ImmutableMap.of(
-                        "8️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "8",
-                        "9️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "9",
-                        "\uD83D\uDD1F", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "10"))
+                        "6", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "6",
+                        "7", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "7",
+                        "8", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "8"))
+                .setRow(ImmutableMap.of(
+                        "9", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "9",
+                        "10", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "10",
+                        ">10", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "100"))
                 .setRow(getString("back"), LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
 
         String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        messageManager.sendSimpleTextMessage(messageText + getString("input"), keyboardMarkup);
+        messageManager.deleteLastBotMessageIfHasKeyboard()
+                .sendSimpleTextMessage(messageText + getString("input"), keyboardMarkup);
         super.setActiveNextStage(AcceptParticipantsMeetingCreationSBSStage.class);
     }
 
     @Override
     public boolean isStageActive() {
-        boolean isQueryContainsClass = false;
-        if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-            isQueryContainsClass = razykrashkaBot.getRealUpdate().getCallbackQuery()
-                    .getData().contains(this.getClass().getSimpleName());
-        }
-        return super.isStageActive() || isQueryContainsClass;
+        return super.isStageActive() || updateHelper.isCallBackDataEquals();
     }
 }

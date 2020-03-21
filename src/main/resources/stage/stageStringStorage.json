@@ -28,20 +28,24 @@
     },
     "LevelMeetingCreationSBSStage": {
       "input": "Please, enter speaking level",
-      "back": "⬅️ Back to Location edit"
+      "back": "👈 Back to Location edit"
     },
     "ParticipantsMeetingCreationSBSStage": {
       "input": "Please, enter participants limit amount",
-      "back": "⬅️ Back to Level edit"
+      "back": "👈 Back to Level edit"
     },
     "LocationMeetingCreationSBSStage": {
       "input": "Please, attach or write location (e.g ул. Немига 6)",
-      "backButton": "⬅️ Back to Time edit"
+      "backButton": "👈 Back to Time edit"
+    },
+    "TopicMeetingCreationSBSStage": {
+      "input": "Please, enter discussion topic...",
+      "backButton": "👈 Back to Participant Limit edit"
     },
     "FinalMeetingCreationSBSStage": {
       "input": "Please, confirm meeting creation.",
       "confirmButton": "Confirm",
-      "backButton": "⬅️ Back to Topic edit"
+      "backButton": "👈 Back to Topic edit"
     },
     "NewChatMemberStage": {
       "welcome": "Welcome to our speaking community!\uD83E\uDD73\nPlease, use /start to interact with bot.\nAll information about the club you can find in 'Information' section. Enjoy!☺️"

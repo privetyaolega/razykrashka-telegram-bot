@@ -19,7 +19,7 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         meetingRepository.save(meeting);
 
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        messageManager.updateMessage(meetingInfo + "Please, input topic", getKeyboard());
+        messageManager.updateMessage(meetingInfo + getString("input"), getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
     }
 
@@ -27,12 +27,12 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
                 .setRow("Random Topic", AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Random")
-                .setRow("BACK TO PARTICIPANT LIMIT EDIT", ParticipantsMeetingCreationSBSStage.class.getSimpleName())
+                .setRow(getString("backButton"), ParticipantsMeetingCreationSBSStage.class.getSimpleName())
                 .build();
     }
 
     @Override
     public boolean isStageActive() {
-        return super.isStageActive() || updateHelper.isCallBackDataContains();
+        return super.isStageActive() || updateHelper.isCallBackDataEquals();
     }
 }

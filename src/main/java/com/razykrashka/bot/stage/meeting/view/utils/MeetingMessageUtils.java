@@ -23,9 +23,8 @@ public class MeetingMessageUtils {
 
     @Value("${razykrashka.bot.username}")
     String botUserName;
-
     final static String GOOGLE_MAP_LINK_PATTERN = "https://www.google.com/maps/search/?api=1&query=%s,%s";
-    final static String DATE_TIME_PATTERN = "dd MMMM (EEEE) ⏰ HH:mm";
+    final static String DATE_TIME_PATTERN = "dd MMMM (EEEE) HH:mm";
     final static String DATE_PATTERN = "dd MMMM (EEEE)";
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
 
@@ -61,28 +60,46 @@ public class MeetingMessageUtils {
             if (meeting.getMeetingDateTime().getHour() != 0) {
                 pattern = DATE_TIME_PATTERN;
             }
-            sb.append("DATE: ").append(meeting.getMeetingDateTime()
-                    .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH)));
+            String date = meeting.getMeetingDateTime()
+                    .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH));
+            sb.append(Emoji.CLOCK)
+                    .append(TextFormatter.getBoldString(" Date: "))
+                    .append(TextFormatter.getFramedString(date));
         }
 
         if (meeting.getLocation() != null) {
             String locationLink = getLocationLink(meeting);
-            sb.append("\n\nADDRESS: \uD83D\uDCCD").append(locationLink);
+            sb.append("\n\n")
+                    .append(Emoji.LOCATION)
+                    .append(TextFormatter.getBoldString(" Address: "))
+                    .append(TextFormatter.getFramedString(locationLink));
         }
 
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         if (meetingInfo != null) {
             if (meetingInfo.getSpeakingLevel() != null) {
-                sb.append("\n\nLEVEL: ").append(meetingInfo.getSpeakingLevel().getLevel());
+                sb.append("\n\n")
+                        .append(Emoji.HIEROGLYPH)
+                        .append(TextFormatter.getBoldString(" Level: "))
+                        .append(TextFormatter.getFramedString(meetingInfo.getSpeakingLevel().getLevel()));
             }
             if (meetingInfo.getParticipantLimit() != null) {
-                sb.append("\n\nPARTICIPANT LIMIT: ").append(meetingInfo.getParticipantLimit());
+                sb.append("\n\n")
+                        .append(Emoji.PEOPLE)
+                        .append(TextFormatter.getBoldString(" Participant limit: "))
+                        .append(TextFormatter.getFramedString(meetingInfo.getParticipantLimit()));
             }
             if (meetingInfo.getTopic() != null) {
-                sb.append("\n\nTOPIC: ").append(meetingInfo.getTopic());
+                sb.append("\n\n")
+                        .append(Emoji.NEEDLE)
+                        .append(TextFormatter.getBoldString(" Topic: "))
+                        .append(TextFormatter.getFramedString(meetingInfo.getTopic()));
             }
             if (meetingInfo.getQuestions() != null) {
-                sb.append("\n\nQUESTION: \n").append(meetingInfo.getQuestions());
+                sb.append("\n\n")
+                        .append(Emoji.SPEECH_CLOUD)
+                        .append(TextFormatter.getBoldString(" Questions: \n"))
+                        .append(meetingInfo.getQuestions());
             }
         }
         return sb.append("\n\n\n").toString();
@@ -103,7 +120,8 @@ public class MeetingMessageUtils {
                 .append("Hey, guys! ").append(Emoji.WAVE_HAND).append("\n")
                 .append("Using ").append(TextFormatter.getBoldString("@" + botUserName))
                 .append(", you can find all information about meeting, join to it and find other ones.\n")
-                .append("Hurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit())).append(" free places! ").append(Emoji.SCREAM).toString();
+                .append("Hurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit() - 1))
+                .append(" free places! ").append(Emoji.SCREAM).toString();
     }
 
     public String getLocationLink(Meeting meeting) {
