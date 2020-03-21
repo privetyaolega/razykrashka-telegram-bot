@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLocationMeetingCreationStepByStep;
+import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLocationMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -19,7 +19,7 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.deleteLastBotMessageIfHasKeyboard()
                 .sendSimpleTextMessage(meetingInfo + getString("input"), getKeyboard());
-        super.setActiveNextStage(AcceptLocationMeetingCreationStepByStep.class);
+        super.setActiveNextStage(AcceptLocationMeetingCreationSBSStage.class);
     }
 
     @Override

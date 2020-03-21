@@ -14,10 +14,10 @@ import java.util.Random;
 
 @Log4j2
 @Component
-public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBSStage {
+public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
-    private final static String RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationStepByStep.class.getSimpleName() + "Random";
-    private final static String ACCEPT_RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationStepByStep.class.getSimpleName() + "Accept";
+    private final static String RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Random";
+    private final static String ACCEPT_RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Accept";
 
     @Override
     public void handleRequest() {
@@ -46,7 +46,7 @@ public class AcceptTopicMeetingCreationStepByStep extends BaseMeetingCreationSBS
         String meetingInfoMessage = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.updateMessage(meetingInfoMessage +
                 "Please, input topic or generate random one.", keyboardMarkup);
-        super.setActiveNextStage(AcceptTopicMeetingCreationStepByStep.class);
+        super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
         return true;
     }
 

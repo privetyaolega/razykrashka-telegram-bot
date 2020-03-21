@@ -1,10 +1,15 @@
 package com.razykrashka.bot.service;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
+import com.razykrashka.bot.db.repo.CreationStateRepository;
+import com.razykrashka.bot.db.repo.MeetingRepository;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.information.UndefinedStage;
+import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,6 +28,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -39,6 +45,13 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     @Autowired
     protected TelegramMessageRepository telegramMessageRepository;
+    @Autowired
+    protected MeetingRepository meetingRepository;
+    @Autowired
+    protected CreationStateRepository creationStateRepository;
+    @Autowired
+    UpdateHelper updateHelper;
+
     @Autowired
     ApplicationContext context;
     @Autowired
@@ -66,7 +79,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         this.realUpdate = update;
         if (update.hasMessage() && keyWordsList.contains(update.getMessage().getText())) {
-            this.getStages().forEach(stage -> stage.setActive(false));
+            disableCreationProgress();
         }
         activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
 
@@ -103,6 +116,19 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
                 .text(message.getText())
                 .build();
         telegramMessageRepository.save(telegramMessage);
+    }
+
+    public void disableCreationProgress() {
+        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
+        if (meetingOptional.isPresent()) {
+            Meeting meeting = meetingOptional.get();
+            CreationState creationState = meeting.getCreationState();
+            creationState.setInCreationProgress(false);
+            creationStateRepository.save(creationState);
+
+            meeting.setCreationState(creationState);
+            meetingRepository.save(meeting);
+        }
     }
 
     public Long getCurrentChatId() {

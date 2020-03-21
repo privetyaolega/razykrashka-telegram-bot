@@ -2,7 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptParticipantsPMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptParticipantsMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -27,23 +27,23 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
         messageManager.deleteLastBotMessageIfHasKeyboard();
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
-                        "2️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "2",
-                        "3️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "3",
-                        "4️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "4"))
+                        "2️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "2",
+                        "3️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "3",
+                        "4️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "4"))
                 .setRow(ImmutableMap.of(
-                        "5️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "5",
-                        "6️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "6",
-                        "7️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "7"))
+                        "5️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "5",
+                        "6️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "6",
+                        "7️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "7"))
                 .setRow(ImmutableMap.of(
-                        "8️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "8",
-                        "9️⃣", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "9",
-                        "\uD83D\uDD1F", AcceptParticipantsPMeetingCreationSBSStage.class.getSimpleName() + "10"))
+                        "8️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "8",
+                        "9️⃣", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "9",
+                        "\uD83D\uDD1F", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "10"))
                 .setRow(getString("back"), LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
 
         String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.sendSimpleTextMessage(messageText + getString("input"), keyboardMarkup);
-        super.setActiveNextStage(AcceptParticipantsPMeetingCreationSBSStage.class);
+        super.setActiveNextStage(AcceptParticipantsMeetingCreationSBSStage.class);
     }
 
     @Override

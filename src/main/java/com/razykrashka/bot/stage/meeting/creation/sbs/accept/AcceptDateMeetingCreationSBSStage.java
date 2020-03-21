@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Log4j2
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreationSBSStage {
+public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     LocalDateTime localDateTime;
 
@@ -63,9 +63,8 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
     @Override
     public boolean isStageActive() {
         if (updateHelper.isCallBackDataContains(DateMeetingCreationSBSStage.class.getSimpleName())) {
-            this.setActive(false);
             return false;
         }
-        return super.getStageActivity();
+        return super.isStageActive();
     }
 }

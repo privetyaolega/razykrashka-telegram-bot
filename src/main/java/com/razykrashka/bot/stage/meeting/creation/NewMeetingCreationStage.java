@@ -1,10 +1,8 @@
 package com.razykrashka.bot.stage.meeting.creation;
 
 import com.razykrashka.bot.db.entity.razykrashka.Location;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.SpeakingLevel;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.*;
+import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.ui.helpers.LocationHelper;
@@ -24,6 +22,8 @@ public class NewMeetingCreationStage extends MainStage {
 
     @Autowired
     LocationHelper locationHelper;
+    @Autowired
+    protected CreationStateRepository creationStateRepository;
 
     private String message;
     private Meeting meetingModel;
@@ -50,15 +50,20 @@ public class NewMeetingCreationStage extends MainStage {
             Location location = locationHelper.getLocation(meetingMap.get("LOCATION"));
             locationRepository.save(location);
 
+            CreationState creationState = CreationState.builder()
+                    .creationStatus(CreationStatus.DONE)
+                    .build();
+            creationStateRepository.save(creationState);
+
             meetingModel = Meeting.builder()
                     .telegramUser(updateHelper.getUser())
                     .meetingDateTime(LocalDateTime.parse(meetingMap.get("DATE").trim(), DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm")))
                     .creationDateTime(LocalDateTime.now())
-                    .startCreationDateTime(LocalDateTime.now())
                     .meetingInfo(meetingInfo)
                     .location(location)
-                    .creationStatus(CreationStatus.DONE)
+                    .creationState(creationState)
                     .build();
+
             meetingRepository.save(meetingModel);
 
             updateHelper.getUser().setPhoneNumber(meetingMap.get("CONTACT NUMBER"));

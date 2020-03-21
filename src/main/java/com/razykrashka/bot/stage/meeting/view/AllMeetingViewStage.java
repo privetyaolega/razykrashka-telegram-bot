@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
@@ -31,7 +32,11 @@ public class AllMeetingViewStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        meetings = meetingRepository.findAllByCreationStatus(CreationStatus.DONE);
+//        meetings = meetingRepository.findAllByCreationStatus(CreationStatus.DONE);
+
+        meetings = StreamSupport.stream(meetingRepository.findAll().spliterator(), false)
+                .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE))
+                .collect(Collectors.toList());
 
         if (meetings.size() == 0) {
             messageManager.sendSimpleTextMessage("NO MEETINGS :(");

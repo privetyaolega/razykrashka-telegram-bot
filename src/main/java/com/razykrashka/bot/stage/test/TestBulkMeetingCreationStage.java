@@ -1,10 +1,8 @@
 package com.razykrashka.bot.stage.test;
 
 import com.razykrashka.bot.db.entity.razykrashka.Location;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.SpeakingLevel;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.*;
+import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
@@ -23,6 +21,8 @@ public class TestBulkMeetingCreationStage extends MainStage {
 
     @Autowired
     LocationHelper locationHelper;
+    @Autowired
+    protected CreationStateRepository creationStateRepository;
 
     private Meeting meeting;
 
@@ -51,13 +51,18 @@ public class TestBulkMeetingCreationStage extends MainStage {
                 }
                 locationRepository.save(location);
 
+                CreationState creationState = CreationState.builder()
+                        .creationStatus(CreationStatus.DONE)
+                        .build();
+                creationStateRepository.save(creationState);
+
                 meeting = Meeting.builder()
                         .telegramUser(updateHelper.getUser())
                         .meetingDateTime(LocalDateTime.now())
                         .creationDateTime(LocalDateTime.now())
                         .meetingInfo(meetingInfo)
                         .location(location)
-                        .creationStatus(CreationStatus.DONE)
+                        .creationState(creationState)
                         .telegramUser(updateHelper.getUser())
                         .participants(new HashSet<>())
                         .build();
@@ -66,6 +71,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
                 meetingRepository.save(meeting);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             messageManager.sendSimpleTextMessage("SOMETHING WENT WRONG DURING MEETING CREATION")
                     .sendSticker("failSticker.png");
             razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Log4j2
 @Component
-public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreationSBSStage {
+public class AcceptLocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Autowired
     LocationHelper locationHelper;
@@ -42,13 +42,13 @@ public class AcceptLocationMeetingCreationStepByStep extends BaseMeetingCreation
         meeting.setLocation(location);
         meetingRepository.save(meeting);
 
-        messageManager.deleteLastMessage();
-        messageManager.deleteLastBotMessage();
+        messageManager.deleteLastMessage()
+                .deleteLastBotMessage();
         razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
     }
 
     @Override
     public boolean isStageActive() {
-        return !updateHelper.hasCallBackQuery() && super.getStageActivity();
+        return !updateHelper.hasCallBackQuery() && super.isStageActive();
     }
 }

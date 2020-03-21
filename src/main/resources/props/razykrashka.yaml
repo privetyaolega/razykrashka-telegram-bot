@@ -2,5 +2,9 @@ razykrashka:
   bot:
     username: RazykrashkaTestBot
     token: 907733174:AAFAIDrzekSVURj58e6APqgCRx0Nu3gNdy0
+    meeting:
+      session: 20
   group:
     id: -1001385267248
+    meeting:
+      notification: false
