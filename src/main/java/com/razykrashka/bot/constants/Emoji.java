@@ -15,4 +15,6 @@ public class Emoji {
     public static String SCREAM = "\uD83D\uDE31";
     public static String BIG_SUN = "\uD83D\uDD06";
     public static String SMALL_SUN = "\uD83D\uDD05";
+    public static String NEEDLE = "\uD83D\uDCCC";
+    public static String HIEROGLYPH = "\uD83C\uDE32";
 }

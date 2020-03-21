@@ -14,6 +14,14 @@ public class TextFormatter {
         return String.format("<code>%s</code>", text);
     }
 
+    public static String getFramedString(String text) {
+        return String.format("⋅%s⋅", text);
+    }
+
+    public static String getFramedString(Integer text) {
+        return getFramedString(String.valueOf(text));
+    }
+
     public static String getLink(String textLink, String url) {
         return String.format("<a href='%s'>%s</a>", url, textLink);
     }

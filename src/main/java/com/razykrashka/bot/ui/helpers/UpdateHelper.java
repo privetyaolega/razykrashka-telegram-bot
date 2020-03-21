@@ -14,11 +14,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Log4j2
 public class UpdateHelper {
-    private final static Integer GROUP_CHAT_ID = -454425882;
-
     @Autowired
     RazykrashkaBot razykrashkaBot;
-
     @Autowired
     TelegramUserRepository telegramUserRepository;
 
@@ -33,6 +30,10 @@ public class UpdateHelper {
 
     public boolean isCallBackDataContains() {
         return isCallBackDataContains(getCallerClass().getSimpleName());
+    }
+
+    public boolean isCallBackDataEquals() {
+        return isCallBackDataEquals(getCallerClass().getSimpleName());
     }
 
     public boolean isCallBackDataEquals(String string) {
