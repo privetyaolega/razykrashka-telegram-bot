@@ -2,7 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptDateMeetingCreationStepByStepStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptDateMeetingCreationSBSStage;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -35,7 +35,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     @Override
     public boolean processCallBackQuery() {
         String callBackData = updateHelper.getCallBackData();
-        if (this.getClass().getSimpleName().equals(callBackData) || this.getStageActivity()) {
+        if (this.getClass().getSimpleName().equals(callBackData) || super.isStageActive()) {
             // TODO: Informative error message;
             keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
             if (razykrashkaBot.getRealUpdate().hasMessage()) {
@@ -88,7 +88,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             }
         }
 
-        this.setActiveNextStage(AcceptDateMeetingCreationStepByStepStage.class);
+        this.setActiveNextStage(AcceptDateMeetingCreationSBSStage.class);
         return keyboard
                 .setRow(list)
                 .setRow(ImmutableMap.of(
@@ -121,6 +121,6 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains() || super.getStageActivity();
+        return updateHelper.isCallBackDataContains() || super.isStageActive();
     }
 }

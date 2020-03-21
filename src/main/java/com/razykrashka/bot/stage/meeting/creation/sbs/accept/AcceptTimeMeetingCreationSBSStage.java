@@ -41,6 +41,6 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
 
     @Override
     public boolean isStageActive() {
-        return !updateHelper.hasCallBackQuery() && super.getStageActivity();
+        return !updateHelper.hasCallBackQuery() && super.isStageActive();
     }
 }

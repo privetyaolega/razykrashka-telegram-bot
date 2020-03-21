@@ -43,7 +43,6 @@ public class Meeting {
     @GeneratedValue
     Integer id;
 
-    LocalDateTime startCreationDateTime;
     LocalDateTime creationDateTime;
     LocalDateTime meetingDateTime;
 
@@ -59,8 +58,9 @@ public class Meeting {
     @JoinColumn(name = "location_id")
     Location location;
 
-    @Enumerated(EnumType.STRING)
-    CreationStatus creationStatus;
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "creation_state_id")
+    CreationState creationState;
 
     @Column
     @ManyToMany
