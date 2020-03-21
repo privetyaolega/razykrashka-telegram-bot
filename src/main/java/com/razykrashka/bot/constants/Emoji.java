@@ -17,4 +17,5 @@ public class Emoji {
     public static String SMALL_SUN = "\uD83D\uDD05";
     public static String NEEDLE = "\uD83D\uDCCC";
     public static String HIEROGLYPH = "\uD83C\uDE32";
+    public static String INFORMATION = "ℹ️";
 }

@@ -29,8 +29,8 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
                         "2", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "2",
                         "3", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "3"))
                 .setRow(ImmutableMap.of(
-                        "4", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "5",
-                        "5", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "6"))
+                        "4", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "4",
+                        "5", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "5"))
                 .setRow(ImmutableMap.of(
                         "6", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "6",
                         "7", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "7",

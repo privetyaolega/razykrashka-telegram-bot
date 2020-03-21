@@ -1,30 +1,33 @@
 package com.razykrashka.bot.stage.meeting.view;
 
-import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AllMeetingViewStage extends MainStage {
 
-    private static final Integer MEETINGS_PER_PAGE = 4;
+    @Value("${razykrashka.bot.meeting.view-per-page}")
+    Integer meetingsPerPage;
     @Autowired
-    private MeetingMessageUtils meetingMessageUtils;
-    private InlineKeyboardMarkup keyboard;
-    private List<Meeting> meetings;
-    private Integer pageNumToShow;
-    private Integer totalPagesAmount;
+    MeetingMessageUtils meetingMessageUtils;
+    InlineKeyboardMarkup keyboard;
+    List<Meeting> meetings;
+    Integer pageNumToShow;
+    Integer totalPagesAmount;
 
     public AllMeetingViewStage() {
         stageInfo = StageInfo.ALL_MEETING_VIEW;
@@ -32,28 +35,19 @@ public class AllMeetingViewStage extends MainStage {
 
     @Override
     public void handleRequest() {
-//        meetings = meetingRepository.findAllByCreationStatus(CreationStatus.DONE);
-
-        meetings = StreamSupport.stream(meetingRepository.findAll().spliterator(), false)
-                .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE))
-                .collect(Collectors.toList());
+        meetings = meetingRepository.findAllByStatusEqualsDone();
 
         if (meetings.size() == 0) {
-            messageManager.sendSimpleTextMessage("NO MEETINGS :(");
+            messageManager.sendSimpleTextMessage(getString("noMeetings"));
         } else {
             initPageNumToShow();
-            totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(MEETINGS_PER_PAGE));
             List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage();
 
             String messageText = meetingMessageUtils.createMeetingsText(meetingsToShow, meetings.size());
-            if (meetings.size() > MEETINGS_PER_PAGE) {
+            if (meetings.size() > meetingsPerPage) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }
-            if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
-                messageManager.updateMessage(messageText, keyboard);
-            } else {
-                messageManager.sendSimpleTextMessage(messageText, keyboard);
-            }
+            messageManager.updateOrSendDependsOnLastMessageOwner(messageText, keyboard);
         }
     }
 
@@ -70,17 +64,18 @@ public class AllMeetingViewStage extends MainStage {
      * not the first page, but page that goes from CBQ
      * CBQ Example: 'AllMeetingViewStage3' - need to display the third page
      */
-    private void initPageNumToShow() {
+    void initPageNumToShow() {
         pageNumToShow = razykrashkaBot.getRealUpdate().hasCallbackQuery() ? updateHelper.getIntegerPureCallBackData() : 1;
+        totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(meetingsPerPage));
     }
 
-    private List<Meeting> getMeetingsSublistForCurrentPage() {
-        int limit = MEETINGS_PER_PAGE;
-        if (totalPagesAmount.equals(pageNumToShow) && totalPagesAmount * MEETINGS_PER_PAGE != meetings.size()) {
-            limit = meetings.size() % MEETINGS_PER_PAGE;
+    List<Meeting> getMeetingsSublistForCurrentPage() {
+        int limit = meetingsPerPage;
+        if (totalPagesAmount.equals(pageNumToShow) && totalPagesAmount * meetingsPerPage != meetings.size()) {
+            limit = meetings.size() % meetingsPerPage;
         }
         return meetings.stream()
-                .skip((pageNumToShow - 1) * MEETINGS_PER_PAGE)
+                .skip((pageNumToShow - 1) * meetingsPerPage)
                 .limit(limit)
                 .collect(Collectors.toList());
     }
