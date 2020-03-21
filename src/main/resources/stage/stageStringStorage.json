@@ -49,6 +49,9 @@
     },
     "NewChatMemberStage": {
       "welcome": "Welcome to our speaking community!\uD83E\uDD73\nPlease, use /start to interact with bot.\nAll information about the club you can find in 'Information' section. Enjoy!☺️"
+    },
+    "AllMeetingViewStage": {
+      "noMeetings": "There are no available meetings \uD83D\uDE14"
     }
   }
 ]

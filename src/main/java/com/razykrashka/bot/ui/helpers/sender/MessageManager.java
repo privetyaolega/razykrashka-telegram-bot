@@ -228,8 +228,7 @@ public class MessageManager extends Sender {
     }
 
     public void updateOrSendDependsOnLastMessageOwner(String textMessage, ReplyKeyboard replyKeyboard) {
-        List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrue();
-        TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
+        TelegramMessage telegramMessage = telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(updateHelper.getChatId());
 
         if (telegramMessage.isBotMessage()) {
             updateMessage(textMessage, replyKeyboard);

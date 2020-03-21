@@ -4,7 +4,6 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
-import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
@@ -14,7 +13,6 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -22,17 +20,15 @@ import java.util.Optional;
 @Log4j2
 @Getter
 @Setter
-@PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
+    @Value("${razykrashka.bot.meeting.session}")
+    private long sessionTimeMinutes;
     @Autowired
     protected CreationStateRepository creationStateRepository;
     @Autowired
     protected MeetingMessageUtils meetingMessageUtils;
     protected Meeting meeting;
-
-    @Value("${razykrashka.bot.meeting.session}")
-    private long sessionTimeMinutes;
 
     @Override
     public boolean isStageActive() {

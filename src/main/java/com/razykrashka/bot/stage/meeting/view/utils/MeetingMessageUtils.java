@@ -45,11 +45,12 @@ public class MeetingMessageUtils {
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting) {
-        return meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
-                + "\uD83D\uDCCD" + getLocationLink(meeting) + "\n"
-                + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
-                + meeting.getMeetingInfo().getTopic() + "\n"
-                + "INFORMATION: /meeting" + meeting.getId();
+        return new StringBuilder()
+                .append(Emoji.NEEDLE).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).append("\n")
+                .append(getLocationLink(meeting)).append("\n")
+                .append(meeting.getMeetingInfo().getTopic()).append(" ").append(Emoji.SPEECH_CLOUD).append(" ").append("(")
+                .append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append(")\n")
+                .append(Emoji.INFORMATION).append(" /meeting").append(meeting.getId()).toString();
     }
 
     public String createMeetingInfoDuringCreation(Meeting meeting) {
