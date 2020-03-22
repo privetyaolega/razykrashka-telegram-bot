@@ -9,6 +9,7 @@ import com.razykrashka.bot.db.repo.MeetingRepository;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
+import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -31,6 +33,7 @@ import java.util.Map;
 @Log4j2
 @NoArgsConstructor
 @AllArgsConstructor
+@PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public abstract class MainStage implements Stage {
 
     private static List<Map<String, Object>> data;
@@ -138,15 +141,5 @@ public abstract class MainStage implements Stage {
 
     protected String getString(String key) {
         return getStringMap().get(key);
-    }
-
-    protected boolean getStageActivity() {
-        return stageActivity;
-    }
-
-    protected void setActiveNextStage(Class clazz) {
-        razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
-        Stage stage = ((Stage) razykrashkaBot.getContext().getBean(clazz));
-        stage.setActive(true);
     }
 }

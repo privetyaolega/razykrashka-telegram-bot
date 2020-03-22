@@ -33,7 +33,4 @@ public class Location {
     Float longitude;
     String address;
     String name;
-
-    @Embedded
-    TelegramLinkEmbedded locationLink;
 }

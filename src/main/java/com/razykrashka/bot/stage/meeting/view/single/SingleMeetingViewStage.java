@@ -1,4 +1,4 @@
-package com.razykrashka.bot.stage.meeting.view;
+package com.razykrashka.bot.stage.meeting.view.single;
 
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;

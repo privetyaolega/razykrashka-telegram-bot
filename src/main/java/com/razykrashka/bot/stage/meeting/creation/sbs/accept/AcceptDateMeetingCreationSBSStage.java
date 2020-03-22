@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Log4j2
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreationSBSStage {
+public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     LocalDateTime localDateTime;
 
@@ -47,6 +47,7 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
     }
 
     private void pastDateHandler() {
+        // TODO: create logic if meeting date == today
         if (localDateTime.isBefore(LocalDateTime.now())) {
             messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.\uD83D\uDE30");
             setActiveNextStage(DateMeetingCreationSBSStage.class);
@@ -63,9 +64,8 @@ public class AcceptDateMeetingCreationStepByStepStage extends BaseMeetingCreatio
     @Override
     public boolean isStageActive() {
         if (updateHelper.isCallBackDataContains(DateMeetingCreationSBSStage.class.getSimpleName())) {
-            this.setActive(false);
             return false;
         }
-        return super.getStageActivity();
+        return super.isStageActive();
     }
 }

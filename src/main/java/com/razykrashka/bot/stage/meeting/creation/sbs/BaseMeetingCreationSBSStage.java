@@ -1,9 +1,10 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThread;
@@ -11,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -20,14 +22,23 @@ import java.util.Optional;
 @Setter
 public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
+    @Value("${razykrashka.bot.meeting.session}")
+    private long sessionTimeMinutes;
+    @Autowired
+    protected CreationStateRepository creationStateRepository;
     @Autowired
     protected MeetingMessageUtils meetingMessageUtils;
     protected Meeting meeting;
-    private static final long SESSION_TIME_MINUTES = 2;
 
     @Override
     public boolean isStageActive() {
-        return super.getStageActivity();
+        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
+        if (meetingOptional.isPresent()) {
+            CreationState creationState = meetingOptional.get().getCreationState();
+            return creationState.getActiveStage().equals(this.getClass().getSimpleName())
+                    && creationState.isInCreationProgress();
+        }
+        return false;
     }
 
     @Override
@@ -37,33 +48,43 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     }
 
     protected void setActiveNextStage(Class clazz) {
-        razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
-        Stage stage = ((Stage) razykrashkaBot.getContext().getBean(clazz));
-        stage.setActive(true);
+        meeting = getMeetingInCreation();
+        CreationState creationState = meeting.getCreationState();
+        creationState.setActiveStage(clazz.getSimpleName());
+        creationStateRepository.save(creationState);
+
+        meeting.setCreationState(creationState);
+        meetingRepository.save(meeting);
     }
 
     protected Meeting getMeetingInCreation() {
-        Optional<Meeting> meetingOptional = meetingRepository.findTop1ByCreationStatusEqualsAndTelegramUser(
-                CreationStatus.IN_PROGRESS, razykrashkaBot.getUser());
+        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
 
         if (!meetingOptional.isPresent()) {
-            Meeting meeting = new Meeting();
-            meeting.setCreationStatus(CreationStatus.IN_PROGRESS);
-            meeting.setTelegramUser(razykrashkaBot.getUser());
-            meeting.setCreationDateTime(LocalDateTime.now());
-            meeting.setStartCreationDateTime(LocalDateTime.now());
-            return meeting;
+            CreationState creationState = CreationState.builder()
+                    .creationStatus(CreationStatus.IN_PROGRESS)
+                    .inCreationProgress(true)
+                    .startCreationDateTime(LocalDateTime.now())
+                    .build();
+
+            creationStateRepository.save(creationState);
+
+            meeting = Meeting.builder()
+                    .telegramUser(updateHelper.getUser())
+                    .creationState(creationState)
+                    .build();
+            return meetingRepository.save(meeting);
         } else if (meetingOptional.get()
+                .getCreationState()
                 .getStartCreationDateTime()
-                .plusMinutes(SESSION_TIME_MINUTES).isBefore(LocalDateTime.now())) {
+                .plusMinutes(sessionTimeMinutes).isBefore(LocalDateTime.now())) {
 
             Meeting expiredMeeting = meetingOptional.get();
             meetingRepository.delete(expiredMeeting);
 
-            messageManager.disableKeyboardLastBotMessage();
-            messageManager.sendSimpleTextMessage("SESSION EXPIRED");
+            messageManager.disableKeyboardLastBotMessage()
+                    .sendSimpleTextMessage("SESSION EXPIRED");
 
-            razykrashkaBot.getStages().forEach(stage -> stage.setActive(false));
             razykrashkaBot.getContext().getBean(SelectWayMeetingCreationStage.class).handleRequest();
             throw new RuntimeException("SESSION EXPIRED");
         }

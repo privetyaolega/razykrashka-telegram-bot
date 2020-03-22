@@ -1,11 +1,15 @@
 package com.razykrashka.bot.service;
 
-import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
+import com.razykrashka.bot.db.repo.CreationStateRepository;
+import com.razykrashka.bot.db.repo.MeetingRepository;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
-import com.razykrashka.bot.db.repo.TelegramUserRepository;
+import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.information.UndefinedStage;
+import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,11 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -31,17 +35,23 @@ import java.util.stream.Collectors;
 @Log4j2
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public class RazykrashkaBot extends TelegramLongPollingBot {
 
-    @Value("${bot.avp256.username}")
+    @Value("${razykrashka.bot.username}")
     String botUsername;
-    @Value("${bot.avp256.token}")
+    @Value("${razykrashka.bot.token}")
     String botToken;
 
     @Autowired
-    protected TelegramUserRepository telegramUserRepository;
-    @Autowired
     protected TelegramMessageRepository telegramMessageRepository;
+    @Autowired
+    protected MeetingRepository meetingRepository;
+    @Autowired
+    protected CreationStateRepository creationStateRepository;
+    @Autowired
+    UpdateHelper updateHelper;
+
     @Autowired
     ApplicationContext context;
     @Autowired
@@ -52,9 +62,8 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     Stage undefinedStage;
 
     Update realUpdate;
-    TelegramUser user;
 
-    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "View My Meetings", "Information :P");
+    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "My Meetings", "Information ℹ️");
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
@@ -69,9 +78,8 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         this.realUpdate = update;
-        userInit();
         if (update.hasMessage() && keyWordsList.contains(update.getMessage().getText())) {
-            this.getStages().forEach(stage -> stage.setActive(false));
+            disableCreationProgress();
         }
         activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());
 
@@ -98,25 +106,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
                 .collect(Collectors.joining(" ,", "[", "]")));
     }
 
-    private void userInit() {
-        if (!realUpdate.hasCallbackQuery()) {
-            Integer id = realUpdate.getMessage().getFrom().getId();
-            Optional<TelegramUser> telegramUser = telegramUserRepository.findByTelegramId(id);
-            if (telegramUser.isPresent()) {
-                user = telegramUser.get();
-            } else {
-                User userTelegram = realUpdate.getMessage().getFrom();
-                user = TelegramUser.builder()
-                        .lastName(userTelegram.getLastName())
-                        .firstName(userTelegram.getFirstName())
-                        .userName(userTelegram.getUserName())
-                        .telegramId(userTelegram.getId())
-                        .build();
-                telegramUserRepository.save(user);
-            }
-        }
-    }
-
     private void saveUpdate() {
         Message message = this.getRealUpdate().getMessage();
         TelegramMessage telegramMessage = TelegramMessage.builder()
@@ -127,6 +116,19 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
                 .text(message.getText())
                 .build();
         telegramMessageRepository.save(telegramMessage);
+    }
+
+    public void disableCreationProgress() {
+        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
+        if (meetingOptional.isPresent()) {
+            Meeting meeting = meetingOptional.get();
+            CreationState creationState = meeting.getCreationState();
+            creationState.setInCreationProgress(false);
+            creationStateRepository.save(creationState);
+
+            meeting.setCreationState(creationState);
+            meetingRepository.save(meeting);
+        }
     }
 
     public Long getCurrentChatId() {

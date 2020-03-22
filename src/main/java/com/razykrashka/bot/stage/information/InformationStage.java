@@ -21,6 +21,6 @@ public class InformationStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains() || updateHelper.isMessageContains(this.getStageInfo().getKeyword());
+        return updateHelper.isCallBackDataContains() || updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
     }
 }

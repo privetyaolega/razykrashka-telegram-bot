@@ -27,7 +27,7 @@ public enum StageInfo {
             "Задавайте вопросы, приглашайте друзей и, самое главное, будьте АКТИВНЫ.\n" +
             "https://t.me/razykrashkaen\n" +
             "\n" +
-            "Хорошего дня. \uD83D\uDE4F\uD83C\uDFFB", "Information :P"),
+            "Хорошего дня. \uD83D\uDE4F\uD83C\uDFFB", "Information ℹ️"),
     CREATE_MEETING_BY_TEMPLATE_STAGE("CreateMeetingStage", "NEW MEETING REQUEST:\n" +
             "\n" +
             "DATE: \n" +
@@ -60,14 +60,14 @@ public enum StageInfo {
             "● What are some advantages of using social networks?\n" +
             "● Do you visit English websites?", "Вставьте шаблон и отправьте его", "Create Meeting By Template"),
     UNDEFINED("UndefinedStage", "Bot doesn't know this commant", null),
-    MY_MEETING_VIEW("MyMeetingsViewStage", "My meetings", null, "View My Meetings"),
-    ALL_MEETING_VIEW("AllMeetingViewStage", "Existing meetings", null, "View Meetings"),
+    MY_MEETING_VIEW("MyMeetingsViewStage", "My meetings", null, "My Meetings"),
     SINGLE_MEETING_VIEW("SingleMeetingViewStage", null, null, "/meeting"),
     NEW_MEETING_CREATION("NewMeetingCreationStage", "Your request in moderation...", "Запрос в обработке", "NEW MEETING REQUEST"),
     CREATE_MEETING_ON_STEPS("NewMeetingCreationStage", null, null, "Create Meeting Step By Step"),
     DEFAULT("MainAbstractStage", null, null, "NoKeyWords!"),
     SELECT_WAY_MEETING_CREATION("SelectWayMeetingCreationStage", null, null, "Create Meeting"),
-    TEST_BULK_MEETING_CREATION("TestBulkMeetingCreation", null, null, "/cm");
+    TEST_BULK_MEETING_CREATION("TestBulkMeetingCreation", null, null, "/cm"),
+    SELECT_MEETINGS_TYPE("SelectMeetingsTypeStage", null, null, "View Meetings");
 
     private final String stageName;
     private final String welcomeMessageRu;
