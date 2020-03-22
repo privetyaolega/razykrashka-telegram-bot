@@ -8,6 +8,7 @@
     <include file="changelog/insert/user.xml" relativeToChangelogFile="true"/>
     <include file="changelog/insert/location.xml" relativeToChangelogFile="true"/>
     <include file="changelog/insert/meeting_info.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/insert/creation_state.xml" relativeToChangelogFile="true"/>
     <include file="changelog/insert/meeting.xml" relativeToChangelogFile="true"/>
     <include file="changelog/insert/user_meeting.xml" relativeToChangelogFile="true"/>
 
