@@ -22,7 +22,15 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
             "FROM meeting m " +
             "INNER JOIN creation_state c " +
             "ON m.creation_state_id = c.id " +
-            "WHERE c.creation_status = 'DONE' " +
-            "ORDER BY meeting_date_time", nativeQuery = true)
-    List<Meeting> findAllByStatusEqualsDone();
+            "AND m.meeting_date_time >= NOW() " +
+            "ORDER BY m.meeting_date_time", nativeQuery = true)
+    List<Meeting> findAllActiveAndDone();
+
+    @Query(value = "SELECT * " +
+            "FROM meeting m " +
+            "INNER JOIN creation_state c " +
+            "ON m.creation_state_id = c.id " +
+            "AND m.meeting_date_time < NOW() " +
+            "ORDER BY m.meeting_date_time", nativeQuery = true)
+    List<Meeting> findAllExpired();
 }

@@ -28,10 +28,10 @@ public class MeetingMessageUtils {
     final static String DATE_PATTERN = "dd MMMM (EEEE)";
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
 
-    public String createMeetingsText(List<Meeting> userMeetings, int meetingAmount) {
+    public String createMeetingsText(List<Meeting> userMeetings) {
         return userMeetings.stream()
                 .map(this::createSingleMeetingMainInformationText)
-                .collect(Collectors.joining("\n\n", "\uD83D\uDCAB Найдено " + meetingAmount + " встреч(и)\n\n", ""));
+                .collect(Collectors.joining("\n\n"));
     }
 
     public String createSingleMeetingFullText(Meeting meeting) {
@@ -41,7 +41,8 @@ public class MeetingMessageUtils {
                 + "\uD83D\uDCCD" + getLocationLink(meeting) + "\n"
                 + meetingInfo.getSpeakingLevel().toString() + "\n"
                 + meetingInfo.getTopic() + "\n"
-                + meetingInfo.getQuestions().replace("●", "\n●") + "\n";
+                + meetingInfo.getQuestions().replace("●", "\n●")
+                .replaceAll(" +", " ") + "\n";
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting) {

@@ -82,7 +82,7 @@ public class UpdateHelper {
                     .getCallbackQuery().getData()
                     .replace(classCaller, "");
         }
-        throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have Call Back Query!");
+        return "";
     }
 
     public Integer getIntegerPureCallBackData() {

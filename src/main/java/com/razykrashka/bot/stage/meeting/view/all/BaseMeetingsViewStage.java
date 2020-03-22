@@ -1,8 +1,7 @@
-package com.razykrashka.bot.stage.meeting.view;
+package com.razykrashka.bot.stage.meeting.view.all;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -17,8 +16,8 @@ import java.util.stream.Collectors;
 
 @Log4j2
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class AllMeetingViewStage extends MainStage {
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public abstract class BaseMeetingsViewStage extends MainStage {
 
     @Value("${razykrashka.bot.meeting.view-per-page}")
     Integer meetingsPerPage;
@@ -29,31 +28,21 @@ public class AllMeetingViewStage extends MainStage {
     Integer pageNumToShow;
     Integer totalPagesAmount;
 
-    public AllMeetingViewStage() {
-        stageInfo = StageInfo.ALL_MEETING_VIEW;
-    }
-
     @Override
-    public void handleRequest() {
-        meetings = meetingRepository.findAllByStatusEqualsDone();
-
+    public boolean processCallBackQuery() {
         if (meetings.size() == 0) {
-            messageManager.sendSimpleTextMessage(getString("noMeetings"));
+            messageManager.updateOrSendDependsOnLastMessageOwner(getString("noMeetings"), null);
         } else {
             initPageNumToShow();
             List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage();
 
-            String messageText = meetingMessageUtils.createMeetingsText(meetingsToShow, meetings.size());
+            String header = String.format(getString("header"), meetings.size());
+            String meetingsString = meetingMessageUtils.createMeetingsText(meetingsToShow);
             if (meetings.size() > meetingsPerPage) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }
-            messageManager.updateOrSendDependsOnLastMessageOwner(messageText, keyboard);
+            messageManager.updateOrSendDependsOnLastMessageOwner(header + meetingsString, keyboard);
         }
-    }
-
-    @Override
-    public boolean processCallBackQuery() {
-        handleRequest();
         return true;
     }
 
@@ -65,7 +54,12 @@ public class AllMeetingViewStage extends MainStage {
      * CBQ Example: 'AllMeetingViewStage3' - need to display the third page
      */
     void initPageNumToShow() {
-        pageNumToShow = razykrashkaBot.getRealUpdate().hasCallbackQuery() ? updateHelper.getIntegerPureCallBackData() : 1;
+        String className = this.getClass().getSimpleName();
+        if (!updateHelper.getCallBackData().equals(className))
+            pageNumToShow = Integer.valueOf(updateHelper.getCallBackData().replace(className, ""));
+        else {
+            pageNumToShow = 1;
+        }
         totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(meetingsPerPage));
     }
 
@@ -78,10 +72,5 @@ public class AllMeetingViewStage extends MainStage {
                 .skip((pageNumToShow - 1) * meetingsPerPage)
                 .limit(limit)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains() || updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
     }
 }
