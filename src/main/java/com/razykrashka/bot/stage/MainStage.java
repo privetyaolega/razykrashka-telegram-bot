@@ -3,11 +3,7 @@ package com.razykrashka.bot.stage;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.razykrashka.bot.db.repo.LocationRepository;
-import com.razykrashka.bot.db.repo.MeetingInfoRepository;
-import com.razykrashka.bot.db.repo.MeetingRepository;
-import com.razykrashka.bot.db.repo.TelegramMessageRepository;
-import com.razykrashka.bot.db.repo.TelegramUserRepository;
+import com.razykrashka.bot.db.repo.*;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
@@ -18,12 +14,12 @@ import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +63,7 @@ public abstract class MainStage implements Stage {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
         try {
-            data = mapper.readValue(new File("src/main/resources/stage/stageStringStorage.json"),
+            data = mapper.readValue(new ClassPathResource("stage/stageStringStorage.json").getFile(),
                     new TypeReference<List<Map<String, Map<String, String>>>>() {
                     });
         } catch (IOException e) {
