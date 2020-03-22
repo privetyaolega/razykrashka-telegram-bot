@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface TelegramMessageRepository extends CrudRepository<TelegramMessage, Long> {
     Optional<TelegramMessage> findById(Long id);
 
-    List<TelegramMessage> findAllByBotMessageIsTrue();
+    List<TelegramMessage> findAllByBotMessageIsTrueAndChatIdEquals(Long chatId);
 
     List<TelegramMessage> findAllByChatIdEquals(Long chatId);
 

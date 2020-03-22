@@ -101,7 +101,7 @@ public class MessageManager extends Sender {
 
     public MessageManager disableKeyboardLastBotMessage() {
         try {
-            List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrue();
+            List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(updateHelper.getChatId());
             TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
             EditMessageText editMessageReplyMarkup = new EditMessageText()
                     .setChatId(telegramMessage.getChatId())
