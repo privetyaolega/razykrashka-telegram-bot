@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TelegramMessageRepository extends CrudRepository<TelegramMessage, Long> {
-
     Optional<TelegramMessage> findById(Long id);
 
     List<TelegramMessage> findAllByBotMessageIsTrue();
@@ -17,5 +16,4 @@ public interface TelegramMessageRepository extends CrudRepository<TelegramMessag
     TelegramMessage findTop1ByChatIdOrderByIdDesc(Long id);
 
     TelegramMessage findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(Long id);
-
 }

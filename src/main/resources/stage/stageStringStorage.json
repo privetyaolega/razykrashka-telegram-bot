@@ -16,9 +16,11 @@
     "SelectWayMeetingCreationStage": {
       "enMain": "Please, choose the way to create new meeting!\n\n☝\uD83C\uDFFBTemplate.\nUsing template (plain text) to create new meeting.\nJust copy existing template and fill it with all required data such as date, location, english level etc...\n\n\n✌\uD83C\uDFFBStep by step.\nCreate new meeting by answering questions about meeting details."
     },
-    "AllMeetingViewStage": {
+    "ActiveMeetingsViewStage": {
       "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n",
-      "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n"
+      "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n",
+      "header": "\uD83D\uDCAB There are <b>%d</b> active meetings.\n\n",
+      "noMeetings": "There are no available <b>active</b> meetings \uD83D\uDE14"
     },
     "MyMeetingsViewStage": {
       "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n"
@@ -28,20 +30,33 @@
     },
     "LevelMeetingCreationSBSStage": {
       "input": "Please, enter speaking level",
-      "back": "⬅️ Back to Location edit"
+      "back": "👈 Back to Location edit"
     },
     "ParticipantsMeetingCreationSBSStage": {
       "input": "Please, enter participants limit amount",
-      "back": "⬅️ Back to Level edit"
+      "back": "👈 Back to Level edit"
     },
     "LocationMeetingCreationSBSStage": {
       "input": "Please, attach or write location (e.g ул. Немига 6)",
-      "backButton": "⬅️ Back to Time edit"
+      "backButton": "👈 Back to Time edit"
+    },
+    "TopicMeetingCreationSBSStage": {
+      "input": "Please, enter discussion topic...",
+      "backButton": "👈 Back to Participant Limit edit"
     },
     "FinalMeetingCreationSBSStage": {
       "input": "Please, confirm meeting creation.",
       "confirmButton": "Confirm",
-      "backButton": "⬅️ Back to Topic edit"
+      "backButton": "👈 Back to Topic edit"
+    },
+    "NewChatMemberStage": {
+      "welcome": "Welcome to our speaking community!\uD83E\uDD73\nPlease, use /start to interact with bot.\nAll information about the club you can find in 'Information' section. Enjoy!☺️"
+    },
+    "SelectMeetingsTypeStage": {
+      "main": "Please, select type meetings to show \uD83D\uDE0C"
+    },
+    "ExpiredMeetingsViewStage": {
+      "header": "\uD83D\uDDD1 There are <b>%d</b> expired meetings.\n\n"
     }
   }
 ]

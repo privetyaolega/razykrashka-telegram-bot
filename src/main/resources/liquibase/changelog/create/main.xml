@@ -36,10 +36,21 @@
             `id` int NOT NULL AUTO_INCREMENT,
             `address` varchar(255) DEFAULT NULL,
             `latitude` float DEFAULT NULL,
-            `link` varchar(255) DEFAULT NULL,
-            `text_link` varchar(255) DEFAULT NULL,
             `longitude` float DEFAULT NULL,
             `name` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            /*!40101 SET character_set_client = @saved_cs_client */;
+
+            DROP TABLE IF EXISTS `creation_state`;
+            /*!40101 SET @saved_cs_client = @@character_set_client */;
+            /*!50503 SET character_set_client = utf8mb4 */;
+            CREATE TABLE `creation_state` (
+            `id` int NOT NULL AUTO_INCREMENT,
+            `active_stage` varchar(255) DEFAULT NULL,
+            `creation_status` varchar(255) DEFAULT NULL,
+            `in_creation_progress` BOOLEAN,
+            `start_creation_date_time` datetime DEFAULT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
             /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,14 +65,14 @@
             CREATE TABLE `meeting` (
             `id` int NOT NULL AUTO_INCREMENT,
             `creation_date_time` datetime DEFAULT NULL,
-            `creation_status` varchar(255) DEFAULT NULL,
             `meeting_date_time` datetime DEFAULT NULL,
-            `start_creation_date_time` datetime DEFAULT NULL,
             `location_id` int DEFAULT NULL,
+            `creation_state_id` int DEFAULT NULL,
             `meeting_info_id` int DEFAULT NULL,
             `owner_id` int DEFAULT NULL,
             PRIMARY KEY (`id`),
             KEY `FK8bqft0294qmh1tj203qp4hmrt` (`location_id`),
+            KEY `FK8bqft029sdfafasf203qp4hmrt` (`creation_state_id`),
             KEY `FKl6q1m16n8hbcgxhqs73eqq8xn` (`meeting_info_id`),
             KEY `FKbfqt1aw0yrvne5wjontkps4uu` (`owner_id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
