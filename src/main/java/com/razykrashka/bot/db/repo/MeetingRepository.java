@@ -14,7 +14,10 @@ import java.util.Optional;
 
 public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
 
-    List<Meeting> findAllByTelegramUser(TelegramUser telegramUser);
+    List<Meeting> findAllByTelegramUserId(Integer telegramUserId);
+
+    @Query(value = "SELECT * FROM user_meeting INNER JOIN meeting ON meeting.id = user_meeting.meeting_id where user_id = ?1", nativeQuery = true)
+    List<Meeting> findAllScheduledMeetingsForUserById(Integer id);
 
     @Transactional
     @Modifying(clearAutomatically = true, flushAutomatically = true)
@@ -26,4 +29,6 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
     Optional<Meeting> findTop1ByCreationStatusEqualsAndTelegramUser(CreationStatus creationStatus, TelegramUser telegramUser);
 
     List<Meeting> findAllByCreationStatus(CreationStatus creationStatus);
+
+    Meeting findMeetingById(int meetingId);
 }

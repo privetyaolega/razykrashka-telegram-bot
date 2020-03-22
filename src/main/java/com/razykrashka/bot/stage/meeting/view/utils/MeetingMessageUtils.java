@@ -19,9 +19,9 @@ public class MeetingMessageUtils {
     final static String DATE_TIME_PATTERN = "dd MMMM (EEEE) ⏰ HH:mm";
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
 
-    public String createMeetingsText(List<Meeting> userMeetings, int meetingAmount) {
+    public String createMeetingsText(List<Meeting> userMeetings, int meetingAmount, Integer telegramUserId) {
         return userMeetings.stream()
-                .map(this::createSingleMeetingMainInformationText)
+                .map(m -> createSingleMeetingMainInformationText(m, telegramUserId))
                 .collect(Collectors.joining("\n\n", "\uD83D\uDCAB Найдено " + meetingAmount + " встреч(и)\n\n", ""));
     }
 
@@ -35,8 +35,13 @@ public class MeetingMessageUtils {
                 + meetingInfo.getQuestions().replace("●", "\n●") + "\n";
     }
 
-    public String createSingleMeetingMainInformationText(Meeting meeting) {
-        return meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
+    public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
+        String meetingCreatedByCurrentUserLabel = "";
+        if (meeting.getTelegramUser().getTelegramId().equals(telegramUserId)) {
+            meetingCreatedByCurrentUserLabel = "***** MY MEETING *****" + "\n";
+        }
+        return meetingCreatedByCurrentUserLabel
+                + meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
                 + "\uD83D\uDCCD" + meeting.getLocation().getLocationLink().toString() + "\n"
                 + meeting.getMeetingInfo().getSpeakingLevel().toString() + "\n"
                 + meeting.getMeetingInfo().getTopic() + "\n"

@@ -49,8 +49,8 @@ public abstract class MainStage implements Stage {
     @Autowired
     protected RazykrashkaBot razykrashkaBot;
 
-    @Autowired
-    protected MessageManager messageManager;
+        @Autowired
+        protected MessageManager messageManager;
     @Autowired
     protected KeyboardBuilder keyboardBuilder;
     @Autowired
