@@ -63,7 +63,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     Update realUpdate;
 
-    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "View My Meetings", "Information :P");
+    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "My Meetings", "Information ℹ️");
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
