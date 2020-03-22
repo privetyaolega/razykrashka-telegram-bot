@@ -12,8 +12,14 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
+        meeting = getMeetingInCreation();
+        meeting.setMeetingDateTime(meeting.getMeetingDateTime()
+                .withHour(0)
+                .withMinute(0));
+        meetingRepository.save(meeting);
+
         messageManager.deleteLastBotMessageIfHasKeyboard();
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation());
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.sendSimpleTextMessage(messageText +
                 "Please, choose time (e.g 19-30)", getKeyboard());
         super.setActiveNextStage(AcceptTimeMeetingCreationSBSStage.class);

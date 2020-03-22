@@ -30,12 +30,12 @@ public class WelcomeStage extends MainStage {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("Create Meeting"));
-        keyboardFirstRow.add(new KeyboardButton("View My Meetings"));
-        keyboardFirstRow.add(new KeyboardButton("View Meetings"));
+        keyboardFirstRow.add(new KeyboardButton(StageInfo.SELECT_WAY_MEETING_CREATION.getKeyword()));
+        keyboardFirstRow.add(new KeyboardButton(StageInfo.MY_MEETING_VIEW.getKeyword()));
+        keyboardFirstRow.add(new KeyboardButton(StageInfo.SELECT_MEETINGS_TYPE.getKeyword()));
 
         KeyboardRow keyboardSecondRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton("Information :P"));
+        keyboardSecondRow.add(new KeyboardButton(StageInfo.INFORMATION.getKeyword()));
 
         keyboard.add(keyboardFirstRow);
         keyboard.add(keyboardSecondRow);
