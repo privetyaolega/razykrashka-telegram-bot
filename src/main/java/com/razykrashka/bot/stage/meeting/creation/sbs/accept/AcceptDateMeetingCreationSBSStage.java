@@ -47,6 +47,7 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
     }
 
     private void pastDateHandler() {
+        // TODO: create logic if meeting date == today
         if (localDateTime.isBefore(LocalDateTime.now())) {
             messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.\uD83D\uDE30");
             setActiveNextStage(DateMeetingCreationSBSStage.class);
