@@ -58,7 +58,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
 
                 meeting = Meeting.builder()
                         .telegramUser(updateHelper.getUser())
-                        .meetingDateTime(LocalDateTime.now())
+                        .meetingDateTime(LocalDateTime.now().plusDays(5))
                         .creationDateTime(LocalDateTime.now())
                         .meetingInfo(meetingInfo)
                         .location(location)

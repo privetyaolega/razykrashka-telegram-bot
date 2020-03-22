@@ -1,11 +1,9 @@
-package com.razykrashka.bot.stage.meeting.view;
+package com.razykrashka.bot.stage.meeting.view.single;
 
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewContactStage;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewMapStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
