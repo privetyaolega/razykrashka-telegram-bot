@@ -63,7 +63,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
 
     Update realUpdate;
 
-    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "My Meetings", "Information ℹ️");
+    List<String> keyWordsList = Arrays.asList("Create Meeting", "View Meetings", "My Meetings", "Information");
 
     @Autowired
     public RazykrashkaBot(@Lazy List<Stage> stages) {
@@ -98,20 +98,6 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
             }
         }
     }
-
-//    List list = new ArrayList();
-//list.add("first");
-//list.add("second");
-//list.add("third");
-//    SendPoll sendPoll = new SendPoll()
-//            .setChatId(updateHelper.getChatId())
-//            .setOptions(list)
-//            .setQuestion("TEST QUESTION")
-//            .setAnonymous(false)
-//            .setAllowMultipleAnswers(false);
-//    execute(sendPoll)
-
-
 
     private void updateInfoLog(String query) {
         log.info("UPDATE: String Message to process: '{}'", query);

@@ -27,7 +27,7 @@ public enum StageInfo {
             "Задавайте вопросы, приглашайте друзей и, самое главное, будьте АКТИВНЫ.\n" +
             "https://t.me/razykrashkaen\n" +
             "\n" +
-            "Хорошего дня. \uD83D\uDE4F\uD83C\uDFFB", "Information ℹ️"),
+            "Хорошего дня. \uD83D\uDE4F\uD83C\uDFFB", "Information"),
     CREATE_MEETING_BY_TEMPLATE_STAGE("CreateMeetingStage", "NEW MEETING REQUEST:\n" +
             "\n" +
             "DATE: \n" +

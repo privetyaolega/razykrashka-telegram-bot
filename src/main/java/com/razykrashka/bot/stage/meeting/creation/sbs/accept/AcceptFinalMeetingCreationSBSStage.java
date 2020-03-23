@@ -4,6 +4,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThread;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -46,7 +47,8 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
             e.printStackTrace();
         }
 
-        messageManager.updateMessage("MEETING CREATED")
+        String message = TextFormatter.getBoldString(String.format(getString("success"), meeting.getId()));
+        messageManager.updateMessage(message)
                 .sendSticker("success2.tgs");
 
         if (meetingNotification) {

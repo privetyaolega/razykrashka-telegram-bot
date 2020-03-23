@@ -62,6 +62,12 @@
       "main": "OOOOOPPPSSS! \uD83D\uDE2E\nIt seems, that you've got unfinished meeting creation process. \nDo you want to continue creation or create new meeting from scratch? ☺️",
       "continue": "Continue meeting creation",
       "create": "Create new meeting"
+    },
+    "SingleMeetingViewStage": {
+      "meetingNotFound": "Meeting with id <b>%d</b> was not found \uD83E\uDD74"
+    },
+    "AcceptFinalMeetingCreationSBSStage": {
+      "success": "Meeting has been created! \uD83E\uDD73 \nYou can find it in \"My Meetings\" section.\n/meeting%d"
     }
   }
 ]
