@@ -104,7 +104,7 @@ public class MessageManager extends Sender {
             List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrue();
             TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
             EditMessageText editMessageReplyMarkup = new EditMessageText()
-                    .setChatId(telegramMessage.getChatId())
+                    .setChatId(updateHelper.getChatId())
                     .setMessageId(telegramMessage.getId())
                     .setText(telegramMessage.getText() + " ")
                     .setParseMode(ParseMode.HTML)

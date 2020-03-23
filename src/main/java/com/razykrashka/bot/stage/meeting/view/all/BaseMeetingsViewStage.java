@@ -37,7 +37,7 @@ public abstract class BaseMeetingsViewStage extends MainStage {
             List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage();
 
             String header = String.format(getString("header"), meetings.size());
-            String meetingsString = meetingMessageUtils.createMeetingsText(meetingsToShow);
+            String meetingsString = meetingMessageUtils.createMeetingsText(meetingsToShow, updateHelper.getUser().getTelegramId());
             if (meetings.size() > meetingsPerPage) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }

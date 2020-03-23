@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.view;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
+import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,13 @@ public class ResponseMessageCreatorForViewStageService {
     @Autowired
     private MeetingMessageUtils meetingMessageUtils;
     @Autowired
-    protected RazykrashkaBot razykrashkaBot;
+    private RazykrashkaBot razykrashkaBot;
     @Autowired
-    protected MessageManager messageManager;
+    private UpdateHelper updateHelper;
     @Autowired
-    protected KeyboardBuilder keyboardBuilder;
+    private MessageManager messageManager;
+    @Autowired
+    private KeyboardBuilder keyboardBuilder;
 
     private static final Integer MEETINGS_PER_PAGE = 4;
 
@@ -33,7 +36,7 @@ public class ResponseMessageCreatorForViewStageService {
             Integer totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(MEETINGS_PER_PAGE));
 
             List<Meeting> meetingsToShowOnCurrentPage = getMeetingsForCurrentPage(totalPagesAmount, currentPageNumber, meetings);
-            String messageText = meetingMessageUtils.createMeetingsText(meetingsToShowOnCurrentPage, meetings.size(), razykrashkaBot.getUser().getTelegramId());
+            String messageText = meetingMessageUtils.createMeetingsText(meetingsToShowOnCurrentPage, updateHelper.getUser().getTelegramId());
 
             InlineKeyboardMarkup paginationKeyboard = getPaginationKeyboard(meetings, keyboardBuilder, currentPageNumber, totalPagesAmount, callerClass);
 

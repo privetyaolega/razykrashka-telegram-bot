@@ -35,7 +35,7 @@ public class SingleMeetingViewStage extends MainStage {
         meeting = meetingRepository.findById(id).get();
 
         String messageText = meetingMessageUtils.createSingleMeetingFullText(meeting);
-        messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
+        messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
     }
 
     private Integer getMeetingId() {
@@ -50,7 +50,7 @@ public class SingleMeetingViewStage extends MainStage {
     @Override
     public ReplyKeyboard getKeyboard() {
         KeyboardBuilder builder = keyboardBuilder.getKeyboard();
-        if (razykrashkaBot.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
+        if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
             builder.setRow("Unsubscribe", SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
             Integer participants = meeting.getParticipants().size();

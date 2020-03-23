@@ -28,7 +28,7 @@ public class MeetingMessageUtils {
     final static String DATE_PATTERN = "dd MMMM (EEEE)";
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
 
-    public String createMeetingsText(List<Meeting> userMeetings, int meetingAmount, Integer telegramUserId) {
+    public String createMeetingsText(List<Meeting> userMeetings, Integer telegramUserId) {
         return userMeetings.stream()
                 .map(m -> createSingleMeetingMainInformationText(m, telegramUserId))
                 .collect(Collectors.joining("\n\n"));
@@ -45,7 +45,7 @@ public class MeetingMessageUtils {
                 .replaceAll(" +", " ") + "\n";
     }
 
-    public String createSingleMeetingMainInformationText(Meeting meeting) {
+    public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
         String meetingCreatedByCurrentUserLabel = "";
         if (meeting.getTelegramUser().getTelegramId().equals(telegramUserId)) {
             meetingCreatedByCurrentUserLabel = "***** MY MEETING *****" + "\n";

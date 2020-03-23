@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.view.single;
 
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
 import lombok.extern.log4j.Log4j2;
@@ -15,8 +16,10 @@ public class SingleMeetingViewUnsubscribeStage extends MainStage {
         Meeting meeting = meetingRepository.findById(meetingId)
                 .orElseThrow(() -> new RuntimeException("Can not find meeting with id:" + meetingId));
 
-        razykrashkaBot.getUser().removeFromToGoMeetings(meeting);
-        telegramUserRepository.save(razykrashkaBot.getUser());
+        TelegramUser telegramUser = updateHelper.getUser();
+
+        telegramUser.removeFromToGoMeetings(meeting);
+        telegramUserRepository.save(telegramUser);
         messageManager
                 .disableKeyboardLastBotMessage()
                 .sendSimpleTextMessage(":(");

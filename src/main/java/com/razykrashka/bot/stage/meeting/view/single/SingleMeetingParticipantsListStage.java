@@ -4,22 +4,19 @@ import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLocationMeetingCreationStepByStep;
-import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptTimeMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.view.SingleMeetingViewStage;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Log4j2
 @Component
 public class SingleMeetingParticipantsListStage extends MainStage {
+
+    public static final String NO_PARTICIPANTS = "Nobody Participate in this meeting";
 
     private Meeting meeting;
 
@@ -44,7 +41,11 @@ public class SingleMeetingParticipantsListStage extends MainStage {
                 .map(this::getSingleStringForParticipantsList)
                 .collect(Collectors.joining("\n"));
 
-        newMessage = newMessage.concat("\n" + participants);
+        if (!participants.isEmpty()) {
+            newMessage = newMessage.concat("\n" + participants);
+        } else {
+            newMessage = newMessage.concat("\n" + NO_PARTICIPANTS);
+        }
 
         messageManager.updateMessage(newMessage, this.getKeyboard());
 
@@ -64,7 +65,7 @@ public class SingleMeetingParticipantsListStage extends MainStage {
     @Override
     public ReplyKeyboard getKeyboard() {
         KeyboardBuilder builder = keyboardBuilder.getKeyboard();
-        if (razykrashkaBot.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
+        if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
             builder.setRow("Unsubscribe", SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
             Integer participants = meeting.getParticipants().size();
