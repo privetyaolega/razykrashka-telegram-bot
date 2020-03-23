@@ -39,11 +39,11 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         if (this.getClass().getSimpleName().equals(callBackData) || super.isStageActive()) {
             // TODO: Informative error message;
             keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
-            messageManager.disableKeyboardLastBotMessage();
             if (razykrashkaBot.getRealUpdate().hasMessage()) {
-                messageManager.replyLastMessage("Please, choose meeting date.", keyboard);
+                messageManager.disableKeyboardLastBotMessage()
+                        .replyLastMessage("Please, choose meeting date.", keyboard);
             } else {
-                messageManager.sendSimpleTextMessage("Please, choose meeting date.", keyboard);
+                messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", keyboard);
             }
         } else {
             if (callBackData.contains(NO_DATE)) {
