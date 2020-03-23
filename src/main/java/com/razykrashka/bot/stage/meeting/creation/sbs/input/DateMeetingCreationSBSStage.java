@@ -21,11 +21,10 @@ import java.util.Locale;
 
 @Log4j2
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
-    final static String NO_DATE = "noDate";
-    ReplyKeyboard keyboard;
+    static String NO_DATE = "noDate";
 
     @Override
     public void handleRequest() {
@@ -34,15 +33,17 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean processCallBackQuery() {
+        ReplyKeyboard keyboard;
+
         String callBackData = updateHelper.getCallBackData();
         if (this.getClass().getSimpleName().equals(callBackData) || super.isStageActive()) {
             // TODO: Informative error message;
             keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+            messageManager.disableKeyboardLastBotMessage();
             if (razykrashkaBot.getRealUpdate().hasMessage()) {
-                messageManager.disableKeyboardLastBotMessage()
-                        .replyLastMessage("Please, choose meeting date.", keyboard);
+                messageManager.replyLastMessage("Please, choose meeting date.", keyboard);
             } else {
-                messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", keyboard);
+                messageManager.sendSimpleTextMessage("Please, choose meeting date.", keyboard);
             }
         } else {
             if (callBackData.contains(NO_DATE)) {

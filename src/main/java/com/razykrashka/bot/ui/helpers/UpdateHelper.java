@@ -146,4 +146,8 @@ public class UpdateHelper {
     public boolean hasCallBackQuery() {
         return razykrashkaBot.getRealUpdate().hasCallbackQuery();
     }
+
+    public boolean hasMessage() {
+        return razykrashkaBot.getRealUpdate().hasMessage();
+    }
 }

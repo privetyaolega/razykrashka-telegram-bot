@@ -99,6 +99,20 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         }
     }
 
+//    List list = new ArrayList();
+//list.add("first");
+//list.add("second");
+//list.add("third");
+//    SendPoll sendPoll = new SendPoll()
+//            .setChatId(updateHelper.getChatId())
+//            .setOptions(list)
+//            .setQuestion("TEST QUESTION")
+//            .setAnonymous(false)
+//            .setAllowMultipleAnswers(false);
+//    execute(sendPoll)
+
+
+
     private void updateInfoLog(String query) {
         log.info("UPDATE: String Message to process: '{}'", query);
         log.info("UPDATE: Active stages: {}", activeStages.stream()

@@ -57,6 +57,11 @@
     },
     "ExpiredMeetingsViewStage": {
       "header": "\uD83D\uDDD1 There are <b>%d</b> expired meetings.\n\n"
+    },
+    "VerifyMeetingStateSBSStage": {
+      "main": "OOOOOPPPSSS! \uD83D\uDE2E\nIt seems, that you've got unfinished meeting creation process. \nDo you want to continue creation or create new meeting from scratch? ☺️",
+      "continue": "Continue meeting creation",
+      "create": "Create new meeting"
     }
   }
 ]
