@@ -2,6 +2,7 @@ package com.razykrashka.bot.stage.meeting.view.single;
 
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.exception.EntityWasNotFoundException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 @Log4j2
@@ -29,8 +31,12 @@ public class SingleMeetingViewStage extends MainStage {
     public void handleRequest() {
         Integer id = Integer.valueOf(updateHelper.getMessageText()
                 .replace(this.getStageInfo().getKeyword(), ""));
-        meeting = meetingRepository.findById(id).get();
-
+        Optional<Meeting> optionalMeeting = meetingRepository.findById(id);
+        if (!optionalMeeting.isPresent()) {
+            messageManager.replyLastMessage(String.format(getString("meetingNotFound"), id));
+            throw new EntityWasNotFoundException("Meeting was not found. ID: " + id);
+        }
+        meeting = optionalMeeting.get();
         String messageText = meetingMessageUtils.createSingleMeetingFullText(meeting);
         messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
     }
