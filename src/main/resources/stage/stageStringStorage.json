@@ -67,7 +67,7 @@
       "meetingNotFound": "Meeting with id <b>%d</b> was not found \uD83E\uDD74"
     },
     "AcceptFinalMeetingCreationSBSStage": {
-      "success": "Meeting has been created! \uD83E\uDD73 \nYou can find it in \"My Meetings\" section.\n/meeting%d"
+      "success": "Meeting has been created! \uD83E\uDD73 \nYou can find it in <b>\"My Meetings\"</b> section.\n<b>/meeting%d</b>"
     }
   }
 ]

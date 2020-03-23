@@ -47,8 +47,7 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
             e.printStackTrace();
         }
 
-        String message = TextFormatter.getBoldString(String.format(getString("success"), meeting.getId()));
-        messageManager.updateMessage(message)
+        messageManager.updateMessage(String.format(getString("success"), meeting.getId()))
                 .sendSticker("success2.tgs");
 
         if (meetingNotification) {
