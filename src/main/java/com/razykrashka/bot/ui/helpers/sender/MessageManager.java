@@ -47,7 +47,6 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager sendMessage(SendMessage sendMessage) {
-        Long chatId = updateHelper.getChatId();
         try {
             Integer sentMessageId = razykrashkaBot
                     .execute(sendMessage)
@@ -55,7 +54,7 @@ public class MessageManager extends Sender {
 
             TelegramMessage telegramMessage = TelegramMessage.builder()
                     .id(sentMessageId)
-                    .chatId(chatId)
+                    .chatId(Long.valueOf(sendMessage.getChatId()))
                     .botMessage(true)
                     .hasKeyboard(false)
                     .text(sendMessage.getText())
@@ -98,8 +97,13 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager disableKeyboardLastBotMessage() {
+        String chatId = String.valueOf(updateHelper.getChatId());
+        return disableKeyboardLastBotMessage(chatId);
+    }
+
+    public MessageManager disableKeyboardLastBotMessage(String chatId) {
         try {
-            List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(updateHelper.getChatId());
+            List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(Long.valueOf(chatId));
             TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
             EditMessageText editMessageReplyMarkup = new EditMessageText()
                     .setChatId(updateHelper.getChatId())

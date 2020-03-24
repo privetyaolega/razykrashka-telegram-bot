@@ -60,6 +60,23 @@
     },
     "ExpiredMeetingsViewStage": {
       "header": "\uD83D\uDDD1 There are <b>%d</b> expired meetings.\n\n"
+    },
+    "VerifyMeetingStateSBSStage": {
+      "main": "OOOOOPPPSSS! \uD83D\uDE2E\nIt seems, that you've got unfinished meeting creation process. \nDo you want to continue creation or create new meeting from scratch? ☺️",
+      "continue": "Continue meeting creation",
+      "create": "Create new meeting"
+    },
+    "SingleMeetingViewStage": {
+      "meetingNotFound": "Meeting with id <b>%d</b> was not found \uD83E\uDD74"
+    },
+    "AcceptFinalMeetingCreationSBSStage": {
+      "success": "Meeting has been created! \uD83E\uDD73 \nYou can find it in <code>\"My Meetings\"</code> section.\n<b>/meeting%d</b>"
+    },
+    "SingleMeetingViewUnsubscribeStage": {
+      "main": "\nYou've successfully left meeting. ☹️\nYou can always find and join to it in <code>\"View Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
+    },
+    "SingleMeetingViewJoinStage": {
+      "main": "\nYou've successfully joined to meeting. \uD83E\uDD73\nYou can find all your upcoming meetings in <code>\"My Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
     }
   }
 ]

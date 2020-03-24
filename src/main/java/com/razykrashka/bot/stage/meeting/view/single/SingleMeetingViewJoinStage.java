@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Log4j2
 @Component
 public class SingleMeetingViewJoinStage extends MainStage {
+
     @Override
     public boolean processCallBackQuery() {
         Integer meetingId = updateHelper.getIntegerPureCallBackData();
@@ -16,12 +17,12 @@ public class SingleMeetingViewJoinStage extends MainStage {
                 .orElseThrow(() -> new RuntimeException("Can not find meeting with id:" + meetingId));
 
         TelegramUser user = updateHelper.getUser();
-
         user.addMeetingTotoGoMeetings(meeting);
         telegramUserRepository.save(user);
-        messageManager
-                .disableKeyboardLastBotMessage()
-                .sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
+
+        String message = String.format(getString("main"), meetingId);
+        messageManager.disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(message);
         return true;
     }
 

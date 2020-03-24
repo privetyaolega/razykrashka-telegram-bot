@@ -36,27 +36,23 @@ public class MeetingMessageUtils {
 
     public String createSingleMeetingFullText(Meeting meeting) {
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
-        return "<code>MEETING # " + meeting.getId() + "</code>\n" +
+        return Emoji.LIGHTNING + TextFormatter.getCodeString(" MEETING # " + meeting.getId()) + "\n\n" +
                 meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
-                + "\uD83D\uDCCD" + getLocationLink(meeting) + "\n"
-                + meetingInfo.getSpeakingLevel().toString() + "\n"
-                + meetingInfo.getTopic() + "\n"
+                + Emoji.LOCATION + getLocationLink(meeting) + "\n\n"
+                + meetingInfo.getTopic() + " " + Emoji.SPEECH_CLOUD + " " + meetingInfo.getSpeakingLevel().getLevel() + "\n"
                 + meetingInfo.getQuestions().replace("●", "\n●")
                 .replaceAll(" +", " ") + "\n";
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
-        String meetingCreatedByCurrentUserLabel = "";
-        if (meeting.getTelegramUser().getTelegramId().equals(telegramUserId)) {
-            meetingCreatedByCurrentUserLabel = "***** MY MEETING *****" + "\n";
-        }
         return new StringBuilder()
-                .append(meetingCreatedByCurrentUserLabel)
                 .append(Emoji.NEEDLE).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).append("\n")
                 .append(getLocationLink(meeting)).append("\n")
                 .append(meeting.getMeetingInfo().getTopic()).append(" ").append(Emoji.SPEECH_CLOUD).append(" ").append("(")
                 .append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append(")\n")
-                .append(Emoji.INFORMATION).append(" /meeting").append(meeting.getId()).toString();
+                .append(Emoji.INFORMATION).append(TextFormatter.getBoldString("                                  /meeting" + meeting.getId()))
+                .append(meeting.getTelegramUser().getTelegramId().equals(telegramUserId) ? " " + Emoji.CROWN : "")
+                .toString();
     }
 
     public String createMeetingInfoDuringCreation(Meeting meeting) {

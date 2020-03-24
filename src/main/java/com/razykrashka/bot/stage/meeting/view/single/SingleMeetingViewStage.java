@@ -1,20 +1,23 @@
 package com.razykrashka.bot.stage.meeting.view.single;
 
 import com.google.common.collect.ImmutableMap;
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.exception.EntityWasNotFoundException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingParticipantsListStage;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewContactStage;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewJoinStage;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewMapStage;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewUnsubscribeStage;
+import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.ExpiredMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Log4j2
 @Component
@@ -31,11 +34,14 @@ public class SingleMeetingViewStage extends MainStage {
     @Override
     public void handleRequest() {
         Integer id = getMeetingId();
-
-        meeting = meetingRepository.findById(id).get();
-
+        Optional<Meeting> optionalMeeting = meetingRepository.findById(id);
+        if (!optionalMeeting.isPresent()) {
+            messageManager.replyLastMessage(String.format(getString("meetingNotFound"), id));
+            throw new EntityWasNotFoundException("Meeting was not found. ID: " + id);
+        }
+        meeting = optionalMeeting.get();
         String messageText = meetingMessageUtils.createSingleMeetingFullText(meeting);
-        messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
+        messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
     }
 
     private Integer getMeetingId() {
@@ -58,17 +64,25 @@ public class SingleMeetingViewStage extends MainStage {
 
             //TODO remove first statement and add participants limit to all meetings
             if ((participants == null || participants == 0)
-                || (participantLimit != null
-                        && participants != null
-                        && participants < participantLimit)) {
+                    || (participantLimit != null
+                    && participants != null
+                    && participants < participantLimit)) {
                 builder.setRow("Join", SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
             }
         }
-        return builder
-                .setRow(ImmutableMap.of(
-                        "Contact", SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
-                        "Participants List", SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
-                        "Map", SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()))
+        builder.setRow(ImmutableMap.of(
+                "Contact", SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
+                "Participants List", SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
+                "Map", SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
+
+        //TODO: update to work with meeting.getCreationState().getCreationStatus()
+        Pair<String, String> pair;
+        if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
+            pair = Pair.of(Emoji.LEFT_FINGER + "Back to Active meetings", ActiveMeetingsViewStage.class.getSimpleName());
+        } else {
+            pair = Pair.of(Emoji.LEFT_FINGER + "Back to Archived meetings", ExpiredMeetingsViewStage.class.getSimpleName());
+        }
+        return builder.setRow(pair)
                 .build();
     }
 

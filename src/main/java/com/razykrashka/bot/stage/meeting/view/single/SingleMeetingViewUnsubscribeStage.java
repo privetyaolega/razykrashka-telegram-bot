@@ -14,15 +14,14 @@ public class SingleMeetingViewUnsubscribeStage extends MainStage {
     public boolean processCallBackQuery() {
         Integer meetingId = updateHelper.getIntegerPureCallBackData();
         Meeting meeting = meetingRepository.findById(meetingId)
-                .orElseThrow(() -> new RuntimeException("Can not find meeting with id:" + meetingId));
+                .orElseThrow(() -> new RuntimeException("Can not find meeting with id: " + meetingId));
 
         TelegramUser telegramUser = updateHelper.getUser();
-
         telegramUser.removeFromToGoMeetings(meeting);
         telegramUserRepository.save(telegramUser);
-        messageManager
-                .disableKeyboardLastBotMessage()
-                .sendSimpleTextMessage(":(");
+
+        messageManager.disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(String.format(getString("main"), meetingId));
         return true;
     }
 

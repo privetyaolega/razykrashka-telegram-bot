@@ -21,11 +21,10 @@ import java.util.Locale;
 
 @Log4j2
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
-    final static String NO_DATE = "noDate";
-    ReplyKeyboard keyboard;
+    static String NO_DATE = "noDate";
 
     @Override
     public void handleRequest() {
@@ -34,6 +33,8 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean processCallBackQuery() {
+        ReplyKeyboard keyboard;
+
         String callBackData = updateHelper.getCallBackData();
         if (this.getClass().getSimpleName().equals(callBackData) || super.isStageActive()) {
             // TODO: Informative error message;
@@ -66,16 +67,21 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
         // First row: Month + Year
         List<Pair<String, String>> list = new ArrayList<>();
-        keyboard.setRow(date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear(),
-                getCallBackString(NO_DATE));
-        keyboard.setRow(getDayOfWeekRow());
+        keyboard.setRow(date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear(), getCallBackString(NO_DATE))
+                .setRow(getDayOfWeekRow());
         // Create empty cells for first week
         for (int i = 0; i < date.withDayOfMonth(1).getDayOfWeek().getValue() - 1; i++) {
             list.add(Pair.of(" ", getCallBackString(NO_DATE)));
         }
         int dayNum = 1;
         while (dayNum != date.getMonth().maxLength() + 1) {
-            list.add((Pair.of(String.valueOf(dayNum), getCallBackDate(year, month, dayNum))));
+            String textButton;
+            if (dayNum == LocalDate.now().getDayOfMonth() && month == LocalDate.now().getMonthValue()) {
+                textButton = "• " + dayNum + " •";
+            } else {
+                textButton = String.valueOf(dayNum);
+            }
+            list.add((Pair.of(textButton, getCallBackDate(year, month, dayNum))));
             if (list.size() == 7) {
                 keyboard.setRow(list);
                 list = new ArrayList<>();

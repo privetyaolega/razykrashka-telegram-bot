@@ -1,4 +1,4 @@
-package com.razykrashka.bot.entity.converter;
+package com.razykrashka.bot.db.converter;
 
 import javax.persistence.AttributeConverter;
 import java.sql.Date;
