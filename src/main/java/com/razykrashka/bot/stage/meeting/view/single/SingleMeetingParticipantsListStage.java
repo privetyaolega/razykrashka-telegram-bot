@@ -22,18 +22,10 @@ public class SingleMeetingParticipantsListStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
-/*
-        Integer meetingId = updateHelper.getIntegerPureCallBackData();
-        Meeting meeting = meetingRepository.findById(meetingId)
-                .orElseThrow(() -> new RuntimeException("Can not find meeting with id: " + meetingId));
-        Optional<TelegramUser> user = Optional.ofNullable(meeting.getTelegramUser());
-        user.ifPresent(x -> messageManager.sendContact(x));
-*/
+        String oldMessageWithQuestionList = getPreviousMessageText();
+        String newMessageWithoutQuestionList = Arrays.stream(oldMessageWithQuestionList.split("\n")).limit(5).collect(Collectors.joining("\n"));
 
-        String newMessage = Arrays.stream(messageManager.getSendMessage().getText().split("\n")).limit(5).collect(Collectors.joining("\n"));
-
-        String message = messageManager.getSendMessage().getText();
-        int meetingId = Integer.parseInt(message.substring(message.indexOf("#") + 1, message.indexOf("</code>")).trim());
+        int meetingId = Integer.parseInt(oldMessageWithQuestionList.substring(oldMessageWithQuestionList.indexOf("#") + 1, oldMessageWithQuestionList.indexOf("</code>")).trim());
 
         meeting = meetingRepository.findMeetingById(meetingId);
 
@@ -42,14 +34,19 @@ public class SingleMeetingParticipantsListStage extends MainStage {
                 .collect(Collectors.joining("\n"));
 
         if (!participants.isEmpty()) {
-            newMessage = newMessage.concat("\n" + participants);
+            newMessageWithoutQuestionList = newMessageWithoutQuestionList.concat("\n" + participants);
         } else {
-            newMessage = newMessage.concat("\n" + NO_PARTICIPANTS);
+            newMessageWithoutQuestionList = newMessageWithoutQuestionList.concat("\n" + NO_PARTICIPANTS);
         }
 
-        messageManager.updateMessage(newMessage, this.getKeyboard());
+        messageManager.updateMessage(newMessageWithoutQuestionList, this.getKeyboard());
 
         return true;
+    }
+
+    private String getPreviousMessageText() {
+        Long chatId = messageManager.getUpdateHelper().getChatId();
+        return telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(chatId).getText();
     }
 
     private String getSingleStringForParticipantsList(TelegramUser telegramUser) {

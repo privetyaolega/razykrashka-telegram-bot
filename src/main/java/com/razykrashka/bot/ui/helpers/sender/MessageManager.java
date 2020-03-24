@@ -35,8 +35,6 @@ import java.util.Locale;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Getter
-@Setter
 @Log4j2
 public class MessageManager extends Sender {
 

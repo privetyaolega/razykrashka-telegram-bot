@@ -23,18 +23,18 @@ public abstract class BaseMeetingsViewStage extends MainStage {
     Integer meetingsPerPage;
     @Autowired
     MeetingMessageUtils meetingMessageUtils;
+
     InlineKeyboardMarkup keyboard;
     List<Meeting> meetings;
-    Integer pageNumToShow;
-    Integer totalPagesAmount;
 
     @Override
     public boolean processCallBackQuery() {
         if (meetings.size() == 0) {
             messageManager.updateOrSendDependsOnLastMessageOwner(getString("noMeetings"), null);
         } else {
-            initPageNumToShow();
-            List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage();
+            int pageNumToShow = getPageNumToShow();
+            int totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(meetingsPerPage));
+            List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage(pageNumToShow, totalPagesAmount);
 
             String header = String.format(getString("header"), meetings.size());
             String meetingsString = meetingMessageUtils.createMeetingsText(meetingsToShow, updateHelper.getUser().getTelegramId());
@@ -53,19 +53,19 @@ public abstract class BaseMeetingsViewStage extends MainStage {
      * not the first page, but page that goes from CBQ
      * CBQ Example: 'AllMeetingViewStage3' - need to display the third page
      */
-    void initPageNumToShow() {
+    private int getPageNumToShow() {
         String className = this.getClass().getSimpleName();
-        if (!updateHelper.getCallBackData().equals(className))
-            pageNumToShow = Integer.valueOf(updateHelper.getCallBackData().replace(className, ""));
+        String pageNumber = updateHelper.getCallBackData().replace(className, "");
+        if (!updateHelper.getCallBackData().equals(className) && !pageNumber.isEmpty())
+            return Integer.parseInt(pageNumber);
         else {
-            pageNumToShow = 1;
+            return 1;
         }
-        totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(meetingsPerPage));
     }
 
-    List<Meeting> getMeetingsSublistForCurrentPage() {
+    private List<Meeting> getMeetingsSublistForCurrentPage(int pageNumToShow, int totalPagesAmount) {
         int limit = meetingsPerPage;
-        if (totalPagesAmount.equals(pageNumToShow) && totalPagesAmount * meetingsPerPage != meetings.size()) {
+        if (totalPagesAmount == pageNumToShow && totalPagesAmount * meetingsPerPage != meetings.size()) {
             limit = meetings.size() % meetingsPerPage;
         }
         return meetings.stream()
