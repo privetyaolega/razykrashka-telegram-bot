@@ -35,8 +35,6 @@ import java.util.Locale;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Getter
-@Setter
 @Log4j2
 public class MessageManager extends Sender {
 
@@ -108,7 +106,7 @@ public class MessageManager extends Sender {
             List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(Long.valueOf(chatId));
             TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
             EditMessageText editMessageReplyMarkup = new EditMessageText()
-                    .setChatId(telegramMessage.getChatId())
+                    .setChatId(updateHelper.getChatId())
                     .setMessageId(telegramMessage.getId())
                     .setText(telegramMessage.getText() + " ")
                     .setParseMode(ParseMode.HTML)

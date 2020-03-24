@@ -23,7 +23,10 @@
       "noMeetings": "There are no available <b>active</b> meetings \uD83D\uDE14"
     },
     "MyMeetingsViewStage": {
-      "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n"
+      "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n",
+      "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n",
+      "header": "\uD83D\uDCAB There are <b>%d</b> active meetings.\n\n",
+      "noMeetings": "There are no available <b>active</b> meetings \uD83D\uDE14"
     },
     "AcceptTimeMeetingCreationSBSStage": {
       "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>18:30</code>"

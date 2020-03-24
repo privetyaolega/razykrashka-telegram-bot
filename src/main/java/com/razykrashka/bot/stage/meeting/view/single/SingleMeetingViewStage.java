@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.view.single;
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.exception.EntityWasNotFoundException;
+import com.razykrashka.bot.exception.EntityWasNotFoundException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
@@ -29,57 +29,59 @@ public class SingleMeetingViewStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        Integer id = Integer.valueOf(updateHelper.getMessageText()
-                .replace(this.getStageInfo().getKeyword(), ""));
+        Integer id = getMeetingId();
         Optional<Meeting> optionalMeeting = meetingRepository.findById(id);
         if (!optionalMeeting.isPresent()) {
             messageManager.replyLastMessage(String.format(getString("meetingNotFound"), id));
             throw new EntityWasNotFoundException("Meeting was not found. ID: " + id);
         }
-        meeting = optionalMeeting.get();
+
         String messageText = meetingMessageUtils.createSingleMeetingFullText(meeting);
         messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
+    }
+
+    private Integer getMeetingId() {
+        if (updateHelper.getMessageText() != null) {
+            return Integer.valueOf(updateHelper.getMessageText()
+                    .replace(this.getStageInfo().getKeyword(), ""));
+        } else {
+            return updateHelper.getIntegerPureCallBackData();
+        }
     }
 
     @Override
     public ReplyKeyboard getKeyboard() {
         KeyboardBuilder builder = keyboardBuilder.getKeyboard();
         if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-            builder.setRow("Unsubscribe", stageInfo.getStageName() + "_unsubscribe" + meeting.getId());
+            builder.setRow("Unsubscribe", SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
-            builder.setRow("Join", stageInfo.getStageName() + "_join" + meeting.getId());
+            Integer participants = meeting.getParticipants().size();
+            Integer participantLimit = meeting.getMeetingInfo().getParticipantLimit();
+
+            //TODO remove first statement and add participants limit to all meetings
+            if ((participants == null || participants == 0)
+                    || (participantLimit != null
+                    && participants != null
+                    && participants < participantLimit)) {
+                builder.setRow("Join", SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
+            }
         }
         return builder
                 .setRow(ImmutableMap.of(
                         "Contact", SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
+                        "Participants List", SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
                         "Map", SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()))
                 .build();
     }
 
     @Override
     public boolean processCallBackQuery() {
-        String callBackData = updateHelper.getCallBackData();
-
-        meeting = StreamSupport.stream(meetingRepository.findAll().spliterator(), false).
-                filter(x -> callBackData.contains(String.valueOf(x.getId()))).findFirst().get();
-
-        if (callBackData.equals(stageInfo.getStageName() + "_join" + meeting.getId())) {
-            updateHelper.getUser().addMeetingTotoGoMeetings(meeting);
-            telegramUserRepository.save(updateHelper.getUser());
-            messageManager.sendSimpleTextMessage("yyyyyyyyyyyyyyyyyeah");
-        }
-
-        if (callBackData.equals(stageInfo.getStageName() + "_unsubscribe" + meeting.getId())) {
-            //meetingRepository.deleteMeeting(meeting.getId());
-            updateHelper.getUser().removeFromToGoMeetings(meeting);
-            telegramUserRepository.save(updateHelper.getUser());
-            messageManager.sendSimpleTextMessage(":(");
-        }
+        handleRequest();
         return true;
     }
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isMessageContains(stageInfo.getKeyword());
+        return updateHelper.isCallBackDataContains() || updateHelper.isMessageContains(stageInfo.getKeyword());
     }
 }
