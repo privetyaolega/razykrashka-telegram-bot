@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UpcomingMeetingNotificationJob extends AbstractJob {
 
-    @Value("${job.meeting.notification.upcoming.enabled}")
+    @Value("${razykrashka.job.meeting.notification.upcoming.enabled}")
     boolean jobEnabled;
 
     /**
@@ -32,7 +32,7 @@ public class UpcomingMeetingNotificationJob extends AbstractJob {
      * Period: morning of every day.
      *
      */
-    @Scheduled(fixedRateString = "${job.meeting.notification.upcoming.rate}")
+    @Scheduled(fixedRateString = "${razykrashka.job.meeting.notification.upcoming.rate}")
     public void availableMeetingsNotificationJob() {
         if (jobEnabled) {
             log.info("JOB: Upcoming meeting notification job is started.");

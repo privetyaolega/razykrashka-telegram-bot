@@ -1,9 +1,0 @@
-job:
-  meeting:
-    notification:
-      available:
-        enabled: false
-        rate: PT15S
-      upcoming:
-        enabled: true
-        rate: PT15S

@@ -25,7 +25,7 @@ public class AvailableMeetingsNotificationJob extends AbstractJob {
             "Hurry up and join! Practice makes perfect. " + Emoji.BICEPS;
     final static String NO_MEETINGS_MESSAGE = "There is no any available meeting. Work hard and create meeting!";
 
-    @Value("${job.meeting.notification.available.enabled}")
+    @Value("${razykrashka.job.meeting.notification.available.enabled}")
     boolean jobEnabled;
 
     /**
@@ -33,13 +33,13 @@ public class AvailableMeetingsNotificationJob extends AbstractJob {
      * Job notifies about available(vacant) meetings in main group chat.
      * Message consist of:
      * - message with amount of meetings and some common information
-     * - inline button that is trigger for AllMeetingViewStage for calling user.
+     * - inline button that is trigger to AllMeetingViewStage for calling user.
      * The message is sent to calling user directly (user chat);
      *
      * Period: every day;
      *
      */
-    @Scheduled(fixedRateString = "${job.meeting.notification.available.rate}")
+    @Scheduled(fixedRateString = "${razykrashka.job.meeting.notification.available.rate}")
     public void availableMeetingsNotificationJob() {
         if (jobEnabled) {
             log.info("JOB: Available meeting notification job is started.");
