@@ -67,9 +67,8 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
         // First row: Month + Year
         List<Pair<String, String>> list = new ArrayList<>();
-        keyboard.setRow(date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear(),
-                getCallBackString(NO_DATE));
-        keyboard.setRow(getDayOfWeekRow());
+        keyboard.setRow(date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear(), getCallBackString(NO_DATE))
+                .setRow(getDayOfWeekRow());
         // Create empty cells for first week
         for (int i = 0; i < date.withDayOfMonth(1).getDayOfWeek().getValue() - 1; i++) {
             list.add(Pair.of(" ", getCallBackString(NO_DATE)));

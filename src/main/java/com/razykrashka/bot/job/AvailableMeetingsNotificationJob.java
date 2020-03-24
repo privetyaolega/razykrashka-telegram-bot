@@ -19,10 +19,26 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AvailableMeetingsNotificationJob extends AbstractJob {
 
-    @Value("${job.enabled}")
+    final static String MAIN_MESSAGE = "Hey, guys! \uD83D\uDC4B\n" +
+            "YOOOHOOOO! There are %s available meetings!\n" +
+            "Hurry up and join! Practice makes perfect. \uD83D\uDCAA";
+    final static String NO_MEETINGS_MESSAGE = "There is no any available meeting. Work hard and create meeting!";
+
+    @Value("${job.meeting.notification.available.enabled}")
     boolean jobEnabled;
 
-    @Scheduled(fixedRateString = "${job.rate}")
+    /**
+     *
+     * Job notifies about available(vacant) meetings in main group chat.
+     * Message consist of:
+     * - message with amount of meetings and some common information
+     * - inline button that is trigger for AllMeetingViewStage for calling user.
+     * The message is sent to calling user directly (user chat);
+     *
+     * Period: every day;
+     *
+     */
+    @Scheduled(fixedRateString = "${job.meeting.notification.available.rate}")
     public void availableMeetingsNotificationJob() {
         if (jobEnabled) {
             log.info("JOB: Available meeting notification job is started.");
@@ -30,23 +46,19 @@ public class AvailableMeetingsNotificationJob extends AbstractJob {
             String message;
             InlineKeyboardMarkup keyboard = null;
             if (availableMeetings.isEmpty()) {
-                message = "There is no any available meeting. Work hard and create meeting!";
+                message = NO_MEETINGS_MESSAGE;
             } else {
-                message = "Hey, guys! \uD83D\uDC4B\n" +
-                        "YOOOHOOOO! There are " + availableMeetings.size() + " available meetings!\n" +
-                        "Hurry up and join! Practice makes perfect. \uD83D\uDCAA";
+                message = String.format(MAIN_MESSAGE, availableMeetings.size());
                 keyboard = keyboardBuilder.getKeyboard()
                         .setRow("Show available meetings ✨", ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
                         .build();
             }
-            messageManager
-                    .disableKeyboardLastBotMessage(groupChatId)
+            messageManager.disableKeyboardLastBotMessage(groupChatId)
                     .sendMessage(new SendMessage()
                             .setParseMode(ParseMode.HTML)
                             .setChatId(groupChatId)
                             .setText(message)
-                            .setReplyMarkup(keyboard)
-                            .disableWebPagePreview());
+                            .setReplyMarkup(keyboard));
         }
     }
 }

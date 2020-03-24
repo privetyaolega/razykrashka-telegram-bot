@@ -15,8 +15,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @PropertySource(value = {"classpath:/props/job.yaml", "classpath:/props/razykrashka.yaml"}, factory = YamlPropertyLoaderFactory.class)
 @EnableScheduling
 public abstract class AbstractJob {
-    @Value("${job.enabled}")
-    boolean jobEnabled;
     @Value("${razykrashka.group.id}")
     String groupChatId;
     @Autowired
