@@ -24,21 +24,10 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @PropertySource(value = {"classpath:/props/job.yaml", "classpath:/props/razykrashka.yaml"},
         factory = YamlPropertyLoaderFactory.class)
-public class AvailableMeetingsNotificationJob {
+public class AvailableMeetingsNotificationJob extends AbstractJob{
 
     @Value("${job.enabled}")
     boolean jobEnabled;
-    @Value("${razykrashka.group.id}")
-    String groupChatId;
-    final MeetingService meetingService;
-    final MessageManager messageManager;
-    final KeyboardBuilder keyboardBuilder;
-
-    public AvailableMeetingsNotificationJob(MeetingService meetingService, MessageManager messageManager, KeyboardBuilder keyboardBuilder) {
-        this.meetingService = meetingService;
-        this.messageManager = messageManager;
-        this.keyboardBuilder = keyboardBuilder;
-    }
 
     @Scheduled(fixedRateString = "${job.rate}")
     public void availableMeetingsNotificationJob() {
@@ -50,9 +39,11 @@ public class AvailableMeetingsNotificationJob {
             if (availableMeetings.isEmpty()) {
                 message = "There is no any available meeting. Work hard and create meeting!";
             } else {
-                message = "WOW! There are " + availableMeetings.size() + " available meetings!";
+                message = "Hey, guys! \uD83D\uDC4B\n" +
+                        "YOOOHOOOO! There are " + availableMeetings.size() + " available meetings!\n" +
+                        "Hurry up and join! Practice makes perfect. \uD83D\uDCAA";
                 keyboard = keyboardBuilder.getKeyboard()
-                        .setRow("Show available meetings", ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
+                        .setRow("Show available meetings ✨", ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
                         .build();
             }
             messageManager.sendMessage(new SendMessage()

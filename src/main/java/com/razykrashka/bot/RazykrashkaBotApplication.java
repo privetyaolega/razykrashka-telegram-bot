@@ -10,7 +10,6 @@ import org.telegram.telegrambots.ApiContextInitializer;
 
 @SpringBootApplication
 @EnableJpaRepositories
-@EnableScheduling
 public class RazykrashkaBotApplication extends SpringBootServletInitializer {
 
     {
