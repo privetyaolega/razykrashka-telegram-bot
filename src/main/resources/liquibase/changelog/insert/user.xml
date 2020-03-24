@@ -28,12 +28,12 @@
             ) LIMIT 1;
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-            Select 'Dmitry', '', '+375259514749', '50678728', 'dmitrylen'
+            Select 'Dmitry', '', '+375259514749', '506787628', 'dmitrylen'
             WHERE NOT EXISTS (
             SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Dmitry'
             AND last_name = ''
             AND phone_number = ''
-            AND telegram_id = '50678728'
+            AND telegram_id = '506787628'
             AND user_name = 'dmitrylen'
             ) LIMIT 1;
         </sql>
