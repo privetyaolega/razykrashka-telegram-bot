@@ -41,13 +41,13 @@ public class UpcomingMeetingNotificationJob extends AbstractJob {
             log.info("JOB: Upcoming meetings on {} -> {}", LocalDate.now().toString(),
                     availableMeetings.isEmpty() ? "NO MEETING" : availableMeetings.stream()
                             .map(meeting -> String.valueOf(meeting.getId()))
-                            .collect(Collectors.joining(" ")));
+                            .collect(Collectors.joining(",")));
 
             availableMeetings.forEach(m -> {
                 log.info("JOB: Meeting {} has the following participants:\n{} ", m.getId(), m.getParticipants().stream()
                         .map(telegramUser -> telegramUser.getTelegramId() + " " +
                                 (Optional.ofNullable(telegramUser.getUserName()).isPresent() ? telegramUser.getUserName() : ""))
-                        .collect(Collectors.joining()));
+                        .collect(Collectors.joining(",")));
 
                 m.getParticipants().forEach(p -> {
                     messageManager.sendMessage(new SendMessage()

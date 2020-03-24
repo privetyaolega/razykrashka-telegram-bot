@@ -71,6 +71,9 @@
     },
     "AcceptFinalMeetingCreationSBSStage": {
       "success": "Meeting has been created! \uD83E\uDD73 \nYou can find it in <b>\"My Meetings\"</b> section.\n<b>/meeting%d</b>"
+    },
+    "SingleMeetingViewUnsubscribeStage": {
+      "main": "You've successfully left meeting. ☹️\nYou can always find and join to it in \"View Meeting\" section\n/meeting%s✨"
     }
   }
 ]

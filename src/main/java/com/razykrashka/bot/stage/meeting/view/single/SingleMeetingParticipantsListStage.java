@@ -23,24 +23,20 @@ public class SingleMeetingParticipantsListStage extends MainStage {
     @Override
     public boolean processCallBackQuery() {
         String oldMessageWithQuestionList = getPreviousMessageText();
-        String newMessageWithoutQuestionList = Arrays.stream(oldMessageWithQuestionList.split("\n")).limit(5).collect(Collectors.joining("\n"));
+        String newMessageWithoutQuestionList = Arrays.stream(oldMessageWithQuestionList.split("\n"))
+                .limit(5)
+                .collect(Collectors.joining("\n"));
 
-        int meetingId = Integer.parseInt(oldMessageWithQuestionList.substring(oldMessageWithQuestionList.indexOf("#") + 1, oldMessageWithQuestionList.indexOf("</code>")).trim());
-
+        Integer meetingId = updateHelper.getIntegerPureCallBackData();
         meeting = meetingRepository.findMeetingById(meetingId);
 
         String participants = meeting.getParticipants().stream()
                 .map(this::getSingleStringForParticipantsList)
                 .collect(Collectors.joining("\n"));
 
-        if (!participants.isEmpty()) {
-            newMessageWithoutQuestionList = newMessageWithoutQuestionList.concat("\n" + participants);
-        } else {
-            newMessageWithoutQuestionList = newMessageWithoutQuestionList.concat("\n" + NO_PARTICIPANTS);
-        }
-
+        String message = participants.isEmpty() ? NO_PARTICIPANTS : participants;
+        newMessageWithoutQuestionList = newMessageWithoutQuestionList.concat("\n").concat(message);
         messageManager.updateMessage(newMessageWithoutQuestionList, this.getKeyboard());
-
         return true;
     }
 
@@ -50,12 +46,11 @@ public class SingleMeetingParticipantsListStage extends MainStage {
     }
 
     private String getSingleStringForParticipantsList(TelegramUser telegramUser) {
-        String participantName = telegramUser.getFirstName() + telegramUser.getLastName();
+        String participantName = telegramUser.getFirstName() + " " + telegramUser.getLastName();
         String participantUsername = "";
-        if (!telegramUser.getUserName().equals("")) {
-            participantUsername = "(" + "@" + telegramUser.getUserName() + ")";
+        if (!telegramUser.getUserName().isEmpty()) {
+            participantUsername = " (" + "@" + telegramUser.getUserName() + ")\n";
         }
-
         return participantName + participantUsername;
     }
 
