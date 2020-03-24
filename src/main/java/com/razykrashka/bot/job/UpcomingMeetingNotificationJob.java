@@ -44,10 +44,10 @@ public class UpcomingMeetingNotificationJob extends AbstractJob {
                             .collect(Collectors.joining(" ")));
 
             availableMeetings.forEach(m -> {
+                log.info("JOB: Meeting {} has the following participants:\n{} ", m.getId(), m.getParticipants().stream()
+                        .map(telegramUser -> telegramUser.getTelegramId() + " " + Optional.ofNullable(telegramUser.getUserName()))
+                        .collect(Collectors.joining()));
                 m.getParticipants().forEach(p -> {
-                    log.info("JOB: Meeting {} has the following participants:\n{} ", m.getId(), m.getParticipants().stream()
-                            .map(telegramUser -> telegramUser.getTelegramId() + " " + Optional.ofNullable(telegramUser.getUserName()))
-                            .collect(Collectors.joining()));
                     messageManager.sendMessage(new SendMessage()
                             .setParseMode(ParseMode.HTML)
                             .setChatId(String.valueOf(p.getTelegramId()))
