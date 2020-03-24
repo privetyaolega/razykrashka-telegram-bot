@@ -21,4 +21,5 @@ public class Emoji {
     public static String LEFT_FINGER = "\uD83D\uDC48";
     public static String CROWN = "\uD83D\uDC51";
     public static String LIGHTNING = "⚡️";
+    public static String BICEPS = "\uD83D\uDCAA";
 }

@@ -1,5 +1,6 @@
 package com.razykrashka.bot.job;
 
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
 import lombok.AccessLevel;
@@ -19,9 +20,9 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AvailableMeetingsNotificationJob extends AbstractJob {
 
-    final static String MAIN_MESSAGE = "Hey, guys! \uD83D\uDC4B\n" +
-            "YOOOHOOOO! There are %s available meetings!\n" +
-            "Hurry up and join! Practice makes perfect. \uD83D\uDCAA";
+    final static String MAIN_MESSAGE = "Hey, guys! " + Emoji.WAVE_HAND + "\n" +
+            "Yahooooo! There are %s available meetings!\n" +
+            "Hurry up and join! Practice makes perfect. " + Emoji.BICEPS;
     final static String NO_MEETINGS_MESSAGE = "There is no any available meeting. Work hard and create meeting!";
 
     @Value("${job.meeting.notification.available.enabled}")
