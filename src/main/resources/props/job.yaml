@@ -1,0 +1,3 @@
+job:
+  enabled: true
+  rate: PT1M

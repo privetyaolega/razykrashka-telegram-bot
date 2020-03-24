@@ -9,6 +9,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.List;
@@ -41,7 +43,19 @@ public abstract class BaseMeetingsViewStage extends MainStage {
             if (meetings.size() > meetingsPerPage) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }
-            messageManager.updateOrSendDependsOnLastMessageOwner(header + meetingsString, keyboard);
+            if (updateHelper.isCallBackDataContains("fromGroup")) {
+                String userChatId = String.valueOf(razykrashkaBot.getRealUpdate().getCallbackQuery().getFrom().getId());
+                messageManager
+                        .disableKeyboardLastBotMessage(userChatId)
+                        .sendMessage(new SendMessage()
+                                .setParseMode(ParseMode.HTML)
+                                .setChatId(userChatId)
+                                .setText(header + meetingsString)
+                                .setReplyMarkup(keyboard)
+                                .disableWebPagePreview());
+            } else {
+                messageManager.updateOrSendDependsOnLastMessageOwner(header + meetingsString, keyboard);
+            }
         }
         return true;
     }
@@ -56,7 +70,11 @@ public abstract class BaseMeetingsViewStage extends MainStage {
     void initPageNumToShow() {
         String className = this.getClass().getSimpleName();
         if (!updateHelper.getCallBackData().equals(className))
-            pageNumToShow = Integer.valueOf(updateHelper.getCallBackData().replace(className, ""));
+            try {
+                pageNumToShow = Integer.valueOf(updateHelper.getCallBackData().replace(className, ""));
+            } catch (NumberFormatException n) {
+                pageNumToShow = 1;
+            }
         else {
             pageNumToShow = 1;
         }
