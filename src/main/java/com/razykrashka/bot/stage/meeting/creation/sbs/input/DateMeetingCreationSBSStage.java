@@ -76,7 +76,13 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         }
         int dayNum = 1;
         while (dayNum != date.getMonth().maxLength() + 1) {
-            list.add((Pair.of(String.valueOf(dayNum), getCallBackDate(year, month, dayNum))));
+            String textButton;
+            if (dayNum == LocalDate.now().getDayOfMonth() && month == LocalDate.now().getMonthValue()) {
+                textButton = "• " + dayNum + " •";
+            } else {
+                textButton = String.valueOf(dayNum);
+            }
+            list.add((Pair.of(textButton, getCallBackDate(year, month, dayNum))));
             if (list.size() == 7) {
                 keyboard.setRow(list);
                 list = new ArrayList<>();

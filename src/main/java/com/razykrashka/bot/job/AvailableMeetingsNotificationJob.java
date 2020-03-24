@@ -1,13 +1,11 @@
 package com.razykrashka.bot.job;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -19,8 +17,6 @@ import java.util.List;
 @Component
 @Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@PropertySource(value = {"classpath:/props/job.yaml", "classpath:/props/razykrashka.yaml"},
-        factory = YamlPropertyLoaderFactory.class)
 public class AvailableMeetingsNotificationJob extends AbstractJob {
 
     @Value("${job.enabled}")
