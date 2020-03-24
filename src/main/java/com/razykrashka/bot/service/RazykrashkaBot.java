@@ -78,7 +78,9 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         this.realUpdate = update;
-        if (update.hasMessage() && keyWordsList.contains(update.getMessage().getText())) {
+        if (update.hasMessage()
+                && keyWordsList.contains(update.getMessage().getText())
+                || updateHelper.isCallBackDataContains("fromGroup")) {
             disableCreationProgress();
         }
         activeStages = stages.stream().filter(Stage::isStageActive).collect(Collectors.toList());

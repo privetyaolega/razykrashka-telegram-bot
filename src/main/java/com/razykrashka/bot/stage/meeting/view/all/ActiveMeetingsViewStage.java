@@ -13,8 +13,8 @@ public class ActiveMeetingsViewStage extends BaseMeetingsViewStage {
     @Override
     public boolean processCallBackQuery() {
         meetings = StreamSupport.stream(meetingRepository.findAll().spliterator(), false)
-                .filter(m -> m.getMeetingDateTime().isAfter(LocalDateTime.now())
-                        && m.getCreationState().getCreationStatus().equals(CreationStatus.DONE))
+                .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
+                        && m.getMeetingDateTime().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
         return super.processCallBackQuery();
     }

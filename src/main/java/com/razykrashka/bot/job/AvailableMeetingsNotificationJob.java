@@ -1,11 +1,8 @@
 package com.razykrashka.bot.job;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.db.service.MeetingService;
 import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
-import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
-import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
@@ -24,7 +21,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @PropertySource(value = {"classpath:/props/job.yaml", "classpath:/props/razykrashka.yaml"},
         factory = YamlPropertyLoaderFactory.class)
-public class AvailableMeetingsNotificationJob extends AbstractJob{
+public class AvailableMeetingsNotificationJob extends AbstractJob {
 
     @Value("${job.enabled}")
     boolean jobEnabled;
@@ -46,12 +43,14 @@ public class AvailableMeetingsNotificationJob extends AbstractJob{
                         .setRow("Show available meetings ✨", ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
                         .build();
             }
-            messageManager.sendMessage(new SendMessage()
-                    .setParseMode(ParseMode.HTML)
-                    .setChatId(groupChatId)
-                    .setText(message)
-                    .setReplyMarkup(keyboard)
-                    .disableWebPagePreview());
+            messageManager
+                    .disableKeyboardLastBotMessage(groupChatId)
+                    .sendMessage(new SendMessage()
+                            .setParseMode(ParseMode.HTML)
+                            .setChatId(groupChatId)
+                            .setText(message)
+                            .setReplyMarkup(keyboard)
+                            .disableWebPagePreview());
         }
     }
 }
