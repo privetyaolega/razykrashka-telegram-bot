@@ -35,7 +35,7 @@ public class SingleMeetingViewStage extends MainStage {
             messageManager.replyLastMessage(String.format(getString("meetingNotFound"), id));
             throw new EntityWasNotFoundException("Meeting was not found. ID: " + id);
         }
-
+        meeting = optionalMeeting.get();
         String messageText = meetingMessageUtils.createSingleMeetingFullText(meeting);
         messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
     }
