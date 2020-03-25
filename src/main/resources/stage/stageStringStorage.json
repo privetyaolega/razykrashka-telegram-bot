@@ -77,6 +77,10 @@
     },
     "SingleMeetingViewJoinStage": {
       "main": "\nYou've successfully joined to meeting. \uD83E\uDD73\nYou can find all your upcoming meetings in <code>\"My Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
+    },
+    "AcceptTopicMeetingCreationSBSStage": {
+      "input": "Please, enter topic with questions or generate random one by clicking <code>\"Random Topic\"</code> button",
+      "backButton": "👈 Back to Participant edit"
     }
   }
 ]

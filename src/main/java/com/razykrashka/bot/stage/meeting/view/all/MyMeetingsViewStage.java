@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Log4j2
 @Component
-public class MyMeetingsViewStage extends BaseMeetingsViewStage {
+public class MyMeetingsViewStage extends PaginationMeetingsViewStage {
 
     @Autowired
     private MeetingMessageUtils meetingMessageUtils;

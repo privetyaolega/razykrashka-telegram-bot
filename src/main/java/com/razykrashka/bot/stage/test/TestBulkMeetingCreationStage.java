@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 @Log4j2
 @Component
@@ -36,11 +38,8 @@ public class TestBulkMeetingCreationStage extends MainStage {
                 .replace(this.stageInfo.getKeyword(), ""));
         try {
             for (int i = 0; i < meetingsAmount; i++) {
-                MeetingInfo meetingInfo = MeetingInfo.builder()
-                        .questions("Test Questions")
-                        .topic("Test Topic")
-                        .speakingLevel(SpeakingLevel.ADVANCED)
-                        .build();
+                List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
+                MeetingInfo meetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
                 meetingInfoRepository.save(meetingInfo);
 
                 Location location = null;

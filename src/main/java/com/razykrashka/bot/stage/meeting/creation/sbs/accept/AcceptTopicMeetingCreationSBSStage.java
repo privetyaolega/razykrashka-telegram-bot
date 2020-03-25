@@ -41,11 +41,10 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
                 .setRow(ImmutableMap.of(
                         "Random Topic", RANDOM_TOPIC_CBQ,
                         "Accept Topic", ACCEPT_RANDOM_TOPIC_CBQ))
-                .setRow("BACK TO PARTICIPANT LIMIT EDIT", ParticipantsMeetingCreationSBSStage.class.getSimpleName())
+                .setRow(getString("backButton"), ParticipantsMeetingCreationSBSStage.class.getSimpleName())
                 .build();
         String meetingInfoMessage = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        messageManager.updateMessage(meetingInfoMessage +
-                "Please, input topic or generate random one.", keyboardMarkup);
+        messageManager.updateMessage(meetingInfoMessage + getString("input"), keyboardMarkup);
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
         return true;
     }

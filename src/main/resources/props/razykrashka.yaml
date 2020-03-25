@@ -16,5 +16,5 @@ razykrashka:
           enabled: false
           rate: PT15S
         upcoming:
-          enabled: true
+          enabled: false
           rate: PT15S

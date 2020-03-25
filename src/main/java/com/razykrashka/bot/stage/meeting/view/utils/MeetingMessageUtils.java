@@ -45,13 +45,30 @@ public class MeetingMessageUtils {
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
-        return new StringBuilder()
-                .append(Emoji.NEEDLE).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).append("\n")
-                .append(getLocationLink(meeting)).append("\n")
-                .append(meeting.getMeetingInfo().getTopic()).append(" ").append(Emoji.SPEECH_CLOUD).append(" ").append("(")
-                .append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append(")\n")
-                .append(Emoji.INFORMATION).append(TextFormatter.getBoldString("                                  /meeting" + meeting.getId()))
-                .append(meeting.getTelegramUser().getTelegramId().equals(telegramUserId) ? " " + Emoji.CROWN : "")
+        String dateLine = new StringBuilder()
+                .append(Emoji.NEEDLE).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
+
+        String locationLine = new StringBuilder()
+                .append(Emoji.SPACES).append(getLocationLink(meeting)).toString();
+
+        String topicLevelLine = new StringBuilder()
+                .append(Emoji.SPACES).append(meeting.getMeetingInfo().getTopic()).append(" ")
+                .append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).toString();
+
+        StringBuilder sb = new StringBuilder()
+                .append(dateLine).append("\n")
+                .append(locationLine).append("\n")
+                .append(topicLevelLine).append("\n");
+
+        int spacesAmount = (dateLine.length() - ("/meeting" + meeting.getId()).length()) * 2;
+        StringBuilder meetingLinkLine = new StringBuilder();
+        while (spacesAmount != 0) {
+            meetingLinkLine.append(" ");
+            spacesAmount--;
+        }
+        meetingLinkLine.append(TextFormatter.getBoldString("/meeting" + meeting.getId()))
+                .append(meeting.getTelegramUser().getTelegramId().equals(telegramUserId) ? " " + Emoji.CROWN : "");
+        return sb.append(meetingLinkLine)
                 .toString();
     }
 

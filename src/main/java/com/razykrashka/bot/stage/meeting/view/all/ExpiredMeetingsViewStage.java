@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Component
-public class ExpiredMeetingsViewStage extends BaseMeetingsViewStage {
+public class ExpiredMeetingsViewStage extends PaginationMeetingsViewStage {
 
     @Override
     public boolean processCallBackQuery() {

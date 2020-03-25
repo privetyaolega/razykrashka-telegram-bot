@@ -102,7 +102,8 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     }
 
     private void updateInfoLog(String query) {
-        log.info("UPDATE: String Message to process: '{}'", query);
+        Integer userId = realUpdate.hasMessage() ? realUpdate.getMessage().getFrom().getId() : realUpdate.getCallbackQuery().getFrom().getId();
+        log.info("UPDATE: User ID: {}. String Message to process: '{}'", userId, query);
         log.info("UPDATE: Active stages: {}", activeStages.stream()
                 .map(x -> x.getClass().getSimpleName())
                 .collect(Collectors.joining(" ,", "[", "]")));

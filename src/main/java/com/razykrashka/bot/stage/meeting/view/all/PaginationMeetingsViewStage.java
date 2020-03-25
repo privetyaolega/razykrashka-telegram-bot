@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Log4j2
 @Component
 @FieldDefaults(level = AccessLevel.PROTECTED)
-public abstract class BaseMeetingsViewStage extends MainStage {
+public abstract class PaginationMeetingsViewStage extends MainStage {
 
     @Value("${razykrashka.bot.meeting.view-per-page}")
     Integer meetingsPerPage;
