@@ -25,4 +25,6 @@ public class Emoji {
     public static String SPACES = "       ";
     public static String STARS = "✨";
     public static String ROCK_HAND = "\uD83E\uDD1F\uD83C\uDFFB";
+    public static String RANDOM_CUBE = "\uD83C\uDFB2";
+    public static String OK_HAND = "\uD83D\uDC4C";
 }

@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.google.common.collect.ImmutableMap;
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.FinalMeetingCreationSBSStage;
@@ -21,8 +22,17 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public void handleRequest() {
+        // TODO: add questions parsing
         String topic = updateHelper.getMessageText();
-        saveTopic(topic, "");
+
+        meeting = getMeetingInCreation();
+        MeetingInfo mi = meeting.getMeetingInfo();
+        mi.setTopic(topic);
+        mi.setQuestions("");
+        meetingInfoRepository.save(mi);
+        meeting.setMeetingInfo(mi);
+        meetingRepository.save(meeting);
+
         razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
     }
 
@@ -33,29 +43,31 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
             return true;
         }
 
+        meeting = getMeetingInCreation();
+        MeetingInfo mi = meeting.getMeetingInfo();
+
         List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
-        MeetingInfo meetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
-        saveTopic(meetingInfo.getTopic(), meetingInfo.getQuestions());
+        MeetingInfo randomMeetingInfo;
+        do {
+            int randomNumber = new Random().nextInt(meetingInfoList.size());
+            randomMeetingInfo = meetingInfoList.get(randomNumber);
+        } while (randomMeetingInfo.getTopic().equals(mi.getTopic()));
+
+        mi.setTopic(randomMeetingInfo.getTopic());
+        mi.setQuestions(" " + randomMeetingInfo.getQuestions().replaceAll(" +", " "));
+        meetingInfoRepository.save(mi);
+        meetingRepository.save(meeting);
 
         InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
-                        "Random Topic", RANDOM_TOPIC_CBQ,
-                        "Accept Topic", ACCEPT_RANDOM_TOPIC_CBQ))
+                        Emoji.RANDOM_CUBE + " Random Topic", RANDOM_TOPIC_CBQ,
+                        "Accept Topic " + Emoji.OK_HAND, ACCEPT_RANDOM_TOPIC_CBQ))
                 .setRow(getString("backButton"), ParticipantsMeetingCreationSBSStage.class.getSimpleName())
                 .build();
         String meetingInfoMessage = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.updateMessage(meetingInfoMessage + getString("input"), keyboardMarkup);
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
         return true;
-    }
-
-    private void saveTopic(String topic, String questions) {
-        meeting = getMeetingInCreation();
-        MeetingInfo currentMeetingInfo = meeting.getMeetingInfo();
-        currentMeetingInfo.setTopic(topic);
-        currentMeetingInfo.setQuestions(" " + questions.replaceAll(" +", " "));
-        meetingInfoRepository.save(currentMeetingInfo);
-        meetingRepository.save(meeting);
     }
 
     @Override

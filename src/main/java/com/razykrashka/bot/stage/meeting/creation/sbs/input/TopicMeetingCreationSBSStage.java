@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptTopicMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +27,7 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
-                .setRow("Random Topic", AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Random")
+                .setRow("Random Topic " + Emoji.RANDOM_CUBE, AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Random")
                 .setRow(getString("backButton"), ParticipantsMeetingCreationSBSStage.class.getSimpleName())
                 .build();
     }
