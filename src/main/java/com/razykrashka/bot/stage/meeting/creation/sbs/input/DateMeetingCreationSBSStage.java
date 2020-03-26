@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -76,7 +77,10 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         int dayNum = 1;
         while (dayNum != date.getMonth().maxLength() + 1) {
             String textButton;
-            if (dayNum == LocalDate.now().getDayOfMonth() && month == LocalDate.now().getMonthValue()) {
+            if (date.withDayOfMonth(dayNum).getDayOfWeek() == DayOfWeek.SATURDAY
+                    || date.withDayOfMonth(dayNum).getDayOfWeek() == DayOfWeek.SUNDAY) {
+                textButton = "◦ " + dayNum + " ◦";
+            } else if (dayNum == LocalDate.now().getDayOfMonth() && month == LocalDate.now().getMonthValue()) {
                 textButton = "• " + dayNum + " •";
             } else {
                 textButton = String.valueOf(dayNum);

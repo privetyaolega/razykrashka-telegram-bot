@@ -37,7 +37,7 @@ public class MeetingMessageUtils {
     public String createSingleMeetingFullText(Meeting meeting) {
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         return Emoji.LIGHTNING + TextFormatter.getCodeString(" MEETING # " + meeting.getId()) + "\n\n" +
-                meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
+                Emoji.SPACES + meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
                 + Emoji.LOCATION + getLocationLink(meeting) + "\n\n"
                 + meetingInfo.getTopic() + " " + Emoji.SPEECH_CLOUD + " " + meetingInfo.getSpeakingLevel().getLevel() + "\n"
                 + meetingInfo.getQuestions().replace("●", "\n●")
@@ -84,7 +84,7 @@ public class MeetingMessageUtils {
                     .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH));
             sb.append(Emoji.CLOCK)
                     .append(TextFormatter.getBoldString(" Date: "))
-                    .append(TextFormatter.getFramedString(date));
+                    .append(date);
         }
 
         if (meeting.getLocation() != null) {
@@ -92,7 +92,7 @@ public class MeetingMessageUtils {
             sb.append("\n\n")
                     .append(Emoji.LOCATION)
                     .append(TextFormatter.getBoldString(" Address: "))
-                    .append(TextFormatter.getFramedString(locationLink));
+                    .append(locationLink);
         }
 
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
@@ -101,19 +101,19 @@ public class MeetingMessageUtils {
                 sb.append("\n\n")
                         .append(Emoji.HIEROGLYPH)
                         .append(TextFormatter.getBoldString(" Level: "))
-                        .append(TextFormatter.getFramedString(meetingInfo.getSpeakingLevel().getLevel()));
+                        .append(meetingInfo.getSpeakingLevel().getLevel());
             }
             if (meetingInfo.getParticipantLimit() != null) {
                 sb.append("\n\n")
                         .append(Emoji.PEOPLE)
                         .append(TextFormatter.getBoldString(" Participant limit: "))
-                        .append(TextFormatter.getFramedString(meetingInfo.getParticipantLimit()));
+                        .append(meetingInfo.getParticipantLimit());
             }
             if (meetingInfo.getTopic() != null) {
                 sb.append("\n\n")
                         .append(Emoji.NEEDLE)
                         .append(TextFormatter.getBoldString(" Topic: "))
-                        .append(TextFormatter.getFramedString(meetingInfo.getTopic()));
+                        .append(meetingInfo.getTopic());
             }
             if (meetingInfo.getQuestions() != null) {
                 sb.append("\n\n")

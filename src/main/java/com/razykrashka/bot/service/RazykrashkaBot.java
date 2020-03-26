@@ -134,9 +134,4 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
             meetingRepository.save(meeting);
         }
     }
-
-    public Long getCurrentChatId() {
-        return this.getRealUpdate().getMessage() != null ? this.getRealUpdate().getMessage().getChat().getId() :
-                this.getRealUpdate().getCallbackQuery().getMessage().getChat().getId();
-    }
 }

@@ -23,4 +23,6 @@ public class Emoji {
     public static String LIGHTNING = "⚡️";
     public static String BICEPS = "\uD83D\uDCAA";
     public static String SPACES = "       ";
+    public static String STARS = "✨";
+    public static String ROCK_HAND = "\uD83E\uDD1F\uD83C\uDFFB";
 }

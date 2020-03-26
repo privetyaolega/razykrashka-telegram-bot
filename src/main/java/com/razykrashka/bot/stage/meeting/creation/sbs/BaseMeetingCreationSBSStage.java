@@ -7,7 +7,7 @@ import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
-import com.razykrashka.bot.ui.helpers.loading.LoadingThread;
+import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -91,10 +91,18 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
         return meetingOptional.get();
     }
 
-    protected LoadingThread startLoadingThread() {
-        LoadingThread thread = new LoadingThread();
+    protected LoadingThreadV2 startLoadingThread() {
+        LoadingThreadV2 thread = new LoadingThreadV2();
         razykrashkaBot.getContext().getAutowireCapableBeanFactory().autowireBean(thread);
         thread.start();
         return thread;
+    }
+
+    protected void joinToThread(Thread thread) {
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

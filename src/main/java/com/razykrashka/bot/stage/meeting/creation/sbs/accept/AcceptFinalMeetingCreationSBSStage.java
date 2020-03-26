@@ -4,8 +4,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
-import com.razykrashka.bot.ui.helpers.loading.LoadingThread;
+import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
@@ -28,7 +27,7 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public void handleRequest() {
-        LoadingThread loadingThread = startLoadingThread();
+        LoadingThreadV2 loadingThread = startLoadingThread();
 
         Meeting meeting = super.getMeetingInCreation();
         CreationState creationState = meeting.getCreationState();
@@ -41,12 +40,8 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meeting.setCreationState(creationState);
         meeting.getParticipants().add(updateHelper.getUser());
         meetingRepository.save(meeting);
-        try {
-            loadingThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
+        joinToThread(loadingThread);
         messageManager.updateMessage(String.format(getString("success"), meeting.getId()))
                 .sendSticker("success2.tgs");
 

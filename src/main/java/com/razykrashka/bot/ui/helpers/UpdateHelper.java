@@ -151,4 +151,8 @@ public class UpdateHelper {
     public boolean hasMessage() {
         return razykrashkaBot.getRealUpdate().hasMessage();
     }
+
+    public RazykrashkaBot getBot() {
+        return razykrashkaBot;
+    }
 }
