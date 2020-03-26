@@ -7,8 +7,6 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +20,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -287,5 +286,14 @@ public class MessageManager extends Sender {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public void sendAnswerCallbackQuery(CallbackQuery callbackQuery) {
+        try {
+            razykrashkaBot.execute(new AnswerCallbackQuery()
+                    .setCallbackQueryId(callbackQuery.getId()));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 }

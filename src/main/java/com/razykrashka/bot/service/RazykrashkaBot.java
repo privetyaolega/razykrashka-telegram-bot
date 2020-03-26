@@ -88,6 +88,7 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
         if (update.hasCallbackQuery()) {
             updateInfoLog(update.getCallbackQuery().getData());
             activeStages.get(0).processCallBackQuery();
+            messageManager.sendAnswerCallbackQuery(update.getCallbackQuery());
         } else {
             saveUpdate();
             messageManager.disableKeyboardLastBotMessage();
