@@ -32,11 +32,15 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
-        if (meetingOptional.isPresent()) {
-            CreationState creationState = meetingOptional.get().getCreationState();
-            return creationState.getActiveStage().equals(this.getClass().getSimpleName())
-                    && creationState.isInCreationProgress();
+        try {
+            Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
+            if (meetingOptional.isPresent()) {
+                CreationState creationState = meetingOptional.get().getCreationState();
+                return creationState.getActiveStage().equals(this.getClass().getSimpleName())
+                        && creationState.isInCreationProgress();
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
         return false;
     }

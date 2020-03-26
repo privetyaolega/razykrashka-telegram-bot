@@ -4,7 +4,11 @@ import com.google.common.collect.Iterables;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.poll.TelegramPoll;
+import com.razykrashka.bot.db.entity.razykrashka.poll.TelegramPollOption;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
+import com.razykrashka.bot.db.repo.PollOptionRepository;
+import com.razykrashka.bot.db.repo.PollRepository;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -14,6 +18,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
+import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
@@ -22,6 +27,8 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.polls.Poll;
+import org.telegram.telegrambots.meta.api.objects.polls.PollOption;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -29,8 +36,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -39,6 +48,10 @@ public class MessageManager extends Sender {
 
     @Autowired
     TelegramMessageRepository telegramMessageRepository;
+    @Autowired
+    PollRepository pollRepository;
+    @Autowired
+    PollOptionRepository pollOptionRepository;
     SendMessage sendMessage;
 
     public MessageManager() {
@@ -295,5 +308,35 @@ public class MessageManager extends Sender {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+    }
+
+    public MessageManager sendPoll(String chatId, String question, List<String> options) {
+        SendPoll sendPoll = new SendPoll()
+                .setChatId(chatId)
+                .setAnonymous(true)
+                .setAllowMultipleAnswers(true)
+                .setQuestion(question)
+                .setOptions(options);
+        try {
+            Poll poll = razykrashkaBot.execute(sendPoll).getPoll();
+            TelegramPoll telegramPollEntity = new TelegramPoll(poll);
+            pollRepository.save(telegramPollEntity);
+
+            Set<TelegramPollOption> telegramPollOptions = new HashSet<>();
+            for (PollOption po : poll.getOptions()) {
+                TelegramPollOption o = TelegramPollOption.builder()
+                        .textOption(po.getText())
+                        .count(po.getVoterCount())
+                        .build();
+                telegramPollOptions.add(o);
+                o.setPoll(telegramPollEntity);
+                pollOptionRepository.save(o);
+            }
+            telegramPollEntity.setTelegramPollOptions(telegramPollOptions);
+            pollRepository.save(telegramPollEntity);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

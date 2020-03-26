@@ -1,4 +1,4 @@
-package com.razykrashka.bot.stage.chat;
+package com.razykrashka.bot.stage.group;
 
 
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;

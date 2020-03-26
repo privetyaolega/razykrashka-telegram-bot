@@ -14,7 +14,11 @@ razykrashka:
       notification:
         available:
           enabled: false
-          rate: PT15S
+          cron: PT15S
         upcoming:
           enabled: false
-          rate: PT15S
+          cron: PT15S
+      auto-creation:
+        enabled: false
+        cron: PT60S
+        poll-interval: 10

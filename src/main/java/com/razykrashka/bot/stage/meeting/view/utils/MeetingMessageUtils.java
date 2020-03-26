@@ -66,10 +66,10 @@ public class MeetingMessageUtils {
             meetingLinkLine.append(" ");
             spacesAmount--;
         }
+        boolean isUserMeetingOwner = (meeting.getTelegramUser() != null && meeting.getTelegramUser().getTelegramId().equals(telegramUserId));
         meetingLinkLine.append(TextFormatter.getBoldString("/meeting" + meeting.getId()))
-                .append(meeting.getTelegramUser().getTelegramId().equals(telegramUserId) ? " " + Emoji.CROWN : "");
-        return sb.append(meetingLinkLine)
-                .toString();
+                .append(isUserMeetingOwner ? " " + Emoji.CROWN : "");
+        return sb.append(meetingLinkLine).toString();
     }
 
     public String createMeetingInfoDuringCreation(Meeting meeting) {

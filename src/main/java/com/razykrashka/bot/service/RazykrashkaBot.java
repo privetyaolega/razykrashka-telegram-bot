@@ -89,16 +89,20 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
             updateInfoLog(update.getCallbackQuery().getData());
             activeStages.get(0).processCallBackQuery();
             messageManager.sendAnswerCallbackQuery(update.getCallbackQuery());
-        } else {
-            saveUpdate();
-            messageManager.disableKeyboardLastBotMessage();
-            updateInfoLog(update.getMessage().getText());
+        } else if (update.hasMessage() || update.hasPoll()) {
+            if (!update.hasPoll()) {
+                saveUpdate();
+                messageManager.disableKeyboardLastBotMessage();
+                updateInfoLog(update.getMessage().getText());
+            }
 
             if (activeStages.size() == 0) {
                 undefinedStage.handleRequest();
             } else {
                 activeStages.get(0).handleRequest();
             }
+        } else {
+            log.info("Update can not be processed. \n{}", update.toString());
         }
     }
 
