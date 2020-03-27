@@ -109,8 +109,7 @@ public class UpdateHelper {
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
             return razykrashkaBot.getRealUpdate().getMessage().getText();
         }
-        return null;
-        //throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have message!");
+        return "";
     }
 
     public String getCallBackData() {

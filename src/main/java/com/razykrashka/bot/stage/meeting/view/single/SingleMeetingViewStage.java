@@ -57,9 +57,11 @@ public class SingleMeetingViewStage extends MainStage {
     }
 
     private Integer getMeetingId() {
-        if (updateHelper.getMessageText() != null) {
-            return Integer.valueOf(updateHelper.getMessageText()
-                    .replace(this.getStageInfo().getKeyword(), ""));
+        if (!updateHelper.getMessageText().isEmpty()) {
+            String messageText = updateHelper.getMessageText();
+            String keyword = this.getStageInfo().getKeyword();
+            String meetingIdString = messageText.replace(keyword, "");
+            return Integer.valueOf(meetingIdString);
         } else {
             return updateHelper.getIntegerPureCallBackData();
         }
@@ -106,6 +108,9 @@ public class SingleMeetingViewStage extends MainStage {
                 .orElseThrow(() -> new RuntimeException("Meeting is absent in appropriate list. ID:" + meeting.getId()));
 
         int pageNumToShow = (int) Math.ceil(indexOfMeeting / new Double(meetingsPerPage));
+        if (pageNumToShow == 0) {
+            pageNumToShow = 1;
+        }
         if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
             pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         } else {
@@ -122,6 +127,7 @@ public class SingleMeetingViewStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains() || updateHelper.isMessageContains(stageInfo.getKeyword());
+        return updateHelper.isCallBackDataContains()
+                || updateHelper.isMessageContains(stageInfo.getKeyword());
     }
 }
