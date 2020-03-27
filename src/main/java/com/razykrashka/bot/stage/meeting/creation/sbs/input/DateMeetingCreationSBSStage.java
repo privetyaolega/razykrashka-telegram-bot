@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -66,9 +65,10 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMyy");
         LocalDate date = LocalDate.of(year, month, 1);
 
-        // First row: Month + Year
         List<Pair<String, String>> list = new ArrayList<>();
+        // First row: Month + Year (April 2020)
         keyboard.setRow(date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear(), getCallBackString(NO_DATE))
+                // Second row: Days of week (Mon, Tue, Whd, Thu, Fri, Sun, Sat)
                 .setRow(getDayOfWeekRow());
         // Create empty cells for first week
         for (int i = 0; i < date.withDayOfMonth(1).getDayOfWeek().getValue() - 1; i++) {
@@ -77,14 +77,14 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         int dayNum = 1;
         while (dayNum != date.getMonth().maxLength() + 1) {
             String textButton;
-            if (date.withDayOfMonth(dayNum).getDayOfWeek() == DayOfWeek.SATURDAY
-                    || date.withDayOfMonth(dayNum).getDayOfWeek() == DayOfWeek.SUNDAY) {
-                textButton = "◦ " + dayNum + " ◦";
+            if (date.withDayOfMonth(dayNum).isBefore(LocalDate.now())) {
+                textButton = "✖️";
             } else if (dayNum == LocalDate.now().getDayOfMonth() && month == LocalDate.now().getMonthValue()) {
-                textButton = "• " + dayNum + " •";
+                textButton = dayNum + ".";
             } else {
                 textButton = String.valueOf(dayNum);
             }
+
             list.add((Pair.of(textButton, getCallBackDate(year, month, dayNum))));
             if (list.size() == 7) {
                 keyboard.setRow(list);
