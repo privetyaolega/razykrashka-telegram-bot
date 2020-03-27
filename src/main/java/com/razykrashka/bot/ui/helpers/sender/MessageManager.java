@@ -35,11 +35,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -296,6 +298,19 @@ public class MessageManager extends Sender {
                     .setChatId(updateHelper.getChatId());
             razykrashkaBot.execute(sendSticker);
         } catch (TelegramApiException | IOException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public MessageManager sendRandomSticker(String folder) {
+        try (Stream<Path> paths = Files.walk(Paths.get(new ClassPathResource("stickers/" + folder).getURI()))) {
+            List<String> collect = paths.filter(Files::isRegularFile)
+                    .map(x -> x.getFileName().toString())
+                    .collect(Collectors.toList());
+            int randomNumber = new Random().nextInt(collect.size());
+            sendSticker(File.separator + folder + File.separator + collect.get(randomNumber));
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return this;

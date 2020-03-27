@@ -43,7 +43,7 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
         joinToThread(loadingThread);
         messageManager.updateMessage(String.format(getString("success"), meeting.getId()))
-                .sendSticker("success2.tgs");
+                .sendRandomSticker("success");
 
         if (meetingNotification) {
             String meetingInfo = meetingMessageUtils.createMeetingInfoGroup(meeting);

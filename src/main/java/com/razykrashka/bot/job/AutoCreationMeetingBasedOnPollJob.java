@@ -36,8 +36,10 @@ public class AutoCreationMeetingBasedOnPollJob extends AbstractJob {
     @Value("${razykrashka.job.meeting.auto-creation.enabled}")
     boolean jobEnabled;
 
+    @Autowired
+    LocationHelper locationHelper;
+    @Autowired
     PollRepository pollRepository;
-
     @Autowired
     protected MeetingInfoRepository meetingInfoRepository;
     @Autowired
@@ -45,30 +47,46 @@ public class AutoCreationMeetingBasedOnPollJob extends AbstractJob {
     @Autowired
     protected TelegramMessageRepository telegramMessageRepository;
     @Autowired
-    LocationHelper locationHelper;
-    @Autowired
     protected CreationStateRepository creationStateRepository;
     @Autowired
     protected MeetingRepository meetingRepository;
 
-    public AutoCreationMeetingBasedOnPollJob(PollRepository pollRepository) {
-        this.pollRepository = pollRepository;
-    }
-
-    private Meeting meeting;
-
+    /**
+     *
+     * Job creates poll in group chat
+     * Poll contains question, that would be foundation
+     * for subsequent meeting creation.
+     *
+     * Period: conditional (preliminary: two days without
+     * meeting activities)
+     *
+     */
     @Bean
     @Scheduled(fixedRateString = "${razykrashka.job.meeting.auto-creation.cron}")
     public void pollCreationJob() {
         if (jobEnabled) {
+            String question = "Auto meeting creation.\nWhen would you like to create auto meeting?";
+            List<String> answerOptions = Arrays.asList(
+                    "27.03.2020",
+                    "28.03.2020",
+                    "29.03.2020");
             messageManager.disableKeyboardLastBotMessage(groupChatId)
-                    .sendPoll(groupChatId, "Auto meeting creation.\nWhen would you like to create auto meeting?",
-                            Arrays.asList("27.03.2020", "28.03.2020", "29.03.2020"));
+                    .sendPoll(groupChatId, question, answerOptions);
         }
     }
 
+    /**
+     *
+     * Job processes poll results, that was created by
+     * previous job
+     * Based on these results, job creates meeting and send
+     * notification message in group chat
+     *
+     * Period: in some time, after first job (in order to
+     * more poll results)
+     */
     @Scheduled(fixedRateString = "${razykrashka.job.meeting.auto-creation.cron}")
-    public void meetingCreationBasedOnPollResultsJob() throws InterruptedException {
+    public void meetingCreationBasedOnPollResultsJob() throws InterruptedException, YandexMapApiException {
         if (jobEnabled) {
 
             Thread.sleep(10_000);
@@ -82,12 +100,7 @@ public class AutoCreationMeetingBasedOnPollJob extends AbstractJob {
             MeetingInfo meetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
             meetingInfoRepository.save(meetingInfo);
 
-            Location location = null;
-            try {
-                location = locationHelper.getLocation("Кальварийская 46");
-            } catch (YandexMapApiException e) {
-                e.printStackTrace();
-            }
+            Location location = locationHelper.getLocation("Кальварийская 46");
             locationRepository.save(location);
 
             CreationState creationState = CreationState.builder()
@@ -95,7 +108,7 @@ public class AutoCreationMeetingBasedOnPollJob extends AbstractJob {
                     .build();
             creationStateRepository.save(creationState);
 
-            meeting = Meeting.builder()
+            Meeting meeting = Meeting.builder()
                     .meetingDateTime(meetingDate.atTime(0, 0, 0))
                     .creationDateTime(LocalDateTime.now())
                     .meetingInfo(meetingInfo)
@@ -103,11 +116,11 @@ public class AutoCreationMeetingBasedOnPollJob extends AbstractJob {
                     .creationState(creationState)
                     .participants(new HashSet<>())
                     .build();
-
             meetingRepository.save(meeting);
 
             InlineKeyboardMarkup keyboard = keyboardBuilder.getKeyboard()
-                    .setRow("Show available meetings ✨", ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
+                    .setRow("Show available meetings ✨",
+                            ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
                     .build();
 
             messageManager.disableKeyboardLastBotMessage(groupChatId)

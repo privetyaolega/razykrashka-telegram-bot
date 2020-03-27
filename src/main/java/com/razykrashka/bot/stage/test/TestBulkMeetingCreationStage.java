@@ -77,7 +77,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
         }
 
         messageManager.sendSimpleTextMessage("MEETING CREATED")
-                .sendSticker("successMeetingCreationSticker.tgs");
+                .sendRandomSticker("success");
     }
 
     @Override
