@@ -28,12 +28,13 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
-                .setRow("BACK TO DATE EDIT", DateMeetingCreationSBSStage.class.getSimpleName())
+                .setRow(getString("backButton"), DateMeetingCreationSBSStage.class.getSimpleName())
                 .build();
     }
 
     @Override
     public boolean isStageActive() {
-        return super.isStageActive() || updateHelper.isCallBackDataContains();
+        return super.isStageActive()
+                || updateHelper.isCallBackDataContains();
     }
 }

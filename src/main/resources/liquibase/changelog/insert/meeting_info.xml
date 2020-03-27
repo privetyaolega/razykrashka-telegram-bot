@@ -222,6 +222,21 @@
             'Internet and Computers');
 
             INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
+            VALUES(3,
+            '• Do you often go to job interview?
+            • Do you like it?
+            • What is the reason for you to go?
+            • Do you use English for interview?
+            • Have you ever interview another people?
+            • What about the most interesting interview?
+            • How was the most stressful interview?
+            • Tell about the most strange interview?
+            • How do you prepare yourself for interview?
+            • What is your attitude to online interview?',
+            'PRE_INTERMEDIATE',
+            'Job interview1');
+
+            INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
             VALUES(0,
             '• Do you often go to job interview?
             • Do you like it?

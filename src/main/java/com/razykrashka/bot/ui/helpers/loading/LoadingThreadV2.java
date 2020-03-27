@@ -20,8 +20,8 @@ public class LoadingThreadV2 extends Thread {
     int iterationAmount;
 
     public LoadingThreadV2() {
-        this.loadingBar = Arrays.asList(".", "..", "...");
-        this.intervalMillis = 350L;
+        this.loadingBar = Arrays.asList(".", "..", "...", "...\uD83D\uDCA4");
+        this.intervalMillis = 200L;
         this.iterationAmount = 3;
     }
 

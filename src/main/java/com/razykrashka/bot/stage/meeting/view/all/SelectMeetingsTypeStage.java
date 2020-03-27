@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.view.all;
 
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
 import lombok.AccessLevel;
@@ -26,8 +27,8 @@ public class SelectMeetingsTypeStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder
                 .getKeyboard()
-                .setRow("Active meetings", ActiveMeetingsViewStage.class.getSimpleName())
-                .setRow("Expired meetings", ExpiredMeetingsViewStage.class.getSimpleName())
+                .setRow("Active " + Emoji.STARS, ActiveMeetingsViewStage.class.getSimpleName())
+                .setRow("Archived " + Emoji.DUST_BIN, ExpiredMeetingsViewStage.class.getSimpleName())
                 .build();
     }
 }

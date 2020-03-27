@@ -5,6 +5,9 @@ razykrashka:
     meeting:
       session: 20
       view-per-page: 4
+      creation:
+        upper-hour-limit-today: 15
+        hour-advance: 5
   group:
     id: -1001385267248
     meeting:

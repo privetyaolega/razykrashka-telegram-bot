@@ -48,7 +48,7 @@ public class SingleMeetingViewStage extends MainStage {
         Integer id = getMeetingId();
         Optional<Meeting> optionalMeeting = meetingRepository.findById(id);
         if (!optionalMeeting.isPresent()) {
-            messageManager.replyLastMessage(String.format(getString("meetingNotFound"), id));
+            messageManager.replyLastMessage(super.getFormatString("meetingNotFound", id));
             throw new EntityWasNotFoundException("Meeting was not found. ID: " + id);
         }
         meeting = optionalMeeting.get();
@@ -71,17 +71,14 @@ public class SingleMeetingViewStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         KeyboardBuilder builder = keyboardBuilder.getKeyboard();
         if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-            builder.setRow("Unsubscribe", SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
+            builder.setRow("Unsubscribe " + Emoji.RED_CROSS,
+                    SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
-            Integer participants = meeting.getParticipants().size();
+            int participants = meeting.getParticipants().size();
             Integer participantLimit = meeting.getMeetingInfo().getParticipantLimit();
-
-            //TODO remove first statement and add participants limit to all meetings
-            if ((participants == null || participants == 0)
-                    || (participantLimit != null
-                    && participants != null
-                    && participants < participantLimit)) {
-                builder.setRow("Join", SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
+            if (participants < participantLimit) {
+                builder.setRow("Join " + Emoji.ROCK_HAND,
+                        SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
             }
         }
         builder.setRow(ImmutableMap.of(
@@ -108,9 +105,8 @@ public class SingleMeetingViewStage extends MainStage {
                 .orElseThrow(() -> new RuntimeException("Meeting is absent in appropriate list. ID:" + meeting.getId()));
 
         int pageNumToShow = (int) Math.ceil(indexOfMeeting / new Double(meetingsPerPage));
-        if (pageNumToShow == 0) {
-            pageNumToShow = 1;
-        }
+        pageNumToShow = (pageNumToShow == 0) ? 1 : pageNumToShow;
+
         if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
             pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         } else {

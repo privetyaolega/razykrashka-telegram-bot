@@ -8,8 +8,10 @@ import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationS
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Log4j2
@@ -17,20 +19,16 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
-    LocalDateTime localDateTime;
+    @Value("${razykrashka.bot.meeting.creation.upper-hour-limit-today}")
+    Integer hourLimit;
 
     @Override
     public boolean processCallBackQuery() {
         messageInputHandler();
 
-        String ddMMyyyy = updateHelper.getCallBackData();
-        localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
-                Integer.parseInt(ddMMyyyy.substring(2, 4)),
-                Integer.parseInt(ddMMyyyy.substring(0, 2)), 0, 0);
-        pastDateHandler();
-
+        LocalDateTime localDateTime = getLocalDateTime();
         Meeting meeting = getMeetingInCreation();
-        meeting.setMeetingDateTime(localDateTime.withHour(0).withMinute(0));
+        meeting.setMeetingDateTime(localDateTime);
         meetingRepository.save(meeting);
 
         razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
@@ -46,14 +44,27 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
         }
     }
 
-    private void pastDateHandler() {
-        // TODO: create logic if meeting date == today
-        if (localDateTime.isBefore(LocalDateTime.now())) {
-            messageManager.sendAlertMessage("ERROR! Impossible to create meeting in the past.\uD83D\uDE30");
-            setActiveNextStage(DateMeetingCreationSBSStage.class);
-            razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
+    private LocalDateTime getLocalDateTime() {
+        String ddMMyyyy = updateHelper.getCallBackData();
+        LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(ddMMyyyy.substring(4)),
+                Integer.parseInt(ddMMyyyy.substring(2, 4)),
+                Integer.parseInt(ddMMyyyy.substring(0, 2)), 0, 0);
+
+        boolean isMeetingDateToday = localDateTime.toLocalDate().isEqual(LocalDate.now());
+        if (localDateTime.isBefore(LocalDateTime.now()) && !isMeetingDateToday) {
+            sendAlertMessage(getString("pastDate"));
             throw new IncorrectInputDataFormatException("Selected date is in the past!");
+        } else if (isMeetingDateToday && LocalDateTime.now().getHour() > hourLimit) {
+            sendAlertMessage(getString("lateTime"));
+            throw new IncorrectInputDataFormatException("Too late for meeting today");
         }
+        return localDateTime.withHour(0).withMinute(0);
+    }
+
+    private void sendAlertMessage(String message) {
+        messageManager.sendAlertMessage(message);
+        setActiveNextStage(DateMeetingCreationSBSStage.class);
+        razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
     }
 
     @Override
@@ -63,9 +74,7 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
 
     @Override
     public boolean isStageActive() {
-        if (updateHelper.isCallBackDataContains(DateMeetingCreationSBSStage.class.getSimpleName())) {
-            return false;
-        }
-        return super.isStageActive();
+        return !updateHelper.isCallBackDataContains(DateMeetingCreationSBSStage.class.getSimpleName())
+                && super.isStageActive();
     }
 }

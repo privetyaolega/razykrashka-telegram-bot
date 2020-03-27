@@ -29,7 +29,9 @@
       "noMeetings": "There are no available <b>active</b> meetings \uD83D\uDE14"
     },
     "AcceptTimeMeetingCreationSBSStage": {
-      "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>18:30</code>"
+      "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>18:30</code>",
+      "pastTime": "⚠️ Attempt to create meeting with past time",
+      "hourAdvance": "⚠️ If you want to create meeting for today, time have to be at least <b>%s hours</b> in advance.\nMinimum time for today creation is <code>%s</code>"
     },
     "LevelMeetingCreationSBSStage": {
       "input": "Please, enter speaking level",
@@ -81,6 +83,13 @@
     "AcceptTopicMeetingCreationSBSStage": {
       "input": "Please, enter topic with questions or generate random one by clicking <code>\"Random Topic\"</code> button",
       "backButton": "👈 Back to Participant edit"
+    },
+    "AcceptDateMeetingCreationSBSStage": {
+      "pastDate": "⚠️ERROR! Impossible to create meeting in the past.\uD83D\uDE30",
+      "lateTime": "⚠️It's too late to create meeting for today."
+    },
+    "TimeMeetingCreationSBSStage": {
+      "backButton": "\uD83D\uDC48 Back to Date edit"
     }
   }
 ]
