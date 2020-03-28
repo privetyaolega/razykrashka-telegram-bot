@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.google.common.collect.ImmutableMap;
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
@@ -50,7 +51,7 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             editedClass = OfflineMeetingCreationSBSStage.class;
             buttonLabel = "Back to Skype edit";
         }
-        return Pair.of(buttonLabel, editedClass.getSimpleName() + "edit");
+        return Pair.of(Emoji.LEFT_FINGER + " " + buttonLabel, editedClass.getSimpleName() + "edit");
     }
 
     @Override

@@ -37,12 +37,35 @@ public class MeetingMessageUtils {
 
     public String createSingleMeetingFullText(Meeting meeting) {
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
-        return Emoji.LIGHTNING + TextFormatter.getCodeString(" MEETING # " + meeting.getId()) + "\n\n" +
-                Emoji.SPACES + meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER) + "\n"
-                + Emoji.LOCATION + getLocationLink(meeting) + "\n\n"
-                + meetingInfo.getTopic() + " " + Emoji.SPEECH_CLOUD + " " + meetingInfo.getSpeakingLevel().getLevel() + "\n"
-                + meetingInfo.getQuestions().replace("●", "\n●")
-                .replaceAll(" +", " ") + "\n";
+        StringBuilder sb = new StringBuilder();
+        StringBuilder header = new StringBuilder()
+                .append(Emoji.LIGHTNING).append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n\n");
+        StringBuilder date = new StringBuilder()
+                .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER));
+
+        StringBuilder location = new StringBuilder();
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            location.append(Emoji.LOCATION).append(getLocationLink(meeting)).append("\n\n");
+        } else {
+            location.append("\n\n").append(Emoji.SPACES).append("Skype: ")
+                    .append(TextFormatter.getCodeString(meeting.getTelegramUser().getSkypeContact()))
+                    .append("\n\n");
+        }
+
+        StringBuilder level = new StringBuilder()
+                .append(Emoji.SPACES).append(meetingInfo.getSpeakingLevel().getLevel()).append("\n\n");
+        StringBuilder topic = new StringBuilder()
+                .append(Emoji.SPACES).append(meetingInfo.getTopic()).append(Emoji.SPEECH_CLOUD);
+        StringBuilder questions = new StringBuilder()
+                .append(meetingInfo.getQuestions().replace("●", "\n●")
+                        .replaceAll(" +", " ")).append("\n");
+
+        return sb.append(header)
+                .append(date)
+                .append(location)
+                .append(level)
+                .append(topic)
+                .append(questions).toString();
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
@@ -50,28 +73,23 @@ public class MeetingMessageUtils {
 
         String freePlacesLine = new StringBuilder()
                 .append(Emoji.NEEDLE).append(" ").append(freePlacesAmount).append(" FREE PLACES!").toString();
-
         String dateLine = new StringBuilder()
                 .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
-
         StringBuilder locationLine = new StringBuilder();
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
-            locationLine.append(Emoji.SPACES).append(getLocationLink(meeting));
-        } else {
-            locationLine.append(Emoji.SPACES).append(meeting.getTelegramUser().getSkypeContact());
+            locationLine.append("\n").append(Emoji.SPACES).append(getLocationLink(meeting));
         }
 
         String levelLine = new StringBuilder()
                 .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()))
                 .toString();
-
         String topicLevelLine = new StringBuilder()
                 .append(Emoji.SPACES).append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getTopic())
                 .toString();
 
         StringBuilder sb = new StringBuilder()
                 .append(freePlacesLine).append("\n")
-                .append(dateLine).append("\n")
+                .append(dateLine)
                 .append(locationLine).append("\n")
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");

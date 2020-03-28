@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     Class<? extends BaseMeetingCreationSBSStage> nextStageClass = AcceptFormatMeetingCreationSBSStage.class;
+    Class<? extends BaseMeetingCreationSBSStage> previousStageClass = TimeMeetingCreationSBSStage.class;
 
     @Override
     public void handleRequest() {
@@ -23,7 +24,7 @@ public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(meetingInfo + "Please, enter meeting format", getKeyboard());
+                .sendSimpleTextMessage(meetingInfo + getString("input"), getKeyboard());
         setActiveNextStage(nextStageClass);
     }
 
@@ -33,7 +34,7 @@ public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 .setRow(ImmutableMap.of(
                         "Online", nextStageClass.getSimpleName() + MeetingFormatEnum.ONLINE,
                         "Offline", nextStageClass.getSimpleName() + MeetingFormatEnum.OFFLINE))
-                .setRow("Back to time edit", TimeMeetingCreationSBSStage.class.getSimpleName() + "edit")
+                .setRow(getString("backButton"), previousStageClass.getSimpleName() + "edit")
                 .build();
     }
 
