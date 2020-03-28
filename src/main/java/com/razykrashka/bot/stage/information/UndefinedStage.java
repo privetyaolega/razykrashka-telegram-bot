@@ -22,8 +22,10 @@ public class UndefinedStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        if (updateHelper.getUpdate().hasMessage() && updateHelper.getUpdate().getMessage().hasText()) {
-            String message = String.format(getString("unknown"), updateHelper.getMessageText());
+        if (updateHelper.hasMessage()
+                && updateHelper.getUpdate().getMessage().hasText()
+                && !updateHelper.isUpdateFromGroupChat()) {
+            String message = getFormatString("unknown", updateHelper.getMessageText());
             messageManager.disableKeyboardLastBotMessage()
                     .replyLastMessage(message);
         }

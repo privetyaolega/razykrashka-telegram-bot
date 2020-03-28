@@ -123,7 +123,8 @@ public class SingleMeetingViewStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains()
-                || updateHelper.isMessageContains(stageInfo.getKeyword());
+        return (updateHelper.isCallBackDataContains()
+                || updateHelper.isMessageContains(stageInfo.getKeyword())
+                && !updateHelper.isUpdateFromGroupChat());
     }
 }

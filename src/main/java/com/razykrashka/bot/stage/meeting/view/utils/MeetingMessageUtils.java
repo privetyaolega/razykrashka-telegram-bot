@@ -51,13 +51,18 @@ public class MeetingMessageUtils {
         String locationLine = new StringBuilder()
                 .append(Emoji.SPACES).append(getLocationLink(meeting)).toString();
 
+        String levelLine = new StringBuilder()
+                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()))
+                .toString();
+
         String topicLevelLine = new StringBuilder()
-                .append(Emoji.SPACES).append(meeting.getMeetingInfo().getTopic()).append(" ")
-                .append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).toString();
+                .append(Emoji.SPACES).append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getTopic())
+                .toString();
 
         StringBuilder sb = new StringBuilder()
                 .append(dateLine).append("\n")
                 .append(locationLine).append("\n")
+                .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
         int spacesAmount = (dateLine.length() - ("/meeting" + meeting.getId()).length()) * 2;

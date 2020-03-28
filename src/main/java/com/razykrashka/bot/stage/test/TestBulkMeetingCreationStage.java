@@ -1,7 +1,10 @@
 package com.razykrashka.bot.stage.test;
 
 import com.razykrashka.bot.db.entity.razykrashka.Location;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.*;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
@@ -39,8 +42,15 @@ public class TestBulkMeetingCreationStage extends MainStage {
         try {
             for (int i = 0; i < meetingsAmount; i++) {
                 List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
-                MeetingInfo meetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
-                meetingInfoRepository.save(meetingInfo);
+                MeetingInfo randomMeetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
+
+                MeetingInfo mi = MeetingInfo.builder()
+                        .topic(randomMeetingInfo.getTopic())
+                        .questions(randomMeetingInfo.getQuestions())
+                        .speakingLevel(randomMeetingInfo.getSpeakingLevel())
+                        .participantLimit(new Random().nextInt(7))
+                        .build();
+                meetingInfoRepository.save(mi);
 
                 Location location = null;
                 try {
@@ -59,7 +69,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
                         .telegramUser(updateHelper.getUser())
                         .meetingDateTime(LocalDateTime.now().plusDays(5))
                         .creationDateTime(LocalDateTime.now())
-                        .meetingInfo(meetingInfo)
+                        .meetingInfo(randomMeetingInfo)
                         .location(location)
                         .creationState(creationState)
                         .telegramUser(updateHelper.getUser())

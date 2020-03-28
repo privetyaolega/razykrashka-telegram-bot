@@ -120,7 +120,7 @@ public class MessageManager extends Sender {
             List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(Long.valueOf(chatId));
             TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
             EditMessageText editMessageReplyMarkup = new EditMessageText()
-                    .setChatId(updateHelper.getChatId())
+                    .setChatId(chatId)
                     .setMessageId(telegramMessage.getId())
                     .setText(telegramMessage.getText() + " ")
                     .setParseMode(ParseMode.HTML)
