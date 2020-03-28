@@ -9,7 +9,7 @@ public class Emoji {
     public static String LOCATION = "\uD83D\uDCCD";
     public static String FIRE = "\uD83D\uDD25";
     public static String CLOCK = "⏰";
-    public static String PEOPLE = "\uD83D\uDC65";
+    public static String TWO_PERSONS_SILHOUETTE = "\uD83D\uDC65";
     public static String SPEECH_CLOUD = "\uD83D\uDCAC";
     public static String WAVE_HAND = "\uD83D\uDC4B";
     public static String SCREAM = "\uD83D\uDE31";
@@ -43,4 +43,9 @@ public class Emoji {
     public static String PHONE_V1 = "☎️";
     public static String COFFEE = "☕️";
     public static String INTERNET = "\uD83C\uDF10";
+    public static String PAPER_PAGE = "\uD83D\uDCC4";
+    public static String ONE_PERSON_SILHOUETTE = "\uD83D\uDC64";
+    public static String MAP = "\uD83D\uDDFA";
+    public static String BOOKS = "\uD83D\uDCDA";
+    public static String FOLDER = "\uD83D\uDCC2";
 }

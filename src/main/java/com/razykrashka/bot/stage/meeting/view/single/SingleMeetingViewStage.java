@@ -52,7 +52,7 @@ public class SingleMeetingViewStage extends MainStage {
             throw new EntityWasNotFoundException("Meeting was not found. ID: " + id);
         }
         meeting = optionalMeeting.get();
-        String messageText = meetingMessageUtils.createSingleMeetingFullText(meeting);
+        String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
         messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
     }
 
@@ -71,7 +71,7 @@ public class SingleMeetingViewStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         KeyboardBuilder builder = keyboardBuilder.getKeyboard();
         if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-            builder.setRow("Unsubscribe " + Emoji.RED_CROSS,
+            builder.setRow("Leave \uD83D\uDE30",
                     SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
             int participants = meeting.getParticipants().size();
@@ -82,9 +82,9 @@ public class SingleMeetingViewStage extends MainStage {
             }
         }
         builder.setRow(ImmutableMap.of(
-                "Contact", SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
-                "Participants List", SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
-                "Map", SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
+                "Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
+                "Discussion info " + Emoji.BOOKS, SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
+                "Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
 
         return builder.setRow(getNavigationBackButton())
                 .build();

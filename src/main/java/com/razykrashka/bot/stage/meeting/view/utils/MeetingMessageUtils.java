@@ -2,6 +2,7 @@ package com.razykrashka.bot.stage.meeting.view.utils;
 
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
@@ -35,37 +36,78 @@ public class MeetingMessageUtils {
                 .collect(Collectors.joining("\n\n"));
     }
 
-    public String createSingleMeetingFullText(Meeting meeting) {
+    public String createSingleMeetingFullInfo(Meeting meeting) {
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         StringBuilder sb = new StringBuilder();
         StringBuilder header = new StringBuilder()
-                .append(Emoji.LIGHTNING).append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n\n");
+                .append(Emoji.NEEDLE).append(Emoji.SPACES).append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n\n");
         StringBuilder date = new StringBuilder()
-                .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER));
+                .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                .append(Emoji.CLOCK).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).append("\n");
 
         StringBuilder location = new StringBuilder();
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
-            location.append(Emoji.LOCATION).append(getLocationLink(meeting)).append("\n\n");
+            location.append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                    .append(Emoji.LOCATION).append(getLocationLink(meeting)).append("\n");
         } else {
-            location.append("\n\n").append(Emoji.SPACES).append("Skype: ")
+            location.append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                    .append(Emoji.INTERNET).append(" Skype: ")
                     .append(TextFormatter.getCodeString(meeting.getTelegramUser().getSkypeContact()))
-                    .append("\n\n");
+                    .append("\n");
         }
 
-        StringBuilder level = new StringBuilder()
-                .append(Emoji.SPACES).append(meetingInfo.getSpeakingLevel().getLevel()).append("\n\n");
-        StringBuilder topic = new StringBuilder()
-                .append(Emoji.SPACES).append(meetingInfo.getTopic()).append(Emoji.SPEECH_CLOUD).append("\n");
-        StringBuilder questions = new StringBuilder()
-                .append(meetingInfo.getQuestions().replace("●", "\n●")
-                        .replaceAll(" +", " ")).append("\n");
+        StringBuilder levelLine = new StringBuilder()
+                .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                .append(Emoji.HIEROGLYPH).append(meetingInfo.getSpeakingLevel().getLevel()).append("\n");
+
+        StringBuilder topicLine = new StringBuilder()
+                .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                .append(Emoji.SPEECH_CLOUD).append(" ").append(meetingInfo.getTopic()).append("\n");
+
+        String participants = meeting.getParticipants().stream()
+                .map(p -> getSingleStringForParticipantsList(p, meeting))
+                .collect(Collectors.joining("\n"));
+        StringBuilder participantsLine = new StringBuilder()
+                .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                .append(Emoji.TWO_PERSONS_SILHOUETTE).append(TextFormatter.getItalicString(" " + meeting.getParticipants().size() + " out of "
+                        + meeting.getMeetingInfo().getParticipantLimit())).append("\n")
+                .append(participants);
 
         return sb.append(header)
                 .append(date)
                 .append(location)
-                .append(level)
+                .append(levelLine)
+                .append(topicLine)
+                .append(participantsLine).append("\n").append(Emoji.SMALL_SUN).toString();
+    }
+
+    public String getSingleMeetingDiscussionInfo(Meeting meeting) {
+        StringBuilder sb = new StringBuilder();
+        StringBuilder header = new StringBuilder()
+                .append(Emoji.NEEDLE).append(Emoji.SPACES)
+                .append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n\n");
+        StringBuilder topic = new StringBuilder()
+                .append(Emoji.SPEECH_CLOUD).append(" ")
+                .append(TextFormatter.getBoldString(meeting.getMeetingInfo().getTopic())).append("\n\n");
+        StringBuilder questions = new StringBuilder()
+                .append(" ").append(meeting.getMeetingInfo().getQuestions().replace("●", "\n●")
+                        .replaceAll(" +", " ")).append("\n");
+        return sb.append(header)
                 .append(topic)
                 .append(questions).toString();
+    }
+
+    private String getSingleStringForParticipantsList(TelegramUser telegramUser, Meeting meeting) {
+        boolean isUserMeetingOwner = meeting.getTelegramUser() != null && meeting.getTelegramUser()
+                .getTelegramId().equals(telegramUser.getTelegramId());
+        String ownerLabel = isUserMeetingOwner ? " " + Emoji.CROWN : "";
+
+        String participantName = " • " + telegramUser.getFirstName() + " " + telegramUser.getLastName();
+        String participantUsername = "";
+        if (!telegramUser.getUserName().isEmpty()) {
+            participantUsername = " (" + "@" + telegramUser.getUserName() + ")";
+        }
+        return Emoji.SMALL_SUN + Emoji.SPACES + participantName + participantUsername + ownerLabel;
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
@@ -146,7 +188,7 @@ public class MeetingMessageUtils {
             }
             if (meetingInfo.getParticipantLimit() != null) {
                 sb.append("\n\n")
-                        .append(Emoji.PEOPLE)
+                        .append(Emoji.TWO_PERSONS_SILHOUETTE)
                         .append(TextFormatter.getBoldString(" Participant limit: "))
                         .append(meetingInfo.getParticipantLimit());
             }
@@ -199,7 +241,7 @@ public class MeetingMessageUtils {
             }
             if (meetingInfo.getParticipantLimit() != null) {
                 sb.append("\n\n")
-                        .append(Emoji.PEOPLE)
+                        .append(Emoji.TWO_PERSONS_SILHOUETTE)
                         .append(TextFormatter.getBoldString(" Participant limit: "))
                         .append(meetingInfo.getParticipantLimit());
             }
@@ -227,7 +269,7 @@ public class MeetingMessageUtils {
                 .append(Emoji.BIG_SUN).append("\n")
                 .append(Emoji.SMALL_SUN).append("   ").append(Emoji.LOCATION).append("   ").append(getLocationLink(meeting)).append("\n")
                 .append(Emoji.BIG_SUN).append("\n")
-                .append(Emoji.SMALL_SUN).append("   ").append(Emoji.PEOPLE).append("   ").append(meeting.getMeetingInfo().getParticipantLimit()).append("\n")
+                .append(Emoji.SMALL_SUN).append("   ").append(Emoji.TWO_PERSONS_SILHOUETTE).append("   ").append(meeting.getMeetingInfo().getParticipantLimit()).append("\n")
                 .append(Emoji.BIG_SUN).append("\n")
                 .append(Emoji.SMALL_SUN).append("   ").append(Emoji.SPEECH_CLOUD).append("   ").append(meeting.getMeetingInfo().getTopic()).append(" (").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append(")").append("\n")
                 .append(Emoji.BIG_SUN).append("\n").append("\n")
