@@ -48,7 +48,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
                         .topic(randomMeetingInfo.getTopic())
                         .questions(randomMeetingInfo.getQuestions())
                         .speakingLevel(randomMeetingInfo.getSpeakingLevel())
-                        .participantLimit(new Random().nextInt(7))
+                        .participantLimit(new Random().nextInt(5) + 2)
                         .build();
                 meetingInfoRepository.save(mi);
 
@@ -69,7 +69,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
                         .telegramUser(updateHelper.getUser())
                         .meetingDateTime(LocalDateTime.now().plusDays(5))
                         .creationDateTime(LocalDateTime.now())
-                        .meetingInfo(randomMeetingInfo)
+                        .meetingInfo(mi)
                         .location(location)
                         .creationState(creationState)
                         .telegramUser(updateHelper.getUser())

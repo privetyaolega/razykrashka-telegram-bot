@@ -45,8 +45,13 @@ public class MeetingMessageUtils {
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
+        Integer freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
+
+        String freePlacesLine = new StringBuilder()
+                .append(Emoji.NEEDLE).append(" ").append(freePlacesAmount).append(" FREE PLACES!").toString();
+
         String dateLine = new StringBuilder()
-                .append(Emoji.NEEDLE).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
+                .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
 
         String locationLine = new StringBuilder()
                 .append(Emoji.SPACES).append(getLocationLink(meeting)).toString();
@@ -60,12 +65,13 @@ public class MeetingMessageUtils {
                 .toString();
 
         StringBuilder sb = new StringBuilder()
+                .append(freePlacesLine).append("\n")
                 .append(dateLine).append("\n")
                 .append(locationLine).append("\n")
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
-        int spacesAmount = (dateLine.length() - ("/meeting" + meeting.getId()).length()) * 2;
+        int spacesAmount = (int) ((dateLine.length() - ("/meeting" + meeting.getId()).length()) * 1.50);
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");

@@ -4,7 +4,7 @@ razykrashka:
     token: 907733174:AAFAIDrzekSVURj58e6APqgCRx0Nu3gNdy0
     meeting:
       session: 20
-      view-per-page: 4
+      view-per-page: 3
       creation:
         upper-hour-limit-today: 15
         hour-advance: 5
