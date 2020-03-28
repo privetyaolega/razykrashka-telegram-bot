@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
@@ -76,6 +77,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             meeting = Meeting.builder()
                     .telegramUser(updateHelper.getUser())
                     .creationState(creationState)
+                    .format(MeetingFormatEnum.NA)
                     .build();
             return meetingRepository.save(meeting);
         } else if (meetingOptional.get()

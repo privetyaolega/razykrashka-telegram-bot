@@ -1,10 +1,7 @@
 package com.razykrashka.bot.stage.test;
 
 import com.razykrashka.bot.db.entity.razykrashka.Location;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.*;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
@@ -70,6 +67,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
                         .meetingDateTime(LocalDateTime.now().plusDays(5))
                         .creationDateTime(LocalDateTime.now())
                         .meetingInfo(mi)
+                        .format(MeetingFormatEnum.OFFLINE)
                         .location(location)
                         .creationState(creationState)
                         .telegramUser(updateHelper.getUser())

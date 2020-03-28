@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.view.utils;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import lombok.AccessLevel;
@@ -53,8 +54,12 @@ public class MeetingMessageUtils {
         String dateLine = new StringBuilder()
                 .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
 
-        String locationLine = new StringBuilder()
-                .append(Emoji.SPACES).append(getLocationLink(meeting)).toString();
+        StringBuilder locationLine = new StringBuilder();
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            locationLine.append(Emoji.SPACES).append(getLocationLink(meeting));
+        } else {
+            locationLine.append(Emoji.SPACES).append(meeting.getTelegramUser().getSkypeContact());
+        }
 
         String levelLine = new StringBuilder()
                 .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()))
@@ -84,6 +89,12 @@ public class MeetingMessageUtils {
     }
 
     public String createMeetingInfoDuringCreation(Meeting meeting) {
+
+        if (meeting.getFormat().equals(MeetingFormatEnum.ONLINE)) {
+            return createMeetingInfoDuringCreationOnline(meeting);
+        }
+
+
         StringBuilder sb = new StringBuilder();
 
         if (meeting.getMeetingDateTime() != null) {
@@ -104,6 +115,60 @@ public class MeetingMessageUtils {
                     .append(Emoji.LOCATION)
                     .append(TextFormatter.getBoldString(" Address: "))
                     .append(locationLink);
+        }
+
+        MeetingInfo meetingInfo = meeting.getMeetingInfo();
+        if (meetingInfo != null) {
+            if (meetingInfo.getSpeakingLevel() != null) {
+                sb.append("\n\n")
+                        .append(Emoji.HIEROGLYPH)
+                        .append(TextFormatter.getBoldString(" Level: "))
+                        .append(meetingInfo.getSpeakingLevel().getLevel());
+            }
+            if (meetingInfo.getParticipantLimit() != null) {
+                sb.append("\n\n")
+                        .append(Emoji.PEOPLE)
+                        .append(TextFormatter.getBoldString(" Participant limit: "))
+                        .append(meetingInfo.getParticipantLimit());
+            }
+            if (meetingInfo.getTopic() != null) {
+                sb.append("\n\n")
+                        .append(Emoji.NEEDLE)
+                        .append(TextFormatter.getBoldString(" Topic: "))
+                        .append(meetingInfo.getTopic());
+            }
+            if (meetingInfo.getQuestions() != null) {
+                sb.append("\n\n")
+                        .append(Emoji.SPEECH_CLOUD)
+                        .append(TextFormatter.getBoldString(" Questions: \n"))
+                        .append(meetingInfo.getQuestions());
+            }
+        }
+        return sb.append("\n\n\n").toString();
+    }
+
+    public String createMeetingInfoDuringCreationOnline(Meeting meeting) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\uD83C\uDF10 ONLINE MEETING\n\n");
+
+        if (meeting.getMeetingDateTime() != null) {
+            String pattern = DATE_PATTERN;
+            if (meeting.getMeetingDateTime().getHour() != 0) {
+                pattern = DATE_TIME_PATTERN;
+            }
+            String date = meeting.getMeetingDateTime()
+                    .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH));
+            sb.append(Emoji.CLOCK)
+                    .append(TextFormatter.getBoldString(" Date: "))
+                    .append(date);
+        }
+
+        if (meeting.getTelegramUser().getSkypeContact() != null) {
+            sb.append("\n\n")
+                    .append(Emoji.PHONE_V1)
+                    .append(TextFormatter.getBoldString(" Skype: "))
+                    .append(TextFormatter.getCodeString(meeting.getTelegramUser().getSkypeContact()));
         }
 
         MeetingInfo meetingInfo = meeting.getMeetingInfo();

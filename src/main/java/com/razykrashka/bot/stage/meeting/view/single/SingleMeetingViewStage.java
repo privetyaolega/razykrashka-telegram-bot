@@ -7,8 +7,8 @@ import com.razykrashka.bot.db.service.MeetingService;
 import com.razykrashka.bot.exception.EntityWasNotFoundException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
-import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
-import com.razykrashka.bot.stage.meeting.view.all.ExpiredMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.OfflineMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.OnlineMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.AccessLevel;
@@ -108,9 +108,9 @@ public class SingleMeetingViewStage extends MainStage {
         pageNumToShow = (pageNumToShow == 0) ? 1 : pageNumToShow;
 
         if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
-            pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+            pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", OfflineMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         } else {
-            pair = Pair.of(Emoji.LEFT_FINGER + " Archived meetings", ExpiredMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+            pair = Pair.of(Emoji.LEFT_FINGER + " Archived meetings", OnlineMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         }
         return pair;
     }

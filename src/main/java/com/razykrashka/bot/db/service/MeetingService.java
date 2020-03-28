@@ -37,8 +37,8 @@ public class MeetingService {
 
     public List<Meeting> getAllExpired() {
         return getAllStream()
-                .filter(m -> m.getMeetingDateTime().isBefore(LocalDateTime.now())
-                        && m.getCreationState().getCreationStatus().equals(CreationStatus.DONE))
+                .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
+                        && m.getMeetingDateTime().isBefore(LocalDateTime.now()))
                 .collect(Collectors.toList());
     }
 

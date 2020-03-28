@@ -9,7 +9,7 @@ import com.razykrashka.bot.db.entity.razykrashka.poll.TelegramPoll;
 import com.razykrashka.bot.db.entity.razykrashka.poll.TelegramPollOption;
 import com.razykrashka.bot.db.repo.*;
 import com.razykrashka.bot.exception.YandexMapApiException;
-import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.OfflineMeetingsViewStage;
 import com.razykrashka.bot.ui.helpers.LocationHelper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -120,7 +120,7 @@ public class AutoCreationMeetingBasedOnPollJob extends AbstractJob {
 
             InlineKeyboardMarkup keyboard = keyboardBuilder.getKeyboard()
                     .setRow("Show available meetings ✨",
-                            ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
+                            OfflineMeetingsViewStage.class.getSimpleName() + "fromGroup")
                     .build();
 
             messageManager.disableKeyboardLastBotMessage(groupChatId)

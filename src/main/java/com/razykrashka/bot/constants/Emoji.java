@@ -40,4 +40,7 @@ public class Emoji {
     public static String WATERMELON = "\uD83C\uDF49";
     public static String CLINKING_GLASS = "\uD83E\uDD42";
     public static String SUNNY = "☀️";
+    public static String PHONE_V1 = "☎️";
+    public static String COFFEE = "☕️";
+    public static String INTERNET = "\uD83C\uDF10";
 }

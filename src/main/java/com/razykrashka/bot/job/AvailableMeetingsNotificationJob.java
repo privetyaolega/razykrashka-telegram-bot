@@ -2,7 +2,7 @@ package com.razykrashka.bot.job;
 
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.OfflineMeetingsViewStage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
@@ -51,7 +51,7 @@ public class AvailableMeetingsNotificationJob extends AbstractJob {
             } else {
                 message = String.format(MAIN_MESSAGE, availableMeetings.size());
                 keyboard = keyboardBuilder.getKeyboard()
-                        .setRow("Show available meetings ✨", ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
+                        .setRow("Show available meetings ✨", OfflineMeetingsViewStage.class.getSimpleName() + "fromGroup")
                         .build();
             }
             messageManager.disableKeyboardLastBotMessage(groupChatId)

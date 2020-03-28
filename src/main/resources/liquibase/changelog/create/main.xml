@@ -69,6 +69,7 @@
             `location_id` int DEFAULT NULL,
             `creation_state_id` int DEFAULT NULL,
             `meeting_info_id` int DEFAULT NULL,
+            `format` varchar(255) not null DEFAULT 'NA',
             `owner_id` int DEFAULT NULL,
             PRIMARY KEY (`id`),
             KEY `FK8bqft0294qmh1tj203qp4hmrt` (`location_id`),
@@ -125,6 +126,7 @@
             `first_name` varchar(255) DEFAULT NULL,
             `last_name` varchar(255) DEFAULT NULL,
             `phone_number` varchar(255) DEFAULT NULL,
+            `skype_contact` varchar(255) DEFAULT NULL,
             `telegram_id` int DEFAULT NULL,
             `user_name` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`id`)

@@ -27,8 +27,8 @@ public class SelectMeetingsTypeStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder
                 .getKeyboard()
-                .setRow("Active " + Emoji.STARS, ActiveMeetingsViewStage.class.getSimpleName())
-                .setRow("Archived " + Emoji.DUST_BIN, ExpiredMeetingsViewStage.class.getSimpleName())
+                .setRow("Offline " + Emoji.COFFEE, OfflineMeetingsViewStage.class.getSimpleName())
+                .setRow("Online " + Emoji.INTERNET, OnlineMeetingsViewStage.class.getSimpleName())
                 .build();
     }
 }

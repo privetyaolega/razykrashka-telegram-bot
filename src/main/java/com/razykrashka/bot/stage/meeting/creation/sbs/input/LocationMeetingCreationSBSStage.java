@@ -31,6 +31,7 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
 
     @Override
     public boolean isStageActive() {
-        return super.isStageActive() || updateHelper.isCallBackDataContains();
+        return super.isStageActive()
+                || updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + "edit");
     }
 }

@@ -2,7 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.input.FormatMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -31,7 +31,7 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
 
         messageManager.deleteLastMessage()
                 .deleteLastBotMessage();
-        razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(FormatMeetingCreationSBSStage.class).handleRequest();
     }
 
     private LocalDateTime getMeetingDateTime() {
