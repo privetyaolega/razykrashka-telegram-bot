@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.view.single;
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.service.MeetingService;
 import com.razykrashka.bot.exception.EntityWasNotFoundException;
 import com.razykrashka.bot.stage.MainStage;
@@ -20,7 +21,6 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -94,10 +94,10 @@ public class SingleMeetingViewStage extends MainStage {
         //TODO: update to work with meeting.getCreationState().getCreationStatus()
         Pair<String, String> pair;
         List<Meeting> meetings;
-        if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
-            meetings = meetingService.getAllCreationStatusDone();
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            meetings = meetingService.getAllActiveOffline();
         } else {
-            meetings = meetingService.getAllExpired();
+            meetings = meetingService.getAllActiveOnline();
         }
         Integer indexOfMeeting = IntStream.range(0, meetings.size())
                 .filter(i -> meetings.get(i).getId().equals(meeting.getId()))
@@ -107,10 +107,10 @@ public class SingleMeetingViewStage extends MainStage {
         int pageNumToShow = (int) Math.ceil(indexOfMeeting / new Double(meetingsPerPage));
         pageNumToShow = (pageNumToShow == 0) ? 1 : pageNumToShow;
 
-        if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
-            pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", OfflineMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            pair = Pair.of(Emoji.LEFT_FINGER + " Offline meetings", OfflineMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         } else {
-            pair = Pair.of(Emoji.LEFT_FINGER + " Archived meetings", OnlineMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+            pair = Pair.of(Emoji.LEFT_FINGER + " Online meetings", OnlineMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         }
         return pair;
     }
