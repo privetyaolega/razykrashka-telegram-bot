@@ -72,7 +72,8 @@ public class MeetingMessageUtils {
         Integer freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
 
         String freePlacesLine = new StringBuilder()
-                .append(Emoji.NEEDLE).append(" ").append(freePlacesAmount).append(" FREE PLACES!").toString();
+                .append(Emoji.NEEDLE).append(" ").append(freePlacesAmount)
+                .append(TextFormatter.getItalicString(" free places!")).toString();
         String dateLine = new StringBuilder()
                 .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
         StringBuilder locationLine = new StringBuilder();
@@ -94,7 +95,7 @@ public class MeetingMessageUtils {
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
-        int spacesAmount = (int) ((dateLine.length() - ("/meeting" + meeting.getId()).length()) * 1.50);
+        int spacesAmount = (int) ((dateLine.length() - ("/meeting" + meeting.getId()).length()) * 1.55);
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");

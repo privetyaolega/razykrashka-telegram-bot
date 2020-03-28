@@ -128,8 +128,8 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         map.add(Pair.of("Whd", getCallBackString(NO_DATE)));
         map.add(Pair.of("Thu", getCallBackString(NO_DATE)));
         map.add(Pair.of("Fri", getCallBackString(NO_DATE)));
-        map.add(Pair.of("Sun", getCallBackString(NO_DATE)));
         map.add(Pair.of("Sat", getCallBackString(NO_DATE)));
+        map.add(Pair.of("Sun", getCallBackString(NO_DATE)));
         return map;
     }
 
