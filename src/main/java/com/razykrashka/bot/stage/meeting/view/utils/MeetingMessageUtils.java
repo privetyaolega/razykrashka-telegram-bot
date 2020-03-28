@@ -98,16 +98,17 @@ public class MeetingMessageUtils {
     }
 
     private String getSingleStringForParticipantsList(TelegramUser telegramUser, Meeting meeting) {
+        String profileLinkTmpl = "https://t.me/%s";
         boolean isUserMeetingOwner = meeting.getTelegramUser() != null && meeting.getTelegramUser()
                 .getTelegramId().equals(telegramUser.getTelegramId());
         String ownerLabel = isUserMeetingOwner ? " " + Emoji.CROWN : "";
 
-        String participantName = " • " + telegramUser.getFirstName() + " " + telegramUser.getLastName();
-        String participantUsername = "";
+        String participantName = telegramUser.getFirstName() + " " + telegramUser.getLastName();
         if (!telegramUser.getUserName().isEmpty()) {
-            participantUsername = " (" + "@" + telegramUser.getUserName() + ")";
+            String url = String.format(profileLinkTmpl, telegramUser.getUserName());
+            participantName = TextFormatter.getLink(participantName, url);
         }
-        return Emoji.SMALL_SUN + Emoji.SPACES + participantName + participantUsername + ownerLabel;
+        return Emoji.SMALL_SUN + Emoji.SPACES + " • " + participantName + ownerLabel;
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {

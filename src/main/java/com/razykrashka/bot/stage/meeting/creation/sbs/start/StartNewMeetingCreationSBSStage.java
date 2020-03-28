@@ -15,7 +15,7 @@ public class StartNewMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
 
     @Override
     public boolean processCallBackQuery() {
-        LoadingThreadV2 loadingThread = startLoadingThread();
+        LoadingThreadV2 loadingThread = startLoadingThread(true);
         meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId())
                 .ifPresent(m -> meetingRepository.delete(m));
         super.setActiveNextStage(DateMeetingCreationSBSStage.class);

@@ -19,10 +19,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
-import org.telegram.telegrambots.meta.api.methods.send.SendContact;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
-import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
+import org.telegram.telegrambots.meta.api.methods.send.*;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -353,5 +350,25 @@ public class MessageManager extends Sender {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public MessageManager sendAnimation(String path, String label) {
+        try {
+            File file = new ClassPathResource(path).getFile();
+
+            SendAnimation photo = new SendAnimation()
+                    .setCaption(label)
+                    .setParseMode(ParseMode.HTML)
+                    .setChatId(updateHelper.getChatId())
+                    .setAnimation(file);
+            razykrashkaBot.execute(photo);
+        } catch (TelegramApiException | IOException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public MessageManager sendAnimation(String path) {
+        return sendAnimation(path, null);
     }
 }

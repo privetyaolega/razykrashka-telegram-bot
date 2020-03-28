@@ -30,6 +30,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     @Autowired
     protected MeetingMessageUtils meetingMessageUtils;
     protected Meeting meeting;
+    protected static final String EDIT = "edit";
 
     @Override
     public boolean isStageActive() {
@@ -97,8 +98,8 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
         return meetingOptional.get();
     }
 
-    protected LoadingThreadV2 startLoadingThread() {
-        LoadingThreadV2 thread = new LoadingThreadV2();
+    protected LoadingThreadV2 startLoadingThread(boolean fixIterationLoading) {
+        LoadingThreadV2 thread = new LoadingThreadV2(fixIterationLoading);
         razykrashkaBot.getContext().getAutowireCapableBeanFactory().autowireBean(thread);
         thread.start();
         return thread;

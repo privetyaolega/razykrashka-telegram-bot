@@ -18,11 +18,13 @@ public class LoadingThreadV2 extends Thread {
     List<String> loadingBar;
     Long intervalMillis;
     int iterationAmount;
+    boolean fixIterationLoading;
 
-    public LoadingThreadV2() {
+    public LoadingThreadV2(boolean fixIterationLoading) {
         this.loadingBar = Arrays.asList(".", "..", "...", "...\uD83D\uDCA4");
-        this.intervalMillis = 30L;
+        this.intervalMillis = 150L;
         this.iterationAmount = 3;
+        this.fixIterationLoading = fixIterationLoading;
     }
 
     @Override
@@ -36,10 +38,23 @@ public class LoadingThreadV2 extends Thread {
             threadSleep();
         }
 
-        for (int i = 0; i != iterationAmount - 1; i++) {
-            for (String loadingEl : loadingBar) {
-                messageManager.updateMessage(loadingEl);
-                threadSleep();
+        if (fixIterationLoading) {
+            for (int i = 0; i != iterationAmount - 1; i++) {
+                for (String loadingEl : loadingBar) {
+                    messageManager.updateMessage(loadingEl);
+                    threadSleep();
+                }
+            }
+        } else {
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    for (String loadingEl : loadingBar) {
+                        messageManager.updateMessage(loadingEl);
+                        Thread.sleep(intervalMillis);
+                    }
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         }
     }

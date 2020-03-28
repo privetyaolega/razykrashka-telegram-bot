@@ -2,6 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLocationMeetingCreationSBSStage;
+import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -19,6 +20,13 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         meeting.setLocation(null);
         meetingRepository.save(meeting);
 
+        if (!updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + EDIT)) {
+            LoadingThreadV2 loadingThread = startLoadingThread(false);
+            messageManager.sendAnimation("pics/map_attachment.gif", getString("mapAttachment"));
+            loadingThread.interrupt();
+            messageManager.deleteLastBotMessage();
+        }
+
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.deleteLastBotMessageIfHasKeyboard()
                 .sendSimpleTextMessage(meetingInfo + getString("input"), getKeyboard());
@@ -28,13 +36,13 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
-                .setRow(getString("backButton"), previousStageClass.getSimpleName() + "edit")
+                .setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
                 .build();
     }
 
     @Override
     public boolean isStageActive() {
         return super.isStageActive()
-                || updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + "edit");
+                || updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + EDIT);
     }
 }

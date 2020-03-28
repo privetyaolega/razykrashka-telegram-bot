@@ -43,6 +43,7 @@
     },
     "LocationMeetingCreationSBSStage": {
       "input": "Please, attach or write location (e.g ул. Немига 6)",
+      "mapAttachment": "In this step you need to clarify the place where meeting will take place \uD83E\uDD17\n\nYou can write street name (e.g <code>Немига 25</code>, <code>улица Кальварийская 65</code>) or attach map using Telegram feature, it's up to you which method to use.\n\nAbove you can find example of map attachment.\uD83D\uDC46",
       "backButton": "👈 Back to Meeting Format edit"
     },
     "TopicMeetingCreationSBSStage": {
