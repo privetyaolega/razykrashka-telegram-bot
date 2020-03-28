@@ -10,6 +10,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 @Component
 public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
+    Class<? extends BaseMeetingCreationSBSStage> nextStageClass = AcceptLocationMeetingCreationSBSStage.class;
+    Class<? extends BaseMeetingCreationSBSStage> previousStageClass = FormatMeetingCreationSBSStage.class;
+
     @Override
     public void handleRequest() {
         meeting = getMeetingInCreation();
@@ -19,13 +22,13 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.deleteLastBotMessageIfHasKeyboard()
                 .sendSimpleTextMessage(meetingInfo + getString("input"), getKeyboard());
-        super.setActiveNextStage(AcceptLocationMeetingCreationSBSStage.class);
+        super.setActiveNextStage(nextStageClass);
     }
 
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
-                .setRow(getString("backButton"), TimeMeetingCreationSBSStage.class.getSimpleName())
+                .setRow(getString("backButton"), previousStageClass.getSimpleName() + "edit")
                 .build();
     }
 

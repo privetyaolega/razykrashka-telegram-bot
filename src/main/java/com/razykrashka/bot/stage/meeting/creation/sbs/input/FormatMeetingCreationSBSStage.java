@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.google.common.collect.ImmutableMap;
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptFormatMeetingCreationSBSStage;
@@ -32,8 +33,8 @@ public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
-                        "Online", nextStageClass.getSimpleName() + MeetingFormatEnum.ONLINE,
-                        "Offline", nextStageClass.getSimpleName() + MeetingFormatEnum.OFFLINE))
+                        Emoji.INTERNET + " Online", nextStageClass.getSimpleName() + MeetingFormatEnum.ONLINE,
+                        "Offline " + Emoji.COFFEE, nextStageClass.getSimpleName() + MeetingFormatEnum.OFFLINE))
                 .setRow(getString("backButton"), previousStageClass.getSimpleName() + "edit")
                 .build();
     }

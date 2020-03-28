@@ -55,7 +55,7 @@ public class MeetingMessageUtils {
         StringBuilder level = new StringBuilder()
                 .append(Emoji.SPACES).append(meetingInfo.getSpeakingLevel().getLevel()).append("\n\n");
         StringBuilder topic = new StringBuilder()
-                .append(Emoji.SPACES).append(meetingInfo.getTopic()).append(Emoji.SPEECH_CLOUD);
+                .append(Emoji.SPACES).append(meetingInfo.getTopic()).append(Emoji.SPEECH_CLOUD).append("\n");
         StringBuilder questions = new StringBuilder()
                 .append(meetingInfo.getQuestions().replace("●", "\n●")
                         .replaceAll(" +", " ")).append("\n");
@@ -166,9 +166,8 @@ public class MeetingMessageUtils {
     }
 
     public String createMeetingInfoDuringCreationOnline(Meeting meeting) {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("\uD83C\uDF10 ONLINE MEETING\n\n");
+        StringBuilder sb = new StringBuilder()
+                .append(Emoji.INTERNET).append(" ONLINE MEETING\n\n");
 
         if (meeting.getMeetingDateTime() != null) {
             String pattern = DATE_PATTERN;

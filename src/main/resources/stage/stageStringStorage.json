@@ -43,7 +43,7 @@
     },
     "LocationMeetingCreationSBSStage": {
       "input": "Please, attach or write location (e.g ул. Немига 6)",
-      "backButton": "👈 Back to Time edit"
+      "backButton": "👈 Back to Meeting Format edit"
     },
     "TopicMeetingCreationSBSStage": {
       "input": "Please, enter discussion topic...",
@@ -93,7 +93,7 @@
       "backButton": "\uD83D\uDC48 Back to Date edit"
     },
     "FormatMeetingCreationSBSStage": {
-      "input": "Please, choose meeting format...",
+      "input": "<a href=google.com>here should be link for meeting format information</a>\n\nHmmm...\uD83E\uDD14\nWhat is actually 'Meeting Format'? Let's get this over together!\n'Meeting format' means the place, where you get in contact with your speaking partners.\n\t• For online meetings our community use Skype calls so, please, make sure, that you have this program.\n\t• Offline meetings take place in 'real life'. It can be some cafe or just bench in the street.\nSo, it's up to you where practice your English!\uD83D\uDE05 \n\nPlease, choose meeting format...",
       "backButton": "\uD83D\uDC48 Back to Time edit"
     },
     "OfflineMeetingCreationSBSStage": {
