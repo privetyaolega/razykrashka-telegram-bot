@@ -83,7 +83,7 @@ public class SingleMeetingViewStage extends MainStage {
         }
         builder.setRow(ImmutableMap.of(
                 "Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
-                "Discussion info " + Emoji.BOOKS, SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
+                "Topic Info" + Emoji.BOOKS, SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
                 "Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
 
         return builder.setRow(getNavigationBackButton())
