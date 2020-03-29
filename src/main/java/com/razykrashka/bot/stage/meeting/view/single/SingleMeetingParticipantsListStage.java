@@ -4,10 +4,12 @@ import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
+import com.razykrashka.bot.stage.meeting.edit.delete.DeleteConfirmationSingleMeetingStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
@@ -40,12 +42,19 @@ public class SingleMeetingParticipantsListStage extends MainStage {
                 builder.setRow("Join " + Emoji.ROCK_HAND, SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
             }
         }
-        return builder
-                .setRow(ImmutableMap.of(
-                        "Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
-                        "Main Info " + Emoji.FOLDER, SingleMeetingViewStage.class.getSimpleName() + meeting.getId(),
-                        "Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()))
-                .build();
+        builder.setRow(ImmutableMap.of(
+                "Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
+                "Main Info " + Emoji.FOLDER, SingleMeetingViewStage.class.getSimpleName() + meeting.getId(),
+                "Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
+
+        if (updateHelper.getUser().equals(meeting.getTelegramUser())
+                && meeting.getParticipants().contains(updateHelper.getUser())) {
+            return builder.setRow(Pair.of("Delete meeting " + Emoji.DUST_BIN,
+                    DeleteConfirmationSingleMeetingStage.class.getSimpleName() + meeting.getId()))
+                    .build();
+        } else {
+            return builder.build();
+        }
     }
 
     @Override

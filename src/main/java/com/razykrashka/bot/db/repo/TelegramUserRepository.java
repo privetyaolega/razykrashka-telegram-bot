@@ -4,7 +4,6 @@ import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface TelegramUserRepository extends CrudRepository<TelegramUser, Integer> {

@@ -17,8 +17,8 @@ public class DeleteSingleMeetingStage extends MainStage {
         meetingRepository.delete(optionalMeeting);
 
         messageManager
-                .sendRandomSticker("sad")
-                .sendSimpleTextMessage("Meeting has been deleted " + Emoji.PENSIVE);
+                .updateMessage("Meeting has been deleted " + Emoji.PENSIVE)
+                .sendRandomSticker("sad");
         //TODO: Send notification to each participants;
         return true;
     }

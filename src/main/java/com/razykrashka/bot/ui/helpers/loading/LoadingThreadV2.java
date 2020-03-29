@@ -42,7 +42,8 @@ public class LoadingThreadV2 extends Thread {
         if (fixIterationLoading) {
             for (int i = 0; i != iterationAmount - 1; i++) {
                 for (String loadingEl : loadingBar) {
-                    messageManager.updateMessage(loadingEl);
+                    messageManager.updateMessage(loadingEl)
+                            .sendChatAction(ActionType.TYPING);
                     threadSleep();
                 }
             }

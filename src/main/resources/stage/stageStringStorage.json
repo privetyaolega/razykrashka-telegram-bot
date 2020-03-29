@@ -105,6 +105,9 @@
     },
     "DeleteConfirmationSingleMeetingStage": {
       "warning": "       ⚠️Warning!\n\nAre you sure you want to delete the <b>/meeting%s</b>?\nThe action is irrevocable and you can't recover current meeting."
+    },
+    "MainStatisticStage": {
+      "main":"Here should be pretty text about community statistic \uD83D\uDE02\nTotal sucessfully completed meetings: %s\nTotal users using bot: %s\nTotal users in community group: %s"
     }
   }
 ]
