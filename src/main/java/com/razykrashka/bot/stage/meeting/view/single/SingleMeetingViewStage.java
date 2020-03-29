@@ -8,6 +8,8 @@ import com.razykrashka.bot.db.service.MeetingService;
 import com.razykrashka.bot.exception.EntityWasNotFoundException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
+import com.razykrashka.bot.stage.meeting.edit.delete.DeleteConfirmationSingleMeetingStage;
+import com.razykrashka.bot.stage.meeting.edit.delete.DeleteSingleMeetingStage;
 import com.razykrashka.bot.stage.meeting.view.all.OfflineMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.all.OnlineMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
@@ -53,7 +55,7 @@ public class SingleMeetingViewStage extends MainStage {
         }
         meeting = optionalMeeting.get();
         String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
-        messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
+        messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
     }
 
     private Integer getMeetingId() {
@@ -86,8 +88,14 @@ public class SingleMeetingViewStage extends MainStage {
                 "Topic Info" + Emoji.BOOKS, SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
                 "Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
 
-        return builder.setRow(getNavigationBackButton())
-                .build();
+
+        if (!updateHelper.getUser().equals(meeting.getTelegramUser())) {
+            return builder.build();
+        } else {
+            return builder.setRow(Pair.of(Emoji.LEFT_FINGER + "Delete meeting",
+                    DeleteConfirmationSingleMeetingStage.class.getSimpleName() + meeting.getId()))
+                    .build();
+        }
     }
 
     private Pair<String, String> getNavigationBackButton() {

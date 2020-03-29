@@ -31,6 +31,7 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
+        keyboard = new InlineKeyboardMarkup();
         if (meetings.size() == 0) {
             messageManager.updateOrSendDependsOnLastMessageOwner(getString("noMeetings"), null);
         } else {

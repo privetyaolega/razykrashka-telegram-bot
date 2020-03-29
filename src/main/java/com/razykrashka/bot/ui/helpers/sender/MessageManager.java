@@ -16,6 +16,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.ActionType;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
@@ -370,5 +371,16 @@ public class MessageManager extends Sender {
 
     public MessageManager sendAnimation(String path) {
         return sendAnimation(path, null);
+    }
+
+    public MessageManager sendChatAction(ActionType actionType) {
+        try {
+            razykrashkaBot.execute(new SendChatAction()
+                    .setChatId(updateHelper.getChatId())
+                    .setAction(actionType));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

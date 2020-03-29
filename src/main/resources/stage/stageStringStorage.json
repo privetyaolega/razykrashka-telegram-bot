@@ -102,6 +102,9 @@
       "backButton": "\uD83D\uDC48 Back to Meeting Format edit",
       "confirmButton": "Confirm \uD83D\uDC4C",
       "edit": "⚙️ Edit Skype"
+    },
+    "DeleteConfirmationSingleMeetingStage": {
+      "warning": "       ⚠️Warning!\n\nAre you sure you want to delete the <b>/meeting%s</b>?\nThe action is irrevocable and you can't recover current meeting."
     }
   }
 ]

@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.telegram.telegrambots.meta.api.methods.ActionType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +50,8 @@ public class LoadingThreadV2 extends Thread {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     for (String loadingEl : loadingBar) {
-                        messageManager.updateMessage(loadingEl);
+                        messageManager.updateMessage(loadingEl)
+                                .sendChatAction(ActionType.UPLOADVIDEO);
                         Thread.sleep(intervalMillis);
                     }
                 }
