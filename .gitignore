@@ -2,6 +2,6 @@
 /src/main/resources/application.properties
 /src/main/resources/application-test.properties
 /src/main/resources/application-dev.properties
-/src/main/resources/props
+/src/main/resources/props/
 /razykrashka-bot.iml
 /target/
