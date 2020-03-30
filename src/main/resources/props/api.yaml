@@ -1,9 +1,0 @@
-yandex:
-  api:
-    token: 7efe26bd-92bc-4c6f-89b5-41b620790bd6
-    endpoint: https://search-maps.yandex.ru/v1/
-
-locationiq:
-  api:
-    token: 9ee08192129152
-    endpoint: https://eu1.locationiq.com/v1/search.php?&format=json

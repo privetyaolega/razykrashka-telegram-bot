@@ -7,45 +7,19 @@
         <comment>Upload 3 users</comment>
         <sql>
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-            Select 'Olega', 'Rutski', '+375295508809', '532965560', 'privetyaolega'
-            WHERE NOT EXISTS (
-            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Olega'
-            AND last_name = 'Rutski'
-            AND phone_number = '+375295508809'
-            AND telegram_id = '532965560'
-            AND user_name = 'privetyolega'
-            ) LIMIT 1;
+            VALUES('Olega', 'Rutski', '+375295508809', '532965560', 'privetyaolega');
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-            Select 'Andrew', '', '+375293489901', '431957763', ''
-            WHERE NOT EXISTS (
-            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE
-            first_name = 'Andrew'
-            AND last_name = ''
-            AND phone_number = '+375293489901'
-            AND telegram_id = '431957763'
-            AND user_name = ''
-            ) LIMIT 1;
+            VALUES('Andrew', '', '+375293489901', '431957763', '');
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-            Select 'Dmitry', '', '+375259514749', '506787628', 'dmitrylen'
-            WHERE NOT EXISTS (
-            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Dmitry'
-            AND last_name = ''
-            AND phone_number = ''
-            AND telegram_id = '506787628'
-            AND user_name = 'dmitrylen'
-            ) LIMIT 1;
+            VALUES('Dmitry', '', '+375259514749', '506787628', 'dmitrylen');
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-            Select 'Victoria', 'Vorobey', '+375291374610', '485869971', ''
-            WHERE NOT EXISTS (
-            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Victoria'
-            AND last_name = ''
-            AND phone_number = ''
-            AND telegram_id = '485869971'
-            AND user_name = ''
-            ) LIMIT 1;
+            VALUES('Victoria', 'Vorobey', '+375291374610', '485869971', '');
+
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            VALUES('Nata', 'Rutskaya', '+375336808745', '610115598', '');
         </sql>
     </changeSet>
 </databaseChangeLog>
