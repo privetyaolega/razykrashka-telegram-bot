@@ -33,7 +33,7 @@
             owner_id)
             VALUES ('2021-03-01 09:32:27', 4, '2021-06-01 16:00:00', 'ONLINE', (SELECT id from meeting_info WHERE topic =
             'Job interview1' LIMIT 1), (SELECT id from user WHERE
-            telegram_id = '532965560' LIMIT 1));
+            telegram_id = '485869971' LIMIT 1));
 
             INSERT INTO meeting (creation_date_time, creation_state_id, meeting_date_time, format, meeting_info_id,
             owner_id)

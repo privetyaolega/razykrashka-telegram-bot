@@ -36,6 +36,16 @@
             AND telegram_id = '506787628'
             AND user_name = 'dmitrylen'
             ) LIMIT 1;
+
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            Select 'Victoria', 'Vorobey', '+375291374610', '485869971', ''
+            WHERE NOT EXISTS (
+            SELECT first_name, last_name,phone_number, telegram_id, user_name FROM user WHERE first_name = 'Victoria'
+            AND last_name = ''
+            AND phone_number = ''
+            AND telegram_id = '485869971'
+            AND user_name = ''
+            ) LIMIT 1;
         </sql>
     </changeSet>
 </databaseChangeLog>

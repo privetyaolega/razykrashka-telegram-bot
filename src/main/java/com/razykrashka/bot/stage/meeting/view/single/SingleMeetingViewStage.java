@@ -1,6 +1,5 @@
 package com.razykrashka.bot.stage.meeting.view.single;
 
-import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
@@ -22,6 +21,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -82,10 +82,16 @@ public class SingleMeetingViewStage extends MainStage {
                         SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
             }
         }
-        builder.setRow(ImmutableMap.of(
-                "Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
-                "Topic Info" + Emoji.BOOKS, SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
-                "Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
+
+        List<Pair<String, String>> buttonList = new ArrayList<>();
+        buttonList.add(Pair.of("Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId()));
+        buttonList.add(Pair.of("Topic Info" + Emoji.BOOKS, SingleMeetingTopicInfoStage.class.getSimpleName() + meeting.getId()));
+
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            buttonList.add(Pair.of("Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
+        }
+
+        builder.setRow(buttonList);
 
         if (updateHelper.getUser().equals(meeting.getTelegramUser())
                 && meeting.getParticipants().contains(updateHelper.getUser())) {
