@@ -52,17 +52,17 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
 
         boolean isMeetingDateToday = localDateTime.toLocalDate().isEqual(LocalDate.now());
         if (localDateTime.isBefore(LocalDateTime.now()) && !isMeetingDateToday) {
-            sendAlertMessage(getString("pastDate"));
+            sendAlertMessage(getString("pastDate"), false);
             throw new IncorrectInputDataFormatException("Selected date is in the past!");
         } else if (isMeetingDateToday && LocalDateTime.now().getHour() > hourLimit) {
-            sendAlertMessage(getString("lateTime"));
+            sendAlertMessage(getString("lateTime"), true);
             throw new IncorrectInputDataFormatException("Too late for meeting today");
         }
         return localDateTime.withHour(0).withMinute(0);
     }
 
-    private void sendAlertMessage(String message) {
-        messageManager.sendAlertMessage(message);
+    private void sendAlertMessage(String message, boolean showAlert) {
+        messageManager.sendAlertMessage(message, showAlert);
         setActiveNextStage(DateMeetingCreationSBSStage.class);
         razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
     }

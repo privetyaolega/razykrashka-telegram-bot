@@ -18,6 +18,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public class UpdateHelper {
 
+    public final static String FROM_GROUP = "fromGroup";
     @Value("${razykrashka.group.id}")
     Long groupChatId;
     final RazykrashkaBot razykrashkaBot;
@@ -172,5 +173,9 @@ public class UpdateHelper {
                     .equals(groupChatId);
         }
         return false;
+    }
+
+    public boolean isUpdateFromGroup() {
+        return isCallBackDataContains(FROM_GROUP);
     }
 }

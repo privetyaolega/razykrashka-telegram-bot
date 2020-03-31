@@ -15,6 +15,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 
 import java.util.List;
 
+import static com.razykrashka.bot.ui.helpers.UpdateHelper.FROM_GROUP;
+
 @Component
 @Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -51,7 +53,8 @@ public class AvailableMeetingsNotificationJob extends AbstractJob {
             } else {
                 message = String.format(MAIN_MESSAGE, availableMeetings.size());
                 keyboard = keyboardBuilder.getKeyboard()
-                        .setRow("Show available meetings ✨", OfflineMeetingsViewStage.class.getSimpleName() + "fromGroup")
+                        .setRow("Show available meetings ✨",
+                                OfflineMeetingsViewStage.class.getSimpleName() + FROM_GROUP)
                         .build();
             }
             messageManager.disableKeyboardLastBotMessage(groupChatId)

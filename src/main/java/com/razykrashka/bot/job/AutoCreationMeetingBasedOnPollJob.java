@@ -28,6 +28,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static com.razykrashka.bot.ui.helpers.UpdateHelper.FROM_GROUP;
+
 @Component
 @Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -120,7 +122,7 @@ public class AutoCreationMeetingBasedOnPollJob extends AbstractJob {
 
             InlineKeyboardMarkup keyboard = keyboardBuilder.getKeyboard()
                     .setRow("Show available meetings ✨",
-                            OfflineMeetingsViewStage.class.getSimpleName() + "fromGroup")
+                            OfflineMeetingsViewStage.class.getSimpleName() + FROM_GROUP)
                     .build();
 
             messageManager.disableKeyboardLastBotMessage(groupChatId)

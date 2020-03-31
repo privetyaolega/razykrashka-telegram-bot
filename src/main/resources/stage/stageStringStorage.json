@@ -87,8 +87,8 @@
       "backButton": "👈 Back to Participant edit"
     },
     "AcceptDateMeetingCreationSBSStage": {
-      "pastDate": "⚠️ERROR! Impossible to create meeting in the past.\uD83D\uDE30",
-      "lateTime": "⚠️It's too late to create meeting for today."
+      "pastDate": "⚠️ ERROR! Impossible to create meeting in the past.\uD83D\uDE30",
+      "lateTime": "⚠️ It's too late to create meeting for today."
     },
     "TimeMeetingCreationSBSStage": {
       "backButton": "\uD83D\uDC48 Back to Date edit"

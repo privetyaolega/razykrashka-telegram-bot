@@ -22,23 +22,7 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
             "AND c.creation_status = 'IN_PROGRESS'", nativeQuery = true)
     Optional<Meeting> findByCreationStatusEqualsInProgress(Integer ownerId);
 
-    @Query(value = "SELECT * " +
-            "FROM meeting m " +
-            "INNER JOIN creation_state c " +
-            "ON m.creation_state_id = c.id " +
-            "AND m.meeting_date_time >= NOW() " +
-            "ORDER BY m.meeting_date_time", nativeQuery = true)
-    List<Meeting> findAllActiveAndDone();
-
     Meeting findMeetingById(int meetingId);
-
-    @Query(value = "SELECT * " +
-            "FROM meeting m " +
-            "INNER JOIN creation_state c " +
-            "ON m.creation_state_id = c.id " +
-            "AND m.meeting_date_time < NOW() " +
-            "ORDER BY m.meeting_date_time", nativeQuery = true)
-    List<Meeting> findAllExpired();
 
     Long countByMeetingDateTimeBefore(LocalDateTime meetingDateTime);
 

@@ -44,7 +44,7 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
             if (meetings.size() > meetingsPerPage) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }
-            if (updateHelper.isCallBackDataContains("fromGroup")) {
+            if (updateHelper.isUpdateFromGroupChat()) {
                 String userChatId = String.valueOf(razykrashkaBot.getRealUpdate().getCallbackQuery().getFrom().getId());
                 messageManager
                         .disableKeyboardLastBotMessage(userChatId)

@@ -218,11 +218,15 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager sendAlertMessage(String alertMessage) {
+        return sendAlertMessage(alertMessage, false);
+    }
+
+    public MessageManager sendAlertMessage(String alertMessage, boolean showAlert) {
         try {
             razykrashkaBot.execute(new AnswerCallbackQuery()
                     .setCallbackQueryId(razykrashkaBot.getRealUpdate().getCallbackQuery().getId())
                     .setText(alertMessage)
-                    .setShowAlert(false));
+                    .setShowAlert(showAlert));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
