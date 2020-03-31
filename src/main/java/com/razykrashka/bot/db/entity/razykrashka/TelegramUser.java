@@ -1,5 +1,6 @@
 package com.razykrashka.bot.db.entity.razykrashka;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -31,6 +32,7 @@ public class TelegramUser {
 
     @Column
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "telegramUser")
+    @JsonIgnore
     Set<Meeting> createdMeetings = new HashSet<>();
 
     @Column
@@ -40,6 +42,7 @@ public class TelegramUser {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id")
     )
+    @JsonIgnore
     Set<Meeting> toGoMeetings = new HashSet<>();
 
     public void addMeetingTotoGoMeetings(Meeting meeting) {
