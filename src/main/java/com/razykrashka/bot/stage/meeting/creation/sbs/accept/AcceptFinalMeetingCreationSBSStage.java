@@ -27,7 +27,7 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public void handleRequest() {
-        LoadingThreadV2 loadingThread = startLoadingThread();
+        LoadingThreadV2 loadingThread = startLoadingThread(true);
 
         Meeting meeting = super.getMeetingInCreation();
         CreationState creationState = meeting.getCreationState();
@@ -42,8 +42,8 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meetingRepository.save(meeting);
 
         joinToThread(loadingThread);
-        messageManager.updateMessage(String.format(getString("success"), meeting.getId()))
-                .sendSticker("success2.tgs");
+        messageManager.updateMessage(getFormatString("success", meeting.getId()))
+                .sendRandomSticker("success");
 
         if (meetingNotification) {
             String meetingInfo = meetingMessageUtils.createMeetingInfoGroup(meeting);

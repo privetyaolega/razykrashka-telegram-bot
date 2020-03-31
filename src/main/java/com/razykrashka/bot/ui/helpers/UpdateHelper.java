@@ -3,21 +3,31 @@ package com.razykrashka.bot.ui.helpers;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
+import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Log4j2
+@PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public class UpdateHelper {
-    @Autowired
-    RazykrashkaBot razykrashkaBot;
-    @Autowired
-    TelegramUserRepository telegramUserRepository;
+
+    public final static String FROM_GROUP = "fromGroup";
+    @Value("${razykrashka.group.id}")
+    Long groupChatId;
+    final RazykrashkaBot razykrashkaBot;
+    final TelegramUserRepository telegramUserRepository;
+
+    public UpdateHelper(RazykrashkaBot razykrashkaBot, TelegramUserRepository telegramUserRepository) {
+        this.razykrashkaBot = razykrashkaBot;
+        this.telegramUserRepository = telegramUserRepository;
+    }
 
     public boolean isCallBackDataContains(String string) {
         if (razykrashkaBot.getRealUpdate().hasCallbackQuery()) {
@@ -109,8 +119,7 @@ public class UpdateHelper {
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
             return razykrashkaBot.getRealUpdate().getMessage().getText();
         }
-        return null;
-        //throw new RuntimeException("UPDATE EXCEPTION: Update doesn't have message!");
+        return "";
     }
 
     public String getCallBackData() {
@@ -154,5 +163,19 @@ public class UpdateHelper {
 
     public RazykrashkaBot getBot() {
         return razykrashkaBot;
+    }
+
+    public boolean isUpdateFromGroupChat() {
+        if (hasMessage()) {
+            return razykrashkaBot.getRealUpdate()
+                    .getMessage()
+                    .getChat().getId()
+                    .equals(groupChatId);
+        }
+        return false;
+    }
+
+    public boolean isUpdateFromGroup() {
+        return isCallBackDataContains(FROM_GROUP);
     }
 }

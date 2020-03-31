@@ -27,14 +27,16 @@ public class SelectWayMeetingCreationStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        messageManager.sendSimpleTextMessage("We are happy, that you understand that practice makes perfect!" + Emoji.BICEPS + "\n\n" +
-                "Actually, meeting creation is peace of cake and it won't take much of your time \n" +
-                "All detailed information related to meeting you can find " + TextFormatter.getLink("here", "http://google.com") + "\n\n" +
-                "Right now, you are about to answering some common questions about meeting details.\n" +
-                "Just follow tips that will be written in the bottom of each message.\n" +
-                "\n" +
-                "After creation the meeting show up in <code>\"Meeting\"</code> sections and everyone of our community will know about it by getting notification in our community group.\n" +
-                "\n" +
-                "Sooo, are you readyyyyyy?", this.getKeyboard());
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage("We are happy, that you understand that practice makes perfect!" + Emoji.BICEPS + "\n\n" +
+                        "Actually, meeting creation is peace of cake and it won't take much of your time \n" +
+                        "All detailed information related to meeting you can find " + TextFormatter.getLink("here", "http://google.com") + "\n\n" +
+                        "Right now, you are about to answering some common questions about meeting details.\n" +
+                        "Just follow tips that will be written in the bottom of each message.\n" +
+                        "\n" +
+                        "After creation the meeting show up in <code>\"Meeting\"</code> sections and everyone of our community will know about it by getting notification in our community group.\n" +
+                        "\n" +
+                        "Sooo, are you readyyyyyy?", this.getKeyboard());
     }
 }

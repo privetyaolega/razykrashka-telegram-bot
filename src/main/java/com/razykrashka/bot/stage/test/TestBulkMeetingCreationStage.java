@@ -39,8 +39,15 @@ public class TestBulkMeetingCreationStage extends MainStage {
         try {
             for (int i = 0; i < meetingsAmount; i++) {
                 List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
-                MeetingInfo meetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
-                meetingInfoRepository.save(meetingInfo);
+                MeetingInfo randomMeetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
+
+                MeetingInfo mi = MeetingInfo.builder()
+                        .topic(randomMeetingInfo.getTopic())
+                        .questions(randomMeetingInfo.getQuestions())
+                        .speakingLevel(randomMeetingInfo.getSpeakingLevel())
+                        .participantLimit(new Random().nextInt(5) + 2)
+                        .build();
+                meetingInfoRepository.save(mi);
 
                 Location location = null;
                 try {
@@ -59,7 +66,8 @@ public class TestBulkMeetingCreationStage extends MainStage {
                         .telegramUser(updateHelper.getUser())
                         .meetingDateTime(LocalDateTime.now().plusDays(5))
                         .creationDateTime(LocalDateTime.now())
-                        .meetingInfo(meetingInfo)
+                        .meetingInfo(mi)
+                        .format(MeetingFormatEnum.OFFLINE)
                         .location(location)
                         .creationState(creationState)
                         .telegramUser(updateHelper.getUser())
@@ -77,7 +85,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
         }
 
         messageManager.sendSimpleTextMessage("MEETING CREATED")
-                .sendSticker("successMeetingCreationSticker.tgs");
+                .sendRandomSticker("success");
     }
 
     @Override

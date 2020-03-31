@@ -6,6 +6,10 @@ public class TextFormatter {
         return String.format("<b>%s</b>", text);
     }
 
+    public static String getItalicString(String text) {
+        return String.format("<i>%s</i>", text);
+    }
+
     public static String getBoldString(Integer text) {
         return getBoldString(String.valueOf(text));
     }

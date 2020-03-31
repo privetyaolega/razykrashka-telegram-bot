@@ -9,7 +9,7 @@ public class Emoji {
     public static String LOCATION = "\uD83D\uDCCD";
     public static String FIRE = "\uD83D\uDD25";
     public static String CLOCK = "⏰";
-    public static String PEOPLE = "\uD83D\uDC65";
+    public static String TWO_PERSONS_SILHOUETTE = "\uD83D\uDC65";
     public static String SPEECH_CLOUD = "\uD83D\uDCAC";
     public static String WAVE_HAND = "\uD83D\uDC4B";
     public static String SCREAM = "\uD83D\uDE31";
@@ -27,4 +27,26 @@ public class Emoji {
     public static String ROCK_HAND = "\uD83E\uDD1F\uD83C\uDFFB";
     public static String RANDOM_CUBE = "\uD83C\uDFB2";
     public static String OK_HAND = "\uD83D\uDC4C";
+    public static String WARNING = "⚠️";
+    public static String DUST_BIN = "\uD83D\uDDD1";
+    public static String RED_CROSS = "❌";
+    public static String SNOWFLAKE = "❄️";
+    public static String SEEDLING = "\uD83C\uDF31";
+    public static String HERB = "\uD83C\uDF3F";
+    public static String TULIP = "\uD83C\uDF37";
+    public static String SUNFLOWER = "\uD83C\uDF3B";
+    public static String FALLEN_LEAF = "\uD83C\uDF42";
+    public static String MAPLE_LEAF = "\uD83C\uDF41";
+    public static String WATERMELON = "\uD83C\uDF49";
+    public static String CLINKING_GLASS = "\uD83E\uDD42";
+    public static String SUNNY = "☀️";
+    public static String PHONE_V1 = "☎️";
+    public static String COFFEE = "☕️";
+    public static String INTERNET = "\uD83C\uDF10";
+    public static String PAPER_PAGE = "\uD83D\uDCC4";
+    public static String ONE_PERSON_SILHOUETTE = "\uD83D\uDC64";
+    public static String MAP = "\uD83D\uDDFA";
+    public static String BOOKS = "\uD83D\uDCDA";
+    public static String FOLDER = "\uD83D\uDCC2";
+    public static String PENSIVE = "\uD83D\uDE14";
 }

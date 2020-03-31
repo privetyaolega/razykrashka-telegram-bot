@@ -2,7 +2,7 @@ package com.razykrashka.bot.job;
 
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.OfflineMeetingsViewStage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
@@ -14,6 +14,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.List;
+
+import static com.razykrashka.bot.ui.helpers.UpdateHelper.FROM_GROUP;
 
 @Component
 @Log4j2
@@ -39,7 +41,7 @@ public class AvailableMeetingsNotificationJob extends AbstractJob {
      * Period: every day;
      *
      */
-    @Scheduled(fixedRateString = "${razykrashka.job.meeting.notification.available.rate}")
+    @Scheduled(fixedRateString = "${razykrashka.job.meeting.notification.available.cron}")
     public void availableMeetingsNotificationJob() {
         if (jobEnabled) {
             log.info("JOB: Available meeting notification job is started.");
@@ -51,7 +53,8 @@ public class AvailableMeetingsNotificationJob extends AbstractJob {
             } else {
                 message = String.format(MAIN_MESSAGE, availableMeetings.size());
                 keyboard = keyboardBuilder.getKeyboard()
-                        .setRow("Show available meetings ✨", ActiveMeetingsViewStage.class.getSimpleName() + "fromGroup")
+                        .setRow("Show available meetings ✨",
+                                OfflineMeetingsViewStage.class.getSimpleName() + FROM_GROUP)
                         .build();
             }
             messageManager.disableKeyboardLastBotMessage(groupChatId)

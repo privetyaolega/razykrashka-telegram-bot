@@ -48,8 +48,8 @@ public abstract class MainStage implements Stage {
     @Autowired
     protected RazykrashkaBot razykrashkaBot;
 
-        @Autowired
-        protected MessageManager messageManager;
+    @Autowired
+    protected MessageManager messageManager;
     @Autowired
     protected KeyboardBuilder keyboardBuilder;
     @Autowired
@@ -137,5 +137,9 @@ public abstract class MainStage implements Stage {
 
     protected String getString(String key) {
         return getStringMap().get(key);
+    }
+
+    protected String getFormatString(String key, Object... arg) {
+        return String.format(getString(key), arg);
     }
 }

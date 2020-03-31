@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.google.common.collect.ImmutableMap;
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptDateMeetingCreationSBSStage;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -66,25 +67,28 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMyy");
         LocalDate date = LocalDate.of(year, month, 1);
 
-        // First row: Month + Year
         List<Pair<String, String>> list = new ArrayList<>();
-        keyboard.setRow(date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear(), getCallBackString(NO_DATE))
+        // First row: Month + Year (April 2020)
+        String header = getSeasonEmoji(date) + " " + date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear();
+        keyboard.setRow(header, getCallBackString(NO_DATE))
+                // Second row: Days of week (Mon, Tue, Whd, Thu, Fri, Sun, Sat)
                 .setRow(getDayOfWeekRow());
         // Create empty cells for first week
         for (int i = 0; i < date.withDayOfMonth(1).getDayOfWeek().getValue() - 1; i++) {
             list.add(Pair.of(" ", getCallBackString(NO_DATE)));
         }
         int dayNum = 1;
-        while (dayNum != date.getMonth().maxLength() + 1) {
+        int monthLength = YearMonth.of(year, month).lengthOfMonth();
+        while (dayNum != monthLength + 1) {
             String textButton;
-            if (date.withDayOfMonth(dayNum).getDayOfWeek() == DayOfWeek.SATURDAY
-                    || date.withDayOfMonth(dayNum).getDayOfWeek() == DayOfWeek.SUNDAY) {
-                textButton = "◦ " + dayNum + " ◦";
+            if (date.withDayOfMonth(dayNum).isBefore(LocalDate.now())) {
+                textButton = "✖️";
             } else if (dayNum == LocalDate.now().getDayOfMonth() && month == LocalDate.now().getMonthValue()) {
-                textButton = "• " + dayNum + " •";
+                textButton = dayNum + ".";
             } else {
                 textButton = String.valueOf(dayNum);
             }
+
             list.add((Pair.of(textButton, getCallBackDate(year, month, dayNum))));
             if (list.size() == 7) {
                 keyboard.setRow(list);
@@ -124,9 +128,38 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         map.add(Pair.of("Whd", getCallBackString(NO_DATE)));
         map.add(Pair.of("Thu", getCallBackString(NO_DATE)));
         map.add(Pair.of("Fri", getCallBackString(NO_DATE)));
-        map.add(Pair.of("Sun", getCallBackString(NO_DATE)));
         map.add(Pair.of("Sat", getCallBackString(NO_DATE)));
+        map.add(Pair.of("Sun", getCallBackString(NO_DATE)));
         return map;
+    }
+
+    private String getSeasonEmoji(LocalDate localDate) {
+        switch (localDate.getMonthValue()) {
+            case 1:
+            case 2:
+                return Emoji.SNOWFLAKE;
+            case 3:
+                return Emoji.SEEDLING;
+            case 4:
+                return Emoji.HERB;
+            case 5:
+                return Emoji.TULIP;
+            case 6:
+            case 7:
+                return Emoji.SUNNY;
+            case 8:
+                return Emoji.SUNFLOWER;
+            case 9:
+                return Emoji.WATERMELON;
+            case 10:
+                return Emoji.MAPLE_LEAF;
+            case 11:
+                return Emoji.FALLEN_LEAF;
+            case 12:
+                return Emoji.CLINKING_GLASS;
+            default:
+                return null;
+        }
     }
 
     @Override

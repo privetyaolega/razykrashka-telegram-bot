@@ -4,7 +4,11 @@ import com.google.common.collect.Iterables;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.poll.TelegramPoll;
+import com.razykrashka.bot.db.entity.razykrashka.poll.TelegramPollOption;
 import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
+import com.razykrashka.bot.db.repo.PollOptionRepository;
+import com.razykrashka.bot.db.repo.PollRepository;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -12,25 +16,30 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.ActionType;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
-import org.telegram.telegrambots.meta.api.methods.send.SendContact;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
-import org.telegram.telegrambots.meta.api.methods.send.SendVenue;
+import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
+import org.telegram.telegrambots.meta.api.methods.send.*;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.polls.Poll;
+import org.telegram.telegrambots.meta.api.objects.polls.PollOption;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -39,6 +48,10 @@ public class MessageManager extends Sender {
 
     @Autowired
     TelegramMessageRepository telegramMessageRepository;
+    @Autowired
+    PollRepository pollRepository;
+    @Autowired
+    PollOptionRepository pollOptionRepository;
     SendMessage sendMessage;
 
     public MessageManager() {
@@ -105,7 +118,7 @@ public class MessageManager extends Sender {
             List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(Long.valueOf(chatId));
             TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
             EditMessageText editMessageReplyMarkup = new EditMessageText()
-                    .setChatId(updateHelper.getChatId())
+                    .setChatId(chatId)
                     .setMessageId(telegramMessage.getId())
                     .setText(telegramMessage.getText() + " ")
                     .setParseMode(ParseMode.HTML)
@@ -205,11 +218,15 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager sendAlertMessage(String alertMessage) {
+        return sendAlertMessage(alertMessage, false);
+    }
+
+    public MessageManager sendAlertMessage(String alertMessage, boolean showAlert) {
         try {
             razykrashkaBot.execute(new AnswerCallbackQuery()
                     .setCallbackQueryId(razykrashkaBot.getRealUpdate().getCallbackQuery().getId())
                     .setText(alertMessage)
-                    .setShowAlert(false));
+                    .setShowAlert(showAlert));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
@@ -288,6 +305,19 @@ public class MessageManager extends Sender {
         return this;
     }
 
+    public MessageManager sendRandomSticker(String folder) {
+        try (Stream<Path> paths = Files.walk(Paths.get(new ClassPathResource("stickers/" + folder).getURI()))) {
+            List<String> collect = paths.filter(Files::isRegularFile)
+                    .map(x -> x.getFileName().toString())
+                    .collect(Collectors.toList());
+            int randomNumber = new Random().nextInt(collect.size());
+            sendSticker(File.separator + folder + File.separator + collect.get(randomNumber));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
     public void sendAnswerCallbackQuery(CallbackQuery callbackQuery) {
         try {
             razykrashkaBot.execute(new AnswerCallbackQuery()
@@ -295,5 +325,66 @@ public class MessageManager extends Sender {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+    }
+
+    public MessageManager sendPoll(String chatId, String question, List<String> options) {
+        SendPoll sendPoll = new SendPoll()
+                .setChatId(chatId)
+                .setAnonymous(true)
+                .setAllowMultipleAnswers(true)
+                .setQuestion(question)
+                .setOptions(options);
+        try {
+            Poll poll = razykrashkaBot.execute(sendPoll).getPoll();
+            TelegramPoll telegramPollEntity = new TelegramPoll(poll);
+            pollRepository.save(telegramPollEntity);
+
+            Set<TelegramPollOption> telegramPollOptions = new HashSet<>();
+            for (PollOption po : poll.getOptions()) {
+                TelegramPollOption o = TelegramPollOption.builder()
+                        .textOption(po.getText())
+                        .count(po.getVoterCount())
+                        .build();
+                telegramPollOptions.add(o);
+                o.setPoll(telegramPollEntity);
+                pollOptionRepository.save(o);
+            }
+            telegramPollEntity.setTelegramPollOptions(telegramPollOptions);
+            pollRepository.save(telegramPollEntity);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public MessageManager sendAnimation(String path, String label) {
+        try {
+            File file = new ClassPathResource(path).getFile();
+
+            SendAnimation photo = new SendAnimation()
+                    .setCaption(label)
+                    .setParseMode(ParseMode.HTML)
+                    .setChatId(updateHelper.getChatId())
+                    .setAnimation(file);
+            razykrashkaBot.execute(photo);
+        } catch (TelegramApiException | IOException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public MessageManager sendAnimation(String path) {
+        return sendAnimation(path, null);
+    }
+
+    public MessageManager sendChatAction(ActionType actionType) {
+        try {
+            razykrashkaBot.execute(new SendChatAction()
+                    .setChatId(updateHelper.getChatId())
+                    .setAction(actionType));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

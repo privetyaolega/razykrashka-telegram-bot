@@ -1,14 +1,15 @@
 package com.razykrashka.bot.stage.meeting.view.single;
 
-import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.service.MeetingService;
 import com.razykrashka.bot.exception.EntityWasNotFoundException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
-import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
-import com.razykrashka.bot.stage.meeting.view.all.ExpiredMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.edit.delete.DeleteConfirmationSingleMeetingStage;
+import com.razykrashka.bot.stage.meeting.view.all.OfflineMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.OnlineMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.AccessLevel;
@@ -20,7 +21,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -48,18 +49,20 @@ public class SingleMeetingViewStage extends MainStage {
         Integer id = getMeetingId();
         Optional<Meeting> optionalMeeting = meetingRepository.findById(id);
         if (!optionalMeeting.isPresent()) {
-            messageManager.replyLastMessage(String.format(getString("meetingNotFound"), id));
+            messageManager.replyLastMessage(super.getFormatString("meetingNotFound", id));
             throw new EntityWasNotFoundException("Meeting was not found. ID: " + id);
         }
         meeting = optionalMeeting.get();
-        String messageText = meetingMessageUtils.createSingleMeetingFullText(meeting);
-        messageManager.sendSimpleTextMessage(messageText, this.getKeyboard());
+        String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
+        messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
     }
 
     private Integer getMeetingId() {
-        if (updateHelper.getMessageText() != null) {
-            return Integer.valueOf(updateHelper.getMessageText()
-                    .replace(this.getStageInfo().getKeyword(), ""));
+        if (!updateHelper.getMessageText().isEmpty()) {
+            String messageText = updateHelper.getMessageText();
+            String keyword = this.getStageInfo().getKeyword();
+            String meetingIdString = messageText.replace(keyword, "");
+            return Integer.valueOf(meetingIdString);
         } else {
             return updateHelper.getIntegerPureCallBackData();
         }
@@ -69,36 +72,45 @@ public class SingleMeetingViewStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         KeyboardBuilder builder = keyboardBuilder.getKeyboard();
         if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-            builder.setRow("Unsubscribe", SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
+            builder.setRow("Leave \uD83D\uDE30",
+                    SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
-            Integer participants = meeting.getParticipants().size();
+            int participants = meeting.getParticipants().size();
             Integer participantLimit = meeting.getMeetingInfo().getParticipantLimit();
-
-            //TODO remove first statement and add participants limit to all meetings
-            if ((participants == null || participants == 0)
-                    || (participantLimit != null
-                    && participants != null
-                    && participants < participantLimit)) {
-                builder.setRow("Join", SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
+            if (participants < participantLimit) {
+                builder.setRow("Join " + Emoji.ROCK_HAND,
+                        SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
             }
         }
-        builder.setRow(ImmutableMap.of(
-                "Contact", SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId(),
-                "Participants List", SingleMeetingParticipantsListStage.class.getSimpleName() + meeting.getId(),
-                "Map", SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
 
-        return builder.setRow(getNavigationBackButton())
-                .build();
+        List<Pair<String, String>> buttonList = new ArrayList<>();
+        buttonList.add(Pair.of("Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId()));
+        buttonList.add(Pair.of("Topic Info" + Emoji.BOOKS, SingleMeetingTopicInfoStage.class.getSimpleName() + meeting.getId()));
+
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            buttonList.add(Pair.of("Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
+        }
+
+        builder.setRow(buttonList);
+
+        if (updateHelper.getUser().equals(meeting.getTelegramUser())
+                && meeting.getParticipants().contains(updateHelper.getUser())) {
+            return builder.setRow(Pair.of("Delete meeting " + Emoji.DUST_BIN,
+                    DeleteConfirmationSingleMeetingStage.class.getSimpleName() + meeting.getId()))
+                    .build();
+        } else {
+            return builder.build();
+        }
     }
 
     private Pair<String, String> getNavigationBackButton() {
         //TODO: update to work with meeting.getCreationState().getCreationStatus()
         Pair<String, String> pair;
         List<Meeting> meetings;
-        if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
-            meetings = meetingService.getAllCreationStatusDone();
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            meetings = meetingService.getAllActiveOffline();
         } else {
-            meetings = meetingService.getAllExpired();
+            meetings = meetingService.getAllActiveOnline();
         }
         Integer indexOfMeeting = IntStream.range(0, meetings.size())
                 .filter(i -> meetings.get(i).getId().equals(meeting.getId()))
@@ -106,10 +118,12 @@ public class SingleMeetingViewStage extends MainStage {
                 .orElseThrow(() -> new RuntimeException("Meeting is absent in appropriate list. ID:" + meeting.getId()));
 
         int pageNumToShow = (int) Math.ceil(indexOfMeeting / new Double(meetingsPerPage));
-        if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
-            pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+        pageNumToShow = (pageNumToShow == 0) ? 1 : pageNumToShow;
+
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            pair = Pair.of(Emoji.LEFT_FINGER + " Offline meetings", OfflineMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         } else {
-            pair = Pair.of(Emoji.LEFT_FINGER + " Archived meetings", ExpiredMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+            pair = Pair.of(Emoji.LEFT_FINGER + " Online meetings", OnlineMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         }
         return pair;
     }
@@ -122,6 +136,8 @@ public class SingleMeetingViewStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains() || updateHelper.isMessageContains(stageInfo.getKeyword());
+        return (updateHelper.isCallBackDataContains()
+                || updateHelper.isMessageContains(stageInfo.getKeyword())
+                && !updateHelper.isUpdateFromGroupChat());
     }
 }

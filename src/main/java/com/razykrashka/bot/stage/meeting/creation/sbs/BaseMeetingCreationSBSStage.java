@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
@@ -29,14 +30,19 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     @Autowired
     protected MeetingMessageUtils meetingMessageUtils;
     protected Meeting meeting;
+    protected static final String EDIT = "edit";
 
     @Override
     public boolean isStageActive() {
-        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
-        if (meetingOptional.isPresent()) {
-            CreationState creationState = meetingOptional.get().getCreationState();
-            return creationState.getActiveStage().equals(this.getClass().getSimpleName())
-                    && creationState.isInCreationProgress();
+        try {
+            Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
+            if (meetingOptional.isPresent()) {
+                CreationState creationState = meetingOptional.get().getCreationState();
+                return creationState.getActiveStage().equals(this.getClass().getSimpleName())
+                        && creationState.isInCreationProgress();
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
         return false;
     }
@@ -72,6 +78,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             meeting = Meeting.builder()
                     .telegramUser(updateHelper.getUser())
                     .creationState(creationState)
+                    .format(MeetingFormatEnum.NA)
                     .build();
             return meetingRepository.save(meeting);
         } else if (meetingOptional.get()
@@ -91,8 +98,8 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
         return meetingOptional.get();
     }
 
-    protected LoadingThreadV2 startLoadingThread() {
-        LoadingThreadV2 thread = new LoadingThreadV2();
+    protected LoadingThreadV2 startLoadingThread(boolean fixIterationLoading) {
+        LoadingThreadV2 thread = new LoadingThreadV2(fixIterationLoading);
         razykrashkaBot.getContext().getAutowireCapableBeanFactory().autowireBean(thread);
         thread.start();
         return thread;

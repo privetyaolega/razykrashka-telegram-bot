@@ -2,6 +2,7 @@ package com.razykrashka.bot.stage.information;
 
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
+import com.razykrashka.bot.stage.information.stats.MainStatisticStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -15,12 +16,29 @@ public class InformationStage extends MainStage {
     }
 
     @Override
+    public void handleRequest() {
+
+        messageManager.updateOrSendDependsOnLastMessageOwner("\uD83C\uDF08 Welcome to community whose main goal is cohesion of people learning English; improvement, development and comprehensive support of all skills related to language. \uD83C\uDF08\n" +
+                "You can create some meeting to speak or join to existing one. \uD83D\uDE4F\uD83C\uDFFB", this.getKeyboard());
+
+    }
+
+    @Override
+    public boolean processCallBackQuery() {
+        handleRequest();
+        return true;
+    }
+
+    @Override
     public ReplyKeyboard getKeyboard() {
-        return getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA");
+        return keyboardBuilder.getKeyboard()
+                .setRow("Statistics", MainStatisticStage.class.getSimpleName())
+                .build();
     }
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains() || updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
+        return updateHelper.isCallBackDataContains()
+                || updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
     }
 }

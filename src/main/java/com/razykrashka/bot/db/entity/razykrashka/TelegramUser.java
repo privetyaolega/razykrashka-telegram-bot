@@ -1,26 +1,11 @@
 package com.razykrashka.bot.db.entity.razykrashka;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,10 +27,12 @@ public class TelegramUser {
     String lastName;
     String firstName;
     String phoneNumber;
+    String skypeContact;
     Integer telegramId;
 
     @Column
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "telegramUser")
+    @JsonIgnore
     Set<Meeting> createdMeetings = new HashSet<>();
 
     @Column
@@ -55,6 +42,7 @@ public class TelegramUser {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id")
     )
+    @JsonIgnore
     Set<Meeting> toGoMeetings = new HashSet<>();
 
     public void addMeetingTotoGoMeetings(Meeting meeting) {

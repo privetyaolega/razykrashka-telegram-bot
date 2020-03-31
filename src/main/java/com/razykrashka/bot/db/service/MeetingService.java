@@ -2,6 +2,7 @@ package com.razykrashka.bot.db.service;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.repo.MeetingRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -37,8 +38,8 @@ public class MeetingService {
 
     public List<Meeting> getAllExpired() {
         return getAllStream()
-                .filter(m -> m.getMeetingDateTime().isBefore(LocalDateTime.now())
-                        && m.getCreationState().getCreationStatus().equals(CreationStatus.DONE))
+                .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
+                        && m.getMeetingDateTime().isBefore(LocalDateTime.now()))
                 .collect(Collectors.toList());
     }
 
@@ -46,6 +47,18 @@ public class MeetingService {
         return getAllStream()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
                         && m.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Meeting> getAllActiveOnline() {
+        return getAllCreationStatusDone().stream()
+                .filter(m -> m.getFormat().equals(MeetingFormatEnum.ONLINE))
+                .collect(Collectors.toList());
+    }
+
+    public List<Meeting> getAllActiveOffline() {
+        return getAllCreationStatusDone().stream()
+                .filter(m -> m.getFormat().equals(MeetingFormatEnum.OFFLINE))
                 .collect(Collectors.toList());
     }
 }

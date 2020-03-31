@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.telegram.telegrambots.meta.api.methods.ActionType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,11 +19,13 @@ public class LoadingThreadV2 extends Thread {
     List<String> loadingBar;
     Long intervalMillis;
     int iterationAmount;
+    boolean fixIterationLoading;
 
-    public LoadingThreadV2() {
-        this.loadingBar = Arrays.asList(".", "..", "...");
-        this.intervalMillis = 350L;
+    public LoadingThreadV2(boolean fixIterationLoading) {
+        this.loadingBar = Arrays.asList(".", "..", "...", "...\uD83D\uDCA4");
+        this.intervalMillis = 150L;
         this.iterationAmount = 3;
+        this.fixIterationLoading = fixIterationLoading;
     }
 
     @Override
@@ -36,10 +39,25 @@ public class LoadingThreadV2 extends Thread {
             threadSleep();
         }
 
-        for (int i = 0; i != iterationAmount - 1; i++) {
-            for (String loadingEl : loadingBar) {
-                messageManager.updateMessage(loadingEl);
-                threadSleep();
+        if (fixIterationLoading) {
+            for (int i = 0; i != iterationAmount - 1; i++) {
+                for (String loadingEl : loadingBar) {
+                    messageManager.updateMessage(loadingEl)
+                            .sendChatAction(ActionType.TYPING);
+                    threadSleep();
+                }
+            }
+        } else {
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    for (String loadingEl : loadingBar) {
+                        messageManager.updateMessage(loadingEl)
+                                .sendChatAction(ActionType.UPLOADVIDEO);
+                        Thread.sleep(intervalMillis);
+                    }
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         }
     }

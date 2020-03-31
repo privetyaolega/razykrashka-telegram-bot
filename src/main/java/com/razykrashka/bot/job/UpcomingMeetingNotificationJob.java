@@ -32,7 +32,7 @@ public class UpcomingMeetingNotificationJob extends AbstractJob {
      * Period: morning of every day.
      *
      */
-    @Scheduled(fixedRateString = "${razykrashka.job.meeting.notification.upcoming.rate}")
+    @Scheduled(fixedRateString = "${razykrashka.job.meeting.notification.upcoming.cron}")
     public void availableMeetingsNotificationJob() {
         if (jobEnabled) {
             log.info("JOB: Upcoming meeting notification job is started.");

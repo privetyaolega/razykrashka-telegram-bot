@@ -1,6 +1,5 @@
 package com.razykrashka.bot.ui.helpers;
 
-import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.api.YandexMapApi;
 import com.razykrashka.bot.api.model.yandex.FeatureYandex;
 import com.razykrashka.bot.api.model.yandex.Properties;
@@ -25,21 +24,20 @@ public class LocationHelper {
 
     @Autowired
     YandexMapApi yandexMapApi;
-    Location location;
 
     public Location getLocation(String address) throws YandexMapApiException {
+        String addressWithCountry = address + ", Минск";
+        // ImmutableMap.of("type", "biz")
         // TODO: Filter by category (cafe, restaurants etc) and city
-        String addresWithCountry = address + " Минск";
-        List<FeatureYandex> yandexMapModelList = yandexMapApi.getYandexMapModel(addresWithCountry,
-                ImmutableMap.of("type", "biz")).getFeatures();
+        List<FeatureYandex> yandexMapModelList = yandexMapApi.getYandexMapModel(addressWithCountry).getFeatures();
 
         FeatureYandex yandexMapModel;
         if (yandexMapModelList.size() == 0) {
-            throw new YandexMapApiException("No features were found!");
+            throw new YandexMapApiException("No Yandex Map features were found!");
         } else {
             yandexMapModel = yandexMapModelList.get(0);
-            location = new Location();
-            location.setAddress(address);
+            Location location = new Location();
+            location.setAddress(yandexMapModel.getProperties().getName());
             location.setLongitude(yandexMapModel.getGeometry().getCoordinates().get(0));
             location.setLatitude(yandexMapModel.getGeometry().getCoordinates().get(1));
             return location;

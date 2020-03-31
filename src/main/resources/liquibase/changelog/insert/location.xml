@@ -7,13 +7,13 @@
         <comment>Upload 3 locations</comment>
         <sql>
             INSERT INTO location (address, latitude, longitude)
-            VALUES ('ул. Немига 5, Лидо', '53.902', '27.5496');
+            VALUES ('ул. Немига 1', '53.902', '27.5496');
 
             INSERT INTO location (address, latitude, longitude)
-            VALUES ('ул. Кульман 5а, Лидо', '53.918885', '27.581235');
+            VALUES ('ул. Кульман 2', '53.918885', '27.581235');
 
             INSERT INTO location (address, latitude, longitude)
-            VALUES ('ул. Кульман 5а, Лидо', '53.918885', '27.581235');
+            VALUES ('ул. Кульман 3', '53.918885', '27.581235');
         </sql>
     </changeSet>
 </databaseChangeLog>
