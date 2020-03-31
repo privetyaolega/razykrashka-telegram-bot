@@ -49,4 +49,5 @@ public class Emoji {
     public static String BOOKS = "\uD83D\uDCDA";
     public static String FOLDER = "\uD83D\uDCC2";
     public static String PENSIVE = "\uD83D\uDE14";
+    public static String NO_ENTRY_SIGN = "\uD83D\uDEAB";
 }

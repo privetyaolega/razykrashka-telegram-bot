@@ -3,10 +3,8 @@ package com.razykrashka.bot.stage.meeting.view.single;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
-@Log4j2
 @Component
 public class SingleMeetingViewJoinStage extends MainStage {
 
@@ -17,7 +15,7 @@ public class SingleMeetingViewJoinStage extends MainStage {
                 .orElseThrow(() -> new RuntimeException("Can not find meeting with id:" + meetingId));
 
         TelegramUser user = updateHelper.getUser();
-        user.addMeetingTotoGoMeetings(meeting);
+        user.getToGoMeetings().add(meeting);
         telegramUserRepository.save(user);
 
         String message = String.format(getString("main"), meetingId);

@@ -4,8 +4,6 @@ import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.PropertySource;
@@ -23,12 +21,14 @@ public class RazykrashkaBot extends TelegramLongPollingBot {
     String botUsername;
     @Value("${razykrashka.bot.token}")
     String botToken;
-
-    @Autowired
-    ApplicationContext context;
-    @Autowired
-    BotExecutor botExecutor;
     Update realUpdate;
+    final ApplicationContext context;
+    final BotExecutor botExecutor;
+
+    public RazykrashkaBot(ApplicationContext context, BotExecutor botExecutor) {
+        this.context = context;
+        this.botExecutor = botExecutor;
+    }
 
     @Override
     public void onUpdateReceived(Update update) {

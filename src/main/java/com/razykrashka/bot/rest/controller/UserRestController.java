@@ -31,7 +31,7 @@ public class UserRestController {
 
     @GetMapping("/user/{userTelegramId}")
     public TelegramUser getUser(@PathVariable int userTelegramId) {
-        return telegramUserRepository.findByTelegramId(userTelegramId)
+        return telegramUserRepository.findById(userTelegramId)
                 .orElseThrow(() -> new UserNotFoundException("No user with telegramId " + userTelegramId + " were found."));
     }
 }

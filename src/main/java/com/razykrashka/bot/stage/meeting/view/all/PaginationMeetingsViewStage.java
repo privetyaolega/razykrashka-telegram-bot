@@ -40,7 +40,7 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
             List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage(pageNumToShow, totalPagesAmount);
 
             String header = String.format(getString("header"), meetings.size());
-            String meetingsString = meetingMessageUtils.createMeetingsText(meetingsToShow, updateHelper.getUser().getTelegramId());
+            String meetingsString = meetingMessageUtils.createMeetingsText(meetingsToShow, updateHelper.getUser().getId());
             if (meetings.size() > meetingsPerPage) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }

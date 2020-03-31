@@ -150,7 +150,7 @@ public class UpdateHelper {
         } else {
             userId = realUpdate.getCallbackQuery().getFrom().getId();
         }
-        return telegramUserRepository.findByTelegramId(userId).get();
+        return telegramUserRepository.findById(userId).get();
     }
 
     public boolean hasCallBackQuery() {

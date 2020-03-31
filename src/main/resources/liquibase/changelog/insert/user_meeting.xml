@@ -7,29 +7,25 @@
         <comment>Upload 3 user_meetings</comment>
         <sql>
             INSERT INTO user_meeting (meeting_id, user_id)
-            VALUES ((SELECT id from meeting WHERE owner_id = ((SELECT id from user WHERE telegram_id = '532965560' LIMIT
-            1))
-            LIMIT 1), (SELECT id from user WHERE telegram_id = '532965560' LIMIT 1));
+            VALUES ((SELECT id from meeting WHERE owner_id = '532965560'), '532965560');
 
             INSERT INTO user_meeting (meeting_id, user_id)
-            VALUES ((SELECT id from meeting WHERE owner_id = ((SELECT id from user WHERE telegram_id = '431957763' LIMIT
-            1)) LIMIT 1), (SELECT id from user WHERE telegram_id = '431957763' LIMIT 1));
+            VALUES ((SELECT id from meeting WHERE owner_id = '532965560') , '431957763');
 
             INSERT INTO user_meeting (meeting_id, user_id)
-            VALUES ((SELECT id from meeting WHERE owner_id = (SELECT id from user WHERE telegram_id = '506787628' LIMIT
-            1) LIMIT 1), (SELECT id from user WHERE telegram_id = '506787628' LIMIT 1));
+            VALUES ((SELECT id from meeting WHERE owner_id = '506787628') , '506787628');
 
             INSERT INTO user_meeting (meeting_id, user_id)
-            VALUES ((SELECT id from meeting WHERE owner_id = (SELECT id from user WHERE telegram_id = '485869971' LIMIT
-            1) LIMIT 1), (SELECT id from user WHERE telegram_id = '485869971' LIMIT 1));
+            VALUES ((SELECT id from meeting WHERE owner_id = '485869971') , '485869971');
 
             INSERT INTO user_meeting (meeting_id, user_id)
-            VALUES ((SELECT id from meeting WHERE owner_id = (SELECT id from user WHERE telegram_id = '485869971' LIMIT
-            1) LIMIT 1), (SELECT id from user WHERE telegram_id = '610115598' LIMIT 1));
+            VALUES ((SELECT id from meeting WHERE owner_id = '485869971') , '610115598');
 
             INSERT INTO user_meeting (meeting_id, user_id)
-            VALUES ((SELECT id from meeting WHERE owner_id = (SELECT id from user WHERE telegram_id = '485869971' LIMIT
-            1) LIMIT 1), (SELECT id from user WHERE telegram_id = '506787628' LIMIT 1));
+            VALUES ((SELECT id from meeting WHERE owner_id = '485869971') , '431957763');
+
+            INSERT INTO user_meeting (meeting_id, user_id)
+            VALUES ((SELECT id from meeting WHERE owner_id = '506787628') , '610115598');
         </sql>
     </changeSet>
 </databaseChangeLog>

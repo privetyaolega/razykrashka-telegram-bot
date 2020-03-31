@@ -17,12 +17,11 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NewChatMemberStage extends MainStage {
 
-    TelegramUser telegramUser;
-
     @Override
     public void handleRequest() {
         Integer id = updateHelper.getUpdate().getMessage().getFrom().getId();
-        Optional<TelegramUser> userEntity = telegramUserRepository.findByTelegramId(id);
+        Optional<TelegramUser> userEntity = telegramUserRepository.findById(id);
+        TelegramUser telegramUser;
         if (userEntity.isPresent()) {
             telegramUser = userEntity.get();
         } else {
@@ -31,13 +30,13 @@ public class NewChatMemberStage extends MainStage {
                     .lastName(userTelegram.getLastName())
                     .firstName(userTelegram.getFirstName())
                     .userName(userTelegram.getUserName())
-                    .telegramId(userTelegram.getId())
+                    .id(userTelegram.getId())
                     .build();
             telegramUserRepository.save(telegramUser);
         }
 
         messageManager.sendMessage(new SendMessage()
-                .setChatId(String.valueOf(telegramUser.getTelegramId()))
+                .setChatId(String.valueOf(telegramUser.getId()))
                 .setText(super.getString("welcome")));
     }
 

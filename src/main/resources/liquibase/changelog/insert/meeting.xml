@@ -11,25 +11,25 @@
             VALUES ('2020-03-01 09:32:27', 1, '2020-05-25 16:00:00', (SELECT id from location WHERE address = 'ул. Немига 1'
             LIMIT
             1), (SELECT id from meeting_info WHERE topic = 'Job interview1' LIMIT 1), (SELECT id from user WHERE
-            telegram_id = '532965560' LIMIT 1), 'OFFLINE');
+            id = '532965560' LIMIT 1), 'OFFLINE');
 
             INSERT INTO meeting (creation_date_time, creation_state_id, meeting_date_time, location_id, meeting_info_id,
             owner_id, format)
             VALUES ('2020-03-05 06:32:27', 2, '2020-05-26 19:00:00', (SELECT id from location WHERE address = 'ул. Кульман 2'
             LIMIT 1), (SELECT id from meeting_info WHERE topic = 'Job interview1' LIMIT 1), (SELECT id from user
-            WHERE telegram_id = '431957763' LIMIT 1), 'OFFLINE');
+            WHERE id = '431957763' LIMIT 1), 'OFFLINE');
 
             INSERT INTO meeting (creation_date_time, creation_state_id, meeting_date_time, location_id, meeting_info_id,
             owner_id, format)
             VALUES ('2020-03-04 11:32:27', 3, '2020-06-27 20:00:00', (SELECT id from location WHERE address = 'ул. Кульман 3'
             LIMIT 1), (SELECT id from meeting_info WHERE topic = 'Job interview1' LIMIT 1), (SELECT id from user
-            WHERE telegram_id = '506787628' LIMIT 1),'OFFLINE');
+            WHERE id = '506787628' LIMIT 1),'OFFLINE');
 
             INSERT INTO meeting (creation_date_time, creation_state_id, meeting_date_time, location_id, meeting_info_id,
             owner_id, format)
             VALUES ('2020-03-04 11:32:27', 3, '2020-06-27 20:00:00', (SELECT id from location WHERE address = 'ул. Кульман 3'
             LIMIT 1), (SELECT id from meeting_info WHERE topic = 'Job interview1' LIMIT 1), (SELECT id from user
-            WHERE telegram_id = '610115598' LIMIT 1),'OFFLINE');
+            WHERE id = '610115598' LIMIT 1),'OFFLINE');
         </sql>
     </changeSet>
     <changeSet id="7" author="arutski">
@@ -39,13 +39,13 @@
             owner_id)
             VALUES ('2021-03-01 09:32:27', 4, '2021-06-01 16:00:00', 'ONLINE', (SELECT id from meeting_info WHERE topic =
             'Job interview1' LIMIT 1), (SELECT id from user WHERE
-            telegram_id = '485869971' LIMIT 1));
+            id = '485869971' LIMIT 1));
 
             INSERT INTO meeting (creation_date_time, creation_state_id, meeting_date_time, format, meeting_info_id,
             owner_id)
             VALUES ('2021-03-05 06:32:27', 5, '2021-06-02 19:00:00', 'ONLINE', (SELECT id from meeting_info WHERE topic =
             'Job interview1' LIMIT 1), (SELECT id from user
-            WHERE telegram_id = '431957763' LIMIT 1));
+            WHERE id = '431957763' LIMIT 1));
         </sql>
     </changeSet>
 </databaseChangeLog>

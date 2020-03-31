@@ -6,19 +6,19 @@
     <changeSet id="2" author="brokorenko" runOnChange="true">
         <comment>Upload 3 users</comment>
         <sql>
-            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Olega', 'Rutski', '+375295508809', '532965560', 'privetyaolega');
 
-            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Andrew', '', '+375293489901', '431957763', '');
 
-            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Dmitry', '', '+375259514749', '506787628', 'dmitrylen');
 
-            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Victoria', 'Vorobey', '+375291374610', '485869971', '');
 
-            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Nata', 'Rutskaya', '+375336808745', '610115598', '');
         </sql>
     </changeSet>

@@ -21,14 +21,12 @@ import java.util.Set;
 public class TelegramUser {
 
     @Id
-    @GeneratedValue
     Integer id;
     String userName;
     String lastName;
     String firstName;
     String phoneNumber;
     String skypeContact;
-    Integer telegramId;
 
     @Column
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "telegramUser")
@@ -44,12 +42,4 @@ public class TelegramUser {
     )
     @JsonIgnore
     Set<Meeting> toGoMeetings = new HashSet<>();
-
-    public void addMeetingTotoGoMeetings(Meeting meeting) {
-        toGoMeetings.add(meeting);
-    }
-
-    public void removeFromToGoMeetings(Meeting meeting) {
-        toGoMeetings.remove(meeting);
-    }
 }

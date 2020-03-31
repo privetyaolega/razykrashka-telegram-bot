@@ -100,7 +100,7 @@ public class MeetingMessageUtils {
     private String getSingleStringForParticipantsList(TelegramUser telegramUser, Meeting meeting) {
         String profileLinkTmpl = "https://t.me/%s";
         boolean isUserMeetingOwner = meeting.getTelegramUser() != null && meeting.getTelegramUser()
-                .getTelegramId().equals(telegramUser.getTelegramId());
+                .getId().equals(telegramUser.getId());
         String ownerLabel = isUserMeetingOwner ? " " + Emoji.CROWN : "";
 
         String participantName = telegramUser.getFirstName() + " " + telegramUser.getLastName();
@@ -112,11 +112,23 @@ public class MeetingMessageUtils {
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
-        Integer freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
+        int freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
 
-        String freePlacesLine = new StringBuilder()
-                .append(Emoji.NEEDLE).append(" ").append(freePlacesAmount)
-                .append(TextFormatter.getItalicString(" free places!")).toString();
+        StringBuilder freePlacesLine = new StringBuilder().append(Emoji.NEEDLE).append(" ");
+        if (freePlacesAmount == 0) {
+            freePlacesLine.append("No free places ").append(Emoji.NO_ENTRY_SIGN)
+                    .append(" ")
+                    .append(TextFormatter.getItalicString(meeting.getParticipants().size() + "/"
+                            + meeting.getMeetingInfo().getParticipantLimit()));
+        } else if (freePlacesAmount <= 2) {
+            freePlacesLine.append(freePlacesAmount)
+                    .append(TextFormatter.getItalicString(" free places! "))
+                    .append(Emoji.FIRE);
+        } else {
+            freePlacesLine.append(freePlacesAmount)
+                    .append(TextFormatter.getItalicString(" free places!"));
+        }
+
         String dateLine = new StringBuilder()
                 .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
         StringBuilder locationLine = new StringBuilder();
@@ -144,7 +156,7 @@ public class MeetingMessageUtils {
             meetingLinkLine.append(" ");
             spacesAmount--;
         }
-        boolean isUserMeetingOwner = (meeting.getTelegramUser() != null && meeting.getTelegramUser().getTelegramId().equals(telegramUserId));
+        boolean isUserMeetingOwner = (meeting.getTelegramUser() != null && meeting.getTelegramUser().getId().equals(telegramUserId));
         meetingLinkLine.append(TextFormatter.getBoldString("/meeting" + meeting.getId()))
                 .append(isUserMeetingOwner ? " " + Emoji.CROWN : "");
         return sb.append(meetingLinkLine).toString();
