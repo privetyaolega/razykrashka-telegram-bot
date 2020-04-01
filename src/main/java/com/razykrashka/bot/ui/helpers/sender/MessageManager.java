@@ -18,6 +18,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ActionType;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
 import org.telegram.telegrambots.meta.api.methods.send.*;
@@ -52,11 +53,6 @@ public class MessageManager extends Sender {
     PollRepository pollRepository;
     @Autowired
     PollOptionRepository pollOptionRepository;
-    SendMessage sendMessage;
-
-    public MessageManager() {
-        this.sendMessage = new SendMessage();
-    }
 
     public MessageManager sendMessage(SendMessage sendMessage) {
         try {
@@ -80,7 +76,8 @@ public class MessageManager extends Sender {
 
     public MessageManager sendSimpleTextMessage(String message, ReplyKeyboard keyboard) {
         Long chatId = updateHelper.getChatId();
-        sendMessage = new SendMessage().setParseMode(ParseMode.HTML)
+        SendMessage sendMessage = new SendMessage()
+                .setParseMode(ParseMode.HTML)
                 .setChatId(chatId)
                 .setText(message)
                 .setReplyMarkup(keyboard)
@@ -89,20 +86,15 @@ public class MessageManager extends Sender {
             Integer sentMessageId = razykrashkaBot.execute(sendMessage)
                     .getMessageId();
 
-            boolean hasKeyboard = keyboard != null;
             TelegramMessage telegramMessage = TelegramMessage.builder()
                     .id(sentMessageId)
                     .chatId(chatId)
                     .botMessage(true)
-                    .hasKeyboard(hasKeyboard)
+                    .hasKeyboard(keyboard != null)
                     .text(message)
                     .build();
             telegramMessageRepository.save(telegramMessage);
         } catch (TelegramApiException e) {
-            log.error("Error during message sending!");
-            log.error("FOR USER: {}", updateHelper.getUser().getUserName());
-            log.error("CHAT ID: {}", chatId);
-            log.error("MESSAGE: {}", message);
             e.printStackTrace();
         }
         return this;
@@ -114,24 +106,24 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager disableKeyboardLastBotMessage(String chatId) {
-        try {
-            List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(Long.valueOf(chatId));
-            TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
-            EditMessageText editMessageReplyMarkup = new EditMessageText()
-                    .setChatId(chatId)
-                    .setMessageId(telegramMessage.getId())
-                    .setText(telegramMessage.getText() + " ")
-                    .setParseMode(ParseMode.HTML)
-                    .disableWebPagePreview();
-            razykrashkaBot.execute(editMessageReplyMarkup);
-        } catch (Exception ignored) {
+        List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(Long.valueOf(chatId));
+        if (telegramMessages.isEmpty()) {
+            return this;
         }
-        return this;
+
+        TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
+        EditMessageText editMessageReplyMarkup = new EditMessageText()
+                .setChatId(chatId)
+                .setMessageId(telegramMessage.getId())
+                .setText(telegramMessage.getText() + " ")
+                .setParseMode(ParseMode.HTML)
+                .disableWebPagePreview();
+        return send(editMessageReplyMarkup);
     }
 
     public MessageManager replyLastMessage(String textMessage, ReplyKeyboard keyboard) {
         Message message = razykrashkaBot.getRealUpdate().getMessage();
-        sendMessage = new SendMessage()
+        SendMessage sendMessage = new SendMessage()
                 .setParseMode(ParseMode.HTML)
                 .setChatId(message.getChatId())
                 .setText(textMessage)
@@ -192,11 +184,6 @@ public class MessageManager extends Sender {
                     .build();
             telegramMessageRepository.save(telegramMessage);
         } catch (TelegramApiException e) {
-            log.error("Error during message sending!");
-            log.error("FOR USER: {}", updateHelper.getUser().getUserName());
-            log.error("CHAT ID: {}", callBackMessage.getChat().getId());
-            log.error("MESSAGE: {}", message);
-            log.error("MESSAGE ID: {}", callBackMessage.getMessageId());
             e.printStackTrace();
         }
         return this;
@@ -207,14 +194,11 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager deleteLastMessage() {
-        try {
-            razykrashkaBot.execute(new DeleteMessage()
-                    .setChatId(updateHelper.getChatId())
-                    .setMessageId(razykrashkaBot.getRealUpdate().getMessage().getMessageId()));
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-        return this;
+        Integer id = razykrashkaBot.getRealUpdate().getMessage().getMessageId();
+        DeleteMessage deleteMessage = new DeleteMessage()
+                .setChatId(updateHelper.getChatId())
+                .setMessageId(id);
+        return send(deleteMessage);
     }
 
     public MessageManager sendAlertMessage(String alertMessage) {
@@ -222,23 +206,25 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager sendAlertMessage(String alertMessage, boolean showAlert) {
-        try {
-            razykrashkaBot.execute(new AnswerCallbackQuery()
-                    .setCallbackQueryId(razykrashkaBot.getRealUpdate().getCallbackQuery().getId())
-                    .setText(alertMessage)
-                    .setShowAlert(showAlert));
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-        return this;
+        String id = razykrashkaBot.getRealUpdate().getCallbackQuery().getId();
+        AnswerCallbackQuery callbackQuery = new AnswerCallbackQuery()
+                .setCallbackQueryId(id)
+                .setText(alertMessage)
+                .setShowAlert(showAlert);
+        return send(callbackQuery);
     }
 
     public MessageManager deleteLastBotMessage() {
         TelegramMessage lastBotMessage = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(updateHelper.getChatId());
+        DeleteMessage deleteMessage = new DeleteMessage()
+                .setChatId(lastBotMessage.getChatId())
+                .setMessageId(lastBotMessage.getId());
+        return send(deleteMessage);
+    }
+
+    private MessageManager send(BotApiMethod botApiMethod) {
         try {
-            razykrashkaBot.execute(new DeleteMessage()
-                    .setChatId(lastBotMessage.getChatId())
-                    .setMessageId(lastBotMessage.getId()));
+            razykrashkaBot.execute(botApiMethod);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
@@ -264,18 +250,14 @@ public class MessageManager extends Sender {
 
     public MessageManager sendMap(Meeting meeting) {
         Location location = meeting.getLocation();
-        try {
-            razykrashkaBot.execute(new SendVenue()
-                    .setChatId(updateHelper.getChatId())
-                    .setTitle(meeting.getMeetingDateTime()
-                            .format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH)))
-                    .setLatitude(location.getLatitude())
-                    .setLongitude(location.getLongitude())
-                    .setAddress(location.getAddress()));
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-        return this;
+        SendVenue venue = new SendVenue()
+                .setChatId(updateHelper.getChatId())
+                .setTitle(meeting.getMeetingDateTime()
+                        .format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH)))
+                .setLatitude(location.getLatitude())
+                .setLongitude(location.getLongitude())
+                .setAddress(location.getAddress());
+        return send(venue);
     }
 
     public MessageManager sendContact(TelegramUser user) {
@@ -284,12 +266,7 @@ public class MessageManager extends Sender {
                 .setFirstName(user.getFirstName())
                 .setPhoneNumber(user.getPhoneNumber())
                 .setChatId(updateHelper.getChatId());
-        try {
-            razykrashkaBot.execute(sendContact);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-        return this;
+        return send(sendContact);
     }
 
     public MessageManager sendSticker(String stickerFileName) {
@@ -318,13 +295,10 @@ public class MessageManager extends Sender {
         return this;
     }
 
-    public void sendAnswerCallbackQuery(CallbackQuery callbackQuery) {
-        try {
-            razykrashkaBot.execute(new AnswerCallbackQuery()
-                    .setCallbackQueryId(callbackQuery.getId()));
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+    public MessageManager sendAnswerCallbackQuery(CallbackQuery callbackQuery) {
+        AnswerCallbackQuery query = new AnswerCallbackQuery()
+                .setCallbackQueryId(callbackQuery.getId());
+        return send(query);
     }
 
     public MessageManager sendPoll(String chatId, String question, List<String> options) {
@@ -378,13 +352,9 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager sendChatAction(ActionType actionType) {
-        try {
-            razykrashkaBot.execute(new SendChatAction()
-                    .setChatId(updateHelper.getChatId())
-                    .setAction(actionType));
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-        return this;
+        SendChatAction action = new SendChatAction()
+                .setChatId(updateHelper.getChatId())
+                .setAction(actionType);
+        return send(action);
     }
 }
