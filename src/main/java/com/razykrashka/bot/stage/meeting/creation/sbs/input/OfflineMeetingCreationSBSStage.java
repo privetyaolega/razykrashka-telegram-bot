@@ -7,10 +7,8 @@ import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
-@Log4j2
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OfflineMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
@@ -24,8 +22,7 @@ public class OfflineMeetingCreationSBSStage extends BaseMeetingCreationSBSStage 
         String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         String skype = updateHelper.getUser().getSkypeContact();
 
-        KeyboardBuilder keyboard = keyboardBuilder
-                .getKeyboard();
+        KeyboardBuilder keyboard = keyboardBuilder.getKeyboard();
         String message;
         if (skype == null) {
             keyboard.setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)

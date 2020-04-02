@@ -233,10 +233,10 @@ public class MessageManager extends Sender {
 
     public void updateOrSendDependsOnLastMessageOwner(String textMessage, ReplyKeyboard replyKeyboard) {
         TelegramMessage telegramMessage = telegramMessageRepository.findTop1ByChatIdOrderByIdDesc(updateHelper.getChatId());
-
         if (telegramMessage.isBotMessage()) {
             updateMessage(textMessage, replyKeyboard);
         } else {
+            disableKeyboardLastBotMessage();
             sendSimpleTextMessage(textMessage, replyKeyboard);
         }
     }

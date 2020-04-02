@@ -13,7 +13,6 @@ import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
@@ -28,7 +27,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-@Log4j2
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BotExecutor {
@@ -75,30 +73,29 @@ public class BotExecutor {
         if (update.hasCallbackQuery()) {
             activeStages.get(0).processCallBackQuery();
         } else if (update.hasMessage() || update.hasPoll()) {
-            if (!update.hasPoll()) {
-                saveUpdate(update);
-                messageManager.disableKeyboardLastBotMessage();
-            }
+            saveUpdate(update);
             Stage activeStage = activeStages.isEmpty() ? undefinedStage : activeStages.get(0);
             activeStage.handleRequest();
         }
     }
 
     private void saveUpdate(Update update) {
-        Message message = update.getMessage();
-        TelegramMessage telegramMessage = TelegramMessage.builder()
-                .id(message.getMessageId())
-                .chatId(message.getChatId())
-                .fromUserId(message.getFrom().getId())
-                .botMessage(false)
-                .text(message.getText())
-                .build();
-        telegramMessageRepository.save(telegramMessage);
+        if (!update.hasPoll()) {
+            Message message = update.getMessage();
+            TelegramMessage telegramMessage = TelegramMessage.builder()
+                    .id(message.getMessageId())
+                    .chatId(message.getChatId())
+                    .fromUserId(message.getFrom().getId())
+                    .botMessage(false)
+                    .text(message.getText())
+                    .build();
+            telegramMessageRepository.save(telegramMessage);
+        }
     }
 
     public void disableCreationProgress() {
-        Optional<Meeting> meetingOptional = meetingRepository
-                .findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
+        Integer id = updateHelper.getUser().getId();
+        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(id);
         if (meetingOptional.isPresent()) {
             Meeting meeting = meetingOptional.get();
             CreationState creationState = meeting.getCreationState();

@@ -1,13 +1,13 @@
 package com.razykrashka.bot.stage.meeting.view.all;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public abstract class PaginationMeetingsViewStage extends MainStage {
 
-    @Value("${razykrashka.bot.meeting.view-per-page}")
-    Integer meetingsPerPage;
+    @Autowired
+    MeetingProperties meetingProperties;
     @Autowired
     MeetingMessageUtils meetingMessageUtils;
 
@@ -36,12 +36,12 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
             messageManager.updateOrSendDependsOnLastMessageOwner(getString("noMeetings"), null);
         } else {
             int pageNumToShow = getPageNumToShow();
-            int totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(meetingsPerPage));
+            int totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(meetingProperties.getViewPerPage()));
             List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage(pageNumToShow, totalPagesAmount);
 
             String header = String.format(getString("header"), meetings.size());
             String meetingsString = meetingMessageUtils.createMeetingsText(meetingsToShow, updateHelper.getUser().getTelegramId());
-            if (meetings.size() > meetingsPerPage) {
+            if (meetings.size() > meetingProperties.getViewPerPage()) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }
             if (updateHelper.isUpdateFromGroupChat()) {
@@ -83,12 +83,12 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
     }
 
     private List<Meeting> getMeetingsSublistForCurrentPage(int pageNumToShow, int totalPagesAmount) {
-        int limit = meetingsPerPage;
-        if (totalPagesAmount == pageNumToShow && totalPagesAmount * meetingsPerPage != meetings.size()) {
-            limit = meetings.size() % meetingsPerPage;
+        int limit = meetingProperties.getViewPerPage();
+        if (totalPagesAmount == pageNumToShow && totalPagesAmount * meetingProperties.getViewPerPage() != meetings.size()) {
+            limit = meetings.size() % meetingProperties.getViewPerPage();
         }
         return meetings.stream()
-                .skip((pageNumToShow - 1) * meetingsPerPage)
+                .skip((pageNumToShow - 1) * meetingProperties.getViewPerPage())
                 .limit(limit)
                 .collect(Collectors.toList());
     }

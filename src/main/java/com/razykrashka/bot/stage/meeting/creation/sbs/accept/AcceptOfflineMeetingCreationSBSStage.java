@@ -13,6 +13,9 @@ public class AcceptOfflineMeetingCreationSBSStage extends BaseMeetingCreationSBS
 
     @Override
     public void handleRequest() {
+        messageManager.deleteLastMessage()
+                .deleteLastBotMessage();
+
         String skype = updateHelper.getMessageText();
         TelegramUser user = updateHelper.getUser();
         user.setSkypeContact(skype);
@@ -36,6 +39,7 @@ public class AcceptOfflineMeetingCreationSBSStage extends BaseMeetingCreationSBS
 
     @Override
     public boolean isStageActive() {
-        return super.isStageActive() && !updateHelper.isCallBackDataContains("edit");
+        return super.isStageActive()
+                && !updateHelper.isCallBackDataContains("edit");
     }
 }

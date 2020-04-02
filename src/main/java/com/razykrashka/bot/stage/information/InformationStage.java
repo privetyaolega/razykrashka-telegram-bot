@@ -17,10 +17,8 @@ public class InformationStage extends MainStage {
 
     @Override
     public void handleRequest() {
-
         messageManager.updateOrSendDependsOnLastMessageOwner("\uD83C\uDF08 Welcome to community whose main goal is cohesion of people learning English; improvement, development and comprehensive support of all skills related to language. \uD83C\uDF08\n" +
                 "You can create some meeting to speak or join to existing one. \uD83D\uDE4F\uD83C\uDFFB", this.getKeyboard());
-
     }
 
     @Override

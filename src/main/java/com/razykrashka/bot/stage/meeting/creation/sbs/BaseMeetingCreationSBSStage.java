@@ -5,31 +5,32 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
+import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j2;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@Log4j2
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PROTECTED)
 public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
-    @Value("${razykrashka.bot.meeting.session}")
-    private long sessionTimeMinutes;
     @Autowired
-    protected CreationStateRepository creationStateRepository;
+    MeetingProperties meetingProperties;
     @Autowired
-    protected MeetingMessageUtils meetingMessageUtils;
-    protected Meeting meeting;
+    CreationStateRepository creationStateRepository;
+    @Autowired
+    MeetingMessageUtils meetingMessageUtils;
+    Meeting meeting;
     protected static final String EDIT = "edit";
 
     @Override
@@ -72,7 +73,6 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
                     .inCreationProgress(true)
                     .startCreationDateTime(LocalDateTime.now())
                     .build();
-
             creationStateRepository.save(creationState);
 
             meeting = Meeting.builder()
@@ -81,10 +81,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
                     .format(MeetingFormatEnum.NA)
                     .build();
             return meetingRepository.save(meeting);
-        } else if (meetingOptional.get()
-                .getCreationState()
-                .getStartCreationDateTime()
-                .plusMinutes(sessionTimeMinutes).isBefore(LocalDateTime.now())) {
+        } else if (isSessionExpired(meetingOptional.get())) {
 
             Meeting expiredMeeting = meetingOptional.get();
             meetingRepository.delete(expiredMeeting);
@@ -96,6 +93,13 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             throw new RuntimeException("SESSION EXPIRED");
         }
         return meetingOptional.get();
+    }
+
+    private boolean isSessionExpired(Meeting meeting) {
+        int sessionTimeMinutes = meetingProperties.getSession();
+        return meeting.getCreationState()
+                .getStartCreationDateTime()
+                .plusMinutes(sessionTimeMinutes).isBefore(LocalDateTime.now());
     }
 
     protected LoadingThreadV2 startLoadingThread(boolean fixIterationLoading) {
