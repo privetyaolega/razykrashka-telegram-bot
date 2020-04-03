@@ -36,6 +36,7 @@ public class AdminController {
         meetingProperties.setSession(newProps.getSession());
         meetingProperties.getCreation().setHourAdvance(newProps.getCreation().getHourAdvance());
         meetingProperties.getCreation().setUpperHourLimitToday(newProps.getCreation().getUpperHourLimitToday());
+        meetingProperties.getCreation().setNotificationGroup(newProps.getCreation().getNotificationGroup());
         return "redirect:/admin/meeting-properties";
     }
 }

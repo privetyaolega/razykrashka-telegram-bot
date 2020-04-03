@@ -3,11 +3,13 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -22,8 +24,8 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Value("${razykrashka.group.id}")
     String groupChatId;
-    @Value("${razykrashka.group.meeting.notification}")
-    boolean meetingNotification;
+    @Autowired
+    MeetingProperties meetingProperties;
 
     @Override
     public void handleRequest() {
@@ -45,7 +47,7 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         messageManager.updateMessage(getFormatString("success", meeting.getId()))
                 .sendRandomSticker("success");
 
-        if (meetingNotification) {
+        if (meetingProperties.getCreation().getNotificationGroup()) {
             String meetingInfo = meetingMessageUtils.createMeetingInfoGroup(meeting);
             messageManager.sendMessage(new SendMessage()
                     .setParseMode(ParseMode.HTML)
@@ -57,6 +59,7 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public boolean isStageActive() {
-        return super.isStageActive() && updateHelper.isCallBackDataContains();
+        return super.isStageActive()
+                && updateHelper.isCallBackDataContains();
     }
 }

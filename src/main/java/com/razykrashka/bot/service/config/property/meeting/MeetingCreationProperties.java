@@ -12,4 +12,5 @@ import lombok.experimental.FieldDefaults;
 public class MeetingCreationProperties {
     Integer upperHourLimitToday;
     Integer hourAdvance;
+    Boolean notificationGroup;
 }
