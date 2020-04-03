@@ -22,7 +22,7 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
 
         if (!updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + EDIT)) {
             LoadingThreadV2 loadingThread = startLoadingThread(false);
-            messageManager.sendAnimation("pics/map_attachment.gif", getString("mapAttachment"));
+            messageManager.sendAnimation("bot/pics/map_attachment.gif", getString("mapAttachment"));
             loadingThread.interrupt();
             messageManager.deleteLastBotMessage();
         }

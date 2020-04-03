@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
+        <title>Spring Boot Thymeleaf Application</title>
+
+    </head>
+    <body>
+
+        <header th:insert="blocks/header :: header"></header>
+
+        <div class="container p-5">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-8">
+
+                    <h3>Meeting properties</h3>
+                    <hr>
+                    <form action="#" th:action="@{/admin/save}"
+                          th:object="${properties}" method="POST">
+                        <div class="form-group">
+                            <label class="form-check-label" for="view">View Per Page</label>
+                            <input class="form-control" id="view"
+                                   th:value="${properties.viewPerPage}" autocomplete='off' tabindex='3' type="text"
+                                   th:field="*{viewPerPage}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check-label" for="view1">Session</label>
+                            <input class="form-control" id="view1"
+                                   th:value="${properties.session}" autocomplete='off' tabindex='3' type="text"
+                                   th:field="*{session}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check-label" for="view1">Session</label>
+                            <input class="form-control" id="view1"
+                                   th:value="${properties.creation.hourAdvance}" autocomplete='off' tabindex='3'
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check-label" for="view1">Session</label>
+                            <input class="form-control" id="view1"
+                                   th:value="${properties.creation.upperHourLimitToday}" autocomplete='off' tabindex='3'
+                                   type="text">
+                        </div>
+                        <button type="submit" class="btn btn-info col-2">SAVE</button>
+                        <a href="/admin/meeting-properties" class="btn btn-secondary btn-md">Back</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div th:insert="blocks/footer :: footer"></div>
+
+    </body>
+</html>

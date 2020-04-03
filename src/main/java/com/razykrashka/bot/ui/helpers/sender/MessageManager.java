@@ -283,7 +283,7 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager sendRandomSticker(String folder) {
-        try (Stream<Path> paths = Files.walk(Paths.get(new ClassPathResource("stickers/" + folder).getURI()))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(new ClassPathResource("bot/stickers/" + folder).getURI()))) {
             List<String> collect = paths.filter(Files::isRegularFile)
                     .map(x -> x.getFileName().toString())
                     .collect(Collectors.toList());

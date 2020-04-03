@@ -1,4 +1,4 @@
-package com.razykrashka.bot.rest.controller.exception;
+package com.razykrashka.bot.controller.rest.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

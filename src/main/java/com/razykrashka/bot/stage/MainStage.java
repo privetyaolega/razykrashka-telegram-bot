@@ -63,7 +63,7 @@ public abstract class MainStage implements Stage {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
         try {
-            data = mapper.readValue(new ClassPathResource("stage/stageStringStorage.json").getFile(),
+            data = mapper.readValue(new ClassPathResource("bot/stage/stageStringStorage.json").getFile(),
                     new TypeReference<List<Map<String, Map<String, String>>>>() {
                     });
         } catch (IOException e) {

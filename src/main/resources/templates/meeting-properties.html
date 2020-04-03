@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
+        <title>Razykrashka Admin Panel</title>
+    </head>
+    <body>
+        <header th:insert="blocks/header :: header"></header>
+
+        <div class="container p-5">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-8">
+                    <h3>Meeting properties</h3>
+                    <hr>
+                    <form action="#">
+                        <div class="form-group">
+                            <label class="form-check-label" for="view">View Per Page</label>
+                            <input class="form-control" id="view"
+                                   th:value="${properties.viewPerPage}" autocomplete='off' tabindex='3' type="text"
+                                   readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check-label" for="view1">Session</label>
+                            <input class="form-control" id="view1"
+                                   th:value="${properties.session}" autocomplete='off' tabindex='3' type="text"
+                                   readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check-label" for="view1">Session</label>
+                            <input class="form-control" id="view1"
+                                   th:value="${properties.creation.hourAdvance}" autocomplete='off' tabindex='3'
+                                   type="text"
+                                   readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check-label" for="view1">Session</label>
+                            <input class="form-control" id="view1"
+                                   th:value="${properties.creation.upperHourLimitToday}" autocomplete='off' tabindex='3'
+                                   type="text"
+                                   readonly>
+                        </div>
+                        <a href="/admin/meeting-properties-edit" class="btn btn-info btn-md">Edit</a>
+                    </form>
+                </div>
+            </div>
+            <div th:insert="blocks/footer :: footer"></div>
+        </div>
+
+    </body>
+</html>
