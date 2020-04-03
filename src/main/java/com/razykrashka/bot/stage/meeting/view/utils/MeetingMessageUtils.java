@@ -29,6 +29,7 @@ public class MeetingMessageUtils {
     final static String DATE_TIME_PATTERN = "dd MMMM (EEEE) HH:mm";
     final static String DATE_PATTERN = "dd MMMM (EEEE)";
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
+    String lastSunny;
 
     public String createMeetingsText(List<Meeting> userMeetings, Integer telegramUserId) {
         return userMeetings.stream()
@@ -37,6 +38,7 @@ public class MeetingMessageUtils {
     }
 
     public String createSingleMeetingFullInfo(Meeting meeting) {
+        lastSunny = Emoji.SMALL_SUN;
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         StringBuilder sb = new StringBuilder();
         StringBuilder header = new StringBuilder()
@@ -48,7 +50,7 @@ public class MeetingMessageUtils {
         StringBuilder location = new StringBuilder();
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
             location.append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
-                    .append(Emoji.LOCATION).append(getLocationLink(meeting)).append("\n");
+                    .append(Emoji.LOCATION).append(" ").append(getLocationLink(meeting)).append("\n");
         } else {
             location.append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
                     .append(Emoji.INTERNET).append(" Skype: ")
@@ -58,7 +60,7 @@ public class MeetingMessageUtils {
 
         StringBuilder levelLine = new StringBuilder()
                 .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
-                .append(Emoji.HIEROGLYPH).append(meetingInfo.getSpeakingLevel().getLevel()).append("\n");
+                .append(Emoji.HIEROGLYPH).append(" ").append(meetingInfo.getSpeakingLevel().getLevel()).append("\n");
 
         StringBuilder topicLine = new StringBuilder()
                 .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
@@ -66,11 +68,11 @@ public class MeetingMessageUtils {
 
         String participants = meeting.getParticipants().stream()
                 .map(p -> getSingleStringForParticipantsList(p, meeting))
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining(""));
         StringBuilder participantsLine = new StringBuilder()
                 .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
                 .append(Emoji.TWO_PERSONS_SILHOUETTE).append(TextFormatter.getItalicString(" " + meeting.getParticipants().size() + " out of "
-                        + meeting.getMeetingInfo().getParticipantLimit())).append("\n")
+                        + meeting.getMeetingInfo().getParticipantLimit()))
                 .append(participants);
 
         return sb.append(header)
@@ -78,7 +80,7 @@ public class MeetingMessageUtils {
                 .append(location)
                 .append(levelLine)
                 .append(topicLine)
-                .append(participantsLine).append("\n").append(Emoji.SMALL_SUN).toString();
+                .append(participantsLine).append("\n").append(getNextSunny()).toString();
     }
 
     public String getSingleMeetingDiscussionInfo(Meeting meeting) {
@@ -108,7 +110,12 @@ public class MeetingMessageUtils {
             String url = String.format(profileLinkTmpl, telegramUser.getUserName());
             participantName = TextFormatter.getLink(participantName, url);
         }
-        return Emoji.SMALL_SUN + Emoji.SPACES + " • " + participantName + ownerLabel;
+        return "\n" + getNextSunny() + Emoji.SPACES + " • " + participantName + ownerLabel;
+    }
+
+    private String getNextSunny() {
+        lastSunny = lastSunny.equals(Emoji.SMALL_SUN) ? Emoji.BIG_SUN : Emoji.SMALL_SUN;
+        return lastSunny;
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {

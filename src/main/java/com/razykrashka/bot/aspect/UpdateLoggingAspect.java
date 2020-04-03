@@ -47,9 +47,7 @@ public class UpdateLoggingAspect {
                 .map(c -> c.getClass().getSimpleName().split("\\$\\$")[0])
                 .collect(Collectors.toList());
 
-        log.info("ASPECT: User ID: {}. String Message to process: '{}'",
-                getUserId(update), getMessageToProcess(update));
-        log.info("ASPECT: Active stages: {}",
+        log.info("ASPECT: User ID: {}. {} -> {}", getUserId(update), getMessageToProcess(update),
                 activeStages.stream().collect(Collectors.joining(" ,", "[", "]")));
 
         if (activeStages.size() > 1) {
@@ -71,9 +69,9 @@ public class UpdateLoggingAspect {
 
     private String getMessageToProcess(Update update) {
         if (update.hasMessage()) {
-            return update.getMessage().getText();
+            return "Message: '" + update.getMessage().getText() + "'";
         } else if (update.hasCallbackQuery()) {
-            return update.getCallbackQuery().getData();
+            return "CallBackData: '" + update.getCallbackQuery().getData() + "'";
         } else {
             return null;
         }
