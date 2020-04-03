@@ -13,34 +13,44 @@
         <div class="container p-5">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
-                    <h3>Meeting properties</h3>
+                    <h4>Meeting properties</h4>
                     <hr>
                     <form action="#">
                         <div class="form-group">
                             <label class="form-check-label" for="view">View Per Page</label>
                             <input class="form-control" id="view"
                                    th:value="${properties.viewPerPage}" autocomplete='off' tabindex='3' type="text"
-                                   readonly>
+                                   aria-describedby="viewPerPageDescription" readonly>
+                            <small id="viewPerPageDescription" class="form-text text-muted">Amount of meetings that will
+                                be shown in view where pagination inline keyboard present.</small>
                         </div>
                         <div class="form-group">
                             <label class="form-check-label" for="view1">Session</label>
                             <input class="form-control" id="view1"
                                    th:value="${properties.session}" autocomplete='off' tabindex='3' type="text"
-                                   readonly>
+                                   aria-describedby="sessionDescription" readonly>
+                            <small id="sessionDescription" class="form-text text-muted">Session time (minutes) during
+                                SBS meeting creation. After this time the session will be expired</small>
+
                         </div>
                         <div class="form-group">
-                            <label class="form-check-label" for="view1">Session</label>
+                            <label class="form-check-label" for="view1">Hour Advance</label>
                             <input class="form-control" id="view1"
                                    th:value="${properties.creation.hourAdvance}" autocomplete='off' tabindex='3'
-                                   type="text"
-                                   readonly>
+                                   aria-describedby="hourAdvanceDescription" readonly>
+                            <small id="hourAdvanceDescription" class="form-text text-muted">Minimum time (hours) that
+                                have to past before starting meeting.</small>
+
                         </div>
                         <div class="form-group">
-                            <label class="form-check-label" for="view1">Session</label>
+                            <label class="form-check-label" for="view1">Upper hour limit today</label>
                             <input class="form-control" id="view1"
                                    th:value="${properties.creation.upperHourLimitToday}" autocomplete='off' tabindex='3'
                                    type="text"
-                                   readonly>
+                                   aria-describedby="upperHourDescription" readonly>
+                            <small id="upperHourDescription" class="form-text text-muted">Minimum time (hours) that
+                                have to past before starting meeting.</small>
+
                         </div>
                         <a href="/admin/meeting-properties-edit" class="btn btn-info btn-md">Edit</a>
                     </form>

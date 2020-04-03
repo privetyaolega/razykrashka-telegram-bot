@@ -225,8 +225,7 @@ public class MessageManager extends Sender {
     private MessageManager send(BotApiMethod botApiMethod) {
         try {
             razykrashkaBot.execute(botApiMethod);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
+        } catch (TelegramApiException ignored) {
         }
         return this;
     }
@@ -271,7 +270,7 @@ public class MessageManager extends Sender {
 
     public MessageManager sendSticker(String stickerFileName) {
         try {
-            File stickerFile = new ClassPathResource("stickers/" + stickerFileName).getFile();
+            File stickerFile = new ClassPathResource("bot/stickers/" + stickerFileName).getFile();
             SendSticker sendSticker = new SendSticker()
                     .setSticker(stickerFile)
                     .setChatId(updateHelper.getChatId());

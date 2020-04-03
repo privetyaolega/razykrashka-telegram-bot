@@ -16,7 +16,7 @@
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
 
-                    <h3>Meeting properties</h3>
+                    <h4>Meeting properties</h4>
                     <hr>
                     <form action="#" th:action="@{/admin/save}"
                           th:object="${properties}" method="POST">
@@ -24,25 +24,38 @@
                             <label class="form-check-label" for="view">View Per Page</label>
                             <input class="form-control" id="view"
                                    th:value="${properties.viewPerPage}" autocomplete='off' tabindex='3' type="text"
-                                   th:field="*{viewPerPage}">
+                                   th:field="*{viewPerPage}"
+                                   aria-describedby="viewPerPageDescription">
+                            <small id="viewPerPageDescription" class="form-text text-muted">Amount of meetings that will
+                                be shown in view where pagination inline keyboard present.</small>
                         </div>
                         <div class="form-group">
                             <label class="form-check-label" for="view1">Session</label>
                             <input class="form-control" id="view1"
                                    th:value="${properties.session}" autocomplete='off' tabindex='3' type="text"
-                                   th:field="*{session}">
+                                   th:field="*{session}"
+                                   aria-describedby="sessionDescription">
+                            <small id="sessionDescription" class="form-text text-muted">Session time (minutes) during
+                                SBS meeting creation. After this time the session will be expired</small>
                         </div>
                         <div class="form-group">
-                            <label class="form-check-label" for="view1">Session</label>
+                            <label class="form-check-label" for="view1">Hour Advance</label>
                             <input class="form-control" id="view1"
                                    th:value="${properties.creation.hourAdvance}" autocomplete='off' tabindex='3'
-                                   type="text">
+                                   th:field="*{creation.hourAdvance}"
+                                   aria-describedby="hourAdvanceDescription">
+                            <small id="hourAdvanceDescription" class="form-text text-muted">Minimum time (hours) that
+                                have to past before starting meeting.</small>
                         </div>
                         <div class="form-group">
-                            <label class="form-check-label" for="view1">Session</label>
+                            <label class="form-check-label" for="view1">Upper hour limit today</label>
                             <input class="form-control" id="view1"
                                    th:value="${properties.creation.upperHourLimitToday}" autocomplete='off' tabindex='3'
-                                   type="text">
+                                   th:field="*{creation.upperHourLimitToday}"
+                                   aria-describedby="upperHourDescription">
+                            <small id="upperHourDescription" class="form-text text-muted">Minimum time (hours) that
+                                have to past before starting meeting.</small>
+
                         </div>
                         <button type="submit" class="btn btn-info col-2">SAVE</button>
                         <a href="/admin/meeting-properties" class="btn btn-secondary btn-md">Back</a>
@@ -50,8 +63,8 @@
 
                 </div>
             </div>
+            <div th:insert="blocks/footer :: footer"></div>
         </div>
-        <div th:insert="blocks/footer :: footer"></div>
 
     </body>
 </html>

@@ -34,6 +34,8 @@ public class AdminController {
     public String saveProperties(@ModelAttribute("prop") MeetingProperties newProps) {
         meetingProperties.setViewPerPage(newProps.getViewPerPage());
         meetingProperties.setSession(newProps.getSession());
+        meetingProperties.getCreation().setHourAdvance(newProps.getCreation().getHourAdvance());
+        meetingProperties.getCreation().setUpperHourLimitToday(newProps.getCreation().getUpperHourLimitToday());
         return "redirect:/admin/meeting-properties";
     }
 }

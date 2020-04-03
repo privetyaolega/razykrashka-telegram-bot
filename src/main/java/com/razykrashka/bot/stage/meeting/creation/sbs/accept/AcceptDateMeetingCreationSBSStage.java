@@ -2,13 +2,14 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
+import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.DateMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -19,8 +20,8 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
-    @Value("${razykrashka.bot.meeting.creation.upper-hour-limit-today}")
-    Integer hourLimit;
+    @Autowired
+    MeetingProperties meetingProperties;
 
     @Override
     public boolean processCallBackQuery() {
@@ -54,7 +55,8 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
         if (localDateTime.isBefore(LocalDateTime.now()) && !isMeetingDateToday) {
             sendAlertMessage(getString("pastDate"), false);
             throw new IncorrectInputDataFormatException("Selected date is in the past!");
-        } else if (isMeetingDateToday && LocalDateTime.now().getHour() > hourLimit) {
+        } else if (isMeetingDateToday
+                && LocalDateTime.now().getHour() > meetingProperties.getCreation().getUpperHourLimitToday()) {
             sendAlertMessage(getString("lateTime"), true);
             throw new IncorrectInputDataFormatException("Too late for meeting today");
         }
