@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="blocks/head :: header"></div>
+    </head>
+    <body>
+        <div class="container d-flex align-items-stretch">
+            <nav id="sidebar" class="img">
+                <div th:replace="blocks/navigation :: navigation"></div>
+            </nav>
+            <!-- Page Content  -->
+            <div id="content" class="p-4 p-md-5 pt-5">
+                <h4>Meeting properties</h4>
+                <hr>
+                <textarea class="form-control h-25" rows="15" placeholder="Please write customer notes"></textarea>
+            </div>
+        </div>
+    </body>
+</html>

@@ -30,6 +30,12 @@ public class AdminController {
         return "meeting-properties-edit.html";
     }
 
+    @GetMapping("/logs")
+    public String meetingLogs(Model model) {
+        model.addAttribute("properties", meetingProperties);
+        return "logs.html";
+    }
+
     @PostMapping("/save")
     public String saveProperties(@ModelAttribute("prop") MeetingProperties newProps) {
         meetingProperties.setViewPerPage(newProps.getViewPerPage());

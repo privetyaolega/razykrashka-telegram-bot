@@ -3,7 +3,6 @@ package com.razykrashka.bot.service.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,16 +19,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
-                //HTTP Basic authentication
-                .httpBasic()
+        http.authorizeRequests()
+                .anyRequest().authenticated()
                 .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/**").hasRole("USER")
-                .antMatchers(HttpMethod.GET, "/**").hasRole("USER")
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/authenticate-user")
+                .defaultSuccessUrl("/admin/meeting-properties", true)
+                .permitAll()
                 .and()
-                .csrf().disable()
-                .formLogin().disable();
+                .logout()
+                .logoutUrl("/logout")
+                .permitAll();
     }
 
     @Bean

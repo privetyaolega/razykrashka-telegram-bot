@@ -1,0 +1,38 @@
+<th:block th:fragment="navigation">
+    <div class="p-4">
+        <h1><a href="index.html" class="logo">Razykrashka <span>Admin Panel</span></a></h1>
+        <ul class="list-unstyled components mb-5">
+            <li class="active">
+                <a href="#"><span class="fa fa-home mr-3"></span>Home</a>
+            </li>
+            <li>
+                <a href="/admin/meeting-properties"><span class="fa fa-user mr-3"></span> Properties</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-telegram mr-3"></span>Times Setter</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-sticky-note mr-3"></span> API</a>
+            </li>
+            <li>
+                <a href="/admin/logs"><span class="fa fa-coffee mr-3"></span> Log</a>
+            </li>
+        </ul>
+
+        <div class="mb-5">
+            <form th:action="@{/logout}" method="POST">
+                <button class="btn btn-info btn-md">Logout</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved | <i class="icon-heart"
+                                         aria-hidden="true"></i> <a
+                    href="https://t.me/razykrashkaen" target="_blank">razykrashka.com</a>
+            </p>
+        </div>
+
+    </div>
+</th:block>
