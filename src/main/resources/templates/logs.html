@@ -12,8 +12,15 @@
             <div id="content" class="p-4 p-md-5 pt-5">
                 <h4>Meeting properties</h4>
                 <hr>
-                <a href="../logs/log.log">log</a>
-                <textarea class="form-control h-25" rows="15" placeholder="Please write customer notes"></textarea>
+                <a th:href="@{|/admin/log-download|}">Download log file</a>
+                <hr>
+                <p th:text="${lastLog}">
+                    <!--                <textarea class="form-control " rows="15" th:text="${lastLog}"-->
+                    <!--                          placeholder="Please write customer notes"></textarea>-->
+                    <!--                <div class="form-group">-->
+                    <!--                    <label for="exampleFormControlTextarea1">Example textarea</label>-->
+                    <!--                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="43"></textarea>-->
+                    <!--                </div>-->
             </div>
         </div>
     </body>
