@@ -3,6 +3,7 @@ package com.razykrashka.bot.controller.admin;
 
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.input.ReversedLinesFileReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+@Log4j2
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -56,23 +54,39 @@ public class AdminController {
         beanFactory.destroySingleton("meetingProperties");
         meetingProperties = (MeetingProperties) updateHelper.getBot().getContext().getBean("meetingProperties");
         model.addAttribute("properties", meetingProperties);
+        log.info("MEETING PROPERTIES: Properties have been reset to default values");
         return "meeting-properties.html";
     }
 
     @GetMapping("/logs")
     public String meetingLogs(Model model) throws IOException {
+        String log = getLastLogLines();
+        model.addAttribute("lastLog", log);
+        return "logs.html";
+    }
+
+    @RequestMapping(value = "/logs-ajax", method = RequestMethod.GET)
+    public @ResponseBody
+    String getTime() {
+        log.info("TEST");
+        return "<pre style=\"width: 100%; height: 550px; overflow-y: scroll;\">" + getLastLogLines() + "</pre>";
+    }
+
+    private String getLastLogLines() {
         File file = new File(System.getProperty("user.dir") + File.separator + loggingPath);
         int limitLines = 100;
         int counter = 0;
-        ReversedLinesFileReader reader = new ReversedLinesFileReader(file);
         StringBuilder sb = new StringBuilder();
-        while (counter < limitLines) {
-            sb.append(reader.readLine()).append("\n");
-            counter++;
+        try {
+            ReversedLinesFileReader reader = new ReversedLinesFileReader(file);
+            while (counter < limitLines) {
+                sb.append(reader.readLine()).append("\n");
+                counter++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        model.addAttribute("lastLog", sb.toString());
-        return "logs.html";
+        return sb.toString();
     }
 
     @GetMapping("/log-download")
@@ -101,6 +115,8 @@ public class AdminController {
         meetingProperties.getCreation().setHourAdvance(newProps.getCreation().getHourAdvance());
         meetingProperties.getCreation().setUpperHourLimitToday(newProps.getCreation().getUpperHourLimitToday());
         meetingProperties.getCreation().setNotificationGroup(newProps.getCreation().getNotificationGroup());
+
+        log.info("MEETING PROPERTIES: Properties have been changed: {}", newProps.toString());
         return "redirect:/admin/meeting-properties";
     }
 }

@@ -52,7 +52,7 @@ public class RestBuilder {
 
             HttpResponse<JsonNode> response = Unirest.get(request).asJson();
             Object json = getMapper().readValue(response.getBody().toString(), Object.class);
-            log.info("Response : \n{}", getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(json));
+//            log.info("Response : \n{}", getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(json));
             return response.getBody().toString();
         } catch (Exception e) {
             e.printStackTrace();
