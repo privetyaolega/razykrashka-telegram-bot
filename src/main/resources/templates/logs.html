@@ -67,6 +67,12 @@
                 border-radius: 50%;
             }
 
+            pre {
+                width: 100%;
+                height: 550px;
+                overflow-y: scroll;
+            }
+
         </style>
     </head>
     <body>
@@ -84,17 +90,17 @@
                 <a href="/admin/logs" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-refresh"></span> Refresh
                 </a>
-                <label class="switch ">
+                <label class="switch">
                     <input type="checkbox" class="primary" onclick="enable(this)">
                     <span class="slider round"></span>
                 </label>
-                <!--                    <input type="checkbox" checked data-toggle="toggle" onclick="enable(this)">-->
+
                 <script type="text/javascript">
                     function enable(d) {
                         if (d.interval) {
                             clearInterval(d.interval);
                         } else {
-                            document.getElementById('result-pre').style.visibility = 'hidden';
+                            document.getElementById('result-pre').style.display = 'none';
                             d.interval = setInterval(function () {
                                 $.ajax({
                                     url: '/admin/logs-ajax',
@@ -108,7 +114,7 @@
                 </script>
                 <hr>
                 <div id="result"></div>
-                <pre id="result-pre" th:text="${lastLog}" style="width: 100%; height: 550px; overflow-y: scroll;"/>
+                <pre id="result-pre" th:text="${lastLog}"/>
             </div>
         </div>
     </body>

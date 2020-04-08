@@ -69,7 +69,7 @@ public class AdminController {
     public @ResponseBody
     String getTime() {
         log.info("TEST");
-        return "<pre style=\"width: 100%; height: 550px; overflow-y: scroll;\">" + getLastLogLines() + "</pre>";
+        return "<pre>" + getLastLogLines() + "</pre>";
     }
 
     private String getLastLogLines() {
