@@ -23,6 +23,12 @@
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
             VALUES('Pumpmeup', '', '+375257568884', '127455779', 'PeaceItsMe');
+
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            VALUES('thehive', '', '+375291324696', '187559890', 'the_hive');
+
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            VALUES('Rutski', 'Slawek', '+375296906971', '667266423', '');
         </sql>
     </changeSet>
 </databaseChangeLog>

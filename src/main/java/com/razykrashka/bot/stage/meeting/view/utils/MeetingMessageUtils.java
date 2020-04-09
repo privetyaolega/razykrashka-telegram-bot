@@ -41,36 +41,48 @@ public class MeetingMessageUtils {
         lastSunny = Emoji.SMALL_SUN;
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         StringBuilder sb = new StringBuilder();
-        StringBuilder header = new StringBuilder()
-                .append(Emoji.NEEDLE).append(Emoji.SPACES).append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n\n");
+        StringBuilder header = new StringBuilder();
+
+        int freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
+        if (freePlacesAmount == 0) {
+            header.append(Emoji.ANGER).append(Emoji.ANGER).append(Emoji.ANGER)
+                    .append(TextFormatter.getItalicString(" NO FREE PLACES! "))
+                    .append(Emoji.ANGER).append(Emoji.ANGER).append(Emoji.ANGER)
+                    .append("\n\n");
+        }
+
+        header.append(Emoji.RADIO_BUTTON).append(Emoji.SPACES).append(TextFormatter.getCodeString(" MEETING # " + meeting.getId()))
+                .append("\n").append(Emoji.CHAINS).append("\n")
+                .append(Emoji.CHAINS).append("\n");
+
         StringBuilder date = new StringBuilder()
-                .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                .append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                 .append(Emoji.CLOCK).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).append("\n");
 
         StringBuilder location = new StringBuilder();
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
-            location.append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+            location.append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                     .append(Emoji.LOCATION).append(" ").append(getLocationLink(meeting)).append("\n");
         } else {
-            location.append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+            location.append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                     .append(Emoji.INTERNET).append(" Skype: ")
                     .append(TextFormatter.getCodeString(meeting.getTelegramUser().getSkypeContact()))
                     .append("\n");
         }
 
         StringBuilder levelLine = new StringBuilder()
-                .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                .append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                 .append(Emoji.HIEROGLYPH).append(" ").append(meetingInfo.getSpeakingLevel().getLevel()).append("\n");
 
         StringBuilder topicLine = new StringBuilder()
-                .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                .append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                 .append(Emoji.SPEECH_CLOUD).append(" ").append(meetingInfo.getTopic()).append("\n");
 
         String participants = meeting.getParticipants().stream()
                 .map(p -> getSingleStringForParticipantsList(p, meeting))
                 .collect(Collectors.joining(""));
         StringBuilder participantsLine = new StringBuilder()
-                .append(Emoji.BIG_SUN).append("\n").append(Emoji.SMALL_SUN).append(Emoji.SPACES)
+                .append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                 .append(Emoji.TWO_PERSONS_SILHOUETTE).append(TextFormatter.getItalicString(" " + meeting.getParticipants().size() + " out of "
                         + meeting.getMeetingInfo().getParticipantLimit()))
                 .append(participants);
@@ -80,7 +92,7 @@ public class MeetingMessageUtils {
                 .append(location)
                 .append(levelLine)
                 .append(topicLine)
-                .append(participantsLine).append("\n").append(getNextSunny()).toString();
+                .append(participantsLine).append("\n").append(Emoji.RADIO_BUTTON).toString();
     }
 
     public String getSingleMeetingDiscussionInfo(Meeting meeting) {
@@ -110,7 +122,7 @@ public class MeetingMessageUtils {
             String url = String.format(profileLinkTmpl, telegramUser.getUserName());
             participantName = TextFormatter.getLink(participantName, url);
         }
-        return "\n" + getNextSunny() + Emoji.SPACES + " • " + participantName + ownerLabel;
+        return "\n" + Emoji.CHAINS + Emoji.SPACES + " • " + participantName + ownerLabel;
     }
 
     private String getNextSunny() {
@@ -119,11 +131,20 @@ public class MeetingMessageUtils {
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
-        Integer freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
+        int freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
 
-        String freePlacesLine = new StringBuilder()
-                .append(Emoji.NEEDLE).append(" ").append(freePlacesAmount)
-                .append(TextFormatter.getItalicString(" free places!")).toString();
+        StringBuilder freePlacesLine = new StringBuilder();
+
+        if (freePlacesAmount != 0) {
+            freePlacesLine.append(Emoji.NEEDLE).append(" ").append(freePlacesAmount)
+                    .append(TextFormatter.getItalicString(" free places!"));
+        } else {
+            freePlacesLine.append(Emoji.NEEDLE)
+                    .append(" ")
+                    .append(TextFormatter.getItalicString("No free places! "))
+                    .append(Emoji.NO_ENTRY_SIGN);
+        }
+
         String dateLine = new StringBuilder()
                 .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
         StringBuilder locationLine = new StringBuilder();

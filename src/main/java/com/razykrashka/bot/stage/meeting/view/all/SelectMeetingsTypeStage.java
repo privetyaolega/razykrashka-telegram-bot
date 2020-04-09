@@ -20,7 +20,8 @@ public class SelectMeetingsTypeStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        messageManager.sendSimpleTextMessage(getString("main"), this.getKeyboard());
+        messageManager.disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(getString("main"), this.getKeyboard());
     }
 
     @Override

@@ -51,4 +51,8 @@ public class Emoji {
     public static String PENSIVE = "\uD83D\uDE14";
     public static String DISAPPOINTED_RELIEVED = "\uD83D\uDE25";
     public static String SWEAT = "\uD83D\uDE13";
+    public static String NO_ENTRY_SIGN = "\uD83D\uDEAB";
+    public static String ANGER = "\uD83D\uDCA2";
+    public static String RADIO_BUTTON = "\uD83D\uDD18";
+    public static String CHAINS = "⛓";
 }
