@@ -87,7 +87,7 @@
                 <hr>
                 <a th:href="@{|/admin/log-download|}">Download log file</a>
                 <hr>
-                <a href="/admin/logs" class="btn btn-info btn-lg">
+                <a th:href="@{/admin/logs}" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-refresh"></span> Refresh
                 </a>
                 <label class="switch">
@@ -100,7 +100,7 @@
                         if (d.interval) {
                             clearInterval(d.interval);
                         } else {
-                            document.getElementById('result-pre').style.display = 'none';
+                            document.getElementById('result-pre').style.visibility = 'hidden';
                             d.interval = setInterval(function () {
                                 $.ajax({
                                     url: '/admin/logs-ajax',
