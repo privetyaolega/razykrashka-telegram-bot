@@ -49,4 +49,6 @@ public class Emoji {
     public static String BOOKS = "\uD83D\uDCDA";
     public static String FOLDER = "\uD83D\uDCC2";
     public static String PENSIVE = "\uD83D\uDE14";
+    public static String DISAPPOINTED_RELIEVED = "\uD83D\uDE25";
+    public static String SWEAT = "\uD83D\uDE13";
 }

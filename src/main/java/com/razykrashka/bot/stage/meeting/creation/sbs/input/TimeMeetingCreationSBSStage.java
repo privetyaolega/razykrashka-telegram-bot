@@ -2,6 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptTimeMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -18,10 +19,10 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 .withMinute(0));
         meetingRepository.save(meeting);
 
-        messageManager.deleteLastBotMessageIfHasKeyboard();
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        messageManager.sendSimpleTextMessage(messageText +
-                "Please, choose time (e.g 19-30)", getKeyboard());
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.deleteLastBotMessageIfHasKeyboard()
+                .sendSimpleTextMessage(messageText, getKeyboard());
         super.setActiveNextStage(AcceptTimeMeetingCreationSBSStage.class);
     }
 

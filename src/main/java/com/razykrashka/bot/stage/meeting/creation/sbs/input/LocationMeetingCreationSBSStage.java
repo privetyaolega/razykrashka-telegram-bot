@@ -2,6 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLocationMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -27,9 +28,10 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
             messageManager.deleteLastBotMessage();
         }
 
-        String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
+        String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
         messageManager.deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(meetingInfo + getString("input"), getKeyboard());
+                .sendSimpleTextMessage(meetingInfo, getKeyboard());
         super.setActiveNextStage(nextStageClass);
     }
 

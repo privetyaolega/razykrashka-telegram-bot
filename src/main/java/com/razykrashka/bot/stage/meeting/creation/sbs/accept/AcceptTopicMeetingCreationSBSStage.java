@@ -6,6 +6,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.FinalMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.ParticipantsMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -64,8 +65,9 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
                         "Accept Topic " + Emoji.OK_HAND, ACCEPT_RANDOM_TOPIC_CBQ))
                 .setRow(getString("backButton"), ParticipantsMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-        String meetingInfoMessage = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        messageManager.updateMessage(meetingInfoMessage + getString("input"), keyboardMarkup);
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.updateMessage(messageText, keyboardMarkup);
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
         return true;
     }

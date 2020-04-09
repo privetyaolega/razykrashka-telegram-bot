@@ -5,6 +5,7 @@ import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptFormatMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
@@ -23,9 +24,10 @@ public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         meeting.setFormat(MeetingFormatEnum.NA);
         meetingRepository.save(meeting);
 
-        String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
+        String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
         messageManager.deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(meetingInfo + getString("input"), getKeyboard());
+                .sendSimpleTextMessage(message, getKeyboard());
         setActiveNextStage(nextStageClass);
     }
 

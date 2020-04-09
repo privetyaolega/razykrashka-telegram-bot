@@ -1,6 +1,5 @@
 package com.razykrashka.bot.stage.meeting.view.single;
 
-import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
@@ -40,31 +39,28 @@ public class SingleMeetingTopicInfoStage extends MainStage {
         if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
             builder.setRow("Leave \uD83D\uDE30", SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
-            Integer participants = meeting.getParticipants().size();
+            int participants = meeting.getParticipants().size();
             Integer participantLimit = meeting.getMeetingInfo().getParticipantLimit();
             if (participants < participantLimit) {
                 builder.setRow("Join " + Emoji.ROCK_HAND, SingleMeetingViewJoinStage.class.getSimpleName() + meeting.getId());
             }
         }
 
-        List<Pair<String, String>> buttonList = new ArrayList<>();
-        buttonList.add(Pair.of("Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId()));
-        buttonList.add(Pair.of("Main Info " + Emoji.FOLDER, SingleMeetingViewStage.class.getSimpleName() + meeting.getId()));
-
-        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
-            buttonList.add(Pair.of("Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
-        }
-
-        builder.setRow(buttonList);
-
         if (updateHelper.getUser().equals(meeting.getTelegramUser())
                 && meeting.getParticipants().contains(updateHelper.getUser())) {
-            return builder.setRow(Pair.of("Delete meeting " + Emoji.DUST_BIN,
-                    DeleteConfirmationSingleMeetingStage.class.getSimpleName() + meeting.getId()))
-                    .build();
-        } else {
-            return builder.build();
+            builder.setRow(Pair.of("Delete " + Emoji.RED_CROSS,
+                    DeleteConfirmationSingleMeetingStage.class.getSimpleName() + meeting.getId()));
         }
+
+        List<Pair<String, String>> buttonList = new ArrayList<>();
+        buttonList.add(Pair.of(Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId()));
+        buttonList.add(Pair.of(Emoji.FOLDER, SingleMeetingViewStage.class.getSimpleName() + meeting.getId()));
+
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            buttonList.add(Pair.of(Emoji.LOCATION, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
+        }
+
+        return builder.setRow(buttonList).build();
     }
 
     @Override

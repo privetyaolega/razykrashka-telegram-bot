@@ -27,7 +27,7 @@ public class OfflineMeetingCreationSBSStage extends BaseMeetingCreationSBSStage 
         if (skype == null) {
             keyboard.setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
                     .build();
-            message = messageText + getString("input");
+            message = messageText + TextFormatter.getItalicString(getString("input"));
         } else {
             keyboard.setRow(ImmutableMap.of(
                     getString(EDIT), nextStageClass.getSimpleName(),

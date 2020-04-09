@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptParticipantsMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -38,9 +39,10 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
                 .setRow(getString("back"), LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
 
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
         messageManager.deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(messageText + getString("input"), keyboardMarkup);
+                .sendSimpleTextMessage(messageText, keyboardMarkup);
         super.setActiveNextStage(AcceptParticipantsMeetingCreationSBSStage.class);
     }
 

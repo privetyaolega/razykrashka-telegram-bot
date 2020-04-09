@@ -6,6 +6,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptLevelMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
@@ -36,8 +37,9 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 .setRow(getBackButton(meeting))
                 .build();
 
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        messageManager.sendSimpleTextMessage(messageText + getString("input"), keyboardMarkup);
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.sendSimpleTextMessage(messageText, keyboardMarkup);
         setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
     }
 

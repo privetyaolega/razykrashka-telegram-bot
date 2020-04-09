@@ -72,7 +72,7 @@ public class SingleMeetingViewStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         KeyboardBuilder builder = keyboardBuilder.getKeyboard();
         if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
-            builder.setRow("Leave \uD83D\uDE30",
+            builder.setRow("Leave " + Emoji.DISAPPOINTED_RELIEVED,
                     SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
             int participants = meeting.getParticipants().size();
@@ -83,24 +83,21 @@ public class SingleMeetingViewStage extends MainStage {
             }
         }
 
-        List<Pair<String, String>> buttonList = new ArrayList<>();
-        buttonList.add(Pair.of("Contact " + Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId()));
-        buttonList.add(Pair.of("Topic Info" + Emoji.BOOKS, SingleMeetingTopicInfoStage.class.getSimpleName() + meeting.getId()));
-
-        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
-            buttonList.add(Pair.of("Map " + Emoji.MAP, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
-        }
-
-        builder.setRow(buttonList);
-
         if (updateHelper.getUser().equals(meeting.getTelegramUser())
                 && meeting.getParticipants().contains(updateHelper.getUser())) {
-            return builder.setRow(Pair.of("Delete meeting " + Emoji.DUST_BIN,
-                    DeleteConfirmationSingleMeetingStage.class.getSimpleName() + meeting.getId()))
-                    .build();
-        } else {
-            return builder.build();
+            builder.setRow(Pair.of("Delete " + Emoji.RED_CROSS,
+                    DeleteConfirmationSingleMeetingStage.class.getSimpleName() + meeting.getId()));
         }
+
+        List<Pair<String, String>> buttonList = new ArrayList<>();
+        buttonList.add(Pair.of(Emoji.ONE_PERSON_SILHOUETTE, SingleMeetingViewContactStage.class.getSimpleName() + meeting.getId()));
+        buttonList.add(Pair.of(Emoji.SPEECH_CLOUD, SingleMeetingTopicInfoStage.class.getSimpleName() + meeting.getId()));
+
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            buttonList.add(Pair.of(Emoji.LOCATION, SingleMeetingViewMapStage.class.getSimpleName() + meeting.getId()));
+        }
+
+        return builder.setRow(buttonList).build();
     }
 
     private Pair<String, String> getNavigationBackButton() {

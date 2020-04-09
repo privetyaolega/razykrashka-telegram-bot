@@ -3,6 +3,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptTopicMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -20,7 +21,7 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         meetingRepository.save(meeting);
 
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        messageManager.updateMessage(meetingInfo + getString("input"), getKeyboard());
+        messageManager.updateMessage(meetingInfo + TextFormatter.getItalicString(getString("input")), getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
     }
 
@@ -34,6 +35,7 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        return super.isStageActive() || updateHelper.isCallBackDataEquals();
+        return super.isStageActive()
+                || updateHelper.isCallBackDataEquals();
     }
 }
