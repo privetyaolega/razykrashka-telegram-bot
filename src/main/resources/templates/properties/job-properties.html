@@ -25,6 +25,7 @@
                 <h4>Job properties</h4>
                 <hr>
                 <br>
+
                 <form id="form" method="POST"
                       th:action="@{/admin/save-job-props}"
                       th:object="${properties}">
@@ -87,6 +88,11 @@
                     <!-- Save button  -->
                     <br>
                     <button type="submit" class="btn btn-info col-2">SAVE</button>
+
+                    <hr>
+                    <p class="h5">
+                        <a rel="noopener noreferrer" target="_blank" href="https://crontab.guru/">Cron Tab Guru</a>
+                    </p>
                 </form>
             </div>
         </div>
