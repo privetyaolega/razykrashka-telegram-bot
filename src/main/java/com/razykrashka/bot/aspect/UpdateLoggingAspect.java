@@ -52,8 +52,6 @@ public class UpdateLoggingAspect {
 
         if (activeStages.size() > 1) {
             throw new StageActivityException("More than one stage is active!");
-        } else if (activeStages.size() == 0) {
-            throw new StageActivityException("No active stages were found.");
         }
     }
 

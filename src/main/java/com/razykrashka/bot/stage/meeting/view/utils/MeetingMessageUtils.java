@@ -51,7 +51,10 @@ public class MeetingMessageUtils {
                     .append("\n\n");
         }
 
-        header.append(Emoji.RADIO_BUTTON).append(Emoji.SPACES).append(TextFormatter.getCodeString(" MEETING # " + meeting.getId()))
+        header.append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
+                .append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES)
+                .append(Emoji.SPACES).append(Emoji.LIGHTNING)
+                .append(TextFormatter.getCodeString(" MEETING # " + meeting.getId()))
                 .append("\n").append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("\n");
 
@@ -98,10 +101,13 @@ public class MeetingMessageUtils {
     public String getSingleMeetingDiscussionInfo(Meeting meeting) {
         StringBuilder sb = new StringBuilder();
         StringBuilder header = new StringBuilder()
-                .append(Emoji.NEEDLE).append(Emoji.SPACES)
-                .append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n\n");
+                .append(Emoji.RADIO_BUTTON).append(Emoji.SPACES).append(Emoji.SPACES)
+                .append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES)
+                .append(Emoji.SPACES).append(Emoji.LIGHTNING)
+                .append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n")
+                .append(Emoji.CHAINS).append("\n");
         StringBuilder topic = new StringBuilder()
-                .append(Emoji.SPEECH_CLOUD).append(" ")
+                .append(Emoji.RADIO_BUTTON).append(" ")
                 .append(TextFormatter.getBoldString(meeting.getMeetingInfo().getTopic())).append("\n\n");
         StringBuilder questions = new StringBuilder()
                 .append(" ").append(meeting.getMeetingInfo().getQuestions().replace("●", "\n●")

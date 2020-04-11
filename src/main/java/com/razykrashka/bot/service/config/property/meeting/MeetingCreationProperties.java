@@ -13,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MeetingCreationProperties {
     Integer upperHourLimitToday;
+    Integer daysAdvanceMaximum;
     Integer hourAdvance;
     Boolean notificationGroup;
 }

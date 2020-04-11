@@ -54,11 +54,15 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
         boolean isMeetingDateToday = localDateTime.toLocalDate().isEqual(LocalDate.now());
         if (localDateTime.isBefore(LocalDateTime.now()) && !isMeetingDateToday) {
             sendAlertMessage(getString("pastDate"), false);
-            throw new IncorrectInputDataFormatException("Selected date is in the past!");
+            throw new IncorrectInputDataFormatException("Accept time Exception: Selected date is in the past!");
         } else if (isMeetingDateToday
                 && LocalDateTime.now().getHour() > meetingProperties.getCreation().getUpperHourLimitToday()) {
             sendAlertMessage(getString("lateTime"), true);
-            throw new IncorrectInputDataFormatException("Too late for meeting today");
+            throw new IncorrectInputDataFormatException("Accept time Exception: Too late for meeting today");
+        } else if (LocalDateTime.now().plusDays(meetingProperties.getCreation().getDaysAdvanceMaximum())
+                .isBefore(localDateTime)) {
+            sendAlertMessage(getFormatString("lateDaysWarning", meetingProperties.getCreation().getDaysAdvanceMaximum()), true);
+            throw new IncorrectInputDataFormatException("Meeting too far in the future: ");
         }
         return localDateTime.withHour(0).withMinute(0);
     }

@@ -88,14 +88,15 @@
     },
     "AcceptDateMeetingCreationSBSStage": {
       "pastDate": "⚠️ ERROR! Impossible to create meeting in the past.\uD83D\uDE30",
-      "lateTime": "⚠️ It's too late to create meeting for today."
+      "lateTime": "⚠️ It's too late to create meeting for today.",
+      "lateDaysWarning": "⚠️  You are trying create meeting too far in the future.\nYou can create meeting no later than %s days in the future."
     },
     "TimeMeetingCreationSBSStage": {
       "input": "Please, write a convenient time (e.g 19-30):",
       "backButton": "\uD83D\uDC48 Back to Date edit"
     },
     "FormatMeetingCreationSBSStage": {
-      "input": "<a href=google.com>here should be link for meeting format information</a>\n\nHmmm...\uD83E\uDD14\nWhat is actually 'Meeting Format'? Let's get this over together!\n'Meeting format' means the place, where you get in contact with your speaking partners.\n\t• For online meetings our community use Skype calls so, please, make sure, that you have this program.\n\t• Offline meetings take place in 'real life'. It can be some cafe or just bench in the street.\nSo, it's up to you where practice your English!\uD83D\uDE05 \n\nPlease, choose meeting format...",
+      "input": "<a href=google.com>here should be link for meeting format information</a>\n\nHmmm...\uD83E\uDD14\nWhat is actually 'Meeting Format'? Let's get this over together!\n'Meeting format' means the place, where you get in contact with your speaking partners.\n\t• For online meetings our community uses Skype calls so, please, make sure, that you have this program.\n\t• Offline meetings take place in 'real life'. It can be some cafe or just bench in the street.\nSo, it's up to you where practice your English!\uD83D\uDE05 \n\nPlease, choose meeting format...",
       "backButton": "\uD83D\uDC48 Back to Time edit"
     },
     "OfflineMeetingCreationSBSStage": {
@@ -108,7 +109,7 @@
       "warning": "       ⚠️Warning!\n\nAre you sure you want to delete the <b>/meeting%s</b> ?\nThe action is irrevocable and you can't recover current meeting!"
     },
     "MainStatisticStage": {
-      "main":"Here should be pretty text about community statistic \uD83D\uDE02\nTotal sucessfully completed meetings: %s\nTotal users using bot: %s\nTotal users in community group: %s"
+      "main": "Here should be pretty text about community statistic \uD83D\uDE02\nTotal sucessfully completed meetings: %s\nTotal users using bot: %s\nTotal users in community group: %s"
     }
   }
 ]
