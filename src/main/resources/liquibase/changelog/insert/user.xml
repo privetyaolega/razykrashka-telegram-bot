@@ -32,6 +32,9 @@
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
             VALUES('Dasha', 'Solnce', '+375292020058', '414315618', '');
+
+            INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
+            VALUES('имя', 'фамилия', '+375259249808', '197208573', 'ruby_roys');
         </sql>
     </changeSet>
 </databaseChangeLog>

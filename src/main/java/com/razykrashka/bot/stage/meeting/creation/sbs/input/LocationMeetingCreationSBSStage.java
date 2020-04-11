@@ -17,11 +17,15 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
 
     @Override
     public void handleRequest() {
+        handleRequest(true);
+    }
+
+    public void handleRequest(boolean showTutorial) {
         meeting = getMeetingInCreation();
         meeting.setLocation(null);
         meetingRepository.save(meeting);
 
-        if (!updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + EDIT)) {
+        if (!updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + EDIT) && showTutorial) {
             LoadingThreadV2 loadingThread = startLoadingThread(false);
             messageManager.sendAnimation("bot/pics/map_attachment.gif", getString("mapAttachment"));
             loadingThread.interrupt();

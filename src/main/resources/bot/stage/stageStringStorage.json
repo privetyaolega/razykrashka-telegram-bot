@@ -47,7 +47,7 @@
       "backButton": "👈 Back to Meeting Format edit"
     },
     "TopicMeetingCreationSBSStage": {
-      "input": "You need to choose the topic of the meeting in advance. This allows you not only to prepare and review your vocabulary, but also to spend the evening engaged in a really interesting conversation. With a ready-made topic and questions, you will always have something to discuss without awkward pauses… Trust me, I know what I’m talking about! \uD83D\uDE0F\n\nSo, please, enter the discussion topic:",
+      "input": "You need to choose the topic of the meeting in advance. This allows you not only to prepare and review your vocabulary, but also to spend the evening engaged in a really interesting conversation. With a ready-made topic and questions, you will always have something to discuss without awkward pauses… \nTrust me, I know what I’m talking about! \uD83D\uDE0F\n\nSo, please, enter the discussion topic:",
       "backButton": "👈 Back to Participant Limit edit"
     },
     "FinalMeetingCreationSBSStage": {
@@ -66,7 +66,7 @@
       "noMeetings": "There are no available <b>online</b> meetings \uD83D\uDE14"
     },
     "VerifyMeetingStateSBSStage": {
-      "main": "OOOOOPPPSSS! \uD83D\uDE2E\nIt seems, that you've got unfinished meeting creation process. \nDo you want to continue creation or create new meeting from scratch? ☺️",
+      "main": "OOOOOPPPSSS! \uD83D\uDE2E\nIt looks like you’ve got a meeting pending. \nDo you want to continue or create a new meeting from scratch? ☺️",
       "continue": "Continue meeting creation",
       "create": "Create new meeting"
     },
@@ -110,6 +110,9 @@
     },
     "MainStatisticStage": {
       "main": "Here should be pretty text about community statistic \uD83D\uDE02\nTotal sucessfully completed meetings: %s\nTotal users using bot: %s\nTotal users in community group: %s"
+    },
+    "AcceptLocationMeetingCreationSBSStage": {
+      "error": "We can't find anything by this address \uD83D\uDE13.\nPlease, clarify address and make sure that this place located in Minsk\uD83D\uDCCD"
     }
   }
 ]

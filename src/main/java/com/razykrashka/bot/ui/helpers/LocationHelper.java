@@ -26,10 +26,9 @@ public class LocationHelper {
     YandexMapApi yandexMapApi;
 
     public Location getLocation(String address) throws YandexMapApiException {
-        String addressWithCountry = address + ", Минск";
         // ImmutableMap.of("type", "biz")
         // TODO: Filter by category (cafe, restaurants etc) and city
-        List<FeatureYandex> yandexMapModelList = yandexMapApi.getYandexMapModel(addressWithCountry).getFeatures();
+        List<FeatureYandex> yandexMapModelList = yandexMapApi.getYandexMapModel(address).getFeatures();
 
         FeatureYandex yandexMapModel;
         if (yandexMapModelList.size() == 0) {

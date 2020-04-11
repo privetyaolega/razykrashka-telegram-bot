@@ -18,7 +18,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class YandexMapApi extends RestBuilder {
-
+    //    https://tech.yandex.ru/maps/geosearch/doc/concepts/request-docpage/
     @Value("${yandex.api.token}")
     String token;
     @Value("${yandex.api.endpoint}")
@@ -36,6 +36,9 @@ public class YandexMapApi extends RestBuilder {
         return getRequest(endpoint, ImmutableMap.of(
                 "apikey", token,
                 "text", address,
+                // Limit - Coordinates of search area
+                "bbox", "27.408632,53.836610~27.680456,53.991802",
+                "rspn", "1",
                 "lang", "ru_RU"
         ), FeaturesYandex.class);
     }

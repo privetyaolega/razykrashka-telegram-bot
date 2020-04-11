@@ -31,8 +31,8 @@ public class AcceptLocationMeetingCreationSBSStage extends BaseMeetingCreationSB
             }
         } catch (Exception e) {
             // TODO: Create informative error message
-            messageManager.replyLastMessage("Nothing were found by this street. Please, clarify!");
-            razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
+            messageManager.replyLastMessage(getString("error"));
+            razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest(false);
             return;
         }
 

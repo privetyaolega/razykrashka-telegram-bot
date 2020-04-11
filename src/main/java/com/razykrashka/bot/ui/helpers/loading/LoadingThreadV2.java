@@ -22,9 +22,26 @@ public class LoadingThreadV2 extends Thread {
     boolean fixIterationLoading;
 
     public LoadingThreadV2(boolean fixIterationLoading) {
-        this.loadingBar = Arrays.asList(".", "..", "...", "...\uD83D\uDCA4");
-        this.intervalMillis = 150L;
-        this.iterationAmount = 3;
+        String blank = "⠀";
+        this.loadingBar = Arrays.asList(
+                "\uD83D\uDE80⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀✨",
+                "⠀\uD83D\uDE80⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀✨",
+                "⠀⠀\uD83D\uDE80⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀✨",
+                "⠀⠀⠀\uD83D\uDE80⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀✨",
+                "⠀⠀⠀⠀\uD83D\uDE80⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀✨",
+                "⠀⠀⠀⠀⠀\uD83D\uDE80⠀⠀⠀⠀⠀⠀⠀⠀⠀✨",
+                "⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀⠀⠀⠀⠀⠀⠀⠀✨",
+                "⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀⠀⠀⠀⠀⠀⠀✨",
+                "⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀⠀⠀⠀⠀⠀✨",
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀⠀⠀⠀⠀✨",
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀⠀⠀⠀✨",
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀⠀⠀✨",
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀⠀✨",
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀✨",
+                "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80✨");
+
+        this.intervalMillis = 50L;
+        this.iterationAmount = 1;
         this.fixIterationLoading = fixIterationLoading;
     }
 

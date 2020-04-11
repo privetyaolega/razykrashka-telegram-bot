@@ -45,9 +45,9 @@ public class MeetingMessageUtils {
 
         int freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
         if (freePlacesAmount == 0) {
-            header.append(Emoji.ANGER).append(Emoji.ANGER).append(Emoji.ANGER)
+            header.append(Emoji.ANGER).append(Emoji.ANGER).append(Emoji.ANGER).append(Emoji.ANGER)
                     .append(TextFormatter.getItalicString(" NO FREE PLACES! "))
-                    .append(Emoji.ANGER).append(Emoji.ANGER).append(Emoji.ANGER)
+                    .append(Emoji.ANGER).append(Emoji.ANGER).append(Emoji.ANGER).append(Emoji.ANGER)
                     .append("\n\n");
         }
 
