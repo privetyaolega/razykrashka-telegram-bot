@@ -11,6 +11,6 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class MeetingProperties {
+public class JobMeetingProperties {
     NotificationProperties notification;
 }

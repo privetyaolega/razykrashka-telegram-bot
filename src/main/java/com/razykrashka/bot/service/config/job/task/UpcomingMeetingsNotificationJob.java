@@ -1,6 +1,5 @@
 package com.razykrashka.bot.service.config.job.task;
 
-import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.job.AbstractJob;
 import com.razykrashka.bot.service.config.job.properties.JobRunnable;
 import lombok.AccessLevel;
@@ -9,13 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
-import org.telegram.telegrambots.meta.api.methods.ParseMode;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -26,7 +18,7 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements JobR
 
     boolean enabled;
     String cronExp;
-    String name = "Available Job";
+    String name;
 
     /**
      *
@@ -40,7 +32,7 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements JobR
     @Override
     public void run() {
         log.info("JOB: Upcoming meeting notification job is started.");
-        List<Meeting> availableMeetings = meetingService.getAllMeetingDateToday();
+      /*  List<Meeting> availableMeetings = meetingService.getAllMeetingDateToday();
 
         log.info("JOB: Upcoming meetings on {} -> {}", LocalDate.now().toString(),
                 availableMeetings.isEmpty() ? "NO MEETING" : availableMeetings.stream()
@@ -60,6 +52,6 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements JobR
                         .setText("Hey! Do you remember about today’s meeting? Wish you a great time! ✨\n/meeting" + m.getId())
                         .disableWebPagePreview());
             });
-        });
+        });*/
     }
 }

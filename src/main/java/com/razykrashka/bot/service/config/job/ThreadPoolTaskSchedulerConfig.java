@@ -26,6 +26,7 @@ public class ThreadPoolTaskSchedulerConfig {
         threadPoolTaskScheduler.initialize();
 
         registerJob(jobProperties.getMeeting().getNotification().getAvailable());
+        registerJob(jobProperties.getMeeting().getNotification().getUpcoming());
 
         return threadPoolTaskSchedulerWrapper;
     }

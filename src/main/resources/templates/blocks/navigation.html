@@ -1,3 +1,5 @@
+<!--https://fontawesome.com/v4.7.0/icons/-->
+
 <th:block th:fragment="navigation">
     <div class="p-4">
         <h1><a href="index.html" class="logo">Razykrashka <span>Admin Panel</span></a></h1>
@@ -6,7 +8,16 @@
                 <a href="#"><span class="fa fa-home mr-3"></span>Home</a>
             </li>
             <li>
-                <a th:href="@{/admin/meeting-properties}"><span class="fa fa-cogs mr-3"></span>Properties</a>
+                <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
+                    <span class="fa fa-cogs mr-3"></span> Properties</a>
+                <ul class="list-unstyled collapse" id="pageSubmenu1" style="">
+                    <li>
+                        <a th:href="@{/admin/meeting-properties}"><span class="fa fa-cogs mr-3"></span>Meeting</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/job-properties}"><span class="fa fa-tasks mr-3"></span>Job</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="#"><span class="fa fa-calendar mr-3"></span>Times Setter</a>

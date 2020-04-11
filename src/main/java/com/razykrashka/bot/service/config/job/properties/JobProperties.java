@@ -18,5 +18,5 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties(prefix = "razykrashka.job")
 @ToString
 public class JobProperties {
-    MeetingProperties meeting;
+    JobMeetingProperties meeting;
 }

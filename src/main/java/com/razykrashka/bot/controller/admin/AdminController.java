@@ -1,6 +1,7 @@
 package com.razykrashka.bot.controller.admin;
 
 
+import com.razykrashka.bot.service.config.job.properties.JobProperties;
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +34,8 @@ public class AdminController {
     @Autowired
     MeetingProperties meetingProperties;
     @Autowired
+    JobProperties jobProperties;
+    @Autowired
     DefaultListableBeanFactory beanFactory;
     @Value("${logging.file}")
     private String loggingPath;
@@ -40,13 +43,14 @@ public class AdminController {
     @GetMapping("/meeting-properties")
     public String meetingProperties(Model model) {
         model.addAttribute("properties", meetingProperties);
-        return "meeting-properties.html";
+        return "properties/meeting-properties.html";
     }
+
 
     @GetMapping("/meeting-properties-edit")
     public String meetingPropertiesEdit(Model model) {
         model.addAttribute("properties", meetingProperties);
-        return "meeting-properties-edit.html";
+        return "properties/meeting-properties-edit.html";
     }
 
     @GetMapping("/meeting-properties-reset")
@@ -55,7 +59,7 @@ public class AdminController {
         meetingProperties = (MeetingProperties) updateHelper.getBot().getContext().getBean("meetingProperties");
         model.addAttribute("properties", meetingProperties);
         log.info("MEETING PROPERTIES: Properties have been reset to default values");
-        return "meeting-properties.html";
+        return "properties/meeting-properties.html";
     }
 
     @GetMapping("/logs")

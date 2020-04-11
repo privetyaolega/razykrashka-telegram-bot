@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="blocks/head :: header"></div>
+        <script>
+            function showMe(checkbox, input) {
+                var vis = "none";
+                if (document.getElementById(checkbox).checked) {
+                    vis = "block";
+                }
+                document.getElementById(input).style.display = vis;
+            }
+        </script>
+    </head>
+    <body onload="showMe('checkboxAvailableJob', 'inputAvailableJob');
+    showMe('checkboxUpcomingJob', 'inputUpcomingJob');">
+
+        <div class="container d-flex align-items-stretch">
+            <nav id="sidebar" class="img">
+                <div th:replace="blocks/navigation :: navigation"></div>
+            </nav>
+
+            <!-- Page Content  -->
+            <div id="content" class="pt-4 pl-5">
+                <h4>Job properties</h4>
+                <hr>
+                <br>
+                <form id="form" method="POST"
+                      th:action="@{/admin/save-job-props}"
+                      th:object="${properties}">
+
+                    <!-- Available Job Property Row  -->
+                    <div class="row">
+                        <!-- Available Job Checkbox  -->
+                        <div class="form-group col-sm-4">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="checkboxAvailableJob"
+                                   onclick="showMe('checkboxAvailableJob', 'inputAvailableJob')"
+                                   th:value="${properties.notification.available.enabled}"
+                                   th:field="*{notification.available.enabled}"/>
+                            <label class="custom-control-label"
+                                   for="checkboxAvailableJob"
+                                   aria-describedby="test">Available Meetings</label>
+                            <small id="test" class="form-text text-muted">Job notifies about available(vacant) meetings
+                                in main group chat.</small>
+                        </div>
+                        <!-- Available Job Input  -->
+                        <div class="col-sm-6" id="inputAvailableJob">
+                            <input class="form-control"
+                                   th:value="${properties.notification.available.cronExp}"
+                                   th:field="*{notification.available.cronExp}"
+                                   type="text"
+                                   aria-describedby="viewPerPageDescription"/>
+                            <small id="viewPerPageDescription" class="form-text text-muted">Cron expression</small>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Job Property Row  -->
+                    <div class="row">
+                        <!-- Upcoming Job Checkbox  -->
+                        <div class="form-group col-sm-4">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="checkboxUpcomingJob"
+                                   onclick="showMe('checkboxUpcomingJob', 'inputUpcomingJob')"
+                                   th:value="${properties.notification.upcoming.enabled}"
+                                   th:field="*{notification.upcoming.enabled}"/>
+                            <label class="custom-control-label"
+                                   for="checkboxUpcomingJob"
+                                   aria-describedby="test">Upcoming Meetings</label>
+                            <small id="test" class="form-text text-muted">Job notifies all meeting participants by
+                                sending reminder that contains link for meeting with brief information about it.</small>
+                        </div>
+                        <!-- Upcoming Job Input  -->
+                        <div class="col-sm-6" id="inputUpcomingJob">
+                            <input class="form-control"
+                                   th:value="${properties.notification.upcoming.cronExp}"
+                                   th:field="*{notification.upcoming.cronExp}"
+                                   type="text"
+                                   aria-describedby="viewPerPageDescription"/>
+                            <small id="viewPerPageDescription" class="form-text text-muted">Cron expression</small>
+                        </div>
+                    </div>
+
+
+                    <!-- Save button  -->
+                    <br>
+                    <button type="submit" class="btn btn-info col-2">SAVE</button>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

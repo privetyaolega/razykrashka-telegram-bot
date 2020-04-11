@@ -20,7 +20,7 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Job
 
     boolean enabled;
     String cronExp;
-    String name = "Available Job";
+    String name;
 
     final static String MAIN_MESSAGE = "Hey, guys! " + Emoji.WAVE_HAND + "\n" +
             "Yahooooo! There are %s available meetings!\n" +
