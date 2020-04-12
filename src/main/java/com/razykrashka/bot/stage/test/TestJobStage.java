@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.test;
 
 import com.razykrashka.bot.service.config.job.ThreadPoolTaskSchedulerWrapper;
-import com.razykrashka.bot.service.config.job.task.AvailableMeetingsNotificationJob;
+import com.razykrashka.bot.service.config.job.properties.AvailableMeetingsProperty;
 import com.razykrashka.bot.service.config.job.properties.JobProperties;
 import com.razykrashka.bot.stage.MainStage;
 import lombok.extern.log4j.Log4j2;
@@ -19,13 +19,13 @@ public class TestJobStage extends MainStage {
     @Override
     public void handleRequest() {
         JobProperties jobProperties = threadPoolTaskSchedulerWrapper.getJobProperties();
-        AvailableMeetingsNotificationJob availableJob = jobProperties.getMeeting().getNotification().getAvailable();
+        AvailableMeetingsProperty availableJob = jobProperties.getMeeting().getNotification().getAvailable();
         threadPoolTaskSchedulerWrapper.getExecutingTask()
                 .get(availableJob.getName())
                 .cancel(false);
         String newCron = updateHelper.getMessageText().replace("/job", "");
         threadPoolTaskSchedulerWrapper.getThreadPoolTaskScheduler()
-                .schedule(availableJob, new CronTrigger(newCron));
+                .schedule(availableJob.getJob(), new CronTrigger(newCron));
     }
 
     @Override

@@ -2,7 +2,8 @@ package com.razykrashka.bot.service.config.job;
 
 import com.razykrashka.bot.service.config.job.properties.JobProperties;
 import com.razykrashka.bot.service.config.job.properties.JobRunnable;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.razykrashka.bot.service.config.job.task.AvailableMeetingsNotificationJob;
+import com.razykrashka.bot.service.config.job.task.UpcomingMeetingsNotificationJob;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -12,19 +13,26 @@ import java.util.concurrent.ScheduledFuture;
 @Configuration
 public class ThreadPoolTaskSchedulerConfig {
 
-    @Autowired
-    JobProperties jobProperties;
-    ThreadPoolTaskSchedulerWrapper threadPoolTaskSchedulerWrapper;
+    final ThreadPoolTaskSchedulerWrapper threadPoolTaskSchedulerWrapper;
+    final UpcomingMeetingsNotificationJob upcomingMeetingsNotificationJob;
+    final AvailableMeetingsNotificationJob availableMeetingsNotificationJob;
+
+    public ThreadPoolTaskSchedulerConfig(ThreadPoolTaskSchedulerWrapper threadPoolTaskSchedulerWrapper, UpcomingMeetingsNotificationJob upcomingMeetingsNotificationJob, AvailableMeetingsNotificationJob availableMeetingsNotificationJob) {
+        this.threadPoolTaskSchedulerWrapper = threadPoolTaskSchedulerWrapper;
+        this.upcomingMeetingsNotificationJob = upcomingMeetingsNotificationJob;
+        this.availableMeetingsNotificationJob = availableMeetingsNotificationJob;
+    }
 
     @Bean
     public ThreadPoolTaskSchedulerWrapper threadPoolTaskScheduler() {
-        threadPoolTaskSchedulerWrapper = new ThreadPoolTaskSchedulerWrapper();
-
         ThreadPoolTaskScheduler threadPoolTaskScheduler = threadPoolTaskSchedulerWrapper.getThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(5);
         threadPoolTaskScheduler.setThreadNamePrefix("Job Task Scheduler");
         threadPoolTaskScheduler.initialize();
 
+        JobProperties jobProperties = threadPoolTaskSchedulerWrapper.getJobProperties();
+        jobProperties.getMeeting().getNotification().getUpcoming().setJob(upcomingMeetingsNotificationJob);
+        jobProperties.getMeeting().getNotification().getAvailable().setJob(availableMeetingsNotificationJob);
         registerJob(jobProperties.getMeeting().getNotification().getAvailable());
         registerJob(jobProperties.getMeeting().getNotification().getUpcoming());
 
@@ -34,7 +42,7 @@ public class ThreadPoolTaskSchedulerConfig {
     private void registerJob(JobRunnable jobRunnable) {
         if (jobRunnable.isEnabled()) {
             ThreadPoolTaskScheduler threadPoolTaskScheduler = threadPoolTaskSchedulerWrapper.getThreadPoolTaskScheduler();
-            ScheduledFuture<?> schedule = threadPoolTaskScheduler.schedule(jobRunnable, jobRunnable.getCronTrigger());
+            ScheduledFuture<?> schedule = threadPoolTaskScheduler.schedule(jobRunnable.getJob(), jobRunnable.getCronTrigger());
             threadPoolTaskSchedulerWrapper.getExecutingTask().put(jobRunnable.getName(), schedule);
         }
     }

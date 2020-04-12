@@ -1,11 +1,7 @@
 package com.razykrashka.bot.controller.admin;
 
 import com.razykrashka.bot.service.config.job.ThreadPoolTaskSchedulerWrapper;
-import com.razykrashka.bot.service.config.job.properties.JobMeetingProperties;
-import com.razykrashka.bot.service.config.job.properties.JobProperties;
-import com.razykrashka.bot.service.config.job.properties.JobRunnable;
-import com.razykrashka.bot.service.config.job.task.AvailableMeetingsNotificationJob;
-import com.razykrashka.bot.service.config.job.task.UpcomingMeetingsNotificationJob;
+import com.razykrashka.bot.service.config.job.properties.*;
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import lombok.extern.log4j.Log4j2;
@@ -36,14 +32,14 @@ public class JobPropertiesController {
 
     @PostMapping("/save-job-props")
     public String saveJobProperties(@ModelAttribute("prop") JobMeetingProperties job) {
-        AvailableMeetingsNotificationJob availableJobNewData = job.getNotification().getAvailable();
-        AvailableMeetingsNotificationJob availableJobFromProperty = jobProperties.getMeeting().getNotification().getAvailable();
+        AvailableMeetingsProperty availableJobNewData = job.getNotification().getAvailable();
+        AvailableMeetingsProperty availableJobFromProperty = jobProperties.getMeeting().getNotification().getAvailable();
         availableJobFromProperty.setCronExp(availableJobNewData.getCronExp());
         availableJobFromProperty.setEnabled(availableJobNewData.isEnabled());
         changeJobProperties(availableJobFromProperty);
 
-        UpcomingMeetingsNotificationJob upcomingJobNewData = job.getNotification().getUpcoming();
-        UpcomingMeetingsNotificationJob upcomingJobFromProperty = jobProperties.getMeeting().getNotification().getUpcoming();
+        UpcomingMeetingsProperty upcomingJobNewData = job.getNotification().getUpcoming();
+        UpcomingMeetingsProperty upcomingJobFromProperty = jobProperties.getMeeting().getNotification().getUpcoming();
         upcomingJobFromProperty.setCronExp(upcomingJobNewData.getCronExp());
         upcomingJobFromProperty.setEnabled(upcomingJobNewData.isEnabled());
         changeJobProperties(upcomingJobFromProperty);
@@ -60,7 +56,7 @@ public class JobPropertiesController {
         if (job.isEnabled()) {
             log.info("JOB ENABLED WITH CRON {}", job.getCronExp());
             ThreadPoolTaskScheduler threadPoolTaskScheduler = threadPoolTaskSchedulerWrapper.getThreadPoolTaskScheduler();
-            ScheduledFuture<?> schedule = threadPoolTaskScheduler.schedule(job, job.getCronTrigger());
+            ScheduledFuture<?> schedule = threadPoolTaskScheduler.schedule(job.getJob(), job.getCronTrigger());
             threadPoolTaskSchedulerWrapper.getExecutingTask().put(job.getName(), schedule);
         } else {
             log.info("JOB {} DISABLED", job.getName());

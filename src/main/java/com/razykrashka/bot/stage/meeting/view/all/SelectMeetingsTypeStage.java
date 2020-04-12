@@ -25,11 +25,23 @@ public class SelectMeetingsTypeStage extends MainStage {
     }
 
     @Override
+    public boolean processCallBackQuery() {
+        handleRequest();
+        return true;
+    }
+
+    @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder
                 .getKeyboard()
                 .setRow("Offline " + Emoji.COFFEE, OfflineMeetingsViewStage.class.getSimpleName())
                 .setRow("Online " + Emoji.INTERNET, OnlineMeetingsViewStage.class.getSimpleName())
                 .build();
+    }
+
+    @Override
+    public boolean isStageActive() {
+        return updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword())
+                || updateHelper.isCallBackDataContains();
     }
 }

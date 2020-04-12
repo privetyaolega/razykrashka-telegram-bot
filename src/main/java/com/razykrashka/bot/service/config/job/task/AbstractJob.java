@@ -9,11 +9,10 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Component;
 
 @FieldDefaults(level = AccessLevel.PROTECTED)
 @PropertySource(value = {"classpath:/props/razykrashka.yaml"}, factory = YamlPropertyLoaderFactory.class)
-@EnableScheduling
 public abstract class AbstractJob {
     @Value("${razykrashka.group.id}")
     String groupChatId;
