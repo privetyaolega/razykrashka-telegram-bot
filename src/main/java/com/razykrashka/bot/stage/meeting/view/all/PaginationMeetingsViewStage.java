@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.meeting.view.all;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.service.MeetingService;
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
@@ -14,6 +15,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -25,12 +27,13 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
     MeetingProperties meetingProperties;
     @Autowired
     MeetingMessageUtils meetingMessageUtils;
+    @Autowired
+    MeetingService meetingService;
 
     InlineKeyboardMarkup keyboard;
     List<Meeting> meetings;
 
-    @Override
-    public boolean processCallBackQuery() {
+    protected void generateMainMessage(Function<List<Meeting>, String> function) {
         keyboard = new InlineKeyboardMarkup();
         if (meetings.size() == 0) {
             messageManager.updateOrSendDependsOnLastMessageOwner(getString("noMeetings"), null);
@@ -40,7 +43,7 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
             List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage(pageNumToShow, totalPagesAmount);
 
             String header = String.format(getString("header"), meetings.size());
-            String meetingsString = meetingMessageUtils.createMeetingsText(meetingsToShow, updateHelper.getUser().getTelegramId());
+            String meetingsString = function.apply(meetingsToShow);
             if (meetings.size() > meetingProperties.getViewPerPage()) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }
@@ -58,7 +61,6 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
                 messageManager.updateOrSendDependsOnLastMessageOwner(header + meetingsString, keyboard);
             }
         }
-        return true;
     }
 
     /**
@@ -80,6 +82,11 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
         } else {
             return 1;
         }
+    }
+
+    @Override
+    public void handleRequest() {
+        processCallBackQuery();
     }
 
     private List<Meeting> getMeetingsSublistForCurrentPage(int pageNumToShow, int totalPagesAmount) {

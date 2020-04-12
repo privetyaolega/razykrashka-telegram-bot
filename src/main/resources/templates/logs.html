@@ -103,7 +103,7 @@
                             document.getElementById('result-pre').style.visibility = 'hidden';
                             d.interval = setInterval(function () {
                                 $.ajax({
-                                    url: '/admin/logs-ajax',
+                                    url: '${pageContext.request.contextPath}/admin/logs-ajax',
                                     success: function (data) {
                                         $('#result').html(data);
                                     }

@@ -15,6 +15,10 @@
             VALUES (4, '2020-03-04 11:32:27', 'DONE', false);
             INSERT INTO creation_state (id, start_creation_date_time, creation_status, in_creation_progress)
             VALUES (5, '2020-03-04 11:32:27', 'DONE', false);
+            INSERT INTO creation_state (id, start_creation_date_time, creation_status, in_creation_progress)
+            VALUES (6, '2020-03-04 11:32:27', 'DONE', false);
+            INSERT INTO creation_state (id, start_creation_date_time, creation_status, in_creation_progress)
+            VALUES (7, '2020-03-04 11:32:27', 'DONE', false);
         </sql>
     </changeSet>
 </databaseChangeLog>

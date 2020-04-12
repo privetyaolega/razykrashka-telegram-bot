@@ -25,9 +25,8 @@ public class UndefinedStage extends MainStage {
         if (updateHelper.hasMessage()
                 && updateHelper.getUpdate().getMessage().hasText()
                 && !updateHelper.isUpdateFromGroupChat()) {
-            String message = getFormatString("unknown", updateHelper.getMessageText());
             messageManager.disableKeyboardLastBotMessage()
-                    .replyLastMessage(message);
+                    .replyLastMessage(getString("unknown"));
         }
     }
 }

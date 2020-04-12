@@ -1,10 +1,12 @@
 package com.razykrashka.bot.stage.meeting.view.all;
 
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.StageInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -20,8 +22,9 @@ public class MyMeetingsViewStage extends PaginationMeetingsViewStage {
         meetings = meetingRepository.findAllScheduledMeetingsForUserById(updateHelper.getUser().getId())
                 .stream()
                 .filter(m -> m.getMeetingDateTime().plusHours(1).isAfter(LocalDateTime.now()))
+                .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
                 .collect(Collectors.toList());
-        super.processCallBackQuery();
+        super.generateMainMessage(meetingMessageUtils::getPaginationAllGeneral);
     }
 
     @Override

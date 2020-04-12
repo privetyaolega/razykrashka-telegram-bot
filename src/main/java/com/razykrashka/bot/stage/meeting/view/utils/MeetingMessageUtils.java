@@ -7,8 +7,10 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
+import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 @PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public class MeetingMessageUtils {
 
+    @Autowired
+    UpdateHelper updateHelper;
     @Value("${razykrashka.bot.username}")
     String botUserName;
     final static String GOOGLE_MAP_LINK_PATTERN = "https://www.google.com/maps/search/?api=1&query=%s,%s";
@@ -31,9 +35,15 @@ public class MeetingMessageUtils {
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
     String lastSunny;
 
-    public String createMeetingsText(List<Meeting> userMeetings, Integer telegramUserId) {
+    public String getPaginationAllGeneral(List<Meeting> userMeetings) {
         return userMeetings.stream()
-                .map(m -> createSingleMeetingMainInformationText(m, telegramUserId))
+                .map(this::createSingleMeetingMainInformationText)
+                .collect(Collectors.joining("\n\n"));
+    }
+
+    public String getPaginationAllViewArchived(List<Meeting> userMeetings) {
+        return userMeetings.stream()
+                .map(this::getPaginationSingleViewArchived)
                 .collect(Collectors.joining("\n\n"));
     }
 
@@ -136,7 +146,7 @@ public class MeetingMessageUtils {
         return lastSunny;
     }
 
-    public String createSingleMeetingMainInformationText(Meeting meeting, Integer telegramUserId) {
+    public String createSingleMeetingMainInformationText(Meeting meeting) {
         int freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
 
         StringBuilder freePlacesLine = new StringBuilder();
@@ -178,18 +188,61 @@ public class MeetingMessageUtils {
             meetingLinkLine.append(" ");
             spacesAmount--;
         }
-        boolean isUserMeetingOwner = (meeting.getTelegramUser() != null && meeting.getTelegramUser().getTelegramId().equals(telegramUserId));
+        boolean isUserMeetingOwner = meeting.getTelegramUser().equals(updateHelper.getUser());
         meetingLinkLine.append(TextFormatter.getBoldString("/meeting" + meeting.getId()))
                 .append(isUserMeetingOwner ? " " + Emoji.CROWN : "");
         return sb.append(meetingLinkLine).toString();
     }
 
-    public String createMeetingInfoDuringCreation(Meeting meeting) {
+    private String getPaginationSingleViewArchived(Meeting meeting) {
+        String formatLabel = Emoji.COFFEE;
+        if (meeting.getFormat().equals(MeetingFormatEnum.ONLINE)) {
+            formatLabel = Emoji.INTERNET;
+        }
 
+        String dateLine = new StringBuilder()
+                .append(formatLabel)
+                .append(" ")
+                .append(meeting.getMeetingDateTime().format(DateTimeFormatter
+                        .ofPattern("dd MMMM yyyy", Locale.ENGLISH))).toString();
+        StringBuilder locationLine = new StringBuilder();
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            locationLine.append("\n").append(Emoji.SPACES).append(getLocationLink(meeting));
+        }
+
+        String levelLine = new StringBuilder()
+                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()))
+                .toString();
+        String topicLevelLine = new StringBuilder()
+                .append(Emoji.SPACES).append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getTopic())
+                .toString();
+
+        StringBuilder sb = new StringBuilder()
+                .append(dateLine)
+                .append(locationLine).append("\n")
+                .append(levelLine).append("\n")
+                .append(topicLevelLine).append("\n");
+
+        return sb.append(getMeetingLine(meeting, dateLine)).toString();
+    }
+
+    private String getMeetingLine(Meeting m, String dateLine) {
+        int spacesAmount = (int) ((dateLine.length() * 1.52 - ("/meeting" + m.getId()).length()));
+        StringBuilder meetingLinkLine = new StringBuilder();
+        while (spacesAmount != 0) {
+            meetingLinkLine.append(" ");
+            spacesAmount--;
+        }
+
+        boolean isUserMeetingOwner = m.getTelegramUser().equals(updateHelper.getUser());
+        return meetingLinkLine.append(TextFormatter.getBoldString("/meeting" + m.getId()))
+                .append(isUserMeetingOwner ? " " + Emoji.CROWN : "").toString();
+    }
+
+    public String createMeetingInfoDuringCreation(Meeting meeting) {
         if (meeting.getFormat().equals(MeetingFormatEnum.ONLINE)) {
             return createMeetingInfoDuringCreationOnline(meeting);
         }
-
 
         StringBuilder sb = new StringBuilder();
 

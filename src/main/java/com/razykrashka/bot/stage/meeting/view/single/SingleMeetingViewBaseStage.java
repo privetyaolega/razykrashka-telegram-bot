@@ -53,8 +53,9 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
         return updateHelper.getUser().equals(meeting.getTelegramUser()) && isUserParticipant();
     }
 
-    protected boolean isMeetingAboutStarting() {
-        return meeting.getMeetingDateTime().plusHours(1).isAfter(LocalDateTime.now());
+    protected boolean isMeetingStarted() {
+        LocalDateTime meetingDateTime = meeting.getMeetingDateTime();
+        return LocalDateTime.now().isAfter(meetingDateTime.minusHours(1));
     }
 
     protected boolean hasFreePlaces() {
@@ -65,18 +66,22 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
 
     protected Pair<String, String> getActionButton() {
         Pair<String, String> button = null;
-        if (isUserParticipant() && isMeetingAboutStarting()) {
-            button = Pair.of("Leave " + Emoji.DISAPPOINTED_RELIEVED, leaveStage + meeting.getId());
-        } else if (hasFreePlaces()) {
-            button = Pair.of("Join " + Emoji.ROCK_HAND, joinStage + meeting.getId());
+        if (!isMeetingStarted()) {
+            if (isUserParticipant()) {
+                button = Pair.of("Leave " + Emoji.DISAPPOINTED_RELIEVED, leaveStage + meeting.getId());
+            } else if (hasFreePlaces()) {
+                button = Pair.of("Join " + Emoji.ROCK_HAND, joinStage + meeting.getId());
+            }
         }
         return button;
     }
 
     protected Pair<String, String> getDeleteButton() {
         Pair<String, String> button = null;
-        if (isUserOwner() && isMeetingAboutStarting()) {
-            button = Pair.of("Delete " + Emoji.RED_CROSS, deleteStage + meeting.getId());
+        if (!isMeetingStarted()) {
+            if (isUserOwner()) {
+                button = Pair.of("Delete " + Emoji.RED_CROSS, deleteStage + meeting.getId());
+            }
         }
         return button;
     }

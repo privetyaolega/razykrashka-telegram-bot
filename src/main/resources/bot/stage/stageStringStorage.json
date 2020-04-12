@@ -11,13 +11,16 @@
       "example": "NEW MEETING REQUEST:\n\nDATE: \n14.01.2020 19-00\n\nLOCATION: \nул. Немига 5, Лидо\n\nMAX PEOPLE: \n4\n\nSPEAKING LEVEL: \nUpper-Intermediate\n\nCONTACT NUMBER: \n+375295508809\n\nTOPIC: \nInternet and Computers\n\nQUESTIONS:\n● What are two disadvantages of using smartphones and tablets?\n● What do you think about Cybercafes? are they still useful?\n● Do you like a job in which you have to use computers?\n● Do you spend too much time online?\n● Does your mother of father know how to use a computer?\n● Do computers make life easier?\n● What websites do you visit in a regular basis?\n● What do you think about the Apple?\n● What are some advantages of using social networks?\n● Do you visit English websites?"
     },
     "UndefinedStage": {
-      "unknown": "<code>%s</code> : UNKNOWN COMMAND"
+      "unknown": "Ooopss! Sorry, but it's unknown command \uD83E\uDD74"
     },
     "SelectWayMeetingCreationStage": {
       "enMain": "Please, choose the way to create new meeting!\n\n☝\uD83C\uDFFBTemplate.\nUsing template (plain text) to create new meeting.\nJust copy existing template and fill it with all required data such as date, location, english level etc...\n\n\n✌\uD83C\uDFFBStep by step.\nCreate new meeting by answering questions about meeting details."
     },
-    "AllActiveMeetingsViewStage": {
+    "ActiveMeetingsViewStage": {
       "header": "\uD83D\uDCAB There are <b>%d active</b> meetings.\n\n"
+    },
+    "ArchivedMeetingsViewStage": {
+      "header": "\uD83D\uDCC1 There are <b>%d archived</b> meetings.\n\n"
     },
     "OfflineMeetingsViewStage": {
       "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n",

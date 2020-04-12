@@ -25,35 +25,35 @@ public class MeetingService {
         this.meetingRepository = meetingRepository;
     }
 
-    public Stream<Meeting> getAllStream() {
+    public Stream<Meeting> getAllMeetings() {
         return StreamSupport.stream(meetingRepository.findAll().spliterator(), false);
     }
 
     public List<Meeting> getAllCreationStatusDone() {
-        return getAllStream()
+        return getAllMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
                         && m.getMeetingDateTime().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
     }
 
     public List<Meeting> getAllExpired() {
-        return getAllStream()
+        return getAllMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
                         && m.getMeetingDateTime().isBefore(LocalDateTime.now()))
                 .collect(Collectors.toList());
     }
 
     public List<Meeting> getAllMeetingDateToday() {
-        return getAllStream()
+        return getAllMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
                         && m.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now()))
                 .collect(Collectors.toList());
     }
 
-    public List<Meeting> getAllActiveOnline() {
-        return getAllCreationStatusDone().stream()
-                .filter(m -> m.getFormat().equals(MeetingFormatEnum.ONLINE))
-                .collect(Collectors.toList());
+    public Stream<Meeting> getAllActive() {
+        return getAllMeetings()
+                .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
+                        && m.getMeetingDateTime().isAfter(LocalDateTime.now()));
     }
 
     public List<Meeting> getAllActiveOffline() {

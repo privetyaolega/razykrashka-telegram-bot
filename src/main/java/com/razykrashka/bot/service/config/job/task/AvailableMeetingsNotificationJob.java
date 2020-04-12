@@ -3,7 +3,7 @@ package com.razykrashka.bot.service.config.job.task;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.job.AbstractJob;
-import com.razykrashka.bot.stage.meeting.view.all.AllActiveMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,7 +53,7 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
             InlineKeyboardMarkup keyboard = keyboardBuilder
                     .getKeyboard()
                     .setRow("Show available meetings ✨",
-                            AllActiveMeetingsViewStage.class.getSimpleName() + FROM_GROUP)
+                            ActiveMeetingsViewStage.class.getSimpleName() + FROM_GROUP)
                     .build();
 
             messageManager.disableKeyboardLastBotMessage(groupChatId)
