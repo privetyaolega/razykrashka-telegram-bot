@@ -19,7 +19,7 @@ public class MyMeetingsViewStage extends PaginationMeetingsViewStage {
     public void handleRequest() {
         meetings = meetingRepository.findAllScheduledMeetingsForUserById(updateHelper.getUser().getId())
                 .stream()
-                .filter(m -> m.getMeetingDateTime().minusHours(1).isAfter(LocalDateTime.now()))
+                .filter(m -> m.getMeetingDateTime().plusHours(1).isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
         super.processCallBackQuery();
     }

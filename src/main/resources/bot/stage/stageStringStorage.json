@@ -16,6 +16,9 @@
     "SelectWayMeetingCreationStage": {
       "enMain": "Please, choose the way to create new meeting!\n\n☝\uD83C\uDFFBTemplate.\nUsing template (plain text) to create new meeting.\nJust copy existing template and fill it with all required data such as date, location, english level etc...\n\n\n✌\uD83C\uDFFBStep by step.\nCreate new meeting by answering questions about meeting details."
     },
+    "AllActiveMeetingsViewStage": {
+      "header": "\uD83D\uDCAB There are <b>%d active</b> meetings.\n\n"
+    },
     "OfflineMeetingsViewStage": {
       "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n",
       "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n",

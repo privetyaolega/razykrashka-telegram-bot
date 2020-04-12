@@ -21,6 +21,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,12 +32,11 @@ import java.util.stream.IntStream;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SingleMeetingViewStage extends MainStage {
 
+    Meeting meeting;
     @Value("${razykrashka.bot.meeting.view-per-page}")
     Integer meetingsPerPage;
     @Autowired
     MeetingMessageUtils meetingMessageUtils;
-    @Autowired
-    Meeting meeting;
     @Autowired
     MeetingService meetingService;
 
@@ -71,7 +71,8 @@ public class SingleMeetingViewStage extends MainStage {
     @Override
     public ReplyKeyboard getKeyboard() {
         KeyboardBuilder builder = keyboardBuilder.getKeyboard();
-        if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))) {
+        if (updateHelper.getUser().getToGoMeetings().stream().anyMatch(m -> m.getId().equals(meeting.getId()))
+                || meeting.getMeetingDateTime().minusHours(1).isAfter(LocalDateTime.now())) {
             builder.setRow("Leave " + Emoji.DISAPPOINTED_RELIEVED,
                     SingleMeetingViewUnsubscribeStage.class.getSimpleName() + meeting.getId());
         } else {
@@ -83,8 +84,9 @@ public class SingleMeetingViewStage extends MainStage {
             }
         }
 
-        if (updateHelper.getUser().equals(meeting.getTelegramUser())
-                && meeting.getParticipants().contains(updateHelper.getUser())) {
+        if ((updateHelper.getUser().equals(meeting.getTelegramUser())
+                && meeting.getParticipants().contains(updateHelper.getUser()))
+                || meeting.getMeetingDateTime().minusHours(1).isAfter(LocalDateTime.now())) {
             builder.setRow(Pair.of("Delete " + Emoji.RED_CROSS,
                     DeleteConfirmationSingleMeetingStage.class.getSimpleName() + meeting.getId()));
         }
