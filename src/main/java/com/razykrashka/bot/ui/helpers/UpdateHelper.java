@@ -178,4 +178,8 @@ public class UpdateHelper {
     public boolean isUpdateFromGroup() {
         return isCallBackDataContains(FROM_GROUP);
     }
+
+    public int getIntDataFromCallBackQuery() {
+        return Integer.parseInt(getCallBackData().replaceAll("\\D+", ""));
+    }
 }

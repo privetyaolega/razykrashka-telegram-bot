@@ -1,4 +1,4 @@
-package com.razykrashka.bot.stage.meeting.view.single;
+package com.razykrashka.bot.stage.meeting.view.single.action;
 
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
@@ -8,21 +8,20 @@ import org.springframework.stereotype.Component;
 
 @Log4j2
 @Component
-public class SingleMeetingViewJoinStage extends MainStage {
+public class SingleMeetingViewLeaveStage extends MainStage {
 
     @Override
     public boolean processCallBackQuery() {
         Integer meetingId = updateHelper.getIntegerPureCallBackData();
         Meeting meeting = meetingRepository.findById(meetingId)
-                .orElseThrow(() -> new RuntimeException("Can not find meeting with id:" + meetingId));
+                .orElseThrow(() -> new RuntimeException("Can not find meeting with id: " + meetingId));
 
-        TelegramUser user = updateHelper.getUser();
-        user.addMeetingTotoGoMeetings(meeting);
-        telegramUserRepository.save(user);
+        TelegramUser telegramUser = updateHelper.getUser();
+        telegramUser.removeFromToGoMeetings(meeting);
+        telegramUserRepository.save(telegramUser);
 
-        String message = String.format(getString("main"), meetingId);
         messageManager.disableKeyboardLastBotMessage()
-                .sendSimpleTextMessage(message);
+                .sendSimpleTextMessage(String.format(getString("main"), meetingId));
         return true;
     }
 

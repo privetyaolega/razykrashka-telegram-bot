@@ -65,7 +65,10 @@ public class KeyboardBuilder {
     }
 
     public KeyboardBuilder setRow(Pair<String, String> pair) {
-        return setRow(Collections.singletonList(pair));
+        if (pair != null) {
+            return setRow(Collections.singletonList(pair));
+        }
+        return this;
     }
 
     public KeyboardBuilder setRow(InlineKeyboardButton button) {

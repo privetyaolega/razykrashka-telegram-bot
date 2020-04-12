@@ -2,7 +2,7 @@ package com.razykrashka.bot.stage.meeting.edit.delete;
 
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewStage;
+import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewMainStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class DeleteConfirmationSingleMeetingStage extends MainStage {
         keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
                         "Yes", DeleteSingleMeetingStage.class.getSimpleName() + id,
-                        "No", SingleMeetingViewStage.class.getSimpleName() + id))
+                        "No", SingleMeetingViewMainStage.class.getSimpleName() + id))
                 .build();
 
         messageManager.updateMessage(getFormatString("warning", id), keyboardBuilder.build());

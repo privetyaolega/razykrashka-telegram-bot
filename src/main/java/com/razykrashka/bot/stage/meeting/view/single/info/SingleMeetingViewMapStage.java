@@ -1,4 +1,4 @@
-package com.razykrashka.bot.stage.meeting.view.single;
+package com.razykrashka.bot.stage.meeting.view.single.info;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
