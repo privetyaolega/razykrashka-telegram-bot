@@ -40,7 +40,7 @@ public class LoadingThreadV2 extends Thread {
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80⠀✨",
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\uD83D\uDE80✨");
 
-        this.intervalMillis = 50L;
+        this.intervalMillis = 10L;
         this.iterationAmount = 1;
         this.fixIterationLoading = fixIterationLoading;
     }

@@ -16,8 +16,10 @@ public class StartNewMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
     @Override
     public boolean processCallBackQuery() {
         LoadingThreadV2 loadingThread = startLoadingThread(true);
-        meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId())
-                .ifPresent(m -> meetingRepository.delete(m));
+        if (updateHelper.isCallBackDataContains("fromScratch")) {
+            meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId())
+                    .ifPresent(m -> meetingRepository.delete(m));
+        }
         super.setActiveNextStage(DateMeetingCreationSBSStage.class);
         joinToThread(loadingThread);
         razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();

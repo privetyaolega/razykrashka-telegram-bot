@@ -165,11 +165,22 @@ public class UpdateHelper {
         return razykrashkaBot;
     }
 
-    public boolean isUpdateFromGroupChat() {
+    public boolean isMessageFromGroup() {
         if (hasMessage()) {
             return razykrashkaBot.getRealUpdate()
                     .getMessage()
                     .getChat().getId()
+                    .equals(groupChatId);
+        }
+        return false;
+    }
+
+    public boolean isCallBackQueryFromGroup() {
+        if (hasCallBackQuery()) {
+            return razykrashkaBot.getRealUpdate()
+                    .getCallbackQuery()
+                    .getMessage().getChat()
+                    .getId()
                     .equals(groupChatId);
         }
         return false;

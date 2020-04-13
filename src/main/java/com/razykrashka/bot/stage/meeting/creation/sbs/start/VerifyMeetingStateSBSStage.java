@@ -21,7 +21,7 @@ public class VerifyMeetingStateSBSStage extends BaseMeetingCreationSBSStage {
         } else {
             InlineKeyboardMarkup keyboard = keyboardBuilder.getKeyboard()
                     .setRow(getString("continue"), ContinueCreationMeetingSBSStage.class.getSimpleName())
-                    .setRow(getString("create"), StartNewMeetingCreationSBSStage.class.getSimpleName())
+                    .setRow(getString("create"), StartNewMeetingCreationSBSStage.class.getSimpleName() + "fromScratch")
                     .build();
             messageManager.disableKeyboardLastBotMessage()
                     .sendSimpleTextMessage(getString("main"), keyboard);

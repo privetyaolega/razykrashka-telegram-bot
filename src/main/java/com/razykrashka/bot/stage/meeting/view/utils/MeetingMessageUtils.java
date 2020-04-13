@@ -47,6 +47,12 @@ public class MeetingMessageUtils {
                 .collect(Collectors.joining("\n\n"));
     }
 
+    public String getPaginationAllViewActive(List<Meeting> userMeetings) {
+        return userMeetings.stream()
+                .map(this::getPaginationSingleViewActive)
+                .collect(Collectors.joining("\n\n"));
+    }
+
     public String createSingleMeetingFullInfo(Meeting meeting) {
         lastSunny = Emoji.SMALL_SUN;
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
@@ -182,7 +188,7 @@ public class MeetingMessageUtils {
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
-        int spacesAmount = (int) ((dateLine.length() - ("/meeting" + meeting.getId()).length()) * 1.55);
+        int spacesAmount = (int) ((dateLine.length() * 1.425 - ("/meeting" + meeting.getId()).length()));
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");
@@ -224,6 +230,59 @@ public class MeetingMessageUtils {
                 .append(topicLevelLine).append("\n");
 
         return sb.append(getMeetingLine(meeting, dateLine)).toString();
+    }
+
+    private String getPaginationSingleViewActive(Meeting meeting) {
+        int freePlacesAmount = meeting.getMeetingInfo().getParticipantLimit() - meeting.getParticipants().size();
+
+        StringBuilder freePlacesLine = new StringBuilder();
+
+        String formatLabel = Emoji.COFFEE;
+        if (meeting.getFormat().equals(MeetingFormatEnum.ONLINE)) {
+            formatLabel = Emoji.INTERNET;
+        }
+
+        if (freePlacesAmount != 0) {
+            freePlacesLine.append(formatLabel).append(" ").append(freePlacesAmount)
+                    .append(TextFormatter.getItalicString(" free places!"));
+        } else {
+            freePlacesLine.append(Emoji.NEEDLE)
+                    .append(" ")
+                    .append(TextFormatter.getItalicString("No free places! "))
+                    .append(Emoji.NO_ENTRY_SIGN);
+        }
+
+        String dateLine = new StringBuilder()
+                .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
+        StringBuilder locationLine = new StringBuilder();
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            locationLine.append("\n").append(Emoji.SPACES).append(getLocationLink(meeting));
+        }
+
+        String levelLine = new StringBuilder()
+                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()))
+                .toString();
+        String topicLevelLine = new StringBuilder()
+                .append(Emoji.SPACES).append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getTopic())
+                .toString();
+
+        StringBuilder sb = new StringBuilder()
+                .append(freePlacesLine).append("\n")
+                .append(dateLine)
+                .append(locationLine).append("\n")
+                .append(levelLine).append("\n")
+                .append(topicLevelLine).append("\n");
+
+        int spacesAmount = (int) ((dateLine.length() * 1.425 - ("/meeting" + meeting.getId()).length()));
+        StringBuilder meetingLinkLine = new StringBuilder();
+        while (spacesAmount != 0) {
+            meetingLinkLine.append(" ");
+            spacesAmount--;
+        }
+        boolean isUserMeetingOwner = meeting.getTelegramUser().equals(updateHelper.getUser());
+        meetingLinkLine.append(TextFormatter.getBoldString("/meeting" + meeting.getId()))
+                .append(isUserMeetingOwner ? " " + Emoji.CROWN : "");
+        return sb.append(meetingLinkLine).toString();
     }
 
     private String getMeetingLine(Meeting m, String dateLine) {
@@ -350,24 +409,37 @@ public class MeetingMessageUtils {
     }
 
     public String createMeetingInfoGroup(Meeting meeting) {
-        return new StringBuilder().append(Emoji.FIRE).append(Emoji.FIRE).append(Emoji.FIRE)
-                .append(" NEW MEETING! ")
+        StringBuilder sb = new StringBuilder().append(Emoji.FIRE).append(Emoji.FIRE).append(Emoji.FIRE)
+                .append(TextFormatter.getBoldString(" NEW MEETING! "))
                 .append(Emoji.FIRE).append(Emoji.FIRE).append(Emoji.FIRE).append("\n\n")
                 .append(Emoji.RADIO_BUTTON).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.CLOCK).append("   ")
                 .append(meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH))).append("\n")
-                .append(Emoji.CHAINS).append("\n")
-                .append(Emoji.CHAINS).append("   ").append(Emoji.LOCATION).append("   ").append(getLocationLink(meeting)).append("\n")
-                .append(Emoji.CHAINS).append("\n")
+                .append(Emoji.CHAINS).append("\n");
+
+        if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
+            sb.append(Emoji.CHAINS).append("   ").append(Emoji.LOCATION).append("   ")
+                    .append(getLocationLink(meeting)).append("\n");
+        } else {
+            sb.append(Emoji.CHAINS).append("   ").append(Emoji.INTERNET).append("   ")
+                    .append(" ONLINE").append("\n");
+        }
+
+        sb.append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.TWO_PERSONS_SILHOUETTE).append("   ").append(meeting.getMeetingInfo().getParticipantLimit()).append("\n")
                 .append(Emoji.CHAINS).append("\n")
-                .append(Emoji.CHAINS).append("   ").append(Emoji.SPEECH_CLOUD).append("   ").append(meeting.getMeetingInfo().getTopic()).append(" (").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append(")").append("\n")
+                .append(Emoji.CHAINS).append("   ").append(Emoji.HIEROGLYPH).append("   ").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append("\n")
+                .append(Emoji.CHAINS).append("\n")
+                .append(Emoji.CHAINS).append("   ").append(Emoji.SPEECH_CLOUD).append("   ").append(meeting.getMeetingInfo().getTopic()).append("\n")
                 .append(Emoji.RADIO_BUTTON).append("\n").append("\n")
                 .append("Hey, guys! ").append(Emoji.WAVE_HAND).append("\n")
+                .append("A new meeting is available right now! Hurry up to check it and join. ").append("\n").append("\n")
                 .append("Using ").append(TextFormatter.getBoldString("@" + botUserName))
                 .append(", you can find all information about meeting, join to it and find other ones.\n")
                 .append("Hurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit() - 1))
                 .append(" free places! ").append(Emoji.SCREAM).toString();
+
+        return sb.toString();
     }
 
     public String getLocationLink(Meeting meeting) {

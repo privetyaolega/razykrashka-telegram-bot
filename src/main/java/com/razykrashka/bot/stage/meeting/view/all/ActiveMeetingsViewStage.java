@@ -16,7 +16,7 @@ public class ActiveMeetingsViewStage extends PaginationMeetingsViewStage {
         meetings = meetingService.getAllActive()
                 .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
                 .collect(Collectors.toList());
-        super.generateMainMessage(meetingMessageUtils::getPaginationAllGeneral);
+        super.generateMainMessage(meetingMessageUtils::getPaginationAllViewActive);
         return true;
     }
 

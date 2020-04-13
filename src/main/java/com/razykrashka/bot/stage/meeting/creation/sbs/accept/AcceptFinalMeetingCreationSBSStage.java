@@ -5,6 +5,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewMainStage;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.time.LocalDateTime;
 
@@ -49,7 +51,15 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
         if (meetingProperties.getCreation().getNotificationGroup()) {
             String meetingInfo = meetingMessageUtils.createMeetingInfoGroup(meeting);
+
+            InlineKeyboardMarkup keyboard = keyboardBuilder
+                    .getKeyboard()
+                    .setRow("Open Meeting \uD83D\uDCAB",
+                            SingleMeetingViewMainStage.class.getSimpleName() + meeting.getId())
+                    .build();
+
             messageManager.sendMessage(new SendMessage()
+                    .setReplyMarkup(keyboard)
                     .setParseMode(ParseMode.HTML)
                     .setChatId(groupChatId)
                     .setText(meetingInfo)

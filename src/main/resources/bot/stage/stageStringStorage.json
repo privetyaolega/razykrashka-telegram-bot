@@ -76,7 +76,7 @@
       "continue": "Continue meeting creation",
       "create": "Create new meeting"
     },
-    "SingleMeetingViewStage": {
+    "SingleMeetingViewMainStage": {
       "meetingNotFound": "Meeting with id <b>%d</b> was not found \uD83E\uDD74"
     },
     "AcceptFinalMeetingCreationSBSStage": {

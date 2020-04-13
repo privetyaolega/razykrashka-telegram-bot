@@ -23,7 +23,7 @@ import java.util.Set;
 @Component
 public class Meeting {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     LocalDateTime creationDateTime;
