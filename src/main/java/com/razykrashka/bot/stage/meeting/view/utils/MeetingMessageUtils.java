@@ -246,7 +246,7 @@ public class MeetingMessageUtils {
             freePlacesLine.append(formatLabel).append(" ").append(freePlacesAmount)
                     .append(TextFormatter.getItalicString(" free places!"));
         } else {
-            freePlacesLine.append(Emoji.NEEDLE)
+            freePlacesLine.append(formatLabel)
                     .append(" ")
                     .append(TextFormatter.getItalicString("No free places! "))
                     .append(Emoji.NO_ENTRY_SIGN);

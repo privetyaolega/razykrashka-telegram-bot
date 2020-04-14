@@ -3,7 +3,6 @@ package com.razykrashka.bot.service.config.job.task;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.job.AbstractJob;
-import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,11 +15,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import static com.razykrashka.bot.ui.helpers.UpdateHelper.FROM_GROUP;
 
 @Getter
 @Setter
@@ -55,22 +50,16 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
             message = String.format(MAIN_MESSAGE, availableMeetings.size());
             InlineKeyboardMarkup keyboard = keyboardBuilder
                     .getKeyboard()
-                    .setRow("Show available meetings ✨",
-                            ActiveMeetingsViewStage.class.getSimpleName() + FROM_GROUP)
+                    .setRow(new InlineKeyboardButton()
+                            .setText("Show available meetings ✨")
+                            .setUrl("https://t.me/RazykrashkaTestBot"))
                     .build();
-
-            InlineKeyboardMarkup k = new InlineKeyboardMarkup();
-            List<List<InlineKeyboardButton>> inlineKeyboardButtons = new ArrayList<>();
-            inlineKeyboardButtons.add(Collections.singletonList(new InlineKeyboardButton()
-                    .setText("Show available meetings ✨")
-                    .setUrl("https://t.me/RazykrashkaLocalBot")));
-            k.setKeyboard(inlineKeyboardButtons);
 
             messageManager.sendMessage(new SendMessage()
                     .setParseMode(ParseMode.HTML)
                     .setChatId(groupChatId)
                     .setText(message)
-                    .setReplyMarkup(k));
+                    .setReplyMarkup(keyboard));
         }
     }
 }

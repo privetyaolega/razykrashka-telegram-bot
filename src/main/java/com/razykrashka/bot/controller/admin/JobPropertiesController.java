@@ -48,18 +48,17 @@ public class JobPropertiesController {
 
     private void changeJobProperties(JobRunnable job) {
         log.info("Changing properties for {}", job.getName());
-        JobProperties jobProperties = threadPoolTaskSchedulerWrapper.getJobProperties();
         if (threadPoolTaskSchedulerWrapper.getExecutingTask().containsKey(job.getName())) {
             threadPoolTaskSchedulerWrapper.getExecutingTask().get(job.getName()).cancel(false);
         }
 
         if (job.isEnabled()) {
-            log.info("JOB ENABLED WITH CRON {}", job.getCronExp());
+            log.info("Job '{}' has been ENABLED with cron exp: {}", job.getName(), job.getCronExp());
             ThreadPoolTaskScheduler threadPoolTaskScheduler = threadPoolTaskSchedulerWrapper.getThreadPoolTaskScheduler();
             ScheduledFuture<?> schedule = threadPoolTaskScheduler.schedule(job.getJob(), job.getCronTrigger());
             threadPoolTaskSchedulerWrapper.getExecutingTask().put(job.getName(), schedule);
         } else {
-            log.info("JOB {} DISABLED", job.getName());
+            log.info("Job '{}' has been DISABLED", job.getName());
         }
     }
 

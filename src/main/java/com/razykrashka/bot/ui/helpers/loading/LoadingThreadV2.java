@@ -74,6 +74,7 @@ public class LoadingThreadV2 extends Thread {
                     }
                 }
             } catch (InterruptedException e) {
+                messageManager.deleteLastBotMessage();
                 Thread.currentThread().interrupt();
             }
         }
@@ -83,7 +84,8 @@ public class LoadingThreadV2 extends Thread {
         try {
             Thread.sleep(intervalMillis);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            messageManager.deleteLastBotMessage();
+            Thread.currentThread().interrupt();
         }
     }
 }

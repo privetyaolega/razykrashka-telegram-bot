@@ -5,7 +5,6 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewMainStage;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.time.LocalDateTime;
 
@@ -54,8 +54,9 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
             InlineKeyboardMarkup keyboard = keyboardBuilder
                     .getKeyboard()
-                    .setRow("Open Meeting \uD83D\uDCAB",
-                            SingleMeetingViewMainStage.class.getSimpleName() + meeting.getId())
+                    .setRow(new InlineKeyboardButton()
+                            .setText("Open Meeting \uD83D\uDCAB")
+                            .setUrl("https://t.me/RazykrashkaTestBot"))
                     .build();
 
             messageManager.sendMessage(new SendMessage()

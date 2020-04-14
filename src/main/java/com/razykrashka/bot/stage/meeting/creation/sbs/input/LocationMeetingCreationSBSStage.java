@@ -29,7 +29,6 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
             LoadingThreadV2 loadingThread = startLoadingThread(false);
             messageManager.sendAnimation("bot/pics/map_attachment.gif", getString("mapAttachment"));
             loadingThread.interrupt();
-            messageManager.deleteLastBotMessage();
         }
 
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
