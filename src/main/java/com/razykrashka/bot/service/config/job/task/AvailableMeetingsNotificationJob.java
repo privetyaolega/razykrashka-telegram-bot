@@ -14,7 +14,10 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.razykrashka.bot.ui.helpers.UpdateHelper.FROM_GROUP;
@@ -56,12 +59,18 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
                             ActiveMeetingsViewStage.class.getSimpleName() + FROM_GROUP)
                     .build();
 
-            messageManager.disableKeyboardLastBotMessage(groupChatId)
-                    .sendMessage(new SendMessage()
-                            .setParseMode(ParseMode.HTML)
-                            .setChatId(groupChatId)
-                            .setText(message)
-                            .setReplyMarkup(keyboard));
+            InlineKeyboardMarkup k = new InlineKeyboardMarkup();
+            List<List<InlineKeyboardButton>> inlineKeyboardButtons = new ArrayList<>();
+            inlineKeyboardButtons.add(Collections.singletonList(new InlineKeyboardButton()
+                    .setText("Show available meetings ✨")
+                    .setUrl("https://t.me/RazykrashkaLocalBot")));
+            k.setKeyboard(inlineKeyboardButtons);
+
+            messageManager.sendMessage(new SendMessage()
+                    .setParseMode(ParseMode.HTML)
+                    .setChatId(groupChatId)
+                    .setText(message)
+                    .setReplyMarkup(k));
         }
     }
 }

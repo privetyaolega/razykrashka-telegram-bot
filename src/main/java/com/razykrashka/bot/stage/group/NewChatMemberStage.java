@@ -21,7 +21,7 @@ public class NewChatMemberStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        Integer id = updateHelper.getUpdate().getMessage().getFrom().getId();
+        Integer id = updateHelper.getUpdate().getMessage().getNewChatMembers().get(0).getId();
         Optional<TelegramUser> userEntity = telegramUserRepository.findByTelegramId(id);
         if (userEntity.isPresent()) {
             telegramUser = userEntity.get();

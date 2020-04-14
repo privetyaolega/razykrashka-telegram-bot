@@ -55,4 +55,5 @@ public class Emoji {
     public static String ANGER = "\uD83D\uDCA2";
     public static String RADIO_BUTTON = "\uD83D\uDD18";
     public static String CHAINS = "⛓";
+    public static String WINK = "\uD83D\uDE09";
 }
