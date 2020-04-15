@@ -124,13 +124,20 @@ public class MeetingMessageUtils {
                 .append(Emoji.CHAINS).append("\n");
         StringBuilder topic = new StringBuilder()
                 .append(Emoji.RADIO_BUTTON).append(" ")
-                .append(TextFormatter.getBoldString(meeting.getMeetingInfo().getTopic())).append("\n\n");
-        StringBuilder questions = new StringBuilder()
-                .append(" ").append(meeting.getMeetingInfo().getQuestions().replace("●", "\n●")
-                        .replaceAll(" +", " ")).append("\n");
+                .append(TextFormatter.getBoldString(meeting.getMeetingInfo().getTopic())).append("\n");
+        String questions = questionsToPrettyOrderedString(meeting.getMeetingInfo().getQuestions());
         return sb.append(header)
                 .append(topic)
                 .append(questions).toString();
+    }
+
+    private String questionsToPrettyOrderedString(String questions) {
+        StringBuilder sb = new StringBuilder();
+        String[] questionsArray = questions.split(";");
+        for (int i = 0; i < questionsArray.length; i++) {
+            sb.append("\n").append(i + 1).append(") ").append(questionsArray[i]);
+        }
+        return sb.toString();
     }
 
     private String getSingleStringForParticipantsList(TelegramUser telegramUser, Meeting meeting) {
@@ -349,10 +356,19 @@ public class MeetingMessageUtils {
                 sb.append("\n\n")
                         .append(Emoji.SPEECH_CLOUD)
                         .append(TextFormatter.getBoldString(" Questions: \n"))
-                        .append(meetingInfo.getQuestions());
+                        .append(questionsToPrettyBulletedString(meetingInfo.getQuestions()));
             }
         }
         return sb.append("\n\n\n").toString();
+    }
+
+    private String questionsToPrettyBulletedString(String questions) {
+        StringBuilder sb = new StringBuilder();
+        String[] questionsArray = questions.split(";");
+        for (int i = 0; i < questionsArray.length; i++) {
+            sb.append("\n").append(" • ").append(questionsArray[i]);
+        }
+        return sb.toString();
     }
 
     public String createMeetingInfoDuringCreationOnline(Meeting meeting) {

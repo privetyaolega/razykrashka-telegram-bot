@@ -3,7 +3,7 @@ package com.razykrashka.bot.stage.meeting.creation;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
-import com.razykrashka.bot.stage.meeting.creation.sbs.input.PhoneMeetingStateSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.input.PhoneMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class IntroStartMeetingCreationStage extends MainStage {
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
-                .setRow("Let's start! " + Emoji.ROCK_HAND, PhoneMeetingStateSBSStage.class.getSimpleName())
+                .setRow("Let's start! " + Emoji.ROCK_HAND, PhoneMeetingCreationSBSStage.class.getSimpleName())
                 .build();
     }
 

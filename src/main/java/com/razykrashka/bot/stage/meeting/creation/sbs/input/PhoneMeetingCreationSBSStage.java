@@ -20,12 +20,13 @@ import java.util.List;
 @Log4j2
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PhoneMeetingStateSBSStage extends BaseMeetingCreationSBSStage {
+public class PhoneMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     Class<? extends BaseMeetingCreationSBSStage> nextStageClass = AcceptPhoneMeetingCreationSBSStage.class;
 
     @Override
     public boolean processCallBackQuery() {
+        meeting = getMeetingInCreation();
         if (updateHelper.getUser().getPhoneNumber().isEmpty()) {
             messageManager
                     .disableKeyboardLastBotMessage()

@@ -55,7 +55,7 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         } while (randomMeetingInfo.getTopic().equals(mi.getTopic()));
 
         mi.setTopic(randomMeetingInfo.getTopic());
-        mi.setQuestions(" " + randomMeetingInfo.getQuestions().replaceAll(" +", " "));
+        mi.setQuestions(randomMeetingInfo.getQuestions());
         meetingInfoRepository.save(mi);
         meetingRepository.save(meeting);
 

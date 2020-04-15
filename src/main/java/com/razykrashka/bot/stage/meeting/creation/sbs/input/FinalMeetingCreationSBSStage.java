@@ -21,7 +21,9 @@ public class FinalMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
         String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation())
                 + TextFormatter.getItalicString(getString("input"));
-        messageManager.sendSimpleTextMessage(messageText, keyboardMarkup);
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(messageText, keyboardMarkup);
         setActiveNextStage(AcceptFinalMeetingCreationSBSStage.class);
     }
 }

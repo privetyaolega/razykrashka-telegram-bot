@@ -31,7 +31,9 @@ public class AcceptLocationMeetingCreationSBSStage extends BaseMeetingCreationSB
             }
         } catch (Exception e) {
             // TODO: Create informative error message
-            messageManager.replyLastMessage(getString("error"));
+            messageManager
+                    .disableKeyboardLastBotMessage()
+                    .replyLastMessage(getString("error"));
             razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest(false);
             return;
         }

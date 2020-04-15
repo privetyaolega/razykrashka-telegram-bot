@@ -118,7 +118,7 @@
     "AcceptLocationMeetingCreationSBSStage": {
       "error": "We can't find anything by this address \uD83D\uDE13.\nPlease, clarify address and make sure that this place located in Minsk\uD83D\uDCCD"
     },
-    "PhoneMeetingStateSBSStage": {
+    "PhoneMeetingCreationSBSStage": {
       "shareNumber": "Oh, I see that you are new here... To create meeting you need provide your telegram contact.\nJust click the button below.\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number? \uD83E\uDD28</a>"
     },
     "AcceptPhoneMeetingCreationSBSStage": {
