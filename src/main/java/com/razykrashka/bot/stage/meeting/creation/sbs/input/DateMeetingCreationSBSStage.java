@@ -43,7 +43,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
             if (razykrashkaBot.getRealUpdate().hasMessage()) {
                 messageManager.disableKeyboardLastBotMessage()
-                        .replyLastMessage("Please, choose meeting date.", keyboard);
+                        .sendSimpleTextMessage("Please, choose meeting date.", keyboard);
             } else {
                 messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", keyboard);
             }

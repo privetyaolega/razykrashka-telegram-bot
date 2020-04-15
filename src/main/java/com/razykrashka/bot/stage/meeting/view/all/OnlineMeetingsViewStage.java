@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class OnlineMeetingsViewStage extends PaginationMeetingsViewStage {
 
-    public static final String KEYWORD = "/online_meetings";
+    public static final String KEYWORD = "/online";
 
     @Override
     public boolean processCallBackQuery() {

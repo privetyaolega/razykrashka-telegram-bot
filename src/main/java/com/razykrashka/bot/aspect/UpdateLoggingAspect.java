@@ -35,8 +35,8 @@ public class UpdateLoggingAspect {
     @After("execution(* processCallBackQuery())")
     public void sendAnswerCallbackQueryAdvice() {
         CallbackQuery query = updateHelper.getUpdate().getCallbackQuery();
-        log.info("ASPECT: Sending answer call back query for {}", query.getId());
         messageManager.sendAnswerCallbackQuery(query);
+//        log.info("ASPECT: Sending answer call back query for {}", query.getId());
     }
 
     @After("execution(public void com.razykrashka.bot.service.BotExecutor.execute(*))")

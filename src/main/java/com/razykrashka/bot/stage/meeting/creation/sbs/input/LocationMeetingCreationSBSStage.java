@@ -25,11 +25,11 @@ public class LocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         meeting.setLocation(null);
         meetingRepository.save(meeting);
 
-        if (!updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + EDIT) && showTutorial) {
+/*        if (!updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + EDIT) && showTutorial) {
             LoadingThreadV2 loadingThread = startLoadingThread(false);
             messageManager.sendAnimation("bot/pics/map_attachment.gif", getString("mapAttachment"));
             loadingThread.interrupt();
-        }
+        }*/
 
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getItalicString(getString("input"));

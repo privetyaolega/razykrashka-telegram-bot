@@ -16,13 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -77,7 +77,12 @@ public abstract class MainStage implements Stage {
 
     @Override
     public void handleRequest() {
-        messageManager.sendSimpleTextMessage(stageInfo.getWelcomeMessageEn(), getKeyboard());
+        throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
+    }
+
+    @Override
+    public boolean processCallBackQuery() {
+        throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
     }
 
     @Override
@@ -90,33 +95,9 @@ public abstract class MainStage implements Stage {
         return updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
     }
 
-    public InlineKeyboardMarkup getInlineRuEnKeyboard(String callBackData, String textButton) {
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList();
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText(textButton)
-                .setCallbackData(stageInfo.getStageName() + callBackData));
-
-        inlineKeyboardMarkup.setKeyboard(Arrays.asList(keyboardButtonsRow1));
-        return inlineKeyboardMarkup;
-    }
-
     @Override
     public ReplyKeyboard getKeyboard() {
         throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
-    }
-
-    @Override
-    public boolean processCallBackQuery() {
-        String callBackData = updateHelper.getCallBackData();
-        if (callBackData.equals(stageInfo.getStageName() + "en_ru")) {
-            messageManager.updateMessage(stageInfo.getWelcomeMessageRu(),
-                    getInlineRuEnKeyboard("ru_en", "EN \uD83C\uDDFA\uD83C\uDDF8"));
-        }
-        if (callBackData.equals(stageInfo.getStageName() + "ru_en")) {
-            messageManager.updateMessage(stageInfo.getWelcomeMessageEn(),
-                    getInlineRuEnKeyboard("en_ru", "RU \uD83C\uDDF7\uD83C\uDDFA"));
-        }
-        return true;
     }
 
     protected String getCallBackString(String callBackData) {
@@ -141,5 +122,28 @@ public abstract class MainStage implements Stage {
 
     protected String getFormatString(String key, Object... arg) {
         return String.format(getString(key), arg);
+    }
+
+    public ReplyKeyboard getMainKeyboard() {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(new KeyboardButton(StageInfo.SELECT_WAY_MEETING_CREATION.getKeyword()));
+        keyboardFirstRow.add(new KeyboardButton(StageInfo.MY_MEETING_VIEW.getKeyword()));
+        keyboardFirstRow.add(new KeyboardButton(StageInfo.SELECT_MEETINGS_TYPE.getKeyword()));
+
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(new KeyboardButton(StageInfo.INFORMATION.getKeyword()));
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        return replyKeyboardMarkup;
     }
 }

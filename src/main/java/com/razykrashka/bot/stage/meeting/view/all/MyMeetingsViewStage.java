@@ -36,6 +36,7 @@ public class MyMeetingsViewStage extends PaginationMeetingsViewStage {
     @Override
     public boolean isStageActive() {
         return updateHelper.isCallBackDataContains()
+                || updateHelper.isMessageTextEquals("/my")
                 || updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
     }
 }

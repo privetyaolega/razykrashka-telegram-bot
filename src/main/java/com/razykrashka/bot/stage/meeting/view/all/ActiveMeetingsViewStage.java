@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @Component
 public class ActiveMeetingsViewStage extends PaginationMeetingsViewStage {
 
-    public static final String KEYWORD = "/active_meetings";
+    public static final String KEYWORD = "/active";
 
     @Override
     public boolean processCallBackQuery() {

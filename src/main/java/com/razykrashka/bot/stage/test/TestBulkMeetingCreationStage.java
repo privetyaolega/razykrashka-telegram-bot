@@ -6,7 +6,6 @@ import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.StageInfo;
-import com.razykrashka.bot.stage.meeting.creation.CreateMeetingByTemplateStage;
 import com.razykrashka.bot.ui.helpers.LocationHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +80,6 @@ public class TestBulkMeetingCreationStage extends MainStage {
             e.printStackTrace();
             messageManager.sendSimpleTextMessage("SOMETHING WENT WRONG DURING MEETING CREATION")
                     .sendSticker("failSticker.png");
-            razykrashkaBot.getContext().getBean(CreateMeetingByTemplateStage.class).handleRequest();
         }
 
         messageManager.sendSimpleTextMessage("MEETING CREATED")

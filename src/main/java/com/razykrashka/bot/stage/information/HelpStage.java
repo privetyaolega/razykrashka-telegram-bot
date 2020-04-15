@@ -29,9 +29,13 @@ public class HelpStage extends MainStage {
                 .append(OfflineMeetingsViewStage.KEYWORD)
                 .append(" - show all active offline meetings\n")
                 .append(ArchivedMeetingsViewStage.KEYWORD)
-                .append(" - show all expired (archived) meetings\n");
+                .append(" - show all expired (archived) meetings\n")
+                .append("/my")
+                .append(" - show my planned meetings\n");
 
-        messageManager.sendSimpleTextMessage(sb.toString());
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(sb.toString());
     }
 
     @Override

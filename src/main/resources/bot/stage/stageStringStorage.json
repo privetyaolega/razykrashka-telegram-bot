@@ -11,7 +11,7 @@
       "example": "NEW MEETING REQUEST:\n\nDATE: \n14.01.2020 19-00\n\nLOCATION: \nул. Немига 5, Лидо\n\nMAX PEOPLE: \n4\n\nSPEAKING LEVEL: \nUpper-Intermediate\n\nCONTACT NUMBER: \n+375295508809\n\nTOPIC: \nInternet and Computers\n\nQUESTIONS:\n● What are two disadvantages of using smartphones and tablets?\n● What do you think about Cybercafes? are they still useful?\n● Do you like a job in which you have to use computers?\n● Do you spend too much time online?\n● Does your mother of father know how to use a computer?\n● Do computers make life easier?\n● What websites do you visit in a regular basis?\n● What do you think about the Apple?\n● What are some advantages of using social networks?\n● Do you visit English websites?"
     },
     "UndefinedStage": {
-      "unknown": "Ooopss! Sorry, but it's unknown command \uD83E\uDD74"
+      "unknown": "Ooopss! Sorry, but it's unknown command \uD83E\uDD74\n\nList of available commands find here:\n<b>/help</b>✨"
     },
     "SelectWayMeetingCreationStage": {
       "enMain": "Please, choose the way to create new meeting!\n\n☝\uD83C\uDFFBTemplate.\nUsing template (plain text) to create new meeting.\nJust copy existing template and fill it with all required data such as date, location, english level etc...\n\n\n✌\uD83C\uDFFBStep by step.\nCreate new meeting by answering questions about meeting details."
@@ -23,16 +23,14 @@
       "header": "\uD83D\uDCC1 There are <b>%d archived</b> meetings.\n\n"
     },
     "OfflineMeetingsViewStage": {
-      "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n",
       "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n",
       "header": "☕️ There are <b>%d active offline</b> meetings.\n\n",
       "noMeetings": "There are no available <b>active</b> meetings \uD83D\uDE14"
     },
     "MyMeetingsViewStage": {
-      "delimiterLine": "\n〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n",
       "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n",
       "header": "\uD83D\uDCAB There are <b>%d</b> active meetings.\n\n",
-      "noMeetings": "There are no available <b>active</b> meetings \uD83D\uDE14"
+      "noMeetings": "You don't have planned meetings yet \uD83D\uDE14\nFind available active meetings and join to it here <b>/active</b> ✨"
     },
     "AcceptTimeMeetingCreationSBSStage": {
       "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>18:30</code>",
@@ -119,6 +117,15 @@
     },
     "AcceptLocationMeetingCreationSBSStage": {
       "error": "We can't find anything by this address \uD83D\uDE13.\nPlease, clarify address and make sure that this place located in Minsk\uD83D\uDCCD"
+    },
+    "PhoneMeetingStateSBSStage": {
+      "shareNumber": "Oh, I see that you are new here! To create meeting you need provide your telegram contact.\nJust click the button bellow.\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number? \uD83E\uDD28</a>"
+    },
+    "AcceptPhoneMeetingCreationSBSStage": {
+      "accept": "Thanks for your trust!\nRight now we can start! \uD83D\uDE0C"
+    },
+    "DeleteSingleMeetingStage": {
+      "deleteNotification": "Hey! Unfortunately, /meeting%s owner decided to cancel the meeting and deleted it \uD83D\uDE25\nI know, it's sad... But don't worry! You can find other meetings /active or even create your own!\n\nHave a good day! \uD83D\uDE09"
     }
   }
 ]

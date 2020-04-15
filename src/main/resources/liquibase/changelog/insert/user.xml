@@ -7,7 +7,7 @@
         <comment>Upload 3 users</comment>
         <sql>
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name, skype_contact)
-            VALUES('Olega', 'Rutski', '+375295508809', '532965560', 'privetyaolega', 'privetyaolega');
+            VALUES('Olega', 'Rutski', '', '532965560', 'privetyaolega', 'privetyaolega');
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
             VALUES('Andrew', '', '+375293489901', '431957763', '');
@@ -28,7 +28,7 @@
             VALUES('thehive', '', '+375291324696', '187559890', 'the_hive');
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
-            VALUES('Rutski', 'Slawek', '+375296906971', '667266423', '');
+            VALUES('Rutski', 'Slawek', '', '667266423', '');
 
             INSERT INTO user (first_name, last_name, phone_number, telegram_id, user_name)
             VALUES('Dasha', 'Solnce', '+375292020058', '414315618', '');

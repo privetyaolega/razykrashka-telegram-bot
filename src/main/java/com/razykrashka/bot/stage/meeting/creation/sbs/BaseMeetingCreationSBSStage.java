@@ -7,7 +7,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.meeting.creation.SelectWayMeetingCreationStage;
+import com.razykrashka.bot.stage.meeting.creation.IntroStartMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.view.utils.MeetingMessageUtils;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.AccessLevel;
@@ -89,7 +89,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             messageManager.disableKeyboardLastBotMessage()
                     .sendSimpleTextMessage("SESSION EXPIRED");
 
-            razykrashkaBot.getContext().getBean(SelectWayMeetingCreationStage.class).handleRequest();
+            razykrashkaBot.getContext().getBean(IntroStartMeetingCreationStage.class).handleRequest();
             throw new RuntimeException("SESSION EXPIRED");
         }
         return meetingOptional.get();

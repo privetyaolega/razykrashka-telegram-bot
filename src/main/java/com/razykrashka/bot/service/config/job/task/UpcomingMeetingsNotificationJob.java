@@ -52,7 +52,7 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements Runn
                     .map(this::getUserString)
                     .collect(Collectors.joining(","));
 
-            log.info("JOB: Meeting {} has the following participants:\n{} ", m.getId(), participantsToString);
+            log.info("JOB: Meeting {} has the following participants: [{}]", m.getId(), participantsToString);
 
             m.getParticipants().forEach(p -> {
                 messageManager.sendMessage(new SendMessage()

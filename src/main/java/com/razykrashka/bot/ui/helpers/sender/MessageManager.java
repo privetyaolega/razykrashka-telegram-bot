@@ -161,32 +161,30 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager updateMessage(String message, ReplyKeyboard keyboard) {
-        Message callBackMessage = razykrashkaBot.getRealUpdate().getCallbackQuery().getMessage();
-        Integer messageId = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(updateHelper.getChatId()).getId();
+        Long chatId = updateHelper.getChatId();
+        Integer messageId = telegramMessageRepository.findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(chatId).getId();
         EditMessageText editMessageReplyMarkup = new EditMessageText()
-                .setChatId(callBackMessage.getChat().getId())
+                .setChatId(chatId)
                 .setMessageId(messageId)
                 .setText(message)
                 .setParseMode(ParseMode.HTML)
                 .setReplyMarkup((InlineKeyboardMarkup) keyboard)
                 .disableWebPagePreview();
-        try {
-            razykrashkaBot.execute(editMessageReplyMarkup);
-
-            // TODO: Create separate method;
-            boolean hasKeyboard = keyboard != null;
-            TelegramMessage telegramMessage = TelegramMessage.builder()
-                    .id(messageId)
-                    .chatId(callBackMessage.getChat().getId())
-                    .botMessage(true)
-                    .hasKeyboard(hasKeyboard)
-                    .text(message)
-                    .build();
-            telegramMessageRepository.save(telegramMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+        send(editMessageReplyMarkup);
+        saveMessage(editMessageReplyMarkup);
         return this;
+    }
+
+    private void saveMessage(EditMessageText message) {
+        boolean hasKeyboard = message.getReplyMarkup() != null;
+        TelegramMessage telegramMessage = TelegramMessage.builder()
+                .id(message.getMessageId())
+                .chatId(Long.valueOf(message.getChatId()))
+                .botMessage(true)
+                .hasKeyboard(hasKeyboard)
+                .text(message.getText())
+                .build();
+        telegramMessageRepository.save(telegramMessage);
     }
 
     public MessageManager updateMessage(String message) {
@@ -333,7 +331,6 @@ public class MessageManager extends Sender {
     public MessageManager sendAnimation(String path, String label) {
         try {
             File file = new ClassPathResource(path).getFile();
-
             SendAnimation photo = new SendAnimation()
                     .setCaption(label)
                     .setParseMode(ParseMode.HTML)
