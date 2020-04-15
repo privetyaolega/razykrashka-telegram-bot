@@ -119,13 +119,16 @@
       "error": "We can't find anything by this address \uD83D\uDE13.\nPlease, clarify address and make sure that this place located in Minsk\uD83D\uDCCD"
     },
     "PhoneMeetingStateSBSStage": {
-      "shareNumber": "Oh, I see that you are new here! To create meeting you need provide your telegram contact.\nJust click the button bellow.\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number? \uD83E\uDD28</a>"
+      "shareNumber": "Oh, I see that you are new here... To create meeting you need provide your telegram contact.\nJust click the button below.\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number? \uD83E\uDD28</a>"
     },
     "AcceptPhoneMeetingCreationSBSStage": {
       "accept": "Thanks for your trust!\nRight now we can start! \uD83D\uDE0C"
     },
     "DeleteSingleMeetingStage": {
       "deleteNotification": "Hey! Unfortunately, /meeting%s owner decided to cancel the meeting and deleted it \uD83D\uDE25\nI know, it's sad... But don't worry! You can find other meetings /active or even create your own!\n\nHave a good day! \uD83D\uDE09"
+    },
+    "WelcomeStage": {
+      "intro": "Welcome to the best English Speaking Club!\uD83E\uDD17\nNice to meet you! I will help to improve your speaking skills as much as possible!\uD83D\uDCAA\nAll necessary information you can find in 'Information' section!\n/help"
     }
   }
 ]
