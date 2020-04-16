@@ -418,7 +418,7 @@ public class MeetingMessageUtils {
                 sb.append("\n\n")
                         .append(Emoji.SPEECH_CLOUD)
                         .append(TextFormatter.getBoldString(" Questions: \n"))
-                        .append(meetingInfo.getQuestions());
+                        .append(questionsToPrettyBulletedString(meetingInfo.getQuestions()));
             }
         }
         return sb.append("\n\n\n").toString();
@@ -426,9 +426,10 @@ public class MeetingMessageUtils {
 
     public String createMeetingInfoGroup(Meeting meeting) {
         StringBuilder sb = new StringBuilder().append(Emoji.FIRE).append(Emoji.FIRE).append(Emoji.FIRE)
-                .append(TextFormatter.getBoldString(" NEW MEETING! "))
+                .append(TextFormatter.getBoldString("  NEW MEETING # " + meeting.getId() + "  "))
                 .append(Emoji.FIRE).append(Emoji.FIRE).append(Emoji.FIRE).append("\n\n")
                 .append(Emoji.RADIO_BUTTON).append("\n")
+                .append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.CLOCK).append("   ")
                 .append(meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH))).append("\n")
                 .append(Emoji.CHAINS).append("\n");
@@ -447,6 +448,7 @@ public class MeetingMessageUtils {
                 .append(Emoji.CHAINS).append("   ").append(Emoji.HIEROGLYPH).append("   ").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append("\n")
                 .append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.SPEECH_CLOUD).append("   ").append(meeting.getMeetingInfo().getTopic()).append("\n")
+                .append(Emoji.CHAINS).append("\n")
                 .append(Emoji.RADIO_BUTTON).append("\n").append("\n")
                 .append("Hey, guys! ").append(Emoji.WAVE_HAND).append("\n")
                 .append("A new meeting is available right now! Hurry up to check it and join. ").append("\n").append("\n")

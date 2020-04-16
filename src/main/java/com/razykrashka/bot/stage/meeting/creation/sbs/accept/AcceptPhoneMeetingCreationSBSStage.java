@@ -1,7 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
-import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.start.VerifyMeetingStateSBSStage;
 import lombok.extern.log4j.Log4j2;
@@ -27,7 +26,11 @@ public class AcceptPhoneMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         } else {
             meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId())
                     .ifPresent(m -> meetingRepository.delete(m));
-            updateHelper.getBot().getContext().getBean(UndefinedStage.class).handleRequest();
+            messageManager.replyLastMessage("Ooopss! Sorry, but it's unknown command \uD83E\uDD74\n" +
+                            "\n" +
+                            "List of available commands find here:\n" +
+                            "/help✨",
+                    getMainKeyboard());
         }
     }
 

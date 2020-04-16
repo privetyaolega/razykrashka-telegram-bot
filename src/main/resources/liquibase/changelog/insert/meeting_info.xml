@@ -56,10 +56,9 @@
 
             INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
             VALUES(0,
-            'How do you feel about advertising?;Are you easily persuaded to buy something after seeing or hearing an advertisement?;What kind of advertisements attracts your attention?;What’s the best advertisement
-            you\’ve ever seen?;What’s the most shocking advertisement you\’ve ever seen?;What’s the funniest advertisement you\’ve ever seen?;What makes an advertisement memorable?;Is advertising an art?;Can your favorite celebrity to persuade you to buy a product?;Are children and teenagers more influenced with advertising than adults?',
+            'How conscious are you about your health?;What things might damage your health?;Should you give up something to protect your health?;What do you do to stay healthy?;Do you ever read articles or watch TV programmes about health?;Do you usually take medicine when you are sick?;Do you usually go to a doctor when you get a cold?;How often do you have a health check?;What are your experiences of hospitals?;Have you ever been to a hospital in another country?',
             'INTERMEDIATE',
-            'Health');
+            'Health v.1');
 
             INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
             VALUES(0,
@@ -102,6 +101,18 @@
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview');
+
+            INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
+            VALUES(0,
+            'How could hospitals be made better places to visit and stay in?;Which is better: private and public health care?;What do you think about alternative medicine?;Who is more responsible for your health: you or the government?;Do you normally go one doctor in particular or any available doctor?;What disease frightens you the most? Why?;What do you do to stay healthy?',
+            'PRE_INTERMEDIATE',
+            'Health v.2');
+
+            INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
+            VALUES(0,
+            'Do you have a lot of free time?;\'Time is money\'. Do you agree or disagree?;What\'s your perception of time now?;Do you show up early or late for work/university/meeting with friends?;Are you a \'night owl\' or an \'early bird\'?;Do you use any time management apps to structure your day/week?;Do you have some tips on how to organize your day for maximum productivity?;What Is procrastination? Why we do it and how to stop it);What would you do if you had a few extra hours in a day?;Does time go by slowly or quickly for you? What does this depend on?;What is your ideal working schedule?;Have you ever had some situations when procrastination was good for you?',
+            'PRE_INTERMEDIATE',
+            'Time');
         </sql>
     </changeSet>
 </databaseChangeLog>
