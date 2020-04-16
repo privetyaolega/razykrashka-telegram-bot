@@ -15,9 +15,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Aspect
 @Log4j2
 @Component
@@ -44,17 +41,10 @@ public class UpdateLoggingAspect {
     @After("execution(public void com.razykrashka.bot.service.BotExecutor.execute(*))")
     public void updateLoggingAdvice(JoinPoint joinPoint) {
         Update update = (Update) joinPoint.getArgs()[0];
-
-        List<String> activeStages = updateHelper.getBot().getBotExecutor().getActiveStages().stream()
-                .map(c -> c.getClass().getSimpleName().split("\\$\\$")[0])
-                .collect(Collectors.toList());
-
-        log.info("ASPECT: User ID: {}. {} -> {}", getUserId(update), getMessageToProcess(update),
-                activeStages.stream().collect(Collectors.joining(" ,", "[", "]")));
-
-        if (activeStages.size() > 1) {
-            throw new StageActivityException("More than one stage is active!");
-        }
+        String activeStage = updateHelper.getBot().getBotExecutor()
+                .getActiveStage().getClass()
+                .getSimpleName().split("\\$")[0];
+        log.info("ASPECT: User ID: {}. {} -> {}", getUserId(update), getMessageToProcess(update), activeStage);
     }
 
     private Integer getUserId(Update update) {

@@ -15,12 +15,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Getter
 @Setter
+@Component
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
@@ -30,22 +32,15 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     CreationStateRepository creationStateRepository;
     @Autowired
     MeetingMessageUtils meetingMessageUtils;
+
     Meeting meeting;
+    static String activeStage = "";
     protected static final String EDIT = "edit";
+
 
     @Override
     public boolean isStageActive() {
-/*        try {
-            Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
-            if (meetingOptional.isPresent()) {
-                CreationState creationState = meetingOptional.get().getCreationState();
-                return creationState.getActiveStage().equals(this.getClass().getSimpleName())
-                        && creationState.isInCreationProgress();
-            }
-        } catch (NullPointerException e) {
-            return false;
-        }*/
-        return false;
+        return activeStage.equals(this.getClass().getSimpleName());
     }
 
     @Override
@@ -115,5 +110,9 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setActiveStage(String activeStage) {
+        BaseMeetingCreationSBSStage.activeStage = activeStage;
     }
 }

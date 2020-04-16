@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
+
+import java.util.Optional;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -143,14 +146,30 @@ public class UpdateHelper {
     }
 
     public TelegramUser getUser() {
-        Integer userId;
+        Optional<TelegramUser> userOptional = telegramUserRepository.findByTelegramId(getTelegramUserId());
+
+        if (!userOptional.isPresent()) {
+            User userTelegram = getUpdate().getMessage().getFrom();
+            TelegramUser telegramUser = TelegramUser.builder()
+                    .lastName(userTelegram.getLastName())
+                    .firstName(userTelegram.getFirstName())
+                    .userName(userTelegram.getUserName())
+                    .telegramId(userTelegram.getId())
+                    .build();
+            telegramUserRepository.save(telegramUser);
+            return telegramUser;
+        } else {
+            return userOptional.get();
+        }
+    }
+
+    public Integer getTelegramUserId() {
         Update realUpdate = razykrashkaBot.getRealUpdate();
         if (realUpdate.hasMessage()) {
-            userId = realUpdate.getMessage().getFrom().getId();
+            return realUpdate.getMessage().getFrom().getId();
         } else {
-            userId = realUpdate.getCallbackQuery().getFrom().getId();
+            return realUpdate.getCallbackQuery().getFrom().getId();
         }
-        return telegramUserRepository.findByTelegramId(userId).get();
     }
 
     public boolean hasCallBackQuery() {

@@ -38,7 +38,12 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         ReplyKeyboard keyboard;
 
         String callBackData = updateHelper.getCallBackData();
-        if (this.getClass().getSimpleName().equals(callBackData) || super.isStageActive()) {
+
+
+        if (this.getClass().getSimpleName().equals(callBackData) || meetingRepository
+                .findByCreationStatusEqualsInProgress(updateHelper.getUser().getId()).get()
+                .getCreationState().getActiveStage().equals(this.getClass().getSimpleName())) {
+
             // TODO: Informative error message;
             keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
             if (razykrashkaBot.getRealUpdate().hasMessage()) {
