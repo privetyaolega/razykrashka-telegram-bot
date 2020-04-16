@@ -35,7 +35,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        try {
+/*        try {
             Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
             if (meetingOptional.isPresent()) {
                 CreationState creationState = meetingOptional.get().getCreationState();
@@ -44,7 +44,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             }
         } catch (NullPointerException e) {
             return false;
-        }
+        }*/
         return false;
     }
 

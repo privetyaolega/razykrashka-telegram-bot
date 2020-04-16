@@ -45,7 +45,8 @@ public class BotExecutor {
     @Autowired
     MessageManager messageManager;
 
-    List<Stage> activeStages;
+    Stage activeStage;
+        List<Stage> activeStages;
     List<Stage> stages;
     Stage undefinedStage;
 
@@ -70,8 +71,14 @@ public class BotExecutor {
                 .filter(Stage::isStageActive)
                 .collect(Collectors.toList());
 
+//        activeStage = stages.stream()
+//                .filter(Stage::isStageActive)
+//                .findFirst()
+//                .orElse(undefinedStage);
+
         if (update.hasCallbackQuery()) {
             activeStages.get(0).processCallBackQuery();
+//            activeStage.processCallBackQuery();
         } else if (update.hasMessage() || update.hasPoll()) {
             saveUpdate(update);
             Stage activeStage = activeStages.isEmpty() ? undefinedStage : activeStages.get(0);
