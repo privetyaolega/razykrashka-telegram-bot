@@ -80,7 +80,7 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
         Pair<String, String> button = null;
         if (!isMeetingStarted()) {
             if (isUserOwner()) {
-                button = Pair.of("Delete " + Emoji.RED_CROSS, deleteStage + meeting.getId());
+                button = Pair.of(Emoji.RED_CROSS, deleteStage + meeting.getId());
             }
         }
         return button;
@@ -92,9 +92,9 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder
                 .getKeyboard()
+                .setRow(getMeetingInfoButtons())
                 .setRow(getActionButton())
                 .setRow(getDeleteButton())
-                .setRow(getMeetingInfoButtons())
                 .build();
     }
 

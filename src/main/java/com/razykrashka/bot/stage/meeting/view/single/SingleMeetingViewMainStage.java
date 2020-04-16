@@ -57,9 +57,9 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder
                 .getKeyboard()
+                .setRow(getMeetingInfoButtons())
                 .setRow(getActionButton())
                 .setRow(getDeleteButton())
-                .setRow(getMeetingInfoButtons())
                 .build();
     }
 
