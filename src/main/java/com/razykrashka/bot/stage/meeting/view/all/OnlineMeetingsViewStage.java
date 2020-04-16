@@ -13,14 +13,13 @@ public class OnlineMeetingsViewStage extends PaginationMeetingsViewStage {
     public static final String KEYWORD = "/online";
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         meetings = meetingService.getAllActive()
                 .filter(m -> m.getFormat().equals(MeetingFormatEnum.ONLINE))
                 .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
                 .collect(Collectors.toList());
 
         super.generateMainMessage(meetingMessageUtils::getPaginationAllGeneral);
-        return true;
     }
 
     @Override

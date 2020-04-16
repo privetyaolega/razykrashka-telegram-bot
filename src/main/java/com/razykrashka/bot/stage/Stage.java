@@ -4,15 +4,11 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 public interface Stage {
 
-    StageInfo getStageInfo();
-
-    ReplyKeyboard getKeyboard();
+    boolean isStageActive();
 
     void handleRequest();
 
-    boolean isStageActive();
+    void processCallBackQuery();
 
-    boolean processCallBackQuery();
-
-    void setActive(boolean isActive);
+    ReplyKeyboard getKeyboard();
 }

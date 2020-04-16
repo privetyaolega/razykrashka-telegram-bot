@@ -13,14 +13,13 @@ public class ArchivedMeetingsViewStage extends PaginationMeetingsViewStage {
     public static final String KEYWORD = "/archived";
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         meetings = meetingService.getAllMeetings()
                 .filter(m -> m.getMeetingDateTime().isBefore(LocalDateTime.now()))
                 .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
                 .collect(Collectors.toList());
 
         super.generateMainMessage(meetingMessageUtils::getPaginationAllViewArchived);
-        return true;
     }
 
     @Override

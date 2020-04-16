@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
 public class AcceptFormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
             razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
             razykrashkaBot.getContext().getBean(FormatMeetingCreationSBSStage.class).handleRequest();
-            return true;
+            return;
         }
 
         MeetingFormatEnum meetingFormatEnum = MeetingFormatEnum.valueOf(updateHelper.getStringPureCallBackData());
@@ -31,7 +31,6 @@ public class AcceptFormatMeetingCreationSBSStage extends BaseMeetingCreationSBSS
         } else {
             razykrashkaBot.getContext().getBean(OfflineMeetingCreationSBSStage.class).handleRequest();
         }
-        return true;
     }
 
     @Override

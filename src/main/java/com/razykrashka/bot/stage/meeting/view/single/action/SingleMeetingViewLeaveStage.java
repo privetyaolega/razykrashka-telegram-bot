@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class SingleMeetingViewLeaveStage extends MainStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         Integer meetingId = updateHelper.getIntegerPureCallBackData();
         Meeting meeting = meetingRepository.findById(meetingId)
                 .orElseThrow(() -> new RuntimeException("Can not find meeting with id: " + meetingId));
@@ -22,7 +22,6 @@ public class SingleMeetingViewLeaveStage extends MainStage {
 
         messageManager.disableKeyboardLastBotMessage()
                 .sendSimpleTextMessage(String.format(getString("main"), meetingId));
-        return true;
     }
 
     @Override

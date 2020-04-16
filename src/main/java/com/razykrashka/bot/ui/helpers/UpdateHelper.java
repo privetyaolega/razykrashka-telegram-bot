@@ -167,9 +167,10 @@ public class UpdateHelper {
         Update realUpdate = razykrashkaBot.getRealUpdate();
         if (realUpdate.hasMessage()) {
             return realUpdate.getMessage().getFrom().getId();
-        } else {
+        } else if (realUpdate.hasCallbackQuery()) {
             return realUpdate.getCallbackQuery().getFrom().getId();
         }
+        return 0;
     }
 
     public boolean hasCallBackQuery() {

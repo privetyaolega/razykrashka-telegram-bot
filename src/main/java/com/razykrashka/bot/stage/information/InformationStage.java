@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.information;
 
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.StageInfo;
+
 import com.razykrashka.bot.stage.information.stats.MainStatisticStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -11,9 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 @Component
 public class InformationStage extends MainStage {
 
-    public InformationStage() {
-        stageInfo = StageInfo.INFORMATION;
-    }
+    public static final String KEYWORD = "Information";
 
     @Override
     public void handleRequest() {
@@ -23,9 +21,8 @@ public class InformationStage extends MainStage {
     }
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         handleRequest();
-        return true;
     }
 
     @Override
@@ -38,6 +35,6 @@ public class InformationStage extends MainStage {
     @Override
     public boolean isStageActive() {
         return updateHelper.isCallBackDataContains()
-                || updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
+                || updateHelper.isMessageTextEquals(KEYWORD);
     }
 }

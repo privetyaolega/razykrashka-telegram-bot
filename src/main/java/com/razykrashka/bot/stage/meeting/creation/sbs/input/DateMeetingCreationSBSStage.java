@@ -34,7 +34,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     }
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         ReplyKeyboard keyboard;
 
         String callBackData = updateHelper.getCallBackData();
@@ -56,7 +56,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             if (callBackData.contains(NO_DATE)) {
                 messageManager.sendAlertMessage("Пожалуйста, введита дату");
                 setActiveNextStage(this.getClass());
-                return true;
+                return;
             }
             String monthYear = callBackData.replace(this.getClass().getSimpleName(), "");
             int month = Integer.parseInt(monthYear.substring(0, 2));
@@ -64,7 +64,6 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             keyboard = generateCalendarKeyboard(month, year);
             messageManager.updateOrSendDependsOnLastMessageOwner("Please, choose meeting date.", keyboard);
         }
-        return true;
     }
 
     private InlineKeyboardMarkup generateCalendarKeyboard(int month, int year) {
@@ -165,6 +164,10 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             default:
                 return null;
         }
+    }
+
+    protected String getCallBackString(String callBackData) {
+        return this.getClass().getSimpleName() + callBackData;
     }
 
     @Override

@@ -3,9 +3,15 @@ package com.razykrashka.bot.stage;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.razykrashka.bot.db.repo.*;
+import com.razykrashka.bot.db.repo.MeetingInfoRepository;
+import com.razykrashka.bot.db.repo.MeetingRepository;
+import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
+import com.razykrashka.bot.stage.information.InformationStage;
+import com.razykrashka.bot.stage.meeting.creation.IntroStartMeetingCreationStage;
+import com.razykrashka.bot.stage.meeting.view.all.MyMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.SelectMeetingsTypeStage;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
@@ -15,7 +21,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -41,23 +46,13 @@ public abstract class MainStage implements Stage {
     @Autowired
     protected MeetingInfoRepository meetingInfoRepository;
     @Autowired
-    protected LocationRepository locationRepository;
-    @Autowired
-    protected TelegramMessageRepository telegramMessageRepository;
-
-    @Autowired
     protected RazykrashkaBot razykrashkaBot;
-
     @Autowired
     protected MessageManager messageManager;
     @Autowired
     protected KeyboardBuilder keyboardBuilder;
     @Autowired
     protected UpdateHelper updateHelper;
-
-    protected boolean stageActivity;
-    protected StageInfo stageInfo;
-    protected Update update;
 
     static {
         ObjectMapper mapper = new ObjectMapper();
@@ -71,42 +66,24 @@ public abstract class MainStage implements Stage {
         }
     }
 
-    {
-        stageInfo = StageInfo.DEFAULT;
-    }
-
     @Override
     public void handleRequest() {
-        throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
+        throw new RuntimeException("Please, implement method in specific class.");
     }
 
     @Override
-    public boolean processCallBackQuery() {
-        throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
-    }
-
-    @Override
-    public StageInfo getStageInfo() {
-        return stageInfo;
-    }
-
-    @Override
-    public boolean isStageActive() {
-        return updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword());
+    public void processCallBackQuery() {
+        throw new RuntimeException("Please, implement method in specific class.");
     }
 
     @Override
     public ReplyKeyboard getKeyboard() {
-        throw new RuntimeException("IMPLEMENT METHOD IN SPECIFIC CLASS.");
-    }
-
-    protected String getCallBackString(String callBackData) {
-        return this.getClass().getSimpleName() + callBackData;
+        throw new RuntimeException("Please, implement method in specific class.");
     }
 
     @Override
-    public void setActive(boolean isActive) {
-        this.stageActivity = isActive;
+    public boolean isStageActive() {
+        throw new RuntimeException("Please, implement method in specific class.");
     }
 
     protected Map<String, String> getStringMap() {
@@ -133,12 +110,12 @@ public abstract class MainStage implements Stage {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton(StageInfo.SELECT_WAY_MEETING_CREATION.getKeyword()));
-        keyboardFirstRow.add(new KeyboardButton(StageInfo.MY_MEETING_VIEW.getKeyword()));
-        keyboardFirstRow.add(new KeyboardButton(StageInfo.SELECT_MEETINGS_TYPE.getKeyword()));
+        keyboardFirstRow.add(new KeyboardButton(IntroStartMeetingCreationStage.KEYWORD));
+        keyboardFirstRow.add(new KeyboardButton(MyMeetingsViewStage.KEYWORD));
+        keyboardFirstRow.add(new KeyboardButton(SelectMeetingsTypeStage.KEYWORD));
 
         KeyboardRow keyboardSecondRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton(StageInfo.INFORMATION.getKeyword()));
+        keyboardSecondRow.add(new KeyboardButton(InformationStage.KEYWORD));
 
         keyboard.add(keyboardFirstRow);
         keyboard.add(keyboardSecondRow);
@@ -146,4 +123,6 @@ public abstract class MainStage implements Stage {
 
         return replyKeyboardMarkup;
     }
+
+
 }

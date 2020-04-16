@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.start;
 
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
-import com.razykrashka.bot.stage.StageInfo;
+
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.*;
 import lombok.AccessLevel;
@@ -20,8 +20,6 @@ public class ContinueCreationMeetingSBSStage extends BaseMeetingCreationSBSStage
     List<Class<? extends BaseMeetingCreationSBSStage>> sbsStages = new ArrayList<>();
 
     public ContinueCreationMeetingSBSStage() {
-        stageInfo = StageInfo.DEFAULT;
-
         sbsStages.add(DateMeetingCreationSBSStage.class);
         sbsStages.add(TimeMeetingCreationSBSStage.class);
         sbsStages.add(FormatMeetingCreationSBSStage.class);
@@ -34,7 +32,7 @@ public class ContinueCreationMeetingSBSStage extends BaseMeetingCreationSBSStage
     }
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         meeting = getMeetingInCreation();
         String stage = meeting.getCreationState().getActiveStage().replace("Accept", "");
 
@@ -50,7 +48,6 @@ public class ContinueCreationMeetingSBSStage extends BaseMeetingCreationSBSStage
                 .orElseThrow(() -> new RuntimeException("There is no SBS Stages by name: " + stage));
         super.setActiveNextStage(activeStage);
         razykrashkaBot.getContext().getBean(activeStage).handleRequest();
-        return true;
     }
 
     @Override

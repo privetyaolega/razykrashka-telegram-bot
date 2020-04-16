@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
             razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
             razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
-            return true;
+            return;
         }
 
         SpeakingLevel level = SpeakingLevel.valueOf(updateHelper.getCallBackData());
@@ -35,7 +35,6 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meetingRepository.save(meeting);
 
         razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
-        return true;
     }
 
     @Override

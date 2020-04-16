@@ -14,12 +14,11 @@ import java.util.List;
 public class SingleMeetingTopicInfoStage extends SingleMeetingViewBaseStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         Integer meetingId = updateHelper.getIntegerPureCallBackData();
         meeting = meetingRepository.findMeetingById(meetingId);
         String message = meetingMessageUtils.getSingleMeetingDiscussionInfo(meeting);
         messageManager.updateMessage(message, this.getKeyboard());
-        return true;
     }
 
     @Override

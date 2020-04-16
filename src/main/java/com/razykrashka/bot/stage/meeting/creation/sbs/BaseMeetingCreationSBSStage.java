@@ -37,16 +37,14 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     static String activeStage = "";
     protected static final String EDIT = "edit";
 
-
     @Override
     public boolean isStageActive() {
         return activeStage.equals(this.getClass().getSimpleName());
     }
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         handleRequest();
-        return true;
     }
 
     protected void setActiveNextStage(Class clazz) {

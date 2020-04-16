@@ -33,12 +33,12 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
     final String topicStage = SingleMeetingTopicInfoStage.class.getSimpleName();
     final String mapStage = SingleMeetingViewMapStage.class.getSimpleName();
     final String mainStage = SingleMeetingViewMainStage.class.getSimpleName();
+    public static final String KEYWORD = "/meeting";
 
     protected Integer getMeetingId() {
         if (!updateHelper.getMessageText().isEmpty()) {
             String messageText = updateHelper.getMessageText();
-            String keyword = this.getStageInfo().getKeyword();
-            String meetingIdString = messageText.replace(keyword, "");
+            String meetingIdString = messageText.replace(KEYWORD, "");
             return Integer.valueOf(meetingIdString);
         } else {
             return updateHelper.getIntDataFromCallBackQuery();
@@ -126,8 +126,7 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
     }*/
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         handleRequest();
-        return true;
     }
 }

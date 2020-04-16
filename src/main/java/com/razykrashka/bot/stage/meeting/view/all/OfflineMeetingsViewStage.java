@@ -13,13 +13,12 @@ public class OfflineMeetingsViewStage extends PaginationMeetingsViewStage {
     public static final String KEYWORD = "/offline";
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         meetings = meetingService.getAllActive()
                 .filter(m -> m.getFormat().equals(MeetingFormatEnum.OFFLINE))
                 .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
                 .collect(Collectors.toList());
         super.generateMainMessage(meetingMessageUtils::getPaginationAllGeneral);
-        return true;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.razykrashka.bot.aspect;
 
 
-import com.razykrashka.bot.exception.StageActivityException;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
@@ -35,7 +34,6 @@ public class UpdateLoggingAspect {
             CallbackQuery query = updateHelper.getUpdate().getCallbackQuery();
             messageManager.sendAnswerCallbackQuery(query);
         }
-//        log.info("ASPECT: Sending answer call back query for {}", query.getId());
     }
 
     @After("execution(public void com.razykrashka.bot.service.BotExecutor.execute(*))")

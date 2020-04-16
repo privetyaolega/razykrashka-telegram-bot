@@ -39,9 +39,8 @@ public class HelpStage extends MainStage {
     }
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         handleRequest();
-        return true;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation;
 
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.StageInfo;
+
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.PhoneMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
@@ -13,9 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 @Component
 public class IntroStartMeetingCreationStage extends MainStage {
 
-    public IntroStartMeetingCreationStage() {
-        stageInfo = StageInfo.SELECT_WAY_MEETING_CREATION;
-    }
+    public static final String KEYWORD = "Create Meeting";
 
     @Override
     public ReplyKeyboard getKeyboard() {
@@ -37,5 +35,10 @@ public class IntroStartMeetingCreationStage extends MainStage {
                         "After creation the meeting show up in <code>\"Meeting\"</code> sections and everyone of our community will know about it by getting notification in our community group.\n" +
                         "\n" +
                         "Sooo, are you readyyyyyy?", this.getKeyboard());
+    }
+
+    @Override
+    public boolean isStageActive() {
+        return updateHelper.isMessageTextEquals(KEYWORD);
     }
 }

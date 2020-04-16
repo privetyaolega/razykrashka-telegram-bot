@@ -38,10 +38,10 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     }
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         if (updateHelper.isCallBackDataEquals(ACCEPT_RANDOM_TOPIC_CBQ)) {
             razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
-            return true;
+            return;
         }
 
         meeting = getMeetingInCreation();
@@ -69,7 +69,6 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
                 + TextFormatter.getItalicString(getString("input"));
         messageManager.updateMessage(messageText, keyboardMarkup);
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
-        return true;
     }
 
     @Override

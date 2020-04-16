@@ -24,7 +24,7 @@ public class AcceptOfflineMeetingCreationSBSStage extends BaseMeetingCreationSBS
     }
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         if (updateHelper.isCallBackDataContains("Confirm")) {
             setActiveNextStage(LevelMeetingCreationSBSStage.class);
             updateHelper.getBot().getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
@@ -34,7 +34,6 @@ public class AcceptOfflineMeetingCreationSBSStage extends BaseMeetingCreationSBS
             telegramUserRepository.save(user);
             updateHelper.getBot().getContext().getBean(OfflineMeetingCreationSBSStage.class).handleRequest();
         }
-        return true;
     }
 
     @Override

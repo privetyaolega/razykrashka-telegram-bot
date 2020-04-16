@@ -4,7 +4,7 @@ import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.exception.EntityWasNotFoundException;
-import com.razykrashka.bot.stage.StageInfo;
+
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
@@ -22,10 +22,6 @@ import java.util.Optional;
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
-
-    public SingleMeetingViewMainStage() {
-        stageInfo = StageInfo.SINGLE_MEETING_VIEW;
-    }
 
     @Override
     public void handleRequest() {
@@ -77,7 +73,7 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
     @Override
     public boolean isStageActive() {
         return (updateHelper.isCallBackDataContains()
-                || updateHelper.isMessageContains(stageInfo.getKeyword())
+                || updateHelper.isMessageContains(KEYWORD)
                 && !updateHelper.isMessageFromGroup());
     }
 }

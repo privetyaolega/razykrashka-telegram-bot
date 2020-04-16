@@ -23,7 +23,7 @@ public class DeleteSingleMeetingStage extends MainStage {
     Meeting meeting;
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         Integer id = updateHelper.getIntegerPureCallBackData();
         meeting = meetingRepository.findById(id).get();
 
@@ -33,7 +33,6 @@ public class DeleteSingleMeetingStage extends MainStage {
                 .disableKeyboardLastBotMessage()
                 .updateMessage("Meeting has been deleted " + Emoji.PENSIVE)
                 .sendRandomSticker("sad");
-        return true;
     }
 
     private void sendDeleteNotification(Set<TelegramUser> participants) {

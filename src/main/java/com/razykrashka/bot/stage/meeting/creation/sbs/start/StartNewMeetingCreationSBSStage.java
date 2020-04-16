@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class StartNewMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         LoadingThreadV2 loadingThread = startLoadingThread(true);
         if (updateHelper.isCallBackDataContains("fromScratch")) {
             meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getTelegramUserId())
@@ -23,7 +23,6 @@ public class StartNewMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         super.setActiveNextStage(DateMeetingCreationSBSStage.class);
         joinToThread(loadingThread);
         razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
-        return true;
     }
 
     @Override

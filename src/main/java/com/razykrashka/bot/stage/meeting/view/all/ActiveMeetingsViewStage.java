@@ -12,12 +12,11 @@ public class ActiveMeetingsViewStage extends PaginationMeetingsViewStage {
     public static final String KEYWORD = "/active";
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         meetings = meetingService.getAllActive()
                 .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
                 .collect(Collectors.toList());
         super.generateMainMessage(meetingMessageUtils::getPaginationAllViewActive);
-        return true;
     }
 
     @Override

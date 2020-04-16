@@ -10,12 +10,11 @@ import org.springframework.stereotype.Component;
 public class SingleMeetingViewMapStage extends MainStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         Integer meetingId = updateHelper.getIntegerPureCallBackData();
         Meeting meeting = meetingRepository.findById(meetingId)
                 .orElseThrow(() -> new RuntimeException("Can not find meeting with id:" + meetingId));
         messageManager.sendMap(meeting);
-        return true;
     }
 
     @Override

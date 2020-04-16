@@ -25,7 +25,7 @@ public class PhoneMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     Class<? extends BaseMeetingCreationSBSStage> nextStageClass = AcceptPhoneMeetingCreationSBSStage.class;
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         meeting = getMeetingInCreation();
         if (updateHelper.getUser().getPhoneNumber().isEmpty()) {
             messageManager
@@ -38,9 +38,8 @@ public class PhoneMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                             .setChatId(updateHelper.getChatId()));
 
             setActiveNextStage(nextStageClass);
-            return true;
         } else {
-            return razykrashkaBot.getContext().getBean(VerifyMeetingStateSBSStage.class).processCallBackQuery();
+            razykrashkaBot.getContext().getBean(VerifyMeetingStateSBSStage.class).processCallBackQuery();
         }
     }
 

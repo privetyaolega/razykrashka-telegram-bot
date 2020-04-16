@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class AcceptParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         messageInputHandler();
         Integer participantsLimit = updateHelper.getIntegerPureCallBackData();
 
@@ -28,7 +28,6 @@ public class AcceptParticipantsMeetingCreationSBSStage extends BaseMeetingCreati
         String messageInfoText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
         messageManager.updateMessage(messageInfoText);
         razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).handleRequest();
-        return true;
     }
 
     private void messageInputHandler() {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class DeleteConfirmationSingleMeetingStage extends MainStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         Integer id = updateHelper.getIntegerPureCallBackData();
         keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
@@ -20,7 +20,6 @@ public class DeleteConfirmationSingleMeetingStage extends MainStage {
                 .build();
 
         messageManager.updateMessage(getFormatString("warning", id), keyboardBuilder.build());
-        return true;
     }
 
     @Override

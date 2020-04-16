@@ -20,7 +20,7 @@ public class MainStatisticStage extends MainStage {
     Long groupChatId;
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         Long doneMeetingsCount = meetingRepository.countByMeetingDateTimeBefore();
         long usersUsingBotCount = telegramUserRepository.count();
         Integer groupMembersCount = 0;
@@ -35,8 +35,6 @@ public class MainStatisticStage extends MainStage {
 
         String message = getFormatString("main", doneMeetingsCount, usersUsingBotCount, groupMembersCount);
         messageManager.updateOrSendDependsOnLastMessageOwner(message, this.getKeyboard());
-
-        return true;
     }
 
     @Override

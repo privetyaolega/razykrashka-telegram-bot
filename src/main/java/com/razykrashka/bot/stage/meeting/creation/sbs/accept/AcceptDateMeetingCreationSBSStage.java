@@ -24,7 +24,7 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
     MeetingProperties meetingProperties;
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         messageInputHandler();
 
         LocalDateTime localDateTime = getLocalDateTime();
@@ -33,7 +33,6 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
         meetingRepository.save(meeting);
 
         razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
-        return true;
     }
 
     private void messageInputHandler() {

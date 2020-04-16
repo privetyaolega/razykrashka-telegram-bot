@@ -2,7 +2,7 @@ package com.razykrashka.bot.stage.meeting.view.all;
 
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.StageInfo;
+
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
@@ -14,9 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SelectMeetingsTypeStage extends MainStage {
 
-    public SelectMeetingsTypeStage() {
-        stageInfo = StageInfo.SELECT_MEETINGS_TYPE;
-    }
+    public static final String KEYWORD = "View Meetings";
 
     @Override
     public void handleRequest() {
@@ -25,9 +23,8 @@ public class SelectMeetingsTypeStage extends MainStage {
     }
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         handleRequest();
-        return true;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class SelectMeetingsTypeStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isMessageTextEquals(this.getStageInfo().getKeyword())
+        return updateHelper.isMessageTextEquals(KEYWORD)
                 || updateHelper.isCallBackDataContains();
     }
 }

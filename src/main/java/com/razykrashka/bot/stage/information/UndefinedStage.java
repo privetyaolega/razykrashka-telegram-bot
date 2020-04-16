@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.information;
 
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.StageInfo;
+
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Builder
 public class UndefinedStage extends MainStage {
-
-    public UndefinedStage() {
-        stageInfo = StageInfo.UNDEFINED;
-    }
 
     @Override
     public boolean isStageActive() {

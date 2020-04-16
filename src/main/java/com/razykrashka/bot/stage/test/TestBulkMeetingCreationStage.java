@@ -3,9 +3,10 @@ package com.razykrashka.bot.stage.test;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.*;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
+import com.razykrashka.bot.db.repo.LocationRepository;
 import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.StageInfo;
+
 import com.razykrashka.bot.ui.helpers.LocationHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,16 @@ public class TestBulkMeetingCreationStage extends MainStage {
     @Autowired
     LocationHelper locationHelper;
     @Autowired
+    protected LocationRepository locationRepository;
+    @Autowired
     protected CreationStateRepository creationStateRepository;
 
     private Meeting meeting;
 
-    public TestBulkMeetingCreationStage() {
-        stageInfo = StageInfo.TEST_BULK_MEETING_CREATION;
-    }
-
     @Override
     public void handleRequest() {
         int meetingsAmount = Integer.parseInt(updateHelper.getMessageText()
-                .replace(this.stageInfo.getKeyword(), ""));
+                .replace("/cm", ""));
         try {
             for (int i = 0; i < meetingsAmount; i++) {
                 List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
@@ -88,6 +87,6 @@ public class TestBulkMeetingCreationStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isMessageContains(this.getStageInfo().getKeyword());
+        return updateHelper.isMessageContains("/cm");
     }
 }

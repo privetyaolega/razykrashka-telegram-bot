@@ -13,7 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 public class VerifyMeetingStateSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         meeting = getMeetingInCreation();
         if (meeting.getCreationState().isInCreationProgress()) {
             setActiveNextStage(StartNewMeetingCreationSBSStage.class);
@@ -26,7 +26,6 @@ public class VerifyMeetingStateSBSStage extends BaseMeetingCreationSBSStage {
             messageManager.disableKeyboardLastBotMessage()
                     .sendSimpleTextMessage(getString("main"), keyboard);
         }
-        return true;
     }
 
     @Override

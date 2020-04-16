@@ -13,13 +13,12 @@ import java.util.Optional;
 public class SingleMeetingViewContactStage extends MainStage {
 
     @Override
-    public boolean processCallBackQuery() {
+    public void processCallBackQuery() {
         Integer meetingId = updateHelper.getIntegerPureCallBackData();
         Meeting meeting = meetingRepository.findById(meetingId)
                 .orElseThrow(() -> new RuntimeException("Can not find meeting with id: " + meetingId));
         Optional<TelegramUser> user = Optional.ofNullable(meeting.getTelegramUser());
         user.ifPresent(x -> messageManager.sendContact(x));
-        return true;
     }
 
     @Override
