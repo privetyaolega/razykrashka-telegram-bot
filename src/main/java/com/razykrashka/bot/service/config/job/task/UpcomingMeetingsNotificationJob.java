@@ -57,7 +57,7 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements Runn
             m.getParticipants().forEach(p -> {
                 messageManager.sendMessage(new SendMessage()
                         .setParseMode(ParseMode.HTML)
-                        .setChatId(String.valueOf(p.getTelegramId()))
+                        .setChatId(String.valueOf(p.getId()))
                         .setText("Hey! Do you remember about today’s meeting at " + m.getMeetingDateTime() +
                                 "? Wish you a great time! ✨\n/meeting" + m.getId())
                         .disableWebPagePreview());
@@ -66,6 +66,6 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements Runn
     }
 
     private String getUserString(TelegramUser u) {
-        return u.getTelegramId() + " " + (Optional.ofNullable(u.getUserName()).isPresent() ? u.getUserName() : "");
+        return u.getId() + " " + (Optional.ofNullable(u.getUserName()).isPresent() ? u.getUserName() : "");
     }
 }

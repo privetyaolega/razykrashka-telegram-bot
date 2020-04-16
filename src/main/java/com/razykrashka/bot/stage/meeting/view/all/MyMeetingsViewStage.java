@@ -19,7 +19,7 @@ public class MyMeetingsViewStage extends PaginationMeetingsViewStage {
 
     @Override
     public void handleRequest() {
-        meetings = meetingRepository.findAllScheduledMeetingsForUserById(updateHelper.getUser().getId())
+        meetings = meetingRepository.findAllScheduledMeetingsForUserById(updateHelper.getTelegramUserId())
                 .stream()
                 .filter(m -> m.getMeetingDateTime().plusHours(1).isAfter(LocalDateTime.now()))
                 .sorted(Comparator.comparing(Meeting::getMeetingDateTime))

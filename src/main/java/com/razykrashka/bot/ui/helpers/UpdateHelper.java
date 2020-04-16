@@ -146,7 +146,7 @@ public class UpdateHelper {
     }
 
     public TelegramUser getUser() {
-        Optional<TelegramUser> userOptional = telegramUserRepository.findByTelegramId(getTelegramUserId());
+        Optional<TelegramUser> userOptional = telegramUserRepository.findById(getTelegramUserId());
 
         if (!userOptional.isPresent()) {
             User userTelegram = getUpdate().getMessage().getFrom();
@@ -154,7 +154,7 @@ public class UpdateHelper {
                     .lastName(userTelegram.getLastName())
                     .firstName(userTelegram.getFirstName())
                     .userName(userTelegram.getUserName())
-                    .telegramId(userTelegram.getId())
+                    .id(userTelegram.getId())
                     .build();
             telegramUserRepository.save(telegramUser);
             return telegramUser;

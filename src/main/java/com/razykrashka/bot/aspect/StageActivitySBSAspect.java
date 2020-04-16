@@ -43,7 +43,7 @@ public class StageActivitySBSAspect {
 
     @Around("updateReceivedPointcut()")
     public Object measureExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-        Integer id = updateHelper.getUser().getId();
+        Integer id = updateHelper.getTelegramUserId();
         Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(id);
 
         if (isMainStage() || updateHelper.isUpdateFromGroup()) {

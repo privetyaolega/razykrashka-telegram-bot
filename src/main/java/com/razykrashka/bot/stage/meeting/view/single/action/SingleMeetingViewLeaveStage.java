@@ -17,7 +17,7 @@ public class SingleMeetingViewLeaveStage extends MainStage {
                 .orElseThrow(() -> new RuntimeException("Can not find meeting with id: " + meetingId));
 
         TelegramUser telegramUser = updateHelper.getUser();
-        telegramUser.removeFromToGoMeetings(meeting);
+        telegramUser.getToGoMeetings().remove(meeting);
         telegramUserRepository.save(telegramUser);
 
         messageManager.disableKeyboardLastBotMessage()

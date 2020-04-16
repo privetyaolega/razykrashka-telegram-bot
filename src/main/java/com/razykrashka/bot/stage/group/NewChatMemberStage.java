@@ -18,7 +18,7 @@ public class NewChatMemberStage extends MainStage {
     public void handleRequest() {
         TelegramUser user = updateHelper.getUser();
         messageManager.sendMessage(new SendMessage()
-                .setChatId(String.valueOf(user.getTelegramId()))
+                .setChatId(String.valueOf(user.getId()))
                 .setText(super.getString("welcome")));
     }
 

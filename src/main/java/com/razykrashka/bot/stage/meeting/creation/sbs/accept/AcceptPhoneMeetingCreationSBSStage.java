@@ -24,7 +24,7 @@ public class AcceptPhoneMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
             messageManager.sendSimpleTextMessage(message, getMainKeyboard());
             updateHelper.getBot().getContext().getBean(VerifyMeetingStateSBSStage.class).processCallBackQuery();
         } else {
-            meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId())
+            meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getTelegramUserId())
                     .ifPresent(m -> meetingRepository.delete(m));
             messageManager.replyLastMessage("Ooopss! Sorry, but it's unknown command \uD83E\uDD74\n" +
                             "\n" +

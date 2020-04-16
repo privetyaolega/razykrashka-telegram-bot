@@ -143,7 +143,7 @@ public class MeetingMessageUtils {
     private String getSingleStringForParticipantsList(TelegramUser telegramUser, Meeting meeting) {
         String profileLinkTmpl = "https://t.me/%s";
         boolean isUserMeetingOwner = meeting.getTelegramUser() != null && meeting.getTelegramUser()
-                .getTelegramId().equals(telegramUser.getTelegramId());
+                .getId().equals(telegramUser.getId());
         String ownerLabel = isUserMeetingOwner ? " " + Emoji.CROWN : "";
 
         String participantName = telegramUser.getFirstName() + " " + telegramUser.getLastName();

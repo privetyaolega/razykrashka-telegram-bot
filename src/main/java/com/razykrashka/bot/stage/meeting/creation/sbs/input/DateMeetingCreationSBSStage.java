@@ -41,7 +41,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
 
         if (this.getClass().getSimpleName().equals(callBackData) || meetingRepository
-                .findByCreationStatusEqualsInProgress(updateHelper.getUser().getId()).get()
+                .findByCreationStatusEqualsInProgress(updateHelper.getTelegramUserId()).get()
                 .getCreationState().getActiveStage().equals(this.getClass().getSimpleName())) {
 
             // TODO: Informative error message;

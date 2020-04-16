@@ -17,7 +17,7 @@ public class StartNewMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
     public boolean processCallBackQuery() {
         LoadingThreadV2 loadingThread = startLoadingThread(true);
         if (updateHelper.isCallBackDataContains("fromScratch")) {
-            meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId())
+            meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getTelegramUserId())
                     .ifPresent(m -> meetingRepository.delete(m));
         }
         super.setActiveNextStage(DateMeetingCreationSBSStage.class);

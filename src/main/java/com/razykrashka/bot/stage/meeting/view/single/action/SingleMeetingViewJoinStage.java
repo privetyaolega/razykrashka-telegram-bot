@@ -17,7 +17,7 @@ public class SingleMeetingViewJoinStage extends MainStage {
                 .orElseThrow(() -> new RuntimeException("Can not find meeting with id:" + meetingId));
 
         TelegramUser user = updateHelper.getUser();
-        user.addMeetingTotoGoMeetings(meeting);
+        user.getToGoMeetings().add(meeting);
         telegramUserRepository.save(user);
 
         String message = String.format(getString("main"), meetingId);

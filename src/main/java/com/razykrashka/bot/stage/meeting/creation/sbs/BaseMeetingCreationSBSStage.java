@@ -60,7 +60,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
     }
 
     protected Meeting getMeetingInCreation() {
-        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getUser().getId());
+        Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(updateHelper.getTelegramUserId());
 
         if (!meetingOptional.isPresent()) {
             CreationState creationState = CreationState.builder()

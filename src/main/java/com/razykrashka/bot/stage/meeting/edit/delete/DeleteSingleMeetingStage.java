@@ -43,20 +43,20 @@ public class DeleteSingleMeetingStage extends MainStage {
 
         String message = getFormatString("deleteNotification", meeting.getId());
         participants.stream()
-                .filter(p -> !p.getTelegramId().equals(meeting.getTelegramUser().getTelegramId()))
+                .filter(p -> !p.getId().equals(meeting.getTelegramUser().getId()))
                 .forEach(p -> messageManager
                         .disableKeyboardLastBotMessage()
                         .sendMessage(new SendMessage()
                                 .setParseMode(ParseMode.HTML)
-                                .setChatId(String.valueOf(p.getTelegramId()))
+                                .setChatId(String.valueOf(p.getId()))
                                 .setText(message)));
 
         log.info("Meeting # {} has been deleted. Owner: {}, participants: [{}]",
-                meeting.getId(), meeting.getTelegramUser().getTelegramId(), participantsToString);
+                meeting.getId(), meeting.getTelegramUser().getId(), participantsToString);
     }
 
     private String getUserString(TelegramUser u) {
-        return u.getTelegramId() + " " + (Optional.ofNullable(u.getUserName()).isPresent() ? u.getUserName() : "");
+        return u.getId() + " " + (Optional.ofNullable(u.getUserName()).isPresent() ? u.getUserName() : "");
     }
 
     @Override
