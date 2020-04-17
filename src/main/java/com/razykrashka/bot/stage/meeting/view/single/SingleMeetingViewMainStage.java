@@ -3,7 +3,7 @@ package com.razykrashka.bot.stage.meeting.view.single;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
-import com.razykrashka.bot.exception.EntityWasNotFoundException;
+import com.razykrashka.bot.exception.NoSuchEntityException;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -29,7 +29,7 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
         Optional<Meeting> optionalMeeting = meetingRepository.findById(id);
         if (!optionalMeeting.isPresent()) {
             messageManager.replyLastMessage(super.getFormatString("meetingNotFound", id));
-            throw new EntityWasNotFoundException("Meeting was not found. ID: " + id);
+            throw new NoSuchEntityException("Meeting was not found. ID: " + id);
         }
         meeting = optionalMeeting.get();
         String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);

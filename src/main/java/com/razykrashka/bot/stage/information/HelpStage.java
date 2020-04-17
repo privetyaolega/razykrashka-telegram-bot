@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HelpStage extends MainStage {
 
-    private final static String KEYWORD = "/help";
+    public final static String KEYWORD = "/help";
 
     @Override
     public void handleRequest() {

@@ -4,6 +4,7 @@ import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.*;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.db.repo.LocationRepository;
+import com.razykrashka.bot.db.repo.MeetingCatalogRepository;
 import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
 
@@ -16,6 +17,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Log4j2
 @Component
@@ -27,6 +30,8 @@ public class TestBulkMeetingCreationStage extends MainStage {
     protected LocationRepository locationRepository;
     @Autowired
     protected CreationStateRepository creationStateRepository;
+    @Autowired
+    MeetingCatalogRepository meetingCatalogRepository;
 
     private Meeting meeting;
 
@@ -36,8 +41,10 @@ public class TestBulkMeetingCreationStage extends MainStage {
                 .replace("/cm", ""));
         try {
             for (int i = 0; i < meetingsAmount; i++) {
-                List<MeetingInfo> meetingInfoList = meetingInfoRepository.findAllByParticipantLimitEquals(0);
-                MeetingInfo randomMeetingInfo = meetingInfoList.get(new Random().nextInt(meetingInfoList.size()));
+                List<MeetingCatalog> meetingCatalogList = StreamSupport
+                        .stream(meetingCatalogRepository.findAll().spliterator(), false)
+                        .collect(Collectors.toList());
+                MeetingCatalog randomMeetingInfo = meetingCatalogList.get(new Random().nextInt(meetingCatalogList.size()));
 
                 MeetingInfo mi = MeetingInfo.builder()
                         .topic(randomMeetingInfo.getTopic())

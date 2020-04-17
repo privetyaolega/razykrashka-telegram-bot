@@ -123,6 +123,4 @@ public abstract class MainStage implements Stage {
 
         return replyKeyboardMarkup;
     }
-
-
 }

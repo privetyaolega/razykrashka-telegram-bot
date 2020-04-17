@@ -5,14 +5,17 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Log4j2
 @Component
 public class MyMeetingsViewStage extends PaginationMeetingsViewStage {
 
-    public final static String KEYWORD = "My Meetings";
+    public static final List<String> KEYWORDS = Arrays.asList("My Meetings", "/my");
+    public static final String KEYWORD = "My Meetings";
 
     @Override
     public void handleRequest() {
@@ -32,7 +35,6 @@ public class MyMeetingsViewStage extends PaginationMeetingsViewStage {
     @Override
     public boolean isStageActive() {
         return updateHelper.isCallBackDataContains()
-                || updateHelper.isMessageTextEquals("/my")
-                || updateHelper.isMessageTextEquals(KEYWORD);
+                || KEYWORDS.contains(updateHelper.getMessageText());
     }
 }

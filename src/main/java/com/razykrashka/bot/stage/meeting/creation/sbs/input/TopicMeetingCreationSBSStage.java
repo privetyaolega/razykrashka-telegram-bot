@@ -20,8 +20,10 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         meetingInfoRepository.save(meeting.getMeetingInfo());
         meetingRepository.save(meeting);
 
-        String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        messageManager.updateMessage(meetingInfo + TextFormatter.getItalicString(getString("input")), getKeyboard());
+        String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input")
+                + TextFormatter.getLink("\nmeeting catalog", "https://telegra.ph/Example-of-meeting-creation-03-18"));
+        messageManager.updateMessage(message, getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
     }
 

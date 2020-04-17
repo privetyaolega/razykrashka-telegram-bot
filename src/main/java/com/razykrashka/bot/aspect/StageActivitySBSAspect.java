@@ -5,11 +5,16 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.db.repo.MeetingRepository;
+import com.razykrashka.bot.stage.information.HelpStage;
+import com.razykrashka.bot.stage.information.InformationStage;
+import com.razykrashka.bot.stage.meeting.creation.IntroStartMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.view.all.*;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -35,10 +40,20 @@ public class StageActivitySBSAspect {
         this.updateHelper = updateHelper;
         this.creationStateRepository = creationStateRepository;
         this.meetingRepository = meetingRepository;
-        this.keyWordsList = Arrays.asList("Create Meeting",
-                "View Meetings",
-                "My Meetings",
-                "Information");
+        this.keyWordsList = Arrays.asList(
+                IntroStartMeetingCreationStage.KEYWORD,
+                SelectMeetingsTypeStage.KEYWORD,
+                InformationStage.KEYWORD,
+
+                ActiveMeetingsViewStage.KEYWORD,
+                ArchivedMeetingsViewStage.KEYWORD,
+                OfflineMeetingsViewStage.KEYWORD,
+                OnlineMeetingsViewStage.KEYWORD,
+                MyMeetingsViewStage.KEYWORD,
+                "/my",
+
+                HelpStage.KEYWORD
+        );
     }
 
 
@@ -70,6 +85,11 @@ public class StageActivitySBSAspect {
                 BaseMeetingCreationSBSStage.setActiveStage(activeStage);
             }
         }
+    }
+
+    @After("updateReceivedPointcut()")
+    public void measureExecutionTimeAfter() {
+        BaseMeetingCreationSBSStage.setActiveStage("");
     }
 
     private boolean isMainStage() {

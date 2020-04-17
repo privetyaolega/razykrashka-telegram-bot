@@ -213,4 +213,8 @@ public class UpdateHelper {
     public int getIntDataFromCallBackQuery() {
         return Integer.parseInt(getCallBackData().replaceAll("\\D+", ""));
     }
+
+    public int getIntDataFromMessage() {
+        return Integer.parseInt(getMessageText().replaceAll("\\D+", ""));
+    }
 }

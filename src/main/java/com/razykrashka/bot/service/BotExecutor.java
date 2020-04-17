@@ -16,6 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Getter
@@ -28,6 +29,7 @@ public class BotExecutor {
     TelegramMessageRepository telegramMessageRepository;
 
     List<Stage> stages;
+    List<Stage> activeStages;
     Stage activeStage;
     Stage undefinedStage;
 
@@ -42,10 +44,11 @@ public class BotExecutor {
     }
 
     public void execute(Update update) {
-        activeStage = stages.stream()
+        activeStages = stages.stream()
                 .filter(Stage::isStageActive)
-                .findFirst()
-                .orElse(undefinedStage);
+                .collect(Collectors.toList());
+
+        activeStage = activeStages.isEmpty() ? undefinedStage : activeStages.get(0);
 
         if (update.hasCallbackQuery()) {
             activeStage.processCallBackQuery();
