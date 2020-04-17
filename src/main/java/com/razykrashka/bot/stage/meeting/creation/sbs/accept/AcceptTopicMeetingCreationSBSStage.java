@@ -39,13 +39,11 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     public void handleRequest() {
         meeting = getMeetingInCreation();
         MeetingInfo mi = meeting.getMeetingInfo();
-        if (updateHelper.getMessageText().equalsIgnoreCase("ID:")) {
+        if (isGettingFromCatalog()) {
             Integer id = updateHelper.getIntDataFromMessage();
             Optional<MeetingCatalog> meetingCatalog = meetingCatalogRepository.findById(id);
             meetingCatalog.orElseThrow(() -> {
-                messageManager
-                        .disableKeyboardLastBotMessage()
-                        .replyLastMessage("No meeting by this id");
+                //TODO: Notification message if ID doesn't exist
                 updateHelper.getBot().getContext().getBean(TopicMeetingCreationSBSStage.class).processCallBackQuery();
                 return new NoSuchEntityException("Meeting info #" + id + " was not found.");
             });
@@ -60,6 +58,12 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meetingRepository.save(meeting);
 
         razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
+    }
+
+    private boolean isGettingFromCatalog() {
+        return updateHelper.getMessageText()
+                .toLowerCase()
+                .startsWith("id:");
     }
 
     @Override
@@ -98,6 +102,9 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     private void setMeetingInfoFromMessage() {
         List<String> list = Arrays.asList(updateHelper.getMessageText().split("\n"));
+        if (list.size() == 1) {
+            //TODO: Create validation for topic/questions input message
+        }
         String questions = list.stream()
                 .skip(1)
                 .collect(Collectors.joining(";"));
