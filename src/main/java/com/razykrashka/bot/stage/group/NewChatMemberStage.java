@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.group;
 
 
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.stage.MainStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,22 @@ public class NewChatMemberStage extends MainStage {
                 .getMessage()
                 .getNewChatMembers();
         logNewUser(newChatMembers);
-        newChatMembers.forEach(m -> messageManager.sendMessage(new SendMessage()
-                .setChatId(String.valueOf(m.getId()))
-                .setText(getString("welcome"))));
+        newChatMembers.forEach(m -> {
+            saveUser(m);
+            messageManager.sendMessage(new SendMessage()
+                    .setChatId(String.valueOf(m.getId()))
+                    .setText(getString("welcome")));
+        });
+    }
+
+    public TelegramUser saveUser(User user) {
+        TelegramUser telegramUser = TelegramUser.builder()
+                .lastName(user.getLastName())
+                .firstName(user.getFirstName())
+                .userName(user.getUserName())
+                .id(user.getId())
+                .build();
+        return telegramUserRepository.save(telegramUser);
     }
 
     private String getNewMembersString(List<User> newChatMembers) {
