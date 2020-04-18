@@ -37,7 +37,7 @@ public class AdminController {
     JobProperties jobProperties;
     @Autowired
     DefaultListableBeanFactory beanFactory;
-    @Value("${logging.file}")
+    @Value("${my.logging.path}")
     private String loggingPath;
 
     @GetMapping("/meeting-properties")
@@ -77,7 +77,8 @@ public class AdminController {
     }
 
     private String getLastLogLines() {
-        File file = new File(System.getProperty("user.dir") + File.separator + loggingPath);
+        File file = new File(loggingPath);
+//        File file = new File(System.getProperty("user.dir") + File.separator + loggingPath);
         int limitLines = 100;
         int counter = 0;
         StringBuilder sb = new StringBuilder();
@@ -95,7 +96,9 @@ public class AdminController {
 
     @GetMapping("/log-download")
     public ResponseEntity<Resource> downloadLogFile() throws IOException {
-        File file = new File(System.getProperty("user.dir") + File.separator + loggingPath);
+//        File file = new File(System.getProperty("user.dir") + File.separator + loggingPath);
+        File file = new File(loggingPath);
+
         Path path1 = Paths.get(file.getAbsolutePath());
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path1));
 

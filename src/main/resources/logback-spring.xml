@@ -1,0 +1,40 @@
+<configuration debug="false" scan="true" scanPeriod="30 seconds">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%date] %logger{5}: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>C:/log/${log.folder.name}/console.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>log/archive/%d{yyyy-MM-dd}/console-%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%date] [%thread] [%level] %logger{5}: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FULL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>C:/log/full/console.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>log/archive/full/%d{yyyy-MM-dd}/console-%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
+            <maxFileSize>3MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%date] [%thread] [%level] %logger{5}: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="FULL"/>
+    </root>
+
+</configuration>

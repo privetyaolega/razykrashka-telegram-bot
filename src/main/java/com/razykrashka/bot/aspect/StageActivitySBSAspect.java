@@ -56,7 +56,6 @@ public class StageActivitySBSAspect {
         );
     }
 
-
     @Pointcut("execution(public void com.razykrashka.bot.service.BotExecutor.execute(*))))")
     public void updateReceivedPointcut() {
     }
