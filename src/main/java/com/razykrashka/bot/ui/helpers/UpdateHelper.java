@@ -149,17 +149,29 @@ public class UpdateHelper {
         Optional<TelegramUser> userOptional = telegramUserRepository.findById(getTelegramUserId());
 
         if (!userOptional.isPresent()) {
-            User userTelegram = getUpdate().getMessage().getFrom();
+            User userTelegram = getFrom();
             TelegramUser telegramUser = TelegramUser.builder()
                     .lastName(userTelegram.getLastName())
                     .firstName(userTelegram.getFirstName())
                     .userName(userTelegram.getUserName())
+                    .phoneNumber("")
                     .id(userTelegram.getId())
                     .build();
             telegramUserRepository.save(telegramUser);
             return telegramUser;
         } else {
             return userOptional.get();
+        }
+    }
+
+    public User getFrom() {
+        Update realUpdate = razykrashkaBot.getRealUpdate();
+        if (realUpdate.hasMessage()) {
+            return realUpdate.getMessage().getFrom();
+        } else if (realUpdate.hasCallbackQuery()) {
+            return realUpdate.getCallbackQuery().getFrom();
+        } else {
+            throw new RuntimeException("Can't get user from update!");
         }
     }
 

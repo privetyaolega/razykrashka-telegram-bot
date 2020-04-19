@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.group;
 
 
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.stage.MainStage;
 import lombok.extern.log4j.Log4j2;
@@ -23,25 +24,30 @@ public class NewChatMemberStage extends MainStage {
                 .getMessage()
                 .getNewChatMembers();
         logNewUser(newChatMembers);
-        newChatMembers.forEach(m -> {
-            saveUser(m);
-            messageManager
-                    .sendRandomSticker("greeting", m.getId())
-                    .sendMessage(new SendMessage()
-                            .setChatId(String.valueOf(m.getId()))
-                            .setText(getString("welcome")));
-        });
+        newChatMembers.forEach(this::saveUser);
     }
 
-    public TelegramUser saveUser(User user) {
-        TelegramUser telegramUser = TelegramUser.builder()
-                .lastName(user.getLastName())
-                .firstName(user.getFirstName())
-                .userName(user.getUserName())
-                .phoneNumber("")
-                .id(user.getId())
-                .build();
-        return telegramUserRepository.save(telegramUser);
+    public void saveUser(User user) {
+        Optional<TelegramUser> telegramUser = telegramUserRepository.findById(user.getId());
+        String message;
+        if (telegramUser.isPresent()) {
+            message = "Nice to see you again " + Emoji.WAVE_HAND + "\n/start";
+        } else {
+            message = getString("welcome");
+            telegramUserRepository.save(TelegramUser.builder()
+                    .lastName(user.getLastName())
+                    .firstName(user.getFirstName())
+                    .userName(user.getUserName())
+                    .phoneNumber("")
+                    .id(user.getId())
+                    .build());
+        }
+        messageManager
+                .sendRandomSticker("greeting", user.getId())
+                .sendMessage(new SendMessage()
+                        .setChatId(String.valueOf(user.getId()))
+                        .setReplyMarkup(getMainKeyboard())
+                        .setText(message));
     }
 
     private String getNewMembersString(List<User> newChatMembers) {

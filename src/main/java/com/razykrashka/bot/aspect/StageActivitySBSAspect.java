@@ -65,7 +65,7 @@ public class StageActivitySBSAspect {
         Integer id = updateHelper.getTelegramUserId();
         Optional<Meeting> meetingOptional = meetingRepository.findByCreationStatusEqualsInProgress(id);
 
-        if (isMainStage() || updateHelper.isUpdateFromGroup()) {
+        if (isMainStage()) {
             if (meetingOptional.isPresent()) {
                 Meeting meeting = meetingOptional.get();
                 CreationState creationState = meeting.getCreationState();

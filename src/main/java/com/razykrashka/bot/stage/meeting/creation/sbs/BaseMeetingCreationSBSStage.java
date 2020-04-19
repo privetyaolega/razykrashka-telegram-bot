@@ -39,7 +39,8 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return activeStage.equals(this.getClass().getSimpleName());
+        return activeStage.equals(this.getClass().getSimpleName())
+                && !updateHelper.isMessageFromGroup();
     }
 
     @Override
