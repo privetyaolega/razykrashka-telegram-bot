@@ -39,6 +39,7 @@ public class IntroStartMeetingCreationStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isMessageTextEquals(KEYWORD);
+        return updateHelper.isMessageTextEquals(KEYWORD)
+                && !updateHelper.isMessageFromGroup();
     }
 }

@@ -45,7 +45,8 @@ public class HelpStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains()
-                || updateHelper.isMessageTextEquals(KEYWORD);
+        return (updateHelper.isCallBackDataContains()
+                || updateHelper.isMessageTextEquals(KEYWORD))
+                && !updateHelper.isMessageFromGroup();
     }
 }

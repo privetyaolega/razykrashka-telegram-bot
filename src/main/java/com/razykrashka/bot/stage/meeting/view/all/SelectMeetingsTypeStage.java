@@ -38,7 +38,8 @@ public class SelectMeetingsTypeStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isMessageTextEquals(KEYWORD)
-                || updateHelper.isCallBackDataContains();
+        return (updateHelper.isMessageTextEquals(KEYWORD)
+                || updateHelper.isCallBackDataContains())
+                && !updateHelper.isMessageFromGroup();
     }
 }

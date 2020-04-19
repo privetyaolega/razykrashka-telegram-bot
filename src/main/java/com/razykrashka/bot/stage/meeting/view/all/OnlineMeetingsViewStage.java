@@ -24,7 +24,8 @@ public class OnlineMeetingsViewStage extends PaginationMeetingsViewStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains()
-                || updateHelper.isMessageTextEquals(KEYWORD);
+        return (updateHelper.isCallBackDataContains()
+                || updateHelper.isMessageTextEquals(KEYWORD))
+                && !updateHelper.isMessageFromGroup();
     }
 }

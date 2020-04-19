@@ -5,6 +5,7 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import com.razykrashka.bot.exception.StageActivityException;
+import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
@@ -17,6 +18,7 @@ import org.aspectj.lang.annotation.Before;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -30,10 +32,13 @@ import java.util.stream.Collectors;
 @Log4j2
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@PropertySource(value = {"classpath:/props/razykrashka.yaml"}, factory = YamlPropertyLoaderFactory.class)
 public class UpdateLoggingAspect {
 
     @Value("${my.logging.path}")
     String logPath;
+    @Value("${razykrashka.group.id}")
+    String groupChatId;
 
     final UpdateHelper updateHelper;
     final MessageManager messageManager;
@@ -71,7 +76,7 @@ public class UpdateLoggingAspect {
     public void initLoggingFolder(JoinPoint joinPoint) {
         Update update = (Update) joinPoint.getArgs()[0];
         String folderName;
-        if (updateHelper.isUpdateFromGroup() || updateHelper.isMessageFromGroup()) {
+        if (isMessageFromGroup(update)) {
             folderName = "group";
         } else {
             folderName = String.valueOf(getUserId(update));
@@ -88,6 +93,16 @@ public class UpdateLoggingAspect {
         } catch (JoranException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isMessageFromGroup(Update update) {
+        if (update.hasMessage()) {
+            return update
+                    .getMessage()
+                    .getChat().getId()
+                    .equals(Long.valueOf(groupChatId));
+        }
+        return false;
     }
 
     private Integer getUserId(Update update) {

@@ -1,7 +1,6 @@
 package com.razykrashka.bot.stage.information;
 
 import com.razykrashka.bot.stage.MainStage;
-
 import com.razykrashka.bot.stage.information.stats.MainStatisticStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -34,7 +33,8 @@ public class InformationStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains()
-                || updateHelper.isMessageTextEquals(KEYWORD);
+        return (updateHelper.isCallBackDataContains()
+                || updateHelper.isMessageTextEquals(KEYWORD))
+                && !updateHelper.isMessageFromGroup();
     }
 }
