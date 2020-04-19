@@ -146,7 +146,7 @@
 
             INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
             VALUES ('24',
-            'Is technology good or evil?;What kind of jobs might disappear in future?;Are people healthier or unhealthier now than 50 years ago?;What is the most important invention of our century?;How will homes change in the next 20 years?;What might your mobile phone do in 10 years?;How will cars change in the next 20 years?;Will robots ever replace people in the area of manufacturing?; Should there be more environmentally-friendly technologies in the world?;Will humans make contacts with intelligent life from other planets?',
+            'Is technology good or evil?;What kind of jobs might disappear in future?;Are people healthier or unhealthier now than 50 years ago?;What is the most important invention of our century?;How will homes change in the next 20 years?;What might your mobile phone do in 10 years?;How will cars change in the next 20 years?;Will robots ever replace people in the area of manufacturing?;Should there be more environmentally-friendly technologies in the world?;Will humans make contacts with intelligent life from other planets?',
             'UPPER_INTERMEDIATE',
             'Technology');
 
@@ -170,7 +170,7 @@
 
             INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
             VALUES ('28',
-            'Are conflicts inevitable?;What are the advantages and disadvantages of a conflict?;Why do some people confront more than others?;Why do some people create conflicts?;What are the constructive ways to solve a conflict?;What are the deconstructive ways to solve a conflict?;Is it possible for people to live without wars?; What would life be like without conflicts?;Will there be a global conflict in the next 20 years?;Will there ever be a nuclear war?',
+            'Are conflicts inevitable?;What are the advantages and disadvantages of a conflict?;Why do some people confront more than others?;Why do some people create conflicts?;What are the constructive ways to solve a conflict?;What are the deconstructive ways to solve a conflict?;Is it possible for people to live without wars?;What would life be like without conflicts?;Will there be a global conflict in the next 20 years?;Will there ever be a nuclear war?',
             'UPPER_INTERMEDIATE',
             'Conflicts');
 
