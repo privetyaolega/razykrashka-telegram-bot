@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
-    final static String TIME_REGEX = "^([0-1][0-9]|[2][0-3])[:-]([0-5][0-9])$";
+    final static String TIME_REGEX = "^([0-1][0-9]|[2][0-3])[:\\-., ]([0-5][0-9])$";
 
     @Value("${razykrashka.bot.meeting.creation.hour-advance}")
     Integer hourAdvance;

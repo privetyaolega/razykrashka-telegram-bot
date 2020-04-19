@@ -11,6 +11,9 @@
     <include file="changelog/insert/creation_state.xml" relativeToChangelogFile="true"/>
     <include file="changelog/insert/meeting.xml" relativeToChangelogFile="true"/>
     <include file="changelog/insert/user_meeting.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/insert/meeting_catalog.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/insert/catalog/meeting_catalog_1_50.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/insert/catalog/meeting_catalog_51_100.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/insert/catalog/meeting_catalog_101_150.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

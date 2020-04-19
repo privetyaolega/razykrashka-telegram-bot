@@ -1,0 +1,311 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet author="orutsky" id="10">
+        <sql>
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('1',
+            'What kind of art do you like?;What kind of art don\'t you like?;Do you always believe what art critics say?;What do you think of modern art?;What do you think of street art?;What do you think of body art?;Should children study art at school?;Should people buy expensive pieces of art instead of helping people in need?;What would life be like without art?;Should a person be born gifted to learn how to paint?',
+            'PRE_INTERMEDIATE',
+            'Art');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('2',
+            'Which period of history has the best architecture?;Why have ancient buildings stood for thousands of years while modern ones have not?;Why is it necessary to protect old buildings?;What role does architecture play in modern society?;What\'s more important: building appearance or comfort for people?;How much does architecture affect person\'s mind?;Should buildings be constructed with the use of environmentally-friendly materials?;Is it a good thing to combine different styles of architecture in the design of one building?;Has architecture changed for the better in the past 20 years?;What will architecture be like in 20 years from now?',
+            'UPPER_INTERMEDIATE',
+            'Architecture');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('3',
+            'Is only classical literature worth reading?;Do you think that “pulp fiction” literature has the right to exist?;Can a person judge a book by its cover?;Have you ever read a book that, in your opinion, was overrated?;Do you usually finish books you don\'t like at first?;Will libraries disappear in the future?;Do you prefer e-books or traditional ones?;What do you think about pirating e-books?;Will e-books replace traditional ones in the future?;What would happen if books totally disappeared?',
+            'PRE_INTERMEDIATE',
+            'Books');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('4',
+            'Do you prefer watching films at home or at the cinema?;What kind of films do you like?;What kind of films don\'t you like?;Do you prefer old films or modern ones?;Do you think that film pirating should be stopped?;Do your prefer watching a film alone or with somebody?;How will the cinema change in the next 20 years?;What do you think about using artificial intelligence for creating films?;Will cinema theaters ever disappear?;Will people ever stop making films?',
+            'INTERMEDIATE',
+            'Cinema');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('5',
+            'Should people listen to music attentively or use it just as a background?;Is heavy music something that a person should be afraid of?;Can music affect unborn children?;Can music heal sick people?;Can animals enjoy music?;Why is music so important for culture?;Do people from different culture react to the same music in different ways?;How have your musical tastes changed since your teenage years?;Will your favorite music in 20 years be the same as today?;What would the world be like without music?',
+            'PRE_INTERMEDIATE',
+            'Music');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('6',
+            'Why did people dance in the past?;What role does dancing play in many of the world\'s religions and cultures?;Why do people dance nowadays?;Are there any kinds of dancing that can be considered good or obscene?;Are modern types of dancing as good as the traditional ones?;Can dancing help to keep a person fit?;Can dancing be a reflection of person\'s feelings/emotional state?;Can anyone learn how to dance?;Should everyone know how to dance?;Will dancing exist in future?',
+            'INTERMEDIATE',
+            'Dancing');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('7',
+            'What kind of clothes do you like?;What kind of clothes don\'t you like?;How important is it to be well-dressed?;Do people feel different in different clothes?;Can you judge someone by clothes?;Do clothes reflect what is inside?;Should a person follow modern fashion trends or not?;Should a person take into account what people say about his/her style of clothing?;Has clothing become worse than it used to be in terms of their quality?;What will we wear in 20 years?',
+            'INTERMEDIATE',
+            'Clothes');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('8',
+            'Should fashion trends be followed by people?;Do you think it is possible to keep up with constantly changing fashion trends?;Do you agree with the idea that being fashionable equals being beautiful?;Do you think that some people are obsessed with fashion?;Do you think that model\'s job is easy?;Do you think that sometimes fashion trends can be bizarre?;Does being fashionable equal being practical in terms of clothing?;What are the advantages and disadvantages of working in fashion business?;Do you believe that fashion comes and goes?;What would the world be like without fashion?',
+            'PRE_INTERMEDIATE',
+            'Fashion');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('9',
+            'Do you think we still need museums?;Do museums really serve educational purposes?;Are museums made for fun or for education?;Should there be more museums in every town of our country?;Should there be more modern technologies used in modern museums to attract more visitors?;What is the best way for you to find the information about a museum - from your friends or from the Internet?;What do you think about interactive tours about museums?;Is it better to walk about a museum independently or with a guide?;Is it worth using audio guides?;How do you imagine museums in future?',
+            'INTERMEDIATE',
+            'Museums');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('10',
+            'What kind of food do you like?;What kind of food don\'t you like?;Is eating mostly routine or pleasure for you?;Is it important to always eat healthy food?;Is it important to know where the food you eat comes from?;What do you think about vegetarians?;How has food changed over the recent years?;Should we eat at pleasure and drink with measure?;Is it possible to eat only natural food all the time nowadays?;Will there be enough food for everyone in future?',
+            'PRE_INTERMEDIATE',
+            'Food');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('11',
+            'Is shopping routine or pleasure for you?;What is good about shopping?;What is bad about shopping?;Is it bad to be a “shopaholic”?;What place is better for buying food - a marketplace or a modern shop?;Is it OK to buy things from a stranger?;What are the advantages and disadvantages of online shopping?;What\'s more important to you: price, quality, brand or something else?; Is it important to plan your purchases beforehand?',
+            'INTERMEDIATE',
+            'Shopping');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('12',
+            'Is it better to enjoy your time lying on the beach or go sightseeing?;Is it good to live on the road?;What is the best means of travel?;Is it possible to enjoy your holiday if you don\'t have much money with you?;Which way of spending time is the best one when you are on holiday?;What can ruin a holiday?;Is it better to travel alone or with a company?;Is it better to use maps or ask people for directions while exploring a new place?;Would you like to live somewhere that you\'ve visited for a holiday?;If you could go anywhere in the world, where would you go?',
+            'PRE_INTERMEDIATE',
+            'Holiday');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('13',
+            'Do people all over the world laugh at the same things?;What makes a joke funny?;How important is it to have a good sense of humor?;Why is humor good for health?;What would life be like without humor?;Can humor really make people live longer?;Are modern comedians better than old ones?;Is it OK to use swear words for a comedian when making a performance on stage?;Is it OK to make jokes about famous people?;Has humor changed through the history of mankind?',
+            'INTERMEDIATE',
+            'Humor');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('14',
+            'What are the advantages of having a pet?;What are the disadvantages of having a pet?;What can children learn by having a pet?;Should people spend a lot of money on pets instead of helping people in need?;Is keeping animals in zoos cruel?;What do you think about using animals in circuses?;Is hunting really a bad thing?;What do you think about using animals in blood sports?;Do you think that some animals can use their brains in the way people use them?;What\'s the biggest difference between people and animals?',
+            'UPPER_INTERMEDIATE',
+            'Animals');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('15',
+            'What\'s the best age to be?;Is there a generation gap between younger and older generation?;What\'s the best age for leaving parents\' home?;Are young women usually more mature than young men?;Do men remain attractive longer than women?;Is love between people of different generations possible?;What age limits should be changed?;Why does getting older usually depress people?;Is friendship between people of different generations possible?;What problems can “ageing population” cause?',
+            'INTERMEDIATE',
+            'Age');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('16',
+            'Is childhood the best time of life?;What are the advantages of being a child?;What are the disadvantages of being a child?;How was your childhood different from the one of modern children?;Are children more violent today than they used to be?;Should we correct children when their parents aren\'t around?;Should we answer children\'s questions if they are inappropriate ones?;What\'s the most important thing we need to teach children?;Should corporal punishment be used by parents?;Are kids smarter than they used to be?',
+            'INTERMEDIATE',
+            'Childhood');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('17',
+            'What\'s the best age for making friends?;How difficult is it to maintain a friendship?;What can break a good relationship?;Is it a good idea to go on holiday with a friend?;What do you think about lending/borrowing money to/from a friend?;Would it be difficult if your friend was your boss or subordinate?;Is it a good idea to start business with a friend?;Is it possible to establish a strong friendship through the Internet?;Is it possible to have the best friend from a different generation?;Is it possible to have the best friend of the opposite sex without falling in love?',
+            'UPPER_INTERMEDIATE',
+            'Friendship');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('18',
+            'Would you rather be rich and ugly or poor and good-looking?;What would you do with $1,000,000?;What are the advantages and disadvantages of being rich?;Can money buy love?;Is it possible to be happy in spite of being poor?;Are poor people usually more generous than rich ones?;Do rich people generally spend their money wisely?;Should global wealth be re-distributed?;Does money make the world go round?;How would society work without money?',
+            'UPPER_INTERMEDIATE',
+            'Money');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('19',
+            'Are superstitions just a tradition or there is something in them?;Why do people like reading or watching about unsolved mysteries?;Do UFOs really exist?;Do you believe in reincarnation?;Do some people have supernatural power?;Is it possible to predict the future?;Why do some people need fortune-tellers?;Can our dreams predict the future?;Are there more than 3 dimensions that we live in?;What would life be like without mystery?',
+            'UPPER_INTERMEDIATE',
+            'Mystery');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('20',
+            'What is the best source of information nowadays?;Has the Internet become a more reliable source of information than other kinds of mass media nowadays?;How is it important to stay up to date with current affairs?;What do you think about people who invent news about themselves?;How much media influence people\'s minds?;Should some media be banned?;Will there still be newspapers in 100 years?;Should celebrities\' life be public?;Is there more fake news nowadays?;Can you imagine your life without the news?',
+            'UPPER_INTERMEDIATE',
+            'Mass Media');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('21',
+            'What advantages and disadvantages does the Internet have?;Is our privacy secure when we are surfing the Internet?;Do you think that people spend too much time on the Internet today?;Is the Internet making people lazier or more stupid?;Do we rely too much on the Internet?;Does the Internet bring more use or harm to children?;Should the Internet be regulated to protect children?;Can the Internet help to solve some global problems?;How might the Internet develop in the future?;Will the Internet replace all other media one day?',
+            'UPPER_INTERMEDIATE',
+            'Internet');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('22',
+            'Why do people use mobile phones?;How has the text message altered the way we write in English?;What opportunities do modern mobile devises offer to their users?;Why do we call mobile phones the Fourth Screen or the Seventh of the Mass Media?;Why do many people worry about mobile phones?;Why are mobile phones a vital part of daily life for an enormous amount of people?;Do you think that mobile phones can really affect one\'s health as some people say?;Expensive mobile gadgets - luxurious toys or something more?;Should a person upgrade to a new mobile phone as soon as his current one gets obsolete?;What will the modern society be like without mobile gadgets?',
+            'UPPER_INTERMEDIATE',
+            'Mobile Phones');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('23',
+            'Why do people make robots?;Why do some people believe that robots can be dangerous?;What are the real reasons to worry about robots?;Are there any limits to how intelligent machines can be?;What is the difference between human intelligence and artificial intelligence?;Can a machine have human feelings?;What may happen if humans hand over important decisions to machines?;Do you think that in future machines can become smarter than humans?;Do you think that machines can rebel against their creators?;Do you believe that humans and machines will merge into one in future?',
+            'UPPER_INTERMEDIATE',
+            'Artificial Intelligence');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('24',
+            'Is technology good or evil?;What kind of jobs might disappear in future?;Are people healthier or unhealthier now than 50 years ago?;What is the most important invention of our century?;How will homes change in the next 20 years?;What might your mobile phone do in 10 years?;How will cars change in the next 20 years?;Will robots ever replace people in the area of manufacturing?; Should there be more environmentally-friendly technologies in the world?;Will humans make contacts with intelligent life from other planets?',
+            'UPPER_INTERMEDIATE',
+            'Technology');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('25',
+            'Is beauty the same for every person?;Who decides what is beautiful?;Is it possible to measure beauty?;What do you think about beauty contests?;Do models portray an unrealistic image of beauty?;How much does advertising make us to think what is beautiful?;Do people spend too much time and money on beauty?;What do you think of plastic surgery?;How much is beauty important for success in life?;Which is more important: inner or outer beauty?',
+            'INTERMEDIATE',
+            'Beauty');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('26',
+            'Who is the most famous person in the world?;Does a star\'s lifestyle affect their personality?;Do stars have a big influence on people\'s minds?;Should celebrities be the role models for other people?;Should stars have responsibility towards their fans?;Do you think stars are overpaid?;What are the advantages and disadvantages of being famous?;Do people nowadays become famous for the same reasons as 100 years ago?;Has it become easier to become famous nowadays than 50 years ago?;Is it hard to be famous?;Is the Internet a great tool for becoming famous?',
+            'INTERMEDIATE',
+            'Fame');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('27',
+            'What are the biggest environmental problems in the world?;Are the recent natural disasters the result of human influence on the environment?;What can government s do to save our environment?;How can society protect the environment and at the same time improve people\'s standard of living?;What can individuals do to help the environment?;Is Greenpeace doing something really useful for environment protection?;What can be done to increase the awareness about environmental problems?;Is the planet being gradually damaged?;Will there be a global environmental disaster in future?;How will the world look like in 100 years?',
+            'UPPER_INTERMEDIATE',
+            'Environment');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('28',
+            'Are conflicts inevitable?;What are the advantages and disadvantages of a conflict?;Why do some people confront more than others?;Why do some people create conflicts?;What are the constructive ways to solve a conflict?;What are the deconstructive ways to solve a conflict?;Is it possible for people to live without wars?; What would life be like without conflicts?;Will there be a global conflict in the next 20 years?;Will there ever be a nuclear war?',
+            'UPPER_INTERMEDIATE',
+            'Conflicts');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('29',
+            'Do more people start living a healthy life nowadays?;Should a person give up all his bad habits in order to be healthy?;What should a person do to stay healthy?;How could hospitals be made better places to visit and stay in?;Which hospitals are better: private or public ones?;Is alternative medicine a good thing?;Who is more responsible for your health: you or the government?;Is the health care in our country getting better or worse?;Are people today healthier or unhealthier than 50 years ago?;What health problems can mankind face in future?',
+            'INTERMEDIATE',
+            'Health');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('30',
+            'Should everyone practice sport?;What qualities should a professional sportsman have?;Should children be trained hard?;What makes a good coach?;Are sport bars a good or bad thing?;Do you think that sport fans activity should be strictly controlled?;Do you think there is more cheating in sports nowadays?;What do you think about gambling on sports events - is it a good or a bad thing?;What are the advantages and disadvantages for a country to hold sports competitions?;What would life be like without sport?',
+            'INTERMEDIATE',
+            'Sport');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('31',
+            'Is anything that is not prohibited by law, allowed?;Is it OK sometimes to break the law?;What should be done to improve the courts?;Are there different laws for the rich and the poor?;What do you think of replacing all national laws by international laws?;Should death penalty be banned?;Are human rights respected by the state nowadays?;Do you think that sometimes innocent people are sent to prison?;Is it possible to stay away from legal issues working in business?;What would the world be like without laws?',
+            'UPPER_INTERMEDIATE',
+            'Law');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('32',
+            'What do you think about your country\'s political system?;What qualities make a good political leader?;How is it possible to get more people to vote?;What are the main political issues in the world?; What can cause a war?;Do you think it is possible to make a career in politics without bribing people?;Do you agree with the statement that politicians make laws for their own benefit?;Is it possible for a country to live in peace with other countries and prosper?;Do you think that the government in your country really serves people\'s needs?;What would the world be like without politics?',
+            'UPPER_INTERMEDIATE',
+            'Politics');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('33',
+            'Should school children wear uniform?;Should religion be taught at school?;Should sex be taught at school?;What should children be taught at school to be prepared for “real world”?;What do you think about private education?;What do you think about educating boys and girls at separate schools?; What should be done to improve the quality of education at schools?;Is there more violence at schools now than it used to be?;Using the Internet in teaching schoolchildren - pros and cons.; What will schools be like in 20 years?',
+            'INTERMEDIATE',
+            'School');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('34',
+            'Should schoolchildren be prepared for entering professional educational institutions at schools?;Has the quality of professional education decreased in our country?;Is the Soviet system of professional education better than the current one?;Do foreign students get a better professional education compared to students in our country?;Should the system of professional education in Russia be changed?;Does a good professional education guarantee a good job?;Are there any professions that will always be in demand?;Are there too many professional educational institutions in our country nowadays?;Do students get a real knowledge needed to become a real professional while studying or it\'s just a matter of professional experience?;What will the Universities be like in 20 years?',
+            'UPPER_INTERMEDIATE',
+            'Professional Education');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('35',
+            'What is a good education?;When does education begin?;Should every person be highly educated?;Does your country provide a good education system?;What problems do public schools have?;What would you like to change about the education system of your country?;Do you think the quality of education is slipping?;Do you think teachers are paid enough?;Do you think today\'s teachers are well-educated?;What would the world be like if everyone had access to a good education?',
+            'UPPER_INTERMEDIATE',
+            'Education');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('36',
+            'Why do we need to work?;Are some jobs overpaid?;What it better: to be a boss or a subordinate?;Is it good to be a workaholic?;Who are better workers: men or women?;Is housework a real work?;Is unemployment a big problem in your country?;Do we lack certain professions on the labor market today?;Is it better to have an official full-time job or be a freelance worker?;Do you think that robots will do all the work for humans in future?',
+            'UPPER_INTERMEDIATE',
+            'Work');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('37',
+            'What is success?;Are successful people happier than others?;Can success be measured somehow?;Which does success mostly depend on: luck or hard-working?;What are the advantages and disadvantages of being successful?;How important is it to be successful in modern society?;Is it possible to teach success?;What would life be like if we didn\'t recognize success?;Do all people have equal opportunities for being successful?;Why does the meaning of success vary at different points of life?',
+            'INTERMEDIATE',
+            'Success');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('38',
+            'Is life in general becoming more or less stressful?;Is it possible to live without stress at all?;Can stress be useful?;Is it possible to learn how to cope with stress?;Can stress be called a disease of modern society?;Is stress only a sign of big cities?;Is it possible to stay calm in emergency situations?;Do you think that “information overload” contributes to stress a lot nowadays?;Do you know any stress-free professions?;What would life be like without any stress?',
+            'UPPER_INTERMEDIATE',
+            'Stress');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('39',
+            'What\'s the difference between information and knowledge?;Do you think we get too much information every day?;Is it important to know a lot of information in today\'s world?;What is it like to live in the “Information Age”?;Do you think that the Internet is the only credible source of information nowadays?;Do you think that personal information of Internet users is secure nowadays?;What has the Internet done to information?;What kind of information is dangerous in the wrong hands?;Do agree with the statement: “Information is power”?;Do you think that the government should have a complete control over the information published in the Internet?;What ways of accessing information will be potentially available in future?',
+            'UPPER_INTERMEDIATE',
+            'Information');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('40',
+            'Why do generational differences exist?;What problems do teenagers usually face?;What are the ways to bridge the gap between parents and children?;Does a defined gap separate today\'s generations?;Do you agree that children\'s job is “to try their wings” and parents\' job is “to let them fly away”?;Do you think that sometimes it is parents\' conservatism that prevents them from understanding their children needs and goals in life?;Is generation gap sometimes caused by the “nihilism” of a younger generation?;Do you think that sometimes parents overprotect their children what makes them will dissatisfied with their life?;Has generation gap become a more serious problem in modern society?;Should young people be given more freedom to choose the way to live life?',
+            'UPPER_INTERMEDIATE',
+            'Generation Gap');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('41',
+            'What role does the family play in a child\'s development?;Why is being a parent one of the most challenging tasks in the world?;Which of parents\' duties do you consider the most important ones?;How can you characterize the relationships between permissive parents and their children?;Why do child-rearing experts say that a permissive parenting style is not beneficial for children?;What are the disadvantages of an authoritarian parenting style?;Why is an authoritative parenting style the most recommended according to experts?;Why do children feel unloved and depressed if their parents adhere to a neglectful parenting style?;What should parents remember if they want to raise healthy and happy children?;What parenting style would you like to adhere to when you have children?',
+            'INTERMEDIATE',
+            'Parenting');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('42',
+            'Why is love a major theme in philosophy, literature, music, poetry and cinematography?;Can love stop wars and conflicts on the Earth?;Is jealousy an integral part of love?;What do scientists say about the essence of love?;What are the signs of love?;Why can\'t we say that passion and love are synonyms?;Why do people who are in love often seem to be mad?;What is the secret of long-term relationships in your opinion?;Why is love important in people\'s life?;Do you agree that “all we need is love”?',
+            'INTERMEDIATE',
+            'Love');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('43',
+            'How do you define motivation?;What are some of the factors of motivation?;What are three things that motivate most?;Is it important to motivate children?;What is something a boss can do to motivate his workers?;What is the best motivation for achieving success?;Do you find that motivated people are more successful than unmotivated people?;Can some people destroy your motivation?;How can a person maintain his motivation in case he fails?;What part does motivation plays in effective teaching?',
+            'INTERMEDIATE',
+            'Motivation');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('44',
+            'Why is judgment important in decision making?;Do you agree with the proverbs “Measure thrice and cut once” and “Haste makes waste”?;What is intuition?;When is it worth relying on intuition in your opinion?;In what situations are analysis and rationality superior to intuition?;Is it possible to develop intuition?;Should people listen to what their inner voice tells them in every situation?;Do you think there are situations when it can be dangerous to rely on intuition?;Can intuition lead to success?;Do you think that intuition really exists or is just a myth?',
+            'INTERMEDIATE',
+            'Intuition');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('45',
+            'What is the difference between a house and a home?;Why do many people feel homesick when they leave their home?;Why do houses differ from one culture to another?;How can a house indicate a person\'s status?;What are the main advantages and disadvantages of a travel trailer?;What kind of house is ideal to your mind?;Which is more important: the exterior of a house or the atmosphere that reigns in it?;Is your home important to you? Could you change your lodgings easily?;Is it good to live in the same place for years or constantly change your home?;How do you understand the meaning of a saying “There is no place like home”?',
+            'UPPER_INTERMEDIATE',
+            'Home');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('46',
+            'What does the term nostalgia describe?;What are the ways to prevent homesickness?;Is nostalgia a good or a bad feeling?;Why can nostalgia lead to depression?;Should people live in the present or in the past? Why?;What is your attitude to progress and the changes it brings?;Has our life changed for the better of for the worse compared to past times?;Can some moments in life be called “good” and bad “ones”?;Should a person feel sorry about his past actions?;How can our past influence our future?',
+            'UPPER_INTERMEDIATE',
+            'Nostalgia');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('47',
+            'Why is smoking dangerous to a person\'s health?;Why do many people smoke in spite of all health hazards?;What makes children and teenagers light up a cigarette?;Why is it so difficult to give up smoking?;Do you agree that it is a good idea to ban smoking in public places?;Why do people drink alcohol?;Do you think that addiction to alcohol is a social disease?;Do you think it\'s fine to drink some alcohol now and then or is it a bad habit too?;Do you think that all medical substances should be sold without any restrictions?;How serious is the problem of drug addiction in your country nowadays?',
+            'UPPER_INTERMEDIATE',
+            'Bad Habits');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('48',
+            'Why are many people fond of playing computer games?;What are the opportunities of computer and video games?;Do you think that game addiction really exists?;Why can we say that the influence of computer games on children and teenagers is mostly negative?;What skills can computer games develop?;How can education benefit from computer games?;What is your attitude to violent and destructive games? Do you think that they must be banned?;Can some computer games promote positive values?;Do you think that modern kids spend too much time playing computer games?;Do you agree that computer games development leads to new achievements and inventions in IT area?',
+            'INTERMEDIATE',
+            'Video Games');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('49',
+            'Why do people give names to each other?;Why do parents find it very difficult to choose names for their children?;Why do people choose names with meanings?;Why is choosing a baby\'s name a very important decision?;Do you agree that “when you pick the right name, you are giving your child a head start”? Why?;What do you think about unusual names?;Is it difficult for children to live with unusual names?;Are there certain trends for names in modern world?;Do you believe that a person\'s name influences his or her destiny?;Can a bad name spoil person\'s life/career/relations?',
+            'INTERMEDIATE',
+            'Names');
+
+            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            VALUES ('50',
+            'Does corruption affect all people?;Why do you think people are corrupt?;Can corruption be a good thing?;How do you think corruption can be reduced?;Do you think corrupt police officers are natural-born criminals?;Is corruption within the police a result of low pay?;Can corruption ever be justified?;Is bribery a big problem in your country?;Should a person inform the police about a case of bribery in case he has witnessed one?;Can corruption be eliminated?',
+            'INTERMEDIATE',
+            'Corruption');
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>

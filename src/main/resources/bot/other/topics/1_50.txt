@@ -1,0 +1,750 @@
+ID: 1
+Topic: Art
+Level: PRE_INTERMEDIATE
+Questions:
+1. What kind of art do you like?
+2. What kind of art don’t you like?
+3. Do you always believe what art critics say?
+4. What do you think of modern art?
+5. What do you think of street art?
+6. What do you think of body art?
+7. Should children study art at school?
+8. Should people buy expensive pieces of art instead of helping people in need?
+9. What would life be like without art?
+10. Should a person be born gifted to learn how to paint?
+
+ID: 2
+Topic: Architecture
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Which period of history has the best architecture?
+2. Why have ancient buildings stood for thousands of years while modern ones have not?
+3. Why is it necessary to protect old buildings?
+4. What role does architecture play in modern society?
+5. What’s more important: building appearance or comfort for people?
+6. How much does architecture affect person’s mind?
+7. Should buildings be constructed with the use of environmentally-friendly materials?
+8. Is it a good thing to combine different styles of architecture in the design of one building?
+9. Has architecture changed for the better in the past 20 years?
+10. What will architecture be like in 20 years from now?
+
+ID: 3
+Topic: Books
+Level: PRE_INTERMEDIATE
+Questions:
+1. Is only classical literature worth reading?
+2. Do you think that “pulp fiction” literature has the right to exist?
+3. Can a person judge a book by its cover?
+4. Have you ever read a book that, in your opinion, was overrated?
+5. Do you usually finish books you don’t like at first?
+6. Will libraries disappear in the future?
+7. Do you prefer e-books or traditional ones?
+8. What do you think about pirating e-books?
+9. Will e-books replace traditional ones in the future?
+10. What would happen if books totally disappeared?
+
+ID: 4
+Topic: Cinema
+Level: INTERMEDIATE
+Questions:
+1. Do you prefer watching films at home or at the cinema?
+2. What kind of films do you like?
+3. What kind of films don’t you like?
+4. Do you prefer old films or modern ones?
+5. Do you think that film pirating should be stopped?
+6. Do your prefer watching a film alone or with somebody?
+7. How will the cinema change in the next 20 years?
+8. What do you think about using artificial intelligence for creating films?
+9. Will cinema theaters ever disappear?
+10. Will people ever stop making films?
+
+ID: 5
+Topic: Music
+Level: PRE_INTERMEDIATE
+Questions:
+1. Should people listen to music attentively or use it just as a background?
+2. Is heavy music something that a person should be afraid of?
+3. Can music affect unborn children?
+4. Can music heal sick people?
+5. Can animals enjoy music?
+6. Why is music so important for culture?
+7. Do people from different culture react to the same music in different ways?
+8. How have your musical tastes changed since your teenage years?
+9. Will your favorite music in 20 years be the same as today?
+10. What would the world be like without music?
+
+ID: 6
+Topic: Dancing
+Level: INTERMEDIATE
+Questions:
+1. Why did people dance in the past?
+2. What role does dancing play in many of the world's religions and cultures?
+3. Why do people dance nowadays?
+4. Are there any kinds of dancing that can be considered good or obscene?
+5. Are modern types of dancing as good as the traditional ones?
+6. Can dancing help to keep a person fit?
+7. Can dancing be a reflection of person`s feelings/emotional state?
+8. Can anyone learn how to dance?
+9. Should everyone know how to dance?
+10. Will dancing exist in future?
+
+ID: 7
+Topic: Clothes
+Level: INTERMEDIATE
+Questions:
+1. What kind of clothes do you like?
+2. What kind of clothes don’t you like?
+3. How important is it to be well-dressed?
+4. Do people feel different in different clothes?
+5. Can you judge someone by clothes?
+6. Do clothes reflect what is inside?
+7. Should a person follow modern fashion trends or not?
+8. Should a person take into account what people say about his/her style of clothing?
+9. Has clothing become worse than it used to be in terms of their quality?
+10. What will we wear in 20 years?
+
+ID: 8
+Topic: Fashion
+Level: PRE_INTERMEDIATE
+Questions:
+1. Should fashion trends be followed by people?
+2. Do you think it is possible to keep up with constantly changing fashion trends?
+3. Do you agree with the idea that being fashionable equals being beautiful?
+4. Do you think that some people are obsessed with fashion?
+5. Do you think that model`s job is easy?
+6. Do you think that sometimes fashion trends can be bizarre?
+7. Does being fashionable equal being practical in terms of clothing?
+8. What are the advantages and disadvantages of working in fashion business?
+9. Do you believe that fashion comes and goes?
+10. What would the world be like without fashion?
+
+ID: 9
+Topic: Museums
+Level: INTERMEDIATE
+Questions:
+1. Do you think we still need museums?
+2. Do museums really serve educational purposes?
+3. Are museums made for fun or for education?
+4. Should there be more museums in every town of our country?
+5. Should there be more modern technologies used in modern museums to attract more visitors?
+6. What is the best way for you to find the information about a museum - from your friends or from the Internet?
+7. What do you think about interactive tours about museums?
+8. Is it better to walk about a museum independently or with a guide?
+9. Is it worth using audio guides?
+10. How do you imagine museums in future?
+
+ID: 10
+Topic: Food
+Level: PRE_INTERMEDIATE
+Questions:
+1. What kind of food do you like?
+2. What kind of food don’t you like?
+3. Is eating mostly routine or pleasure for you?
+4. Is it important to always eat healthy food?
+5. Is it important to know where the food you eat comes from?
+6. What do you think about vegetarians?
+7. How has food changed over the recent years?
+8. Should we eat at pleasure and drink with measure?
+9. Is it possible to eat only natural food all the time nowadays?
+10. Will there be enough food for everyone in future?
+
+ID: 11
+Topic: Shopping
+Level: INTERMEDIATE
+Questions:
+1. Is shopping routine or pleasure for you?
+2. What is good about shopping?
+3. What is bad about shopping?
+4. Is it bad to be a “shopaholic”?
+6. What place is better for buying food - a marketplace or a modern shop?
+7. Is it OK to buy things from a stranger?
+8. What are the advantages and disadvantages of online shopping?
+9. What’s more important to you: price, quality, brand or something else?
+10.  Is it important to plan your purchases beforehand?
+
+ID: 12
+Topic: Holiday
+Level: PRE_INTERMEDIATE
+Questions:
+1. Is it better to enjoy your time lying on the beach or go sightseeing?
+2. Is it good to live on the road?
+3. What is the best means of travel?
+4. Is it possible to enjoy your holiday if you don`t have much money with you?
+5. Which way of spending time is the best one when you are on holiday?
+6. What can ruin a holiday?
+7. Is it better to travel alone or with a company?
+8. Is it better to use maps or ask people for directions while exploring a new place?
+9. Would you like to live somewhere that you've visited for a holiday?
+10. If you could go anywhere in the world, where would you go?
+
+ID: 13
+Topic: Humor
+Level: INTERMEDIATE
+Questions:
+1. Do people all over the world laugh at the same things?
+2. What makes a joke funny?
+3. How important is it to have a good sense of humor?
+4. Why is humor good for health?
+5. What would life be like without humor?
+6. Can humor really make people live longer?
+7. Are modern comedians better than old ones?
+8. Is it OK to use swear words for a comedian when making a performance on stage?
+9. Is it OK to make jokes about famous people?
+10. Has humor changed through the history of mankind?
+
+ID: 14
+Topic: Animals
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What are the advantages of having a pet?
+2. What are the disadvantages of having a pet?
+3. What can children learn by having a pet?
+4. Should people spend a lot of money on pets instead of helping people in need?
+5. Is keeping animals in zoos cruel?
+6. What do you think about using animals in circuses?
+7. Is hunting really a bad thing?
+8. What do you think about using animals in blood sports?
+9. Do you think that some animals can use their brains in the way people use them?
+10. What’s the biggest difference between people and animals?
+
+ID: 15
+Topic: Age
+Level: INTERMEDIATE
+Questions:
+1. What’s the best age to be?
+2. Is there a generation gap between younger and older generation?
+3. What’s the best age for leaving parents’ home?
+4. Are young women usually more mature than young men?
+5. Do men remain attractive longer than women?
+6. Is love between people of different generations possible?
+7. What age limits should be changed?
+8. Why does getting older usually depress people?
+9. Is friendship between people of different generations possible?
+10. What problems can “ageing population” cause?
+
+ID: 16
+Topic: Childhood
+Level: INTERMEDIATE
+Questions:
+1. Is childhood the best time of life?
+2. What are the advantages of being a child?
+3. What are the disadvantages of being a child?
+4. How was your childhood different from the one of modern children?
+5. Are children more violent today than they used to be?
+6. Should we correct children when their parents aren’t around?
+7. Should we answer children’s questions if they are inappropriate ones?
+8. What’s the most important thing we need to teach children?
+9. Should corporal punishment be used by parents?
+10. Are kids smarter than they used to be?
+
+ID: 17
+Topic: Friendship
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What’s the best age for making friends?
+2. How difficult is it to maintain a friendship?
+3. What can break a good relationship?
+4. Is it a good idea to go on holiday with a friend?
+5. What do you think about lending/borrowing money to/from a friend?
+6. Would it be difficult if your friend was your boss or subordinate?
+7. Is it a good idea to start business with a friend?
+8. Is it possible to establish a strong friendship through the Internet?
+9. Is it possible to have the best friend from a different generation?
+10. Is it possible to have the best friend of the opposite sex without falling in love?
+
+ID: 18
+Topic: Money
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Would you rather be rich and ugly or poor and good-looking?
+2. What would you do with $1,000,000?
+3. What are the advantages and disadvantages of being rich?
+4. Can money buy love?
+5. Is it possible to be happy in spite of being poor?
+6. Are poor people usually more generous than rich ones?
+7. Do rich people generally spend their money wisely?
+8. Should global wealth be re-distributed?
+9. Does money make the world go round?
+10. How would society work without money?
+
+ID: 19
+Topic: Mystery
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Are superstitions just a tradition or there is something in them?
+2. Why do people like reading or watching about unsolved mysteries?
+3. Do UFOs really exist?
+4. Do you believe in reincarnation?
+5. Do some people have supernatural power?
+6. Is it possible to predict the future?
+7. Why do some people need fortune-tellers?
+8. Can our dreams predict the future?
+9. Are there more than 3 dimensions that we live in?
+10. What would life be like without mystery?
+
+ID: 20
+Topic: Mass Media
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What is the best source of information nowadays?
+2. Has the Internet become a more reliable source of information than other kinds of mass media nowadays?
+3. How is it important to stay up to date with current affairs?
+4. What do you think about people who invent news about themselves?
+5. How much media influence people’s minds?
+6. Should some media be banned?
+7. Will there still be newspapers in 100 years?
+8. Should celebrities` life be public?
+9. Is there more fake news nowadays?
+10. Can you imagine your life without the news?
+
+ID: 21
+Topic: Internet
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What advantages and disadvantages does the Internet have?
+2. Is our privacy secure when we are surfing the Internet?
+3. Do you think that people spend too much time on the Internet today?
+4. Is the Internet making people lazier or more stupid?
+5. Do we rely too much on the Internet?
+6. Does the Internet bring more use or harm to children?
+7. Should the Internet be regulated to protect children?
+8. Can the Internet help to solve some global problems?
+9. How might the Internet develop in the future?
+10. Will the Internet replace all other media one day?
+
+ID: 22
+Topic: Mobile Phones
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Why do people use mobile phones?
+2. How has the text message altered the way we write in English?
+3. What opportunities do modern mobile devises offer to their users?
+4. Why do we call mobile phones the Fourth Screen or the Seventh of the Mass Media?
+5. Why do many people worry about mobile phones?
+6. Why are mobile phones a vital part of daily life for an enormous amount of people?
+7. Do you think that mobile phones can really affect one`s health as some people say?
+8. Expensive mobile gadgets - luxurious toys or something more?
+9. Should a person upgrade to a new mobile phone as soon as his current one gets obsolete?
+10. What will the modern society be like without mobile gadgets?
+
+ID: 23
+Topic: Artificial Intelligence
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Why do people make robots?
+2. Why do some people believe that robots can be dangerous?
+3. What are the real reasons to worry about robots?
+4. Are there any limits to how intelligent machines can be?
+5. What is the difference between human intelligence and artificial intelligence?
+6. Can a machine have human feelings?
+7. What may happen if humans hand over important decisions to machines?
+8. Do you think that in future machines can become smarter than humans?
+9. Do you think that machines can rebel against their creators?
+10. Do you believe that humans and machines will merge into one in future?
+
+ID: 24
+Topic: Technology
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Is technology good or evil?
+2. What kind of jobs might disappear in future?
+3. Are people healthier or unhealthier now than 50 years ago?
+4. What is the most important invention of our century?
+5. How will homes change in the next 20 years?
+6. What might your mobile phone do in 10 years?
+7. How will cars change in the next 20 years?
+8. Will robots ever replace people in the area of manufacturing?
+9.  Should there be more environmentally-friendly technologies in the world?
+10. Will humans make contacts with intelligent life from other planets?
+
+ID: 25
+Topic: Beauty
+Level: INTERMEDIATE
+Questions:
+1. Is beauty the same for every person?
+2. Who decides what is beautiful?
+3. Is it possible to measure beauty?
+4. What do you think about beauty contests?
+5. Do models portray an unrealistic image of beauty?
+6. How much does advertising make us to think what is beautiful?
+7. Do people spend too much time and money on beauty?
+8. What do you think of plastic surgery?
+9. How much is beauty important for success in life?
+10. Which is more important: inner or outer beauty?
+
+ID: 26
+Topic: Fame
+Level: INTERMEDIATE
+Questions:
+1. Who is the most famous person in the world?
+2. Does a star's lifestyle affect their personality?
+3. Do stars have a big influence on people’s minds?
+4. Should celebrities be the role models for other people?
+4. Should stars have responsibility towards their fans?
+5. Do you think stars are overpaid?
+6. What are the advantages and disadvantages of being famous?
+7. Do people nowadays become famous for the same reasons as 100 years ago?
+8. Has it become easier to become famous nowadays than 50 years ago?
+9. Is it hard to be famous?
+10. Is the Internet a great tool for becoming famous?
+
+ID: 27
+Topic: Environment
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What are the biggest environmental problems in the world?
+2. Are the recent natural disasters the result of human influence on the environment?
+3. What can government s do to save our environment?
+4. How can society protect the environment and at the same time improve people’s standard of living?
+5. What can individuals do to help the environment?
+6. Is Greenpeace doing something really useful for environment protection?
+7. What can be done to increase the awareness about environmental problems?
+8. Is the planet being gradually damaged?
+9. Will there be a global environmental disaster in future?
+10. How will the world look like in 100 years?
+
+ID: 28
+Topic: Conflicts
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Are conflicts inevitable?
+2. What are the advantages and disadvantages of a conflict?
+3. Why do some people confront more than others?
+4. Why do some people create conflicts?
+5. What are the constructive ways to solve a conflict?
+6. What are the deconstructive ways to solve a conflict?
+7. Is it possible for people to live without wars?
+8.  What would life be like without conflicts?
+9. Will there be a global conflict in the next 20 years?
+10. Will there ever be a nuclear war?
+
+ID: 29
+Topic: Health
+Level: INTERMEDIATE
+Questions:
+1. Do more people start living a healthy life nowadays?
+2. Should a person give up all his bad habits in order to be healthy?
+3. What should a person do to stay healthy?
+4. How could hospitals be made better places to visit and stay in?
+5. Which hospitals are better: private or public ones?
+6. Is alternative medicine a good thing?
+7. Who is more responsible for your health: you or the government?
+8. Is the health care in our country getting better or worse?
+9. Are people today healthier or unhealthier than 50 years ago?
+10. What health problems can mankind face in future?
+
+ID: 30
+Topic: Sport
+Level: INTERMEDIATE
+Questions:
+1. Should everyone practice sport?
+2. What qualities should a professional sportsman have?
+3. Should children be trained hard?
+4. What makes a good coach?
+5. Are sport bars a good or bad thing?
+6. Do you think that sport fans activity should be strictly controlled?
+7. Do you think there is more cheating in sports nowadays?
+8. What do you think about gambling on sports events - is it a good or a bad thing?
+9. What are the advantages and disadvantages for a country to hold sports competitions?
+10. What would life be like without sport?
+
+ID: 31
+Topic: Law
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Is anything that is not prohibited by law, allowed?
+2. Is it OK sometimes to break the law?
+3. What should be done to improve the courts?
+4. Are there different laws for the rich and the poor?
+5. What do you think of replacing all national laws by international laws?
+6. Should death penalty be banned?
+7. Are human rights respected by the state nowadays?
+8. Do you think that sometimes innocent people are sent to prison?
+9. Is it possible to stay away from legal issues working in business?
+10. What would the world be like without laws?
+
+ID: 32
+Topic: Politics
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What do you think about your country’s political system?
+2. What qualities make a good political leader?
+3. How is it possible to get more people to vote?
+4. What are the main political issues in the world?
+5.  What can cause a war?
+6. Do you think it is possible to make a career in politics without bribing people?
+7. Do you agree with the statement that politicians make laws for their own benefit?
+8. Is it possible for a country to live in peace with other countries and prosper?
+9. Do you think that the government in your country really serves people`s needs?
+10. What would the world be like without politics?
+
+ID: 33
+Topic: School
+Level: INTERMEDIATE
+Questions:
+1. Should school children wear uniform?
+2. Should religion be taught at school?
+3. Should sex be taught at school?
+4. What should children be taught at school to be prepared for “real world”?
+5. What do you think about private education?
+6. What do you think about educating boys and girls at separate schools?
+7.  What should be done to improve the quality of education at schools?
+8. Is there more violence at schools now than it used to be?
+9. Using the Internet in teaching schoolchildren - pros and cons.
+10.  What will schools be like in 20 years?
+
+ID: 34
+Topic: Professional Education
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Should schoolchildren be prepared for entering professional educational institutions at schools?
+2. Has the quality of professional education decreased in our country?
+3. Is the Soviet system of professional education better than the current one?
+4. Do foreign students get a better professional education compared to students in our country?
+5. Should the system of professional education in Russia be changed?
+6. Does a good professional education guarantee a good job?
+7. Are there any professions that will always be in demand?
+8. Are there too many professional educational institutions in our country nowadays?
+9. Do students get a real knowledge needed to become a real professional while studying or it`s just a matter of professional experience?
+10. What will the Universities be like in 20 years?
+
+ID: 35
+Topic: Education
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What is a good education?
+2. When does education begin?
+3. Should every person be highly educated?
+4. Does your country provide a good education system?
+5. What problems do public schools have?
+6. What would you like to change about the education system of your country?
+7. Do you think the quality of education is slipping?
+8. Do you think teachers are paid enough?
+9. Do you think today`s teachers are well-educated?
+10. What would the world be like if everyone had access to a good education?
+
+ID: 36
+Topic: Work
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Why do we need to work?
+2. Are some jobs overpaid?
+3. What it better: to be a boss or a subordinate?
+4. Is it good to be a workaholic?
+5. Who are better workers: men or women?
+6. Is housework a real work?
+7. Is unemployment a big problem in your country?
+8. Do we lack certain professions on the labor market today?
+9. Is it better to have an official full-time job or be a freelance worker?
+10. Do you think that robots will do all the work for humans in future?
+
+ID: 37
+Topic: Success
+Level: INTERMEDIATE
+Questions:
+1. What is success?
+2. Are successful people happier than others?
+3. Can success be measured somehow?
+4. Which does success mostly depend on: luck or hard-working?
+5. What are the advantages and disadvantages of being successful?
+6. How important is it to be successful in modern society?
+7. Is it possible to teach success?
+8. What would life be like if we didn’t recognize success?
+9. Do all people have equal opportunities for being successful?
+10. Why does the meaning of success vary at different points of life?
+
+ID: 38
+Topic: Stress
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Is life in general becoming more or less stressful?
+2. Is it possible to live without stress at all?
+3. Can stress be useful?
+4. Is it possible to learn how to cope with stress?
+5. Can stress be called a disease of modern society?
+6. Is stress only a sign of big cities?
+7. Is it possible to stay calm in emergency situations?
+8. Do you think that “information overload” contributes to stress a lot nowadays?
+9. Do you know any stress-free professions?
+10. What would life be like without any stress?
+
+ID: 39
+Topic: Information
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What’s the difference between information and knowledge?
+2. Do you think we get too much information every day?
+3. Is it important to know a lot of information in today’s world?
+4. What is it like to live in the “Information Age”?
+5. Do you think that the Internet is the only credible source of information nowadays?
+5. Do you think that personal information of Internet users is secure nowadays?
+6. What has the Internet done to information?
+7. What kind of information is dangerous in the wrong hands?
+8. Do agree with the statement: “Information is power”?
+9. Do you think that the government should have a complete control over the information published in the Internet?
+10. What ways of accessing information will be potentially available in future?
+
+ID: 40
+Topic: Generation Gap
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Why do generational differences exist?
+2. What problems do teenagers usually face?
+3. What are the ways to bridge the gap between parents and children?
+4. Does a defined gap separate today`s generations?
+5. Do you agree that children`s job is “to try their wings” and parents` job is “to let them fly away”?
+6. Do you think that sometimes it is parents` conservatism that prevents them from understanding their children needs and goals in life?
+7. Is generation gap sometimes caused by the “nihilism” of a younger generation?
+8. Do you think that sometimes parents overprotect their children what makes them will dissatisfied with their life?
+9. Has generation gap become a more serious problem in modern society?
+10. Should young people be given more freedom to choose the way to live life?
+
+ID: 41
+Topic: Parenting
+Level: INTERMEDIATE
+Questions:
+1. What role does the family play in a child's development?
+2. Why is being a parent one of the most challenging tasks in the world?
+3. Which of parents` duties do you consider the most important ones?
+4. How can you characterize the relationships between permissive parents and their children?
+5. Why do child-rearing experts say that a permissive parenting style is not beneficial for children?
+6. What are the disadvantages of an authoritarian parenting style?
+7. Why is an authoritative parenting style the most recommended according to experts?
+8. Why do children feel unloved and depressed if their parents adhere to a neglectful parenting style?
+9. What should parents remember if they want to raise healthy and happy children?
+10. What parenting style would you like to adhere to when you have children?
+
+ID: 42
+Topic: Love
+Level: INTERMEDIATE
+Questions:
+1. Why is love a major theme in philosophy, literature, music, poetry and cinematography?
+2. Can love stop wars and conflicts on the Earth?
+3. Is jealousy an integral part of love?
+4. What do scientists say about the essence of love?
+5. What are the signs of love?
+6. Why can't we say that passion and love are synonyms?
+7. Why do people who are in love often seem to be mad?
+8. What is the secret of long-term relationships in your opinion?
+9. Why is love important in people`s life?
+10. Do you agree that “all we need is love”?
+
+ID: 43
+Topic: Motivation
+Level: INTERMEDIATE
+Questions:
+1. How do you define motivation?
+2. What are some of the factors of motivation?
+3. What are three things that motivate most?
+4. Is it important to motivate children?
+5. What is something a boss can do to motivate his workers?
+6. What is the best motivation for achieving success?
+7. Do you find that motivated people are more successful than unmotivated people?
+8. Can some people destroy your motivation?
+9. How can a person maintain his motivation in case he fails?
+10. What part does motivation plays in effective teaching?
+
+ID: 44
+Topic: Intuition
+Level: INTERMEDIATE
+Questions:
+1. Why is judgment important in decision making?
+2. Do you agree with the proverbs “Measure thrice and cut once” and “Haste makes waste”?
+3. What is intuition?
+4. When is it worth relying on intuition in your opinion?
+5. In what situations are analysis and rationality superior to intuition?
+6. Is it possible to develop intuition?
+7. Should people listen to what their inner voice tells them in every situation?
+8. Do you think there are situations when it can be dangerous to rely on intuition?
+9. Can intuition lead to success?
+10. Do you think that intuition really exists or is just a myth?
+
+ID: 45
+Topic: Home
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What is the difference between a house and a home?
+2. Why do many people feel homesick when they leave their home?
+3. Why do houses differ from one culture to another?
+4. How can a house indicate a person's status?
+5. What are the main advantages and disadvantages of a travel trailer?
+6. What kind of house is ideal to your mind?
+7. Which is more important: the exterior of a house or the atmosphere that reigns in it?
+8. Is your home important to you? Could you change your lodgings easily?
+9. Is it good to live in the same place for years or constantly change your home?
+10. How do you understand the meaning of a saying “There is no place like home”?
+
+ID: 46
+Topic: Nostalgia
+Level: UPPER_INTERMEDIATE
+Questions:
+1. What does the term nostalgia describe?
+2. What are the ways to prevent homesickness?
+3. Is nostalgia a good or a bad feeling?
+4. Why can nostalgia lead to depression?
+5. Should people live in the present or in the past? Why?
+6. What is your attitude to progress and the changes it brings?
+7. Has our life changed for the better of for the worse compared to past times?
+8. Can some moments in life be called “good” and bad “ones”?
+9. Should a person feel sorry about his past actions?
+10. How can our past influence our future?
+
+ID: 47
+Topic: Bad Habits
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Why is smoking dangerous to a person's health?
+2. Why do many people smoke in spite of all health hazards?
+3. What makes children and teenagers light up a cigarette?
+4. Why is it so difficult to give up smoking?
+5. Do you agree that it is a good idea to ban smoking in public places?
+6. Why do people drink alcohol?
+7. Do you think that addiction to alcohol is a social disease?
+8. Do you think it`s fine to drink some alcohol now and then or is it a bad habit too?
+9. Do you think that all medical substances should be sold without any restrictions?
+10. How serious is the problem of drug addiction in your country nowadays?
+
+ID: 48
+Topic: Video Games
+Level: INTERMEDIATE
+Questions:
+1. Why are many people fond of playing computer games?
+2. What are the opportunities of computer and video games?
+3. Do you think that game addiction really exists?
+4. Why can we say that the influence of computer games on children and teenagers is mostly negative?
+5. What skills can computer games develop?
+6. How can education benefit from computer games?
+7. What is your attitude to violent and destructive games? Do you think that they must be banned?
+8. Can some computer games promote positive values?
+9. Do you think that modern kids spend too much time playing computer games?
+10. Do you agree that computer games development leads to new achievements and inventions in IT area?
+
+ID: 49
+Topic: Names
+Level: INTERMEDIATE
+Questions:
+1. Why do people give names to each other?
+2. Why do parents find it very difficult to choose names for their children?
+3. Why do people choose names with meanings?
+4. Why is choosing a baby's name a very important decision?
+5. Do you agree that “when you pick the right name, you are giving your child a head start”? Why?
+6. What do you think about unusual names?
+7. Is it difficult for children to live with unusual names?
+8. Are there certain trends for names in modern world?
+9. Do you believe that a person's name influences his or her destiny?
+10. Can a bad name spoil person`s life/career/relations?
+
+ID: 50
+Topic: Corruption
+Level: INTERMEDIATE
+Questions:
+1. Does corruption affect all people?
+2. Why do you think people are corrupt?
+3. Can corruption be a good thing?
+4. How do you think corruption can be reduced?
+5. Do you think corrupt police officers are natural-born criminals?
+6. Is corruption within the police a result of low pay?
+7. Can corruption ever be justified?
+8. Is bribery a big problem in your country?
+9. Should a person inform the police about a case of bribery in case he has witnessed one?
+10. Can corruption be eliminated?
