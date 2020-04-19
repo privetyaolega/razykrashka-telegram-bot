@@ -44,7 +44,6 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 .findByCreationStatusEqualsInProgress(updateHelper.getTelegramUserId()).get()
                 .getCreationState().getActiveStage().equals(this.getClass().getSimpleName())) {
 
-            // TODO: Informative error message;
             keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
             if (razykrashkaBot.getRealUpdate().hasMessage()) {
                 messageManager.disableKeyboardLastBotMessage()
@@ -54,7 +53,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             }
         } else {
             if (callBackData.contains(NO_DATE)) {
-                messageManager.sendAlertMessage("Пожалуйста, введита дату");
+                messageManager.sendAlertMessage("Please, choose meeting date.");
                 setActiveNextStage(this.getClass());
                 return;
             }

@@ -3,6 +3,8 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.repo.LocationRepository;
+import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
+import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public class AcceptLocationMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
+    final static String LOCATION_REGEXP = "[\\s\\S]{0,19}[A-Za-z\\u0400-\\u04FF]{3,10} \\d{0,4}[\\s\\S]{0,8}";
     final LocationHelper locationHelper;
     final LocationRepository locationRepository;
 
@@ -34,11 +37,16 @@ public class AcceptLocationMeetingCreationSBSStage extends BaseMeetingCreationSB
                 location = locationHelper.getLocationByCoordinate(razykrashkaBot
                         .getRealUpdate().getMessage().getLocation());
             } else {
-                String address = razykrashkaBot.getRealUpdate().getMessage().getText();
+                String address = razykrashkaBot.getRealUpdate().getMessage()
+                        .getText().trim()
+                        .replaceAll(" +", " ");
+
+                if (!address.matches(LOCATION_REGEXP)) {
+                    throw new IncorrectInputDataFormatException(address + ": address doesn't match regexp");
+                }
                 location = locationHelper.getLocation(address);
             }
-        } catch (Exception e) {
-            // TODO: Create informative error message
+        } catch (YandexMapApiException | IncorrectInputDataFormatException e) {
             messageManager
                     .disableKeyboardLastBotMessage()
                     .replyLastMessage(getString("error"));

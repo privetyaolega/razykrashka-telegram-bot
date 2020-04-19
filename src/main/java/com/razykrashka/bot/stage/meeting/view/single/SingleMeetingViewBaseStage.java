@@ -101,7 +101,6 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
     /*private Pair<String, String> getNavigationBackButton() {
         @Value("${razykrashka.bot.meeting.view-per-page}")
         Integer meetingsPerPage;
-        //TODO: update to work with meeting.getCreationState().getCreationStatus()
         Pair<String, String> pair;
         List<Meeting> meetings;
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
