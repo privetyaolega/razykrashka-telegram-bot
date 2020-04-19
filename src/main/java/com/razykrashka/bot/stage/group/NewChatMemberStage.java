@@ -25,9 +25,11 @@ public class NewChatMemberStage extends MainStage {
         logNewUser(newChatMembers);
         newChatMembers.forEach(m -> {
             saveUser(m);
-            messageManager.sendMessage(new SendMessage()
-                    .setChatId(String.valueOf(m.getId()))
-                    .setText(getString("welcome")));
+            messageManager
+                    .sendRandomSticker("greeting", m.getId())
+                    .sendMessage(new SendMessage()
+                            .setChatId(String.valueOf(m.getId()))
+                            .setText(getString("welcome")));
         });
     }
 
@@ -36,6 +38,7 @@ public class NewChatMemberStage extends MainStage {
                 .lastName(user.getLastName())
                 .firstName(user.getFirstName())
                 .userName(user.getUserName())
+                .phoneNumber("")
                 .id(user.getId())
                 .build();
         return telegramUserRepository.save(telegramUser);

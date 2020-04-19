@@ -266,12 +266,12 @@ public class MessageManager extends Sender {
         return send(sendContact);
     }
 
-    public MessageManager sendSticker(String stickerFileName) {
+    public MessageManager sendSticker(String stickerFileName, long chatId) {
         try {
             File stickerFile = new ClassPathResource("bot/stickers/" + stickerFileName).getFile();
             SendSticker sendSticker = new SendSticker()
                     .setSticker(stickerFile)
-                    .setChatId(updateHelper.getChatId());
+                    .setChatId(chatId);
             razykrashkaBot.execute(sendSticker);
         } catch (TelegramApiException | IOException e) {
             e.printStackTrace();
@@ -279,17 +279,25 @@ public class MessageManager extends Sender {
         return this;
     }
 
-    public MessageManager sendRandomSticker(String folder) {
+    public MessageManager sendSticker(String stickerFileName) {
+        return sendSticker(stickerFileName, updateHelper.getChatId());
+    }
+
+    public MessageManager sendRandomSticker(String folder, long chatId) {
         try (Stream<Path> paths = Files.walk(Paths.get(new ClassPathResource("bot/stickers/" + folder).getURI()))) {
             List<String> collect = paths.filter(Files::isRegularFile)
                     .map(x -> x.getFileName().toString())
                     .collect(Collectors.toList());
             int randomNumber = new Random().nextInt(collect.size());
-            sendSticker(File.separator + folder + File.separator + collect.get(randomNumber));
+            sendSticker(File.separator + folder + File.separator + collect.get(randomNumber), chatId);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public MessageManager sendRandomSticker(String folder) {
+        return sendRandomSticker(folder, updateHelper.getChatId());
     }
 
     public MessageManager sendAnswerCallbackQuery(CallbackQuery callbackQuery) {
