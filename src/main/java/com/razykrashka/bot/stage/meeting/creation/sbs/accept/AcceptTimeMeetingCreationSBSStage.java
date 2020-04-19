@@ -34,6 +34,17 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
         razykrashkaBot.getContext().getBean(FormatMeetingCreationSBSStage.class).handleRequest();
     }
 
+    public void handleRequest(String input) {
+        meeting = super.getMeetingInCreation();
+        LocalDateTime localDateTime = meeting.getMeetingDateTime()
+                .withHour(Integer.parseInt(input.substring(0, 2)))
+                .withMinute(Integer.parseInt(input.substring(2)));
+        meeting = super.getMeetingInCreation();
+        meeting.setMeetingDateTime(localDateTime);
+        meetingRepository.save(meeting);
+        razykrashkaBot.getContext().getBean(FormatMeetingCreationSBSStage.class).handleRequest();
+    }
+
     private LocalDateTime getMeetingDateTime() {
         String timeMessage = updateHelper.getMessageText();
         boolean isMeetingDateToday = meeting.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now());

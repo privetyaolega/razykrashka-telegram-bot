@@ -37,7 +37,7 @@ public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 .setRow(ImmutableMap.of(
                         Emoji.INTERNET + " Online", nextStageClass.getSimpleName() + MeetingFormatEnum.ONLINE,
                         "Offline " + Emoji.COFFEE, nextStageClass.getSimpleName() + MeetingFormatEnum.OFFLINE))
-                .setRow(getString("backButton"), previousStageClass.getSimpleName() + "edit")
+                .setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
                 .build();
     }
 
