@@ -7,6 +7,7 @@ import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.db.repo.MeetingRepository;
 import com.razykrashka.bot.stage.information.HelpStage;
 import com.razykrashka.bot.stage.information.InformationStage;
+import com.razykrashka.bot.stage.information.WelcomeStage;
 import com.razykrashka.bot.stage.meeting.creation.IntroStartMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.view.all.*;
@@ -41,18 +42,17 @@ public class StageActivitySBSAspect {
         this.creationStateRepository = creationStateRepository;
         this.meetingRepository = meetingRepository;
         this.keyWordsList = Arrays.asList(
+                WelcomeStage.KEYWORD,
+                InformationStage.KEYWORD,
+                HelpStage.KEYWORD,
                 IntroStartMeetingCreationStage.KEYWORD,
                 SelectMeetingsTypeStage.KEYWORD,
-                InformationStage.KEYWORD,
-
                 ActiveMeetingsViewStage.KEYWORD,
                 ArchivedMeetingsViewStage.KEYWORD,
                 OfflineMeetingsViewStage.KEYWORD,
                 OnlineMeetingsViewStage.KEYWORD,
                 MyMeetingsViewStage.KEYWORD,
-                "/my",
-
-                HelpStage.KEYWORD
+                "/my"
         );
     }
 
