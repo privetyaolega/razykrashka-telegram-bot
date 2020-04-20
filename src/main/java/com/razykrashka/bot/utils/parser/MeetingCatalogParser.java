@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class MeetingCatalogParser {
 
+//    "bot/other/topics/101_150.txt"
     public static String catalogToSql(String filePath) {
         String sql = "INSERT INTO meeting_catalog (id, questions, speaking_level, topic)\n" +
                 "VALUES ('%s',\n" +
@@ -21,7 +22,6 @@ public class MeetingCatalogParser {
         String s = null;
         try {
             File file = new ClassPathResource(filePath).getFile();
-//            File file = new ClassPathResource("bot/other/topics/101_150.txt").getFile();
             s = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();

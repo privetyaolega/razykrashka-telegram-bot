@@ -26,7 +26,7 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getItalicString(getString("input"));
         messageManager.deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(messageText, getFirstNumberKeyboard());
+                .sendSimpleTextMessage(messageText, getKeyboard());
         super.setActiveNextStage(AcceptTimeMeetingCreationSBSStage.class);
     }
 

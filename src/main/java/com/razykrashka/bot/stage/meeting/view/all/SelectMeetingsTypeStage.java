@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.view.all;
 
+import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.MainStage;
 
@@ -31,8 +32,11 @@ public class SelectMeetingsTypeStage extends MainStage {
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder
                 .getKeyboard()
-                .setRow("Offline " + Emoji.COFFEE, OfflineMeetingsViewStage.class.getSimpleName())
-                .setRow("Online " + Emoji.INTERNET, OnlineMeetingsViewStage.class.getSimpleName())
+                .setRow(ImmutableMap.of(
+                        "Offline " + Emoji.COFFEE, OfflineMeetingsViewStage.class.getSimpleName(),
+                        "Online " + Emoji.INTERNET, OnlineMeetingsViewStage.class.getSimpleName())
+                )
+                .setRow("Active " + Emoji.STARS, ActiveMeetingsViewStage.class.getSimpleName())
                 .build();
     }
 

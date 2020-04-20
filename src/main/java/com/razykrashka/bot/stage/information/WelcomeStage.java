@@ -17,6 +17,7 @@ public class WelcomeStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
+        updateHelper.getUser();
         return updateHelper.isMessageContains("/start")
                 && !updateHelper.isMessageFromGroup();
     }
