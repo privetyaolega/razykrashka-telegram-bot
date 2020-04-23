@@ -51,7 +51,7 @@
       "backButton": "👈 Back to Meeting Format edit"
     },
     "TopicMeetingCreationSBSStage": {
-      "input": "You need to choose the topic of the meeting in advance. This allows you not only to prepare and review your vocabulary, but also to spend the evening engaged in a really interesting conversation. With a ready-made topic and questions, you will always have something to discuss without awkward pauses… \nTrust me, I know what I’m talking about! \uD83D\uDE0F\n\nSo, please, enter the discussion topic:",
+      "input": "You need to choose the topic of the meeting in advance. This allows you not only to prepare and review your vocabulary, but also to spend the evening engaged in a really interesting conversation. With a ready-made topic and questions, you will always have something to discuss without awkward pauses… \nTrust me, I know what I’m talking about! \uD83D\uDE0F\n\nSo, please, enter the discussion topic or generate random one:",
       "backButton": "👈 Back to Participant Limit edit"
     },
     "FinalMeetingCreationSBSStage": {

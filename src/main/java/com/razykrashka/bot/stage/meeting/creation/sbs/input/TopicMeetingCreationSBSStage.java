@@ -21,7 +21,7 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         meetingRepository.save(meeting);
 
         String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
-                + TextFormatter.getLink("Here you can find our meeting's archive\n\n", "https://telegra.ph/Meeting-catalogue-04-19")
+                + TextFormatter.getLink("Here you can find our meeting's topics catalogue ⚡️\n\n", "https://telegra.ph/Meeting-catalogue-04-19")
                 + TextFormatter.getItalicString(getString("input"));
         messageManager
                 .disableKeyboardLastBotMessage()
