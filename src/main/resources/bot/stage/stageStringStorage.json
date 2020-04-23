@@ -33,7 +33,7 @@
       "noMeetings": "You don't have planned meetings yet \uD83D\uDE14\nFind available active meetings and join to it here <b>/active</b> ✨"
     },
     "AcceptTimeMeetingCreationSBSStage": {
-      "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>18:30</code>",
+      "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>8:30</code>",
       "pastTime": "⚠️ Attempt to create meeting with past time",
       "hourAdvance": "⚠️ If you want to create meeting for today, time have to be at least <b>%s hours</b> in advance.\nMinimum time for today creation is <code>%s</code>"
     },
