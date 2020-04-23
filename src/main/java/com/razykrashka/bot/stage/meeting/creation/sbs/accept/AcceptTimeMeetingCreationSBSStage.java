@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -54,9 +56,18 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
             throw new IncorrectInputDataFormatException(timeMessage + ": incorrect time format!");
         }
 
+        String hour;
+        String minute;
+        if (timeMessage.length() == 4) {
+            hour = timeMessage.substring(0, 1);
+            minute = timeMessage.substring(2);
+        } else {
+            hour = timeMessage.substring(0, 2);
+            minute = timeMessage.substring(3);
+        }
         LocalDateTime meetingDateTime = meeting.getMeetingDateTime()
-                .withHour(Integer.parseInt(timeMessage.substring(0, 2)))
-                .withMinute(Integer.parseInt(timeMessage.substring(3)));
+                .withHour(Integer.parseInt(hour))
+                .withMinute(Integer.parseInt(minute));
 
         if (isMeetingDateToday && meetingDateTime.isBefore(LocalDateTime.now())) {
             sendReplyErrorMessage(getString("pastTime"));
