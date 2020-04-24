@@ -30,7 +30,7 @@
     "MyMeetingsViewStage": {
       "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n",
       "header": "\uD83D\uDCAB There are <b>%d</b> active meetings.\n\n",
-      "noMeetings": "You don't have planned meetings yet \uD83D\uDE14\nFind available active meetings and join to it here <b>/active</b> ✨"
+      "noMeetings": "Seems like you don’t have any meetings planned… \nJoin available meetings /active or create your own /create ✨"
     },
     "AcceptTimeMeetingCreationSBSStage": {
       "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>8:30</code>",
@@ -119,16 +119,20 @@
       "error": "We can't find anything by this address \uD83D\uDE13\nPlease, clarify address and make sure that this place located in <b>Minsk</b>\uD83D\uDCCD"
     },
     "PhoneMeetingCreationSBSStage": {
-      "shareNumber": "Oh, I see that you are new here... To create meeting you need provide your telegram contact.\nJust click the button below.\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number? \uD83E\uDD28</a>"
+      "shareNumber": "Oh, I see that you’re new here… To be able to create a meeting, you need to share your Telegram contact with us. Just click on the button below. And don’t worry, it’s completely safe!\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number? \uD83E\uDD28</a>"
     },
     "AcceptPhoneMeetingCreationSBSStage": {
-      "accept": "Thanks for your trust!\nRight now we can start! \uD83D\uDE0C"
+      "accept": "Thank you for your trust!\nYou’re all set. Let’s do it!  \uD83D\uDE0C"
     },
     "DeleteSingleMeetingStage": {
+      "main": "Your meeting has been deleted \uD83D\uDE1E\nMaybe we could reschedule? <b>/create</b>",
       "deleteNotification": "Hey! Unfortunately, /meeting%s owner decided to cancel the meeting and deleted it \uD83D\uDE25\nI know, it's sad... But don't worry! You can find other meetings /active or even create your own!\n\nHave a good day! \uD83D\uDE09"
     },
     "WelcomeStage": {
       "intro": "Welcome to the best English Speaking Club!\uD83E\uDD17\nNice to meet you! I will help to improve your speaking skills as much as possible!\uD83D\uDCAA\nAll necessary information you can find in 'Information' section!\n/help"
+    },
+    "IntroStartMeetingCreationStage": {
+      "main": "Wow! You’re really motivated to speak English! We’re happy to see that kind of eager from you! \uD83D\uDE08\n\nCreating a meeting is actually easier than you might think! And it won’t take much of your time either. You can find all related information here [link]. \n\nRight now we’re going to ask you a few questions and see what your perfect meeting looks like. Just follow the tips on the bottom of each message. \n\nAfter you create a meeting, everyone in the community group will receive a notification, so that they can join you later.\n\nAnd REMEMBER: Practice makes perfect! \uD83D\uDCAA"
     }
   }
 ]

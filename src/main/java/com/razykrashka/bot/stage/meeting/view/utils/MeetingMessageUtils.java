@@ -451,11 +451,11 @@ public class MeetingMessageUtils {
                 .append(Emoji.CHAINS).append("\n")
                 .append(Emoji.RADIO_BUTTON).append("\n").append("\n")
                 .append("Hey, guys! ").append(Emoji.WAVE_HAND).append("\n")
-                .append("A new meeting is available right now! Hurry up to check it and join. ").append("\n").append("\n")
+                .append("A new meeting is available Hurry up to check it and join. ").append("\n").append("\n")
                 .append("Using ").append(TextFormatter.getBoldString("@" + botUserName))
                 .append(", you can find all information about meeting, join to it and find other ones.\n")
                 .append("Hurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit() - 1))
-                .append(" free places! ").append(Emoji.SCREAM).toString();
+                .append(" places left! ").append(Emoji.SCREAM).toString();
 
         return sb.toString();
     }

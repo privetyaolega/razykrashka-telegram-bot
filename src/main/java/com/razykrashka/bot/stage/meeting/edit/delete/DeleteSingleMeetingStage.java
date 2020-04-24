@@ -1,6 +1,5 @@
 package com.razykrashka.bot.stage.meeting.edit.delete;
 
-import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.stage.MainStage;
@@ -30,9 +29,9 @@ public class DeleteSingleMeetingStage extends MainStage {
         sendDeleteNotification(meeting.getParticipants());
         meetingRepository.delete(meeting);
         messageManager
-                .disableKeyboardLastBotMessage()
-                .updateMessage("Meeting has been deleted " + Emoji.PENSIVE)
-                .sendRandomSticker("sad");
+                .deleteLastBotMessage()
+                .sendRandomSticker("sad")
+                .sendSimpleTextMessage(getString("main"));
     }
 
     private void sendDeleteNotification(Set<TelegramUser> participants) {

@@ -103,7 +103,7 @@
 
             INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
             VALUES ('167',
-            'All governments call their power democratic; but can anybody tell us, what the real democracy is?;What is good and what is bad about democracy?;Has democracy ever worked? Is it working now anywhere?;Is freedom of speech a good or a bad thing?;Do you think that truly democratic elections are possible?;Can we decide what is right and what is wrong by voting?;Does monarchy or autocracy have its advantages compared to democracy?;Can there be any alternative to democracy nowadays?;Is a referendum a democratic procedure?;Can unpopular but necessary arrangements be undertaken in democratic countries?',
+            'All governments call their power democratic, but can anybody tell us, what the real democracy is?;What is good and what is bad about democracy?;Has democracy ever worked? Is it working now anywhere?;Is freedom of speech a good or a bad thing?;Do you think that truly democratic elections are possible?;Can we decide what is right and what is wrong by voting?;Does monarchy or autocracy have its advantages compared to democracy?;Can there be any alternative to democracy nowadays?;Is a referendum a democratic procedure?;Can unpopular but necessary arrangements be undertaken in democratic countries?',
             'UPPER_INTERMEDIATE',
             'Democracy. is it for the People?');
 

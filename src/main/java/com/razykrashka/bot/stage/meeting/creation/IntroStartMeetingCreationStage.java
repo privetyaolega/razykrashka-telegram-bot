@@ -2,9 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation;
 
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.MainStage;
-
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.PhoneMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -26,7 +24,8 @@ public class IntroStartMeetingCreationStage extends MainStage {
     public void handleRequest() {
         messageManager
                 .disableKeyboardLastBotMessage()
-                .sendSimpleTextMessage("We are happy, that you understand that practice makes perfect!" + Emoji.BICEPS + "\n\n" +
+                .sendSimpleTextMessage(getString("main"), this.getKeyboard());
+              /*  .sendSimpleTextMessage("We are happy, that you understand that practice makes perfect!" + Emoji.BICEPS + "\n\n" +
                         "Actually, meeting creation is peace of cake and it won't take much of your time \n" +
                         "All detailed information related to meeting you can find " + TextFormatter.getLink("here", "http://google.com") + "\n\n" +
                         "Right now, you are about to answering some common questions about meeting details.\n" +
@@ -34,12 +33,13 @@ public class IntroStartMeetingCreationStage extends MainStage {
                         "\n" +
                         "After creation the meeting show up in <code>\"Meeting\"</code> sections and everyone of our community will know about it by getting notification in our community group.\n" +
                         "\n" +
-                        "Sooo, are you readyyyyyy?", this.getKeyboard());
+                        "Sooo, are you readyyyyyy?", this.getKeyboard());*/
     }
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isMessageTextEquals(KEYWORD)
+        return (updateHelper.isMessageTextEquals(KEYWORD)
+                || updateHelper.isMessageTextEquals("/create"))
                 && !updateHelper.isMessageFromGroup();
     }
 }

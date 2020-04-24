@@ -5,6 +5,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.input.FinalMeetingCreationSBSStage;
 import com.razykrashka.bot.ui.helpers.loading.LoadingThreadV2;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -31,6 +32,14 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public void handleRequest() {
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .replyLastMessage("Please, confirm meeting creation \uD83E\uDD28");
+        razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
+    }
+
+    @Override
+    public void processCallBackQuery() {
         LoadingThreadV2 loadingThread = startLoadingThread(true);
 
         Meeting meeting = super.getMeetingInCreation();
@@ -46,8 +55,10 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meetingRepository.save(meeting);
 
         joinToThread(loadingThread);
-        messageManager.updateMessage(getFormatString("success", meeting.getId()))
-                .sendRandomSticker("success");
+        messageManager
+                .deleteLastBotMessage()
+                .sendRandomSticker("success")
+                .sendSimpleTextMessage(getFormatString("success", meeting.getId()));
 
         if (meetingProperties.getCreation().getNotificationGroup()) {
             String meetingInfo = meetingMessageUtils.createMeetingInfoGroup(meeting);
@@ -71,6 +82,6 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     @Override
     public boolean isStageActive() {
         return super.isStageActive()
-                && updateHelper.isCallBackDataContains();
+                || updateHelper.isCallBackDataContains();
     }
 }

@@ -19,19 +19,20 @@ public class HelpStage extends MainStage {
     @Override
     public void handleRequest() {
         StringBuilder sb = new StringBuilder()
-                .append("Hey! There are some command by which you can control me and get some information about meetings and not only")
-                .append(Emoji.WINK).append("\n\n")
+                .append("Hey! Here are some useful commands that might help you find your perfect meeting:")
+                .append("\n\n")
                 .append(TextFormatter.getBoldString("Meetings\n"))
                 .append(ActiveMeetingsViewStage.KEYWORD)
-                .append(" - show all active meetings\n")
+                .append(" - show all available meetings\n")
                 .append(OnlineMeetingsViewStage.KEYWORD)
-                .append(" - show all active online meetings\n")
+                .append(" - show all available online meetings\n")
                 .append(OfflineMeetingsViewStage.KEYWORD)
-                .append(" - show all active offline meetings\n")
+                .append(" - show all available offline meetings\n")
                 .append(ArchivedMeetingsViewStage.KEYWORD)
                 .append(" - show all expired (archived) meetings\n")
                 .append("/my")
-                .append(" - show my planned meetings\n");
+                .append(" - show my schedule meetings")
+                .append("\n\nGood luck! ").append(Emoji.WINK);
 
         messageManager
                 .disableKeyboardLastBotMessage()
