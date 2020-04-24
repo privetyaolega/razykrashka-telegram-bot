@@ -81,7 +81,8 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public boolean isStageActive() {
-        return super.isStageActive()
-                || updateHelper.isCallBackDataContains();
+        return (super.isStageActive()
+                || updateHelper.isCallBackDataContains())
+                && !updateHelper.isCallBackDataContains(EDIT);
     }
 }

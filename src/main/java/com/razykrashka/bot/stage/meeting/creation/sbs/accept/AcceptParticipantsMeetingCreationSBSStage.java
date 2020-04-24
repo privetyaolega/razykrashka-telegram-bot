@@ -16,7 +16,6 @@ public class AcceptParticipantsMeetingCreationSBSStage extends BaseMeetingCreati
 
     @Override
     public void processCallBackQuery() {
-        messageInputHandler();
         Integer participantsLimit = updateHelper.getIntegerPureCallBackData();
 
         Meeting meeting = getMeetingInCreation();
@@ -30,18 +29,12 @@ public class AcceptParticipantsMeetingCreationSBSStage extends BaseMeetingCreati
         razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).handleRequest();
     }
 
-    private void messageInputHandler() {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
-            razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
-            setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
-            razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
-            throw new IncorrectInputDataFormatException("Stage does not support text message date input!");
-        }
-    }
-
     @Override
     public void handleRequest() {
-        processCallBackQuery();
+        razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
+        setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
+        razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
+        throw new IncorrectInputDataFormatException("Stage does not support text message date input!");
     }
 
     @Override

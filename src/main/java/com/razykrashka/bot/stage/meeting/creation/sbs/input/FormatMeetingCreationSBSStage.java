@@ -26,9 +26,21 @@ public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
         String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getItalicString(getString("input"));
-        messageManager.deleteLastBotMessageIfHasKeyboard()
+        messageManager
+                .deleteLastBotMessageIfHasKeyboard()
                 .sendSimpleTextMessage(message, getKeyboard());
         setActiveNextStage(nextStageClass);
+    }
+
+    @Override
+    public void processCallBackQuery() {
+        meeting = getMeetingInCreation();
+        meeting.setFormat(MeetingFormatEnum.NA);
+        meetingRepository.save(meeting);
+
+        String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.updateMessage(message, getKeyboard());
     }
 
     @Override
@@ -44,6 +56,6 @@ public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     @Override
     public boolean isStageActive() {
         return super.isStageActive()
-                || updateHelper.isCallBackDataContains(this.getClass().getSimpleName() + "edit");
+                || updateHelper.isCallBackDataContains(this.getClass().getSimpleName() + EDIT);
     }
 }

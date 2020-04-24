@@ -34,6 +34,7 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     MeetingCatalogRepository meetingCatalogRepository;
     final static String RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Random";
     final static String ACCEPT_TOPIC_CBQ = AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Accept";
+    final static String TOPIC_ID_REGEXP = "(?i)id[$:\\-., ;*=]*\\d{0,3}";
 
     @Override
     public void handleRequest() {
@@ -61,9 +62,9 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     }
 
     private boolean isGettingFromCatalog() {
-        return updateHelper.getMessageText()
-                .toLowerCase()
-                .startsWith("id:");
+        return updateHelper
+                .getMessageText()
+                .matches(TOPIC_ID_REGEXP);
     }
 
     @Override

@@ -313,9 +313,10 @@ public class MeetingMessageUtils {
         StringBuilder sb = new StringBuilder();
 
         if (meeting.getMeetingDateTime() != null) {
-            String pattern = DATE_PATTERN;
-            if (meeting.getMeetingDateTime().getHour() != 0) {
-                pattern = DATE_TIME_PATTERN;
+            String pattern = DATE_TIME_PATTERN;
+            if (meeting.getMeetingDateTime().getHour() == 0
+                    && meeting.getMeetingDateTime().getMinute() == 0) {
+                pattern = DATE_PATTERN;
             }
             String date = meeting.getMeetingDateTime()
                     .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH));
@@ -373,12 +374,13 @@ public class MeetingMessageUtils {
 
     public String createMeetingInfoDuringCreationOnline(Meeting meeting) {
         StringBuilder sb = new StringBuilder()
-                .append(Emoji.INTERNET).append(" ONLINE MEETING\n\n");
+                .append(Emoji.INTERNET).append(" Online meeting\n\n");
 
         if (meeting.getMeetingDateTime() != null) {
-            String pattern = DATE_PATTERN;
-            if (meeting.getMeetingDateTime().getHour() != 0) {
-                pattern = DATE_TIME_PATTERN;
+            String pattern = DATE_TIME_PATTERN;
+            if (meeting.getMeetingDateTime().getHour() == 0
+                    && meeting.getMeetingDateTime().getMinute() == 0) {
+                pattern = DATE_PATTERN;
             }
             String date = meeting.getMeetingDateTime()
                     .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH));

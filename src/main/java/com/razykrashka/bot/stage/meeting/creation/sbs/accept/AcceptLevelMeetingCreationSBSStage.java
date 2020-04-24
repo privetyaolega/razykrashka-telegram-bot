@@ -18,12 +18,6 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public void processCallBackQuery() {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
-            razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
-            razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
-            return;
-        }
-
         SpeakingLevel level = SpeakingLevel.valueOf(updateHelper.getCallBackData());
         MeetingInfo meetingInfo = MeetingInfo.builder()
                 .speakingLevel(level)
@@ -34,12 +28,13 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meeting.setMeetingInfo(meetingInfo);
         meetingRepository.save(meeting);
 
-        razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).processCallBackQuery();
     }
 
     @Override
     public void handleRequest() {
-        processCallBackQuery();
+        razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
     }
 
     @Override

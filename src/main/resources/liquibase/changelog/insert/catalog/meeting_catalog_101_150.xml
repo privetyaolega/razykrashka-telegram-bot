@@ -104,7 +104,7 @@
 
             INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
             VALUES ('118',
-            'News;Do you think it\'s important to know what is going on in the world?;What is the role of newspapers in society?;How do you think will newspapers disappear in the future?;What is the best way of getting the news (radio/TV/Internet)?;Do you think the news tells us just information without giving its opinion?;Do you trust the information you get from the news?;Do you think you can trust the news you read in the Internet?;Do you think it\'s ok to punish people for fake new in the Internet?;Do you think there is more cruelty shown in the news today?;Is it possible to live a normal way of life without following the news at all?',
+            'Do you think it\'s important to know what is going on in the world?;What is the role of newspapers in society?;How do you think will newspapers disappear in the future?;What is the best way of getting the news (radio/TV/Internet)?;Do you think the news tells us just information without giving its opinion?;Do you trust the information you get from the news?;Do you think you can trust the news you read in the Internet?;Do you think it\'s ok to punish people for fake new in the Internet?;Do you think there is more cruelty shown in the news today?;Is it possible to live a normal way of life without following the news at all?',
             'PRE_INTERMEDIATE',
             'Good and Bad News');
 

@@ -15,12 +15,6 @@ public class AcceptFormatMeetingCreationSBSStage extends BaseMeetingCreationSBSS
 
     @Override
     public void processCallBackQuery() {
-        if (razykrashkaBot.getRealUpdate().hasMessage()) {
-            razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
-            razykrashkaBot.getContext().getBean(FormatMeetingCreationSBSStage.class).handleRequest();
-            return;
-        }
-
         MeetingFormatEnum meetingFormatEnum = MeetingFormatEnum.valueOf(updateHelper.getStringPureCallBackData());
         meeting = getMeetingInCreation();
         meeting.setFormat(meetingFormatEnum);
@@ -35,13 +29,14 @@ public class AcceptFormatMeetingCreationSBSStage extends BaseMeetingCreationSBSS
 
     @Override
     public void handleRequest() {
-        processCallBackQuery();
+        razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(FormatMeetingCreationSBSStage.class).handleRequest();
     }
 
     @Override
     public boolean isStageActive() {
         return (super.isStageActive()
                 || updateHelper.isCallBackDataContains())
-                && !updateHelper.isCallBackDataContains("edit");
+                && !updateHelper.isCallBackDataContains(EDIT);
     }
 }

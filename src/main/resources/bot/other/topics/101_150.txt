@@ -242,7 +242,6 @@ ID: 118
 Topic: Good and Bad News
 Level: PRE_INTERMEDIATE
 Questions:
-News
 1. Do you think it's important to know what is going on in the world?
 2. What is the role of newspapers in society?
 3. How do you think will newspapers disappear in the future?

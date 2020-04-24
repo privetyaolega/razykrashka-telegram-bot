@@ -7,7 +7,7 @@
         <comment>Upload 3 users</comment>
         <sql>
             INSERT INTO user (first_name, last_name, phone_number, id, user_name, skype_contact)
-            VALUES('Olega', 'Rutski', '', '532965560', 'privetyaolega', 'privetyaolega');
+            VALUES('Olega', 'Rutski', '+375295508809', '532965560', 'privetyaolega', 'privetyaolega');
 
             INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Andrew', '', '+375293489901', '431957763', '');

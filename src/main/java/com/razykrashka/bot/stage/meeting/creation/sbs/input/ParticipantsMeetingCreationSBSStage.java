@@ -6,7 +6,7 @@ import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptParticipantsM
 import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.Optional;
 
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
-    public void handleRequest() {
+    public void processCallBackQuery() {
         meeting = getMeetingInCreation();
         if (Optional.ofNullable(meeting.getMeetingInfo()).isPresent()) {
             meeting.getMeetingInfo().setParticipantLimit(null);
@@ -25,7 +25,15 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
             meetingRepository.save(meeting);
         }
 
-        InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.updateMessage(messageText, getKeyboard());
+        super.setActiveNextStage(AcceptParticipantsMeetingCreationSBSStage.class);
+    }
+
+    @Override
+    public ReplyKeyboard getKeyboard() {
+        return keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
                         "2", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "2",
                         "3", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "3"))
@@ -38,16 +46,11 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
                         "8+", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "25"))
                 .setRow(getString("back"), LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
-
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
-                + TextFormatter.getItalicString(getString("input"));
-        messageManager.deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(messageText, keyboardMarkup);
-        super.setActiveNextStage(AcceptParticipantsMeetingCreationSBSStage.class);
     }
 
     @Override
     public boolean isStageActive() {
-        return super.isStageActive() || updateHelper.isCallBackDataEquals();
+        return super.isStageActive()
+                || updateHelper.isCallBackDataEquals();
     }
 }

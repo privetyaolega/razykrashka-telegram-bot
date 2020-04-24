@@ -10,7 +10,7 @@ import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.Optional;
 
@@ -26,8 +26,32 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             meetingInfoRepository.save(meeting.getMeetingInfo());
             meetingRepository.save(meeting);
         }
-        messageManager.deleteLastBotMessageIfHasKeyboard();
-        InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager
+                .deleteLastBotMessageIfHasKeyboard()
+                .sendSimpleTextMessage(messageText, getKeyboard());
+        setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
+    }
+
+    @Override
+    public void processCallBackQuery() {
+        meeting = getMeetingInCreation();
+        if (Optional.ofNullable(meeting.getMeetingInfo()).isPresent()) {
+            meeting.getMeetingInfo().setSpeakingLevel(null);
+            meetingInfoRepository.save(meeting.getMeetingInfo());
+            meetingRepository.save(meeting);
+        }
+
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.updateMessage(messageText, getKeyboard());
+        setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
+    }
+
+    @Override
+    public ReplyKeyboard getKeyboard() {
+        return keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of("Elementary", "ELEMENTARY",
                         "Pre-Intermediate", "PRE_INTERMEDIATE"))
                 .setRow(ImmutableMap.of("Intermediate", "INTERMEDIATE",
@@ -36,11 +60,6 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                         "Native", "NATIVE"))
                 .setRow(getBackButton(meeting))
                 .build();
-
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
-                + TextFormatter.getItalicString(getString("input"));
-        messageManager.sendSimpleTextMessage(messageText, keyboardMarkup);
-        setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
     }
 
     private Pair<String, String> getBackButton(Meeting meeting) {
