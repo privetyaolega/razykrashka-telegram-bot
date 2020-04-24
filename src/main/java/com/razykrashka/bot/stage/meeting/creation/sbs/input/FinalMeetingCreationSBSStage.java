@@ -6,25 +6,28 @@ import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptFinalMeetingC
 import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 @Log4j2
 @Component
 public class FinalMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
+    Class<? extends BaseMeetingCreationSBSStage> nextStageClass = AcceptFinalMeetingCreationSBSStage.class;
+    Class<? extends BaseMeetingCreationSBSStage> previousStageClass = TopicMeetingCreationSBSStage.class;
+
     @Override
     public void handleRequest() {
-        messageManager.deleteLastBotMessageIfHasKeyboard();
-        InlineKeyboardMarkup keyboardMarkup = keyboardBuilder.getKeyboard()
-                .setRow(getString("confirmButton") + Emoji.OK_HAND, AcceptFinalMeetingCreationSBSStage.class.getSimpleName())
-                .setRow(getString("backButton"), TopicMeetingCreationSBSStage.class.getSimpleName() + EDIT)
-                .build();
-
         String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation())
                 + TextFormatter.getItalicString(getString("input"));
-        messageManager
-                .disableKeyboardLastBotMessage()
-                .sendSimpleTextMessage(messageText, keyboardMarkup);
-        setActiveNextStage(AcceptFinalMeetingCreationSBSStage.class);
+        messageManager.updateMessage(messageText, getKeyboard());
+        setActiveNextStage(nextStageClass);
+    }
+
+    @Override
+    public ReplyKeyboard getKeyboard() {
+        return keyboardBuilder.getKeyboard()
+                .setRow(getString("confirmButton") + Emoji.OK_HAND, nextStageClass.getSimpleName())
+                .setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
+                .build();
     }
 }

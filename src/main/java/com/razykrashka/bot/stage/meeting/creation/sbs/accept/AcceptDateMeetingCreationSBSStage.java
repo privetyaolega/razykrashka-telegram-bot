@@ -32,7 +32,7 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
         meeting.setMeetingDateTime(localDateTime);
         meetingRepository.save(meeting);
 
-        razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(TimeMeetingCreationSBSStage.class).processCallBackQuery();
     }
 
     private void messageInputHandler() {

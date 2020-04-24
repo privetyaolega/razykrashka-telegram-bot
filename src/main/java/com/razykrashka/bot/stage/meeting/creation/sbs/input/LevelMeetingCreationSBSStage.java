@@ -20,22 +20,19 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
-        meeting = getMeetingInCreation();
-        if (Optional.ofNullable(meeting.getMeetingInfo()).isPresent()) {
-            meeting.getMeetingInfo().setSpeakingLevel(null);
-            meetingInfoRepository.save(meeting.getMeetingInfo());
-            meetingRepository.save(meeting);
-        }
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
-                + TextFormatter.getItalicString(getString("input"));
         messageManager
                 .deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(messageText, getKeyboard());
+                .sendSimpleTextMessage(getMeetingMessage(), getKeyboard());
         setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
     }
 
     @Override
     public void processCallBackQuery() {
+        messageManager.updateMessage(getMeetingMessage(), getKeyboard());
+        setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
+    }
+
+    private String getMeetingMessage() {
         meeting = getMeetingInCreation();
         if (Optional.ofNullable(meeting.getMeetingInfo()).isPresent()) {
             meeting.getMeetingInfo().setSpeakingLevel(null);
@@ -43,10 +40,8 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             meetingRepository.save(meeting);
         }
 
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+        return meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getItalicString(getString("input"));
-        messageManager.updateMessage(messageText, getKeyboard());
-        setActiveNextStage(AcceptLevelMeetingCreationSBSStage.class);
     }
 
     @Override

@@ -14,8 +14,21 @@ import java.util.Optional;
 @Component
 public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
+    Class<? extends BaseMeetingCreationSBSStage> nextStageClass = AcceptParticipantsMeetingCreationSBSStage.class;
+
     @Override
     public void processCallBackQuery() {
+        messageManager.updateMessage(getMeetingMessage(), getKeyboard());
+        super.setActiveNextStage(nextStageClass);
+    }
+
+    @Override
+    public void handleRequest() {
+        messageManager.sendSimpleTextMessage(getMeetingMessage(), getKeyboard());
+        super.setActiveNextStage(nextStageClass);
+    }
+
+    private String getMeetingMessage() {
         meeting = getMeetingInCreation();
         if (Optional.ofNullable(meeting.getMeetingInfo()).isPresent()) {
             meeting.getMeetingInfo().setParticipantLimit(null);
@@ -24,26 +37,23 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
             meetingInfoRepository.save(meeting.getMeetingInfo());
             meetingRepository.save(meeting);
         }
-
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+        return meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getItalicString(getString("input"));
-        messageManager.updateMessage(messageText, getKeyboard());
-        super.setActiveNextStage(AcceptParticipantsMeetingCreationSBSStage.class);
     }
 
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
-                        "2", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "2",
-                        "3", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "3"))
+                        "2", nextStageClass.getSimpleName() + "2",
+                        "3", nextStageClass.getSimpleName() + "3"))
                 .setRow(ImmutableMap.of(
-                        "4", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "4",
-                        "5", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "5"))
+                        "4", nextStageClass.getSimpleName() + "4",
+                        "5", nextStageClass.getSimpleName() + "5"))
                 .setRow(ImmutableMap.of(
-                        "6", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "6",
-                        "7", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "7",
-                        "8+", AcceptParticipantsMeetingCreationSBSStage.class.getSimpleName() + "25"))
+                        "6", nextStageClass.getSimpleName() + "6",
+                        "7", nextStageClass.getSimpleName() + "7",
+                        "8+", nextStageClass.getSimpleName() + "25"))
                 .setRow(getString("back"), LevelMeetingCreationSBSStage.class.getSimpleName())
                 .build();
     }

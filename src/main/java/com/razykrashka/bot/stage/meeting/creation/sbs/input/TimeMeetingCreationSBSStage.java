@@ -17,20 +17,28 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public void handleRequest() {
+        messageManager.deleteLastBotMessageIfHasKeyboard()
+                .sendSimpleTextMessage(getMeetingMessage(), getKeyboard());
+        super.setActiveNextStage(AcceptTimeMeetingCreationSBSStage.class);
+    }
+
+    @Override
+    public void processCallBackQuery() {
+        messageManager.updateMessage(getMeetingMessage(), getKeyboard());
+        super.setActiveNextStage(AcceptTimeMeetingCreationSBSStage.class);
+    }
+
+    private String getMeetingMessage() {
         meeting = getMeetingInCreation();
         meeting.setMeetingDateTime(meeting.getMeetingDateTime()
                 .withHour(0)
                 .withMinute(0));
         meetingRepository.save(meeting);
-
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+        return meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getItalicString(getString("input"));
-        messageManager.deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(messageText, getKeyboard());
-        super.setActiveNextStage(AcceptTimeMeetingCreationSBSStage.class);
     }
 
-    @Override
+    /*    @Override
     public void processCallBackQuery() {
         if (updateHelper.isCallBackDataContains(EDIT)) {
             handleRequest();
@@ -74,7 +82,7 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             }
             messageManager.updateMessage(messageText, keyboard);
         }
-    }
+    }*/
 
     protected String getCallBackString(String callBackData) {
         return this.getClass().getSimpleName() + callBackData;

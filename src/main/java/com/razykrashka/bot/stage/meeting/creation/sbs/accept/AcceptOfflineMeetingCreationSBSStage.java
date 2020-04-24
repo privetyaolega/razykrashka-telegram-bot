@@ -27,7 +27,7 @@ public class AcceptOfflineMeetingCreationSBSStage extends BaseMeetingCreationSBS
     public void processCallBackQuery() {
         if (updateHelper.isCallBackDataContains("Confirm")) {
             setActiveNextStage(LevelMeetingCreationSBSStage.class);
-            updateHelper.getBot().getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
+            updateHelper.getBot().getContext().getBean(LevelMeetingCreationSBSStage.class).processCallBackQuery();
         } else {
             TelegramUser user = updateHelper.getUser();
             user.setSkypeContact(null);
@@ -39,6 +39,7 @@ public class AcceptOfflineMeetingCreationSBSStage extends BaseMeetingCreationSBS
     @Override
     public boolean isStageActive() {
         return super.isStageActive()
-                && !updateHelper.isCallBackDataContains("edit");
+                && !updateHelper.isCallBackDataContains(EDIT)
+                && !updateHelper.isCallBackDataContains(AcceptFormatMeetingCreationSBSStage.class.getSimpleName());
     }
 }
