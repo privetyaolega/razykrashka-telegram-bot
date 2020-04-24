@@ -1,269 +1,733 @@
 ID: 101
-Topic: Cars and Driving
-Level: UPPER_INTERMEDIATE
+Topic: Junk Food
+Level: INTERMEDIATE
 Questions:
-1. What are the advantages and disadvantages of owning a car?
-2. Are men better drivers than women? Are women better drivers than men?
-3. Do you think the age for driving should be raised or lowered?
-4. What are the advantages and disadvantages of having a GPS?
-5. Does the type of car a person drives tell us about the person who drives it?
-6. What are the advantages and disadvantages of air conditioning?
-7. Do you think that the style of driving depends on person`s character?
-8. Do you think there are too many cars in the streets nowadays?
-9. Do you think that punishment for violating traffic rules should be more stringent?
-10. What would our live be like without cars? Will it better or worse?
+1. What can we consider junk food?
+2. Why is junk food considered to be unhealthy?
+3. Is it possible to live without junk food?
+4. How often can you eat junk food without detriment to your health?
+5. What kind of junk food is the unhealthiest?
+6. Since what age should children be allowed to eat junk food?
+7. What food should be sold in school canteens?
+8. What is your attitude to dietary additives like E-supplements?
+9. Do you think the food in our groceries is checked properly?
+10. Do you think junk food is the future of mankind?
 
 ID: 102
-Topic: Secrets
-Level: UPPER_INTERMEDIATE
+Topic: A Life of Productivity
+Level: INTERMEDIATE
 Questions:
-1. If your friend was doing something dangerous or illegal would you tell his parents or his teacher about it?
-2. If you found your sister's or brother's diary, would you read it or would you respect their privacy?
-3. When you meet someone new, are there some things that you want to keep secret or private?
-4. Are you concerned about Internet privacy?
-5. What do you think about foreign countries asking you for your fingerprints when you live there?
-6. When applying for a job is it OK for a company to ask you about your religion, marital status, sexual orientation or narcotic use?
-7. If you were going to marry someone, but had a family secret they should know before you get married would you tell them?
-8. If you won a lot of money, would you tell your family?
-9. Do you think you should keep something in secret till you die if you have promised another person to do so?
-10. What would our life be without secrets?
+1. Are the tasks you work on during the day the ones with the highest priority?
+2. How do you prioritize tasks when there is a lot to do?
+3. Are you stressed about deadlines?
+4. Do you find yourself completing tasks at the last minute?
+5. What are your ways to flight downtime?
+6. Are you good at shutting yourself off distractions?
+7. Do you think time management is really useful and needed?
+8. What are the good and bad sides of time management, in your opinion?
+9. Do you think it is possible to be an efficient multitasker for any person?
+10. Do you think that setting long-term goals is good?
 
 ID: 103
-Topic: Gay Community v.1
-Level: UPPER_INTERMEDIATE
+Topic: Travelling by Planes
+Level: INTERMEDIATE
 Questions:
-1) Is being gay more difficult in some countries than others?
-2) In your opinion, can a gay be a religious person?
-3) What main problems do gays have in the military?
-4) In what ways does the gay community try to tackle homophobia? Are they being successful?
-5) Do you think being lesbian is viewed as being worse, the same or better than being gay in our society?
-6) Could you name any famous lesbian through history?
-7) Do you believe gays and heterosexuals have the same rights? Do they have equal duties?
-8) What's your opinion on gay marriage?
-9) What do you think of adoption by gay couples?
-10) Do you think homosexual families can bring up children as well as straight families? If not, why?
-11) What stereotypes do you know about gays?
+1. What are the advantages and disadvantages of traveling by airplane?
+2. Does a plane provide anything to do to pass the time?
+3. What can be done to solve the problem of obese people who practically take up two seats?
+4. Why do you think that most pilots are men?
+5. Are airplanes really safer than cars?
+6. Would you rather have a younger, more beautiful/handsome flight attendant or an older, more experienced one?
+7. Do you think being a pilot is a good job?
+8. What are the advantages and disadvantages of being a member of a flight crew?
+9. Do you think that air traffic controllers share the same level of responsibility for people`s lives as the members of flight crews?
+10. Do you think planes will get larger or faster in future?
 
 ID: 104
-Topic: Gay Community v.2
-Level: UPPER_INTERMEDIATE
+Topic: Is it Easy for you to Say “No”?
+Level: PRE_INTERMEDIATE
 Questions:
-1) What problems do you think someone goes through when they find out they are gay?
-2) Do you think they should try to change?
-3) In your opinion, should they say they are gay?
-4) What do you think your parents' reaction would be if you told them you are gay?
-5) Do you think one of them would take it better / worse?
-6) Do you think their first reaction would persist or would it change?
-7) How about your best friend's reaction?
-8) How would you react if one of your children told you they're gay?
-9) What are the main problems gays have to face at college?
-10) Is it easier for a gay to live in a village or in a city?
+1. Is it easy for you to say “No”?
+2. In what situations it’s particularly easy or difficult for you?
+3. Is it easy for you to say “I don't know”?
+4. Is it easy for you to say “I don't understand”?
+5. Is it easy for you to say “I don't care”?
+6. Is it easy for you to say that you’ve changed your mind?
+7. Is it easy for you to admit your mistakes?
+8. Is it easy for you to confront an opinion of group of other people?
+9. Is it easy for you to refuse to help another person?
+10. Can you say that the easier person says “No”, the more egoistic he/she is?
 
 ID: 105
-Topic: Gay Community v.3
-Level: UPPER_INTERMEDIATE
+Topic: Is it Easy to Be Patient?
+Level: PRE_INTERMEDIATE
 Questions:
-1) About how many of them would you say are not offensive?
-2) How is it being gay in your country?
-3) Do you know anyone who is gay?
-4) How about any celebrities?
-5) Or any historical figure?
-6) Are there any gay characters on a current TV series?
-7) Could you tell us about them?
-8) What's the meaning of "homophobia"?
-9) In your view, is there homophobia in our society? If not, why?
-10) Do you believe that the gay community is being discriminated against in any way?
-11) If so, why do you think there is such discrimination?
+1. Do you think a person should be patient in every situation?
+2. Are there any situations when it is fine to lose temper?
+3. What is good and what is bad about being patient all the time?
+4. Is patience a very important personal quality?
+5. Why do people say “patience is a virtue”?
+6. How can you increase your patience?
+7. Do you think teachers need a lot of patience?
+8. Do you think it`s possible to be always patient with your children?
+9. Do you think doctors need a lot of patience?
+10. Is it possible to learn how to be patient in your opinion?
 
 ID: 106
-Topic: Fears v.1
+Topic: Rudeness in our Society
 Level: PRE_INTERMEDIATE
 Questions:
-1) Are there any parts of the city where you live which you are afraid to visit after dark? Where?
-2) Are there certain weather conditions that scare people? What are they? Why do people become scared?
-3) Are you afraid of flying?
-4) Are you afraid of ghosts?
-5) Are you afraid of giving a speech in public?
-6) Are you afraid of going to the dentist?
-7) Are you afraid of heights?
-8) Are you afraid of the dark?
-9) Are you afraid of getting old? Why?
+1. Why so many people behave politely in public but allow themselves being rude with dear people – friends, relatives, spouses?
+2. Should a person be rude back if someone is rude to him/her?
+3. What rude behavior do you see in public every day?
+4. Who do you think decides what’s rude and what’s not?
+5. do you think it`s fine to swear in public?
+6. What do you do when sales staff in shops or waiting staff in restaurants are very rude?
+7. Do you think it’s rude to correct someone’s grammar mistakes in a conversation?
+8. Do you think it’s rude to ask someone’s age?
+9. Do you think it’s rude to ask someone’s religion?
+10. What other topics should be a taboo in modern society in your opinion?
 
 ID: 107
-Topic: Fears v.2
-Level: PRE_INTERMEDIATE
+Topic: Is Modern Life Killing us?
+Level: INTERMEDIATE
 Questions:
-1) Are there any numbers that people are afraid of in your culture?
-2) Were you afraid of the dark as a child?
-3) What animal do you think is the most scary?
-4) What is the scariest movie you have ever seen?
-5) What is your biggest fear in life? Are you afraid that it might come true?
-6) Do you believe people can be cured of phobias by hypnosis?
-7) Are you afraid of speaking English?
-8) A foreign language?
-9) In front of many people?
-10) At official functions?
+1. How can you describe modern life?
+2. How does technology help modern life?
+3. Is the pace of modern life affecting individuals' happiness?
+4. What are the different ways how modern life is killing us?
+5. Are there more opportunities in modern life than earlier?
+6. What are the ways of finding a better work/life balance in modern life?
+7. How can a person chill out in modern life?
+8. Does modern life affect more women’s health than men’s health?
+9. Does modern life kill relationships and make couples unfaithful?
+10. Do you agree that in modern life there is too much of work and lack of time?
 
 ID: 108
-Topic: Internet and Computers
+Topic: Dress Code
 Level: INTERMEDIATE
 Questions:
-1) What are two disadvantages of using smartphones and tablets?
-2) What do you think about Cybercafes? Are they still useful?
-3) Do you like a job in which you have to use computers?
-4) Do you spend too much time online?
-5) Does your mother of father know how to use a computer?
-6) Do computers make life easier?
-7) What websites do you visit in a regular basis?
-8) What do you think about the Apple?
-9) What are some advantages of using social networks?
-10) Do you visit English websites?
+1. What do you think about the necessity of following a dress code at work?
+2. Do we need dress codes or uniforms at school?
+3. Do you think that if women wore whatever they wanted at work this might lead to the increase in the number of cases of sexual harassment from their male co-workers?
+4. Why is it that skirts are for women and trousers are for men?
+5. Should men be allowed to wear skirts to work if they want to?
+6. If it were up to you to make the dress code at your work/school, what would it be and why?
+7. Do you think that dress codes at night clubs and restaurants should be banned?
+8. Do you think that if schoolchildren wore whatever they wanted that would cause conflicts between rich and poor children?
+9. Do you think it`s ok for young men who belong to certain subcultures to wear a special outfit at school or university?
+10. Do you think that introducing a dress code can cause protests at school/work?
 
 ID: 109
-Topic: Volunteer work
-Level: INTERMEDIATE
-Questions:
-1) Why do people volunteer?
-2) Would you like to work as a volunteer?
-3) Have you ever done any volunteer work?
-4) Is volunteering worth the time it takes?
-5) Why would you enjoy volunteering?
-6) Do you know anyone who has done volunteer work?
-7) Have you ever benefitted by someone's volunteer work?
-8) What benefits do you get personally by volunteering?
-9) Can you list some reasons why people volunteer?
-10) What types of volunteer work would be unpleasant for you?
-
-ID: 110
-Topic: Friends v.1
-Level: INTERMEDIATE
-Questions:
-1) Are you good at making friends?
-2) Can you remember your first friend?
-3) What’s the best age for making friends?
-4) How long has your strongest friendship lasted?
-5) How often do you contact with your long-distance friends?
-6) How difficult is it to maintain a friendship?
-7) What can break a good relationship?
-8) Is it a good idea to go on holiday with a friend?
-9) What do you think about lending/borrowing money to/from a friend?
-10) Would it be difficult if your friend was your boss or subordinate?
-
-ID: 111
-Topic: Health v.1
-Level: INTERMEDIATE
-Questions:
-1) How conscious are you about your health?
-2) What things might damage your health?
-3) Should you give up something to protect your health?
-4) What do you do to stay healthy?
-5) Do you ever read articles or watch TV programmes about health?
-6) Do you usually take medicine when you are sick?
-7) Do you usually go to a doctor when you get a cold?
-8) How often do you have a health check?
-9) What are your experiences of hospitals?
-10) Have you ever been to a hospital in another country?
-
-ID: 112
-Topic: Health v.2
-Level: INTERMEDIATE
-Questions:
-1) How could hospitals be made better places to visit and stay in?
-2) Which is better: private and public health care?
-3) What do you think about alternative medicine?
-4) Who is more responsible for your health: you or the government?
-5) Do you normally go one doctor in particular or any available doctor?
-6) What disease frightens you the most? Why?
-7) What do you do to stay healthy?
-
-ID: 113
-Topic: Time
-Level: INTERMEDIATE
-Questions:
-1) Do you have a lot of free time?
-2) "Time is money". Do you agree or disagree?
-3) What's your perception of time now?
-4) Do you show up early or late for work/university/meeting with friends?
-5) Are you a "night owl" or an "early bird"?
-6) Do you use any time management apps to structure your day/week?
-7) Do you have some tips on how to organize your day for maximum productivity?
-8) What Is procrastination? Why we do it and how to stop it)
-9) What would you do if you had a few extra hours in a day?
-10) Does time go by slowly or quickly for you? What does this depend on?
-11) What is your ideal working schedule?
-12) Have you ever had some situations when procrastination was good for you?
-
-ID: 114
-Topic: Journalism
-Level: UPPER_INTERMEDIATE
-Questions:
-1. Do you think journalism is different in different countries around the world?
-2. What do you think of journalists who report in war zones?
-3. What positive and negative sides does journalism have?
-4. Do you think people can make a lot of money from journalism?
-5. Do you think investigative journalism is interesting?
-6. How important is journalism in today’s world?
-7. What do you think of the paparazzi - are they doing a good job stalking celebrities?
-8. Do you think the Internet can make us all journalists?
-9. What do you think world leaders and government s think of journalism?
-10. Does the government control journalism in your country?
-
-ID: 115
-Topic: Men and Women
-Level: INTERMEDIATE
-Questions:
-1. Why do we say men are from Mars and women are from Venus?
-2. Why men and women are different when it comes to communicating with each other?
-3. Why relationships became so complicated in the modern world?
-4. How can women make men`s life different and vice versa?
-5. Why women are more verbal than men?
-6. How can you describe the term “gender politics”?
-7. Do you think that gender inequality does exist in modern world?
-8. Do you agree with the idea that women need to be given more rights and opportunities in our society?
-9. Do you think that sexual harassment is a big issue in modern society?
-10. Do you stick to a conservative point of view in terms of the distribution of social roles of men and women or do you approach this issue in a different way?
-
-ID: 116
-Topic: Hobbies and Interests
+Topic: Good and Bad Weather
 Level: PRE_INTERMEDIATE
 Questions:
-1. How can the word “hobby” be described?
-2. Is doing extreme sports a good kind of hobby?
-3. Can a person become a real professional in something he is doing as a hobby?
-4. Do you agree that hobbies help people to become a better rounded person?
-5. Which hobbies do you think are the most difficult?
-6. Can some hobbies be disruptive for your personality?
-7. Should parents let their children choose pastime activities for themselves or should they encourage them to do things that they want them to do?
-8. Should each person have a hobby?
-9. Is it OK for a grown-up to have some kind of hobby which is usually associated with the way children spend their free time?
-10. What would your life be without any hobby?
+1. What's your favorite season and why?
+2. Are there any special traditions associated with different seasons in your country?
+3. What is harder for a human being to stand: extreme cold or extreme hot weather?
+4. If you had to choose one of two things what would you choose: to live in a desert or in tundra?
+5. Do you think weather patterns are changing?
+6. Do you agree that human activity is affecting the climate in a bad way?
+7. Do you think weather affects the way people feel?
+8. What is the relationship between weather and natural disasters?
+9. How to you depend on the weather reports on TV?
+10. Do you think that the climate of the planet will change in future?
+
+ID: 110
+Topic: What is it Like Being a Celebrity?
+Level: PRE_INTERMEDIATE
+Questions:
+1. Whom would you call a celebrity?
+2. Do you think anyone can become a celebrity?
+3. Do you think celebrities like Oprah Winfrey deserve the millions of dollars they get paid?
+4. Why are so many people obsessed with celebrities?
+5. What do you think are the downsides to being a celebrity?
+6. Would you like to be interviewed by celebrity magazines?
+7. Do you think there are different levels of celebrity?
+8. Do you think all celebrities are talented?
+9. Do you think celebrities like being celebrities?
+10. Would you like to be a celebrity?
+
+ID: 111
+Topic: Stereotypes and People Following them
+Level: INTERMEDIATE
+Questions:
+1. What springs to mind when you hear the word “stereotype”?
+2. Are stereotypes usually accurate?
+3. Can stereotypes of people be fair?
+4. Are stereotypes god or bad?
+5. Where do stereotypes come from?
+6. Which people today do you think are being unfairly stereotyped?
+7. What are the stereotypes of men and women?
+8. Is there a group of people who are guiltier than most of creating stereotypes?
+9. Do you think information technology has reduced or increased racial stereotyping?
+10. Should stereotyping be made illegal?
+
+ID: 112
+Topic: Kissing and Problems it Creates
+Level: INTERMEDIATE
+Questions:
+1. What springs to mind when you hear the word “kissing”?
+2. What do you think about kissing?
+3. When and why do you think kissing first started?
+4. What do you think an alien visiting our planet would think of people kissing?
+5. Do you think that different nations use kissing for similar reasons?
+6. At what age is it OK for people to start kissing?
+7. Is there anything unhealthy about kissing?
+8. Do you think kissing on a crowded train is OK?
+9. What would you do if you saw your partner kissing someone else?
+10. Are there, or should there be, any rules to kissing?
+
+ID: 113
+Topic: Gossip and Rumors
+Level: UPPER_INTERMEDIATE
+Questions:
+1. How would you define gossip?
+2. Can it be a positive thing sometimes?
+3. What do you think of those who spread gossips?
+4. Does it happen to you when you gossip unintentionally?
+5. Can we trust any information that we hear on a grapevine?
+6. Do you consider yourself a reliable person in keeping secrets?
+7. Do you think it`s ok to discuss your close friends or relatives with other people behind their back?
+8. Do you think you should accuse other people of gossiping in public if you are sure of that?
+9. What is your attitude to gossip about famous people?
+10. Do you think our life would lose its edge if there were no gossips at all?
+
+ID: 114
+Topic: Dangers that Surround us
+Level: INTERMEDIATE
+Questions:
+1. Do you think every person experiences danger at some point in his life?
+2. Do you think that facing danger makes a person`s spirit stronger?
+3. Do you understand those who do dangerous sports?
+4. Are you a person that worries about nothing or everything?
+5. Would you risk your life for someone?
+6. Do you believe that our body can do miracles when we are facing a dangerous situation?
+7. What country do you consider the most dangerous in the world and why?
+8. Are there jobs that are constantly related to dangerous situations?
+9. Would you choose any kind of profession that is risky in some way?
+10. Can we stay away from danger?
+
+ID: 115
+Topic: Advice. To Give or not to Give?
+Level: PRE_INTERMEDIATE
+Questions:
+1. Do you like to give pieces of advice?
+2. Do you like when someone else gives you advice?
+3. Do you think that you are quite wise person in giving advice?
+4. Is there any person whose pieces of advice you respect more than others?
+5. Do you usually follow advice fully or partially?
+6. Do you find that people who always give pieces of advice are annoying?
+7. Do you think that we should ask before giving pieces of advice?
+8. Why shouldn't psychologists give advice?
+9. What is good and what is bad about giving advices?
+10. Do you think that all the pieces of advice given to you by other people were useful?
 
 ID: 117
-Topic: Responsibility
+Topic: Behavior and Misbehavior
 Level: INTERMEDIATE
 Questions:
-1. What is responsibility in your opinion?
-2. What should a responsible friend/spouse/parent/sibling/grandparent be like?
-3. What are the responsibilities of parents?
-4. How should kids be raised so that they become responsible and not live off their parents?
-5. Why are some people irresponsible?
-6. How can we fight procrastination?
-7. Are we responsible for our elderly parents?
-8. 18 is now very often considered the age of legal adulthood. Do you think this is an appropriate age to be considered an adult?
-9. Should all the people be socially responsible in any situations?
-10. Is social responsibility important for corporations? Should companies think about more than just the “bottom line”?
+1. Why do some children seem naturally well-mannered, while others seem difficult?
+2. How can you raise well-behaved children?
+3. Would you teach your child to “hit back” at school if somebody hits him?
+4. Is there any behavior that you would not find acceptable?
+5. Have you ever not tolerated someone`s behavior?
+6. Do you care what other people think of your behavior?
+7. Do you care about the private behavior of politicians/celebrities?
+8. Does economic status affect people's behavior?
+9. Should people act on their feelings?
+10. Do you think that immoral behavior is a consequence of bad circumstances/choices or it`s a person`s nature?
 
 ID: 118
-Topic: Morality, Empathy and Altruism
+Topic: Good and Bad News
+Level: PRE_INTERMEDIATE
+Questions:
+News
+1. Do you think it's important to know what is going on in the world?
+2. What is the role of newspapers in society?
+3. How do you think will newspapers disappear in the future?
+4. What is the best way of getting the news (radio/TV/Internet)?
+5. Do you think the news tells us just information without giving its opinion?
+6. Do you trust the information you get from the news?
+7. Do you think you can trust the news you read in the Internet?
+8. Do you think it`s ok to punish people for fake new in the Internet?
+9. Do you think there is more cruelty shown in the news today?
+10. Is it possible to live a normal way of life without following the news at all?
+
+ID: 119
+Topic: Dealing with Time
+Level: PRE_INTERMEDIATE
+Questions:
+1. How important is planning of time for you?
+2. How much your success depends on correct planning of time?
+3. How much time every week should a person devote to work/family/friends/oneself?
+5. What, in your opinion, is wasting of time?
+6. Do you think a person should have an active or passive rest?
+7. Do you agree that every minute of our life should be used for a certain purpose?
+8. What is your attitude towards the fact that Russia do not pass to the summer time anymore?
+9. Do you think that it is really hard for some people to get up early in the morning or work late at night?
+10. Do you think that everyone should stick to a certain regime?
+
+ID: 120
+Topic: Personal Portrait
 Level: INTERMEDIATE
 Questions:
-1. What qualities does a high-minded person have?
-2. Do we need religion to be people of good morals?
-3. Are we obliged to religion for the existence of morality?
-4. Is it necessary to create universal moral values? If so, what should they be like?
-5. Should people all over the world reach common ground in answers to the most important questions of human life?
-6. How do we understand what is good and what is bad?
-7. Are our moral values based on facts about human and animal well-being&
-8. Can science (neurology, psychology) answer some general moral questions (e. g., what is good and what is bad?)?
-9. Should we always follow our principles?
-10. Is it easy to be an altruist?
+1. What are some characteristics of your personality?
+2. Are you satisfied with your personality?
+3. Are you more introverted or more extraverted?
+4. Is your personality suited to your job?
+5. Do you think birth order (oldest, youngest or middle) makes a difference in personality?
+6. Do you think you have an unusual personality? Why?
+7. What personal traits do you consider important in a good friend/a boss/a partner?
+8. If you could change any aspect of your personality, what would it be?
+9. Do you believe that there are no perfect personalities?
+10. What do you think is more important when you want to produce a good impression - your personal traits or your knowledge and experience?
+
+ID: 121
+Topic: Holidays and Celebrations
+Level: PRE_INTERMEDIATE
+Questions:
+1. What is your favorite holiday and why do you like it?
+2. What is the best way to celebrate something, in your opinion?
+3. Is there any holiday you dislike?
+4. What do you think of the traditional Western holiday such as Halloween, Valentine’s Day?
+5. If you could visit any other country during Christmas, where would you go?
+6. Do you think it`s fine to celebrate holidays that are not considered to be traditional ones in your country/culture?
+7. Do you think it`s OK to congratulate or be congratulated with religious holidays if you are not a religious person?
+8. Do you agree that the original meaning of Easter got lost?
+9. What is the best birthday present, in your opinion?
+10. Would you rather stay at home with your family or go to a party with your friends on a New Year`s eve?
+
+ID: 122
+Topic: Social Responsibility
+Level: INTERMEDIATE
+Questions:
+1. What are pros and cons of being a socially responsible person?
+2. Do you think we play by the rules of society only because we are afraid of breaking the law and being punished?
+3. Are you tolerant towards those who don’t play by the rules of society?
+4. Under what circumstances would you do “wrong” things (lie, hide your income, pretend to be sick to stay at home)?
+5. Do you think that every person should take care of disabled or poor people in some way?
+6. Should businesses have an obligation to improve the society?
+7. What are the benefits of corporate social responsibility?
+8. Should society be concerned about people who are not able to fulfill their financial obligations and support bankrupts?
+9. Do you think that the government of your country should be more socially responsible and care for the citizens of your country more?
+10. Do you think you are a socially responsible person?
+
+ID: 123
+Topic: Earnings and Spendings
+Level: INTERMEDIATE
+Questions:
+1. What is easier for you: to earn or to spend money?
+2. Which of two mentioned things do you like more?
+3. If you like both things how do you manage to be successful in it?
+4. Do you have problems with earning or spending?
+5. How can we reach the balance between earnings and spendings?
+6. Is it possible to earn money while being single?
+7. Do you think that spouses should share their money with each other or should each spouse spend his/her own money independently?
+8. What are the pros and cons of having a common budget within a family?
+9. Do you think it`s a good thing to plan your spendings?
+10. Can any person get rich?
+
+ID: 124
+Topic: Philanthropist or Misanthropist?
+Level: INTERMEDIATE
+Questions:
+1. Do you like people in general?
+2. Perhaps, you prefer to be as far as possible from them?
+3. Is there any age limit to these qualities?
+4. Do we pave the hell with our good intentions?
+5. Is it right to keep always away from people, to minimize communication with them?
+6. Do we have the right to interfere in order to change a certain situation for the better?
+7. Is there any harm in this interference with good intentions?
+8. Do you think all people should take some part in charity or is it just a matter of one`s personal choice?
+9. Do you think that if you want to call yourself a human being, you should really love people?
+10. Do you think that misanthropy can be somehow justified?
+
+ID: 125
+Topic: Ways of Upbringing
+Level: UPPER_INTERMEDIATE
+Questions:
+1. Do you think that the character of a person is determined by his inborn qualities or is formed during his childhood?
+2. Is it possible to form a good/bad character by upbringing?
+3. What does a good upbringing mean, in your opinion?
+4. Is it possible to bring up children without punishment?
+5. What is better for child, from your point of view: to go to a kindergarten or to be at home with a babysitter?
+6. Do you think it`s fine to trust the upbringing of kids to babysitters?
+7. What is better for child, from your point of view: to begin to study as early as possible (art, music, sport, languages, reading) or to enjoy childhood without too much education?
+8. Should parents determine what kind of hobby their children should have or should they give them the freedom of choice?
+9. If your child wanted a pet, would you buy it?
+10. Do you think that parents should determine what kind of profession their children should take up or should they let them decide for themselves?
+
+ID: 126
+Topic: Household Chores
+Level: INTERMEDIATE
+Questions:
+1. Do you think that every person has to do household chores all the time?
+2. How should household duties be divided among the members of a family?
+3. Who, in your opinion, should do more household work: husband or wife?
+4. Do you think that parents should force children do some household chores?
+5. Do you think that every person should plan his time for cleaning his apartment or do it when it is necessary?
+6. Do you think that parents should teach their children how to do certain kinds of household chores or should they let them get around with them on their own?
+7. What is good or bad about having a house-maid?
+8. Do you agree that people should be relieved from doing housework and all household duties should be done by robots?
+9. Why do you think some people manage to do household duties and work but others don`t?
+10. Do you think that it is worth spending money on cleaning services?
+
+ID: 127
+Topic: Is Communication Face-to-Face Still Alive?
+Level: PRE_INTERMEDIATE
+Questions:
+1. Do you easily communicate with new people?
+2. Do you have an ability to make friends?
+3. What personal qualities are the most important ones for making new acquaintances/friends, in your opinion?
+4. How do you understand the meaning of the word “sociable”?
+5. Do you believe that communication face-to-face is still alive?
+6. Is it true that TV/Internet/other media have substituted real conversation?
+7. Is there any difference between our communication habits now and 5-10 years ago?
+8. What, in your opinion, did influence significantly on our communicational habits?
+9. Do you think that people communicate with their friends at social networking sites more than in real life?
+10. What will you choose: to stay alone on a deserted island for the rest of your life with a full access to all modern media (Internet included) or be deprived of the access to the Internet but be able to talk to people in person?
+
+ID: 128
+Topic: Would you Give up Watching TV?
+Level: PRE_INTERMEDIATE
+Questions:
+1. Does television play an important role in our day-to-day life?
+2. Do you think we can “survive” without television?
+3. Do you think that television will be completely replaced by the Internet in future?
+4. What will stop you from giving up TV?
+5. Do you think TV news is a credible source of information?
+6. Do you think there are a lot of people that believe everything they hear on TV?
+7. Do you think that TV can be both entertaining and educating at the same time?
+8. Do you agree that the time that children spend on watching TV should be limited by their parents?
+9. Do you think that the government in your country is using TV and/or other mass media to influence people`s minds?
+10. How will TV change in 20 years?
+
+ID: 129
+Topic: Does Smoking Really Kill?
+Level: PRE_INTERMEDIATE
+Questions:
+1. Why do people start smoking, in your opinion?
+2. What are the pros and cons of smoking?
+3. Are some types of smoking more dangerous than others?
+4. Why to people decide to quit smoking, in your opinion?
+5. What are the positive and negative effects of quitting smoking?
+6. What is easier - gradual withdrawal from nicotine or quit cold turkey?
+7. Is it possible to help someone else to quit smoking?
+8. Should the smoking be prohibited in public places?
+9. Is it possible, in your opinion, to prohibit manufacturing and sales of cigarettes?
+10. Do you think that smoking is as dangerous as it is described by medical specialists?
+
+ID: 130
+Topic: Does Alcohol Really Kill?
+Level: PRE_INTERMEDIATE
+Questions:
+1. Is it possible to balance alcohol consumption and a healthy lifestyle?
+2. Should parents be able to determine drinking age for their children before the age of 18 (as opposed to the government controlling this)?
+3. Is it OK to drive after drinking alcohol? What`s your attitude to drunk drivers?
+4. What are the pros and cons of selling alcohol after 10 p.m.?
+5. Do Russians really drink too much? Is alcoholism a big problem in Russia?
+6. Is contraband/low quality alcohol a big problem in Russia?
+7. What is a worse enemy for one`s health: cigarettes or alcohol?
+8. Is it possible to have fun without alcohol?
+9. Why do you think people drink alcohol?
+10. Is it possible to stop drinking too much alcohol?
+
+ID: 131
+Topic: Single Mothers
+Level: PRE_INTERMEDIATE
+Questions:
+1. What are the factors contributing to the changes in society for single mothers?
+2. Where are the families and society social structures heading to in the modern world?
+3. What is it like to be a single mother?
+4. What are the problems single mothers are facing in Russia and around the world?
+5. How can a woman make her ex pay alimony?
+6. Why do some women choose to give birth to a child, but raise him without a partner?
+7. Is it better for a child to live in an incomplete family rather than in an orphan home?
+8. What are the government and civil society's initiatives to provide a safety net for single mothers?
+9. What strengths do women already possess that will enhance her as single Mom?
+10. What are the most difficult things for single mothers, in your opinion?
+
+ID: 132
+Topic: The Life of Children
+Level: PRE_INTERMEDIATE
+Questions:
+1. Do you think everyone should have children?
+2. How many children should people have?
+3. What’s your opinion of people who choose not to have children?
+4. What’s your understanding of the terms “childless” and “childfree”?
+5. Is it better to have children or not have them?
+6. What are some good and bad reasons for having children?
+7. What are some good and bad reasons for not having children?
+8. Should people who can’t afford children have them anyway?
+9. How old should a person be before they have children?
+10. Should a single person have children?
+
+ID: 133
+Topic: Studying English
+Level: PRE_INTERMEDIATE
+Questions:
+1. What images are in your mind when you hear the word “English”?
+2. Why are you studying English?
+3. Has English improved your life?
+4. Why is English so important?
+5. Do you think English is more or less difficult than your language?
+6. What's more important: speaking, reading, writing or listening?
+7. Do you think everyone should know English well?
+8. How can the knowledge of English help a person in his life?
+9. How would your life change if you were fluent in English?
+10. Can English be called the most important language in the world?
+
+ID: 134
+Topic: Foreign Languages
+Level: PRE_INTERMEDIATE
+Questions:
+1. How fast can we study new languages?
+2. Are there any magic techniques for mastering foreign languages or should we work a lot to do that?
+4. Should a person invent his own system for studying a foreign language or is it better to use a traditional approach?
+5. What are the best ways of learning foreign languages can you recommend?
+6. Why is it good to know a foreign language?
+7. Do we need to live in a foreign country to really master its language?
+8. Do you think that knowing the language of a country that you are visiting can help you to avoid any problems with natives?
+9. Is it possible to buy a language? The more expensive tutorial the better it is?
+10. What is the key to success when studying a foreign language, in your opinion?
+
+ID: 135
+Topic: Making Fun. Playing Jokes
+Level: INTERMEDIATE
+Questions:
+1. Do you think that we shouldn`t take all what`s happening in life too seriously?
+2. What jokes can be inappropriate to make in public?
+3. Is it easier to live when you treat everything with a smile on your face?
+4. Do you think it`s OK to set up pranks on your friends/partner/relatives?
+5. What usually makes people laugh?
+6. Why do people react to the same joke differently?
+7. Why do people all over the world celebrate April Fool’s Day?
+8. What was the reason why anecdotes appeared, in your opinion?
+9. What really makes a joke good?
+10. What would our life be without humor?
+
+ID: 136
+Topic: Countries and Nations
+Level: PRE_INTERMEDIATE
+Questions:
+1. What country would you like to live in and why?
+2. What country would be fun to work in?
+3. What country has the most interesting customs?
+4. Would you like to work in Antarctica?
+5. Would you like to live where there is always snow?
+6. Would you like to live where there is desert and hot weather?
+7. What countries would you not like to visit and why?
+8. Is your country the best place for you to live?
+9. What is special about your country?
+10. What are some similarities and differences between your country and neighboring ones?
+
+ID: 137
+Topic: Culture Shock
+Level: PRE_INTERMEDIATE
+Questions:
+1. How do you feel when you leave your home culture and enter into a completely new culture?
+2. What is culture shock?
+3. How do you understand the meaning of the term “language barrier”?
+4. What do you think is important when visiting another culture?
+5. Do you think a person should learn some customs and traditions before visiting any foreign country?
+6. Do you think “when in Rome, do as the Romans do” is always good advice?
+7. Have you ever been in a situation where you felt you had to "do as the Romans do"?
+8. What things in your own culture can be shocking for foreigners, in your opinion?
+9. What do you like the least about your culture?
+10. What is the best/most important thing your culture has given to the world?
+
+ID: 138
+Topic: Why Do People Travel?
+Level: PRE_INTERMEDIATE
+Questions:
+1. For which purposes do you usually travel?
+2. What is your preferred method of transport, and why?
+3. Do you think people who have travelled the world, are wiser than those who have stayed in one place all their lives?
+4. What do you think of people who only hitchhike during their holidays, and stay in people's homes for free that they have found on couch surfing websites?
+5. What do you think of people who spend lot of money on expensive holidays?
+6. What do you think about camping?
+7. Do you think some people are discriminated against by locals, when they visit their country or region?
+8. Do you think it` good to travel light?
+9. Would do you think about safaris or wild nature tours?
+10. Would you like to travel for the rest of your life and why?
+
+ID: 139
+Topic: Willpower and Self-Discipline
+Level: INTERMEDIATE
+Questions:
+1. What comes to your mind whenever you hear the words “willpower” and “self-discipline”?
+2. Do you think that self-discipline is one of the most important and useful skills everyone should possess?
+3. Do you sometimes feel that you lack the inner strength to take action, act assertively or be persistent?
+4. Are there any habits you want to change, but you lack the necessary willpower and self-discipline?
+5. Is inner strength really the expression of willpower?
+6. What is self-control for you?
+7. Are you the kind of person that like to do or study something complicated? What really gives you the willpower to continue?
+8. Do you find it easy or difficult to do exercises?
+9. Do you lose yourself in your work or do you often find yourself so absorbed in your favorite pastime that you lose track of time?
+10. Why do many people end up not keeping to their resolution? Do you think it is the lack of willpower?
+
+ID: 140
+Topic: Obesity. Is it Really Dangerous?
+Level: PRE_INTERMEDIATE
+Questions:
+1. What comes to mind when you hear the word “obesity”?
+2. Do you think all people who are fat are unhealthy and people who thin are healthy?
+3. Why is obesity bad for your health?
+4. Is obesity a disease or a choice?
+5. Which is worse, obesity or anorexia?
+6. Do you think obesity will be more of a problem in the future?
+7. What are the main causes of obesity, in your opinion?
+8. What is the best way to fight obesity, in your opinion?
+9. Why do obese people have a low level of self-confidence?
+10. Is obesity immoral when so many people in the world are starving?
+
+ID: 141
+Topic: How to Stay Young and Beautiful
+Level: UPPER_INTERMEDIATE
+Questions:
+1. How to stay young and beautiful in terms of diet?
+2. Do you know how different foods affect our body metabolism?
+3. Can practicing Yoga, aerobics, fitness, being a vegetarian can slowdown ageing process?
+4. Is ageing process is more of a biological thing than eating right diet?
+5. Does exposing to sunlight long time damages your skin and makes a person look older?
+6. Do you think ageing is only in your mind?
+7. Do you think that drinking red wine is good for health?
+8. Does water play important role to keep our body and skin healthy?
+9. Is eating chocolate good for health?
+10. Do you think that there are secret recipes of a long life that are used by long-livers?
+
+ID: 142
+Topic: Hitchhiking as a Way to Travel
+Level: INTERMEDIATE
+Questions:
+1. What springs to mind when you hear the word “hitchhiking”?
+2. What are the pros and cons of hitchhiking?
+3. Do you think hitchhiking can be dangerous?
+4. What is the best way to get a ride?
+5. What safety precautions should you take when hitchhiking?
+6. Do you think hitchhiking is a fun way to travel around?
+7. Why do you think people like hitchhiking?
+8. Why do many people have a romantic image about hitchhiking, in your opinion?
+9. What kind of people would you not stop for if you saw them trying to thumb a ride?
+10. What kind of cars would you not get into if you were hitchhiking?
+
+ID: 143
+Topic: Relationship at Work
+Level: INTERMEDIATE
+Questions:
+1. Why do love affairs at work happen so often?
+2. Why do love affairs rarely end up as a marriage?
+3. Why do many companies prohibit love affairs between the workers of the company and between the workers and clients/partners, in your opinion?
+4. Do you think only girls marry or have a love affair with their bosses?
+5. Is it possible to work together with your date/spouse?
+6. What`s it like to work with your ex?
+7. Do you think that it`s harder to concentrate on your work when you are in love with your colleague who is working beside you?
+8. Do you think that colleagues who are in love with each other understand their work problems better?
+9. Do you think that colleagues who are married have a stronger marriage than spouses that are not colleagues?
+10. What are the pros and cons of having a relationship at work?
+
+ID: 144
+Topic: Own Business vs. Working for a Boss
+Level: INTERMEDIATE
+Questions:
+1. How do you understand the term “freelance”?
+2. What are the pros and cons of being a freelancer, in your opinion?
+3. The aspect of discipline: is it difficult to get down working when there is nobody to control you?
+4. How much, do you think, will a salary of a freelancer and a regular worker differ?
+5. What is the biggest challenge in the work of a freelancer, in your opinion?
+6. Is being a freelancer and running a business of your own the same thing?
+7. Do you think people who started a business are different from those working for a boss?
+8. What gives you more freedom: running a business or being a regular day worker?
+9. Are there more advantages or disadvantages in working for a boss (compared to freelance and running your own business)?
+10. Do you know ways to make your everyday working routine more interesting, exciting?
+
+ID: 145
+Topic: Family Issues
+Level: INTERMEDIATE
+Questions:
+1. What is the role of family in modern society?
+2. How important is it to have good relationships with your relatives?
+3. Do you think that every member of a family should have some particular duties?
+4. Do you agree with the statement that husband is a head of a family or you are for the democracy inside of a family?
+5. Do you think it is good when a woman takes up the leading role in a family?
+6. What is the perfect number of children to have?
+7. What do you think of married couples who decide not to have any child?
+8. Do you think that it is good to have a traditional distribution of roles between a husband and a wife in a family?
+9. Are friends more important than family?
+10. How would you describe the perfect family?
+
+ID: 146
+Topic: The Phenomenon of Consumption
+Level: INTERMEDIATE
+Questions:
+1. Consumption and capitalism: do they go in lockstep?
+2. What are the pros and cons of living in consumer society?
+3. What are the main features of consumer society, in your opinion?
+4. Do you think that it is true that money can buy nearly everything nowadays?
+5. Do people buy luxurious things just to show off or underline their status?
+6. What are the pros and cons of using credit cards?
+7. Public commercials and advertising - how powerful are they?
+8. Do you think that advertising forces people to follow new trends or creates new trends?
+9. Do you think that there are more materialists than idealists in consumer society?
+10. If Consumption is a disease, is there a cure from it?
+
+ID: 147
+Topic: Same Sex Relationships
+Level: INTERMEDIATE
+Questions:
+1. What are your thoughts on legalization of same sex relationships in the USA on a Federal Level?
+2. Do you believe same sex couples should be allowed to raise and adopt children of their own?
+3. Do you think same sex parents might be better parents than dysfunctional parents?
+4. Should LGBT (Lesbian, Gay, Bisexual, Transsexual) propaganda/advertising be illegal?
+5. Is homosexuality genetic, hereditary or is it a sexual and personal preference someone attains upon growing up?
+6. Do you believe there should be a single attitude to LGBT relationships globally?
+7. Do you think that LGBT members are discriminated in Russia more than in any other country?
+8. Why are there different attitudes to LGBT rights globally?
+9. Should government or non-government organizations make decisions in terms of the ways LGBT members should behave?
+10. What do you think about marches and parades of LGBT members - is it a good or a bad thing?
+
+ID: 148
+Topic: Victory Day
+Level: INTERMEDIATE
+Questions:
+1. What does the Victory in the G.P.W. (Great Patriotic War) mean for you?
+2. Do you think that Victory Day should be considered not as a holiday but as a Remembrance Day?
+3. Do you think that people who managed to live through war are stronger both physically and mentally compared to next generations?
+4. Do you think those were soldiers and people of labor who won the G. P. W. or that was a merit of Soviet military leaders?
+5. Do you think that veterans should have a better life than they have now?
+6. What makes people revise the results of the G.P.W.?
+7. Do we have to rewrite history of the G.P.W. according to the new facts?
+8. Why do the winners of the G.P.W. live worse than those who were bitten?
+9. Do you think people living in our country now would be able to win that war?
+10. Is it possible that the Third World War once starts?
+
+ID: 149
+Topic: Life after Life
+Level: INTERMEDIATE
+Questions:
+1. Does life after life exist? Why do you think so?
+2. Is it important to know whether afterlife exists?
+3. What is waiting for us, coming back to the Earth: Paradise, Hell, Purgatory?
+4. Would you like to come back to this life?
+5. What fate would you choose for your eternal life?
+6. Do you believe in the existence of Heaven and Hell?
+7. What is Paradise and Hell for you?
+8. If God does not exist, does it mean that everything is allowed?
+9. What advantages and disadvantages does the belief in afterlife give us?
+10. Do you think that this world has more than three dimensions?
+
+ID: 150
+Topic: Is There a God?
+Level: INTERMEDIATE
+Questions:
+1. Is there any evidence for God? Explain?
+2. Why did God create us?
+3. Does God love everyone the same?
+4. What do you think God thinks of the way we live?
+5. Why does God let innocent people suffer and evil people prosper?
+6. Why doesn’t God answer everyone’s prayers?
+7. Why do people who believe in God fight in wars?
+8. What does God look like, in your opinion?
+9. Why is God always seen as a white man in paintings and drawings?
+10. Why we don’t think about God when we are happy but think and pray to God when we are in difficult times?
