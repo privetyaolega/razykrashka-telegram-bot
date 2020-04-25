@@ -1,7 +1,6 @@
-package com.razykrashka.bot.stage.information;
+package com.razykrashka.bot.stage.information.main;
 
 import com.razykrashka.bot.constants.Emoji;
-import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.all.ArchivedMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.all.OfflineMeetingsViewStage;
@@ -12,13 +11,19 @@ import org.springframework.stereotype.Component;
 
 @Log4j2
 @Component
-public class HelpStage extends MainStage {
+public class HelpStage extends InformationMainStage {
 
     public final static String KEYWORD = "/help";
 
     @Override
     public void handleRequest() {
-        StringBuilder sb = new StringBuilder()
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(getMessage());
+    }
+
+    private String getMessage() {
+        return new StringBuilder()
                 .append("Hey! Here are some useful commands that might help you find your perfect meeting:")
                 .append("\n\n")
                 .append(TextFormatter.getBoldString("Meetings\n"))
@@ -36,16 +41,12 @@ public class HelpStage extends MainStage {
                 .append(TextFormatter.getBoldString("Actions\n"))
                 .append("/create")
                 .append(" - create new meeting")
-                .append("\n\nGood luck! ").append(Emoji.WINK);
-
-        messageManager
-                .disableKeyboardLastBotMessage()
-                .sendSimpleTextMessage(sb.toString());
+                .append("\n\nGood luck! ").append(Emoji.WINK).toString();
     }
 
     @Override
     public void processCallBackQuery() {
-        handleRequest();
+        messageManager.updateMessage(getMessage(), getKeyboardWithHighlightedButton("Help"));
     }
 
     @Override

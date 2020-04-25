@@ -8,7 +8,7 @@ import com.razykrashka.bot.db.repo.MeetingRepository;
 import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.service.RazykrashkaBot;
 import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
-import com.razykrashka.bot.stage.information.InformationStage;
+import com.razykrashka.bot.stage.information.main.InformationStage;
 import com.razykrashka.bot.stage.meeting.creation.IntroStartMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.view.all.MyMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.all.SelectMeetingsTypeStage;

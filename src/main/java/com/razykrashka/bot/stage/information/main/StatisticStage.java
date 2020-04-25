@@ -1,20 +1,17 @@
-package com.razykrashka.bot.stage.information.stats;
+package com.razykrashka.bot.stage.information.main;
 
-import com.razykrashka.bot.stage.MainStage;
-import com.razykrashka.bot.stage.information.InformationStage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMembersCount;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Log4j2
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class MainStatisticStage extends MainStage {
+public class StatisticStage extends InformationMainStage {
 
     @Value("${razykrashka.group.id}")
     Long groupChatId;
@@ -25,7 +22,7 @@ public class MainStatisticStage extends MainStage {
         long usersUsingBotCount = telegramUserRepository.count();
 
         String message = getFormatString("main", doneMeetingsCount, usersUsingBotCount, getMembersCount());
-        messageManager.updateOrSendDependsOnLastMessageOwner(message, this.getKeyboard());
+        messageManager.updateOrSendDependsOnLastMessageOwner(message, getKeyboardWithHighlightedButton("Statistics"));
     }
 
     private int getMembersCount() {
@@ -37,14 +34,6 @@ public class MainStatisticStage extends MainStage {
             e.printStackTrace();
         }
         return 0;
-    }
-
-    @Override
-    public ReplyKeyboard getKeyboard() {
-        return keyboardBuilder
-                .getKeyboard()
-                .setRow("Information", InformationStage.class.getSimpleName())
-                .build();
     }
 
     @Override

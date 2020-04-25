@@ -16,7 +16,7 @@ public class ArchivedMeetingsViewStage extends PaginationMeetingsViewStage {
     public void processCallBackQuery() {
         meetings = meetingService.getAllMeetings()
                 .filter(m -> m.getMeetingDateTime().isBefore(LocalDateTime.now()))
-                .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
+                .sorted(Comparator.comparing(Meeting::getMeetingDateTime).reversed())
                 .collect(Collectors.toList());
 
         super.generateMainMessage(meetingMessageUtils::getPaginationAllViewArchived);

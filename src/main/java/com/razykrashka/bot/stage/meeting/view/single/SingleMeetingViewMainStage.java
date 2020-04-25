@@ -25,15 +25,13 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
         Optional<Meeting> optionalMeeting = meetingRepository.findById(id);
         if (!optionalMeeting.isPresent()) {
             String message = super.getFormatString("meetingNotFound", id);
-            messageManager.replyLastMessage(message);
+            messageManager.sendRandomSticker("error")
+                    .replyLastMessage(message);
             return;
-//            throw new NoSuchEntityException("Meeting was not found. ID: " + id);
         }
         meeting = optionalMeeting.get();
         String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
-        messageManager
-                .disableKeyboardLastBotMessage()
-                .sendSimpleTextMessage(messageText, this.getKeyboard());
+        messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
 
 /*        if (updateHelper.isCallBackQueryFromGroup()) {
             String userChatId = String.valueOf(razykrashkaBot.getRealUpdate().getCallbackQuery().getFrom().getId());

@@ -90,4 +90,16 @@ public class KeyboardBuilder {
                 .getPaginationKeyboard();
         return getKeyboard().setRow(listPair).build();
     }
+
+    public KeyboardBuilder highlightButtonWithText(String buttonText, String left, String right) {
+        for (List<InlineKeyboardButton> line : inlineKeyboardButtons) {
+            for (InlineKeyboardButton button : line) {
+                if (button.getText().equals(buttonText)) {
+                    button.setText(left + button.getText() + right);
+                    return this;
+                }
+            }
+        }
+        throw new RuntimeException("No button to highlight with text: " + buttonText);
+    }
 }

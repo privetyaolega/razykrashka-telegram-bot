@@ -75,7 +75,7 @@
       "create": "Create new meeting"
     },
     "SingleMeetingViewMainStage": {
-      "meetingNotFound": "Meeting with id <b>%d</b> was not found \uD83E\uDD74"
+      "meetingNotFound": "Oops! Meeting # <b>%d</b> was not found \uD83E\uDD74"
     },
     "AcceptFinalMeetingCreationSBSStage": {
       "success": "Meeting has been created! \uD83E\uDD73 \nYou can find it in <code>\"My Meetings\"</code> section.\n<b>/meeting%d</b>"
@@ -112,7 +112,7 @@
     "DeleteConfirmationSingleMeetingStage": {
       "warning": "       ⚠️Warning!\n\nAre you sure you want to delete the <b>/meeting%s</b> ?\nThe action is irrevocable! And it also decreases your chances of getting fluent in English \uD83D\uDE14"
     },
-    "MainStatisticStage": {
+    "StatisticStage": {
       "main": "If you’re still having second thoughts… look how many people have already chosen us to practice their English with! \uD83E\uDD24\n\n\uD83D\uDCA5 Successfully completed meetings: <b>%s</b>\n\uD83D\uDCA5 Users using bot: <b>%s</b>\n\uD83D\uDCA5 Users in community group: <b>%s</b>\n\nWe will be happy to see you as a member of our friendly community!\nDon’t hesitate and join the next available meeting! \uD83E\uDD1F\uD83C\uDFFB"
     },
     "AcceptLocationMeetingCreationSBSStage": {
