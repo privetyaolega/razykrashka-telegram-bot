@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.information.main;
 
+import com.razykrashka.bot.constants.Emoji;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +12,23 @@ public class InformationStage extends InformationMainStage {
 
     @Override
     public void processCallBackQuery() {
-        messageManager.updateOrSendDependsOnLastMessageOwner("\uD83C\uDF08 Welcome to community whose main goal is cohesion of people learning English; improvement, development and comprehensive support of all skills related to language. \uD83C\uDF08\n" +
-                        "You can create some meeting to speak or join to existing one. \uD83D\uDE4F\uD83C\uDFFB" +
-                        "\n\nControl commands manual you can find here /help",
+        messageManager.updateOrSendDependsOnLastMessageOwner("Have you been learning English for a long time but you are still afraid to speak it? " + Emoji.SCREAM +
+                        "\nOr waiting for the ”right moment”? If you want to be fluent one day, you need to make practicing English your habit NOW! \n" +
+                        "\n" +
+                        "It’s amazing that you’re willing to improve!\n" +
+                        "Well, guess what, there’s no such thing as perfect timing! If you want to see results tomorrow, you should start now.  \n" +
+                        "\n" +
+                        "Via this community you can find pen pals, speaking partners or even friends! We will be super happy to help you develop your speaking and listening skills.\n" +
+                        "\n" +
+                        "Join one of the available meetings or create a new one! You can be your own boss here \uD83D\uDE0E\n" +
+                        "\n" +
+                        "Let’s get started! /create",
                 getKeyboardWithHighlightedButton("Main"));
+    }
+
+    @Override
+    public void handleRequest() {
+        processCallBackQuery();
     }
 
     @Override
