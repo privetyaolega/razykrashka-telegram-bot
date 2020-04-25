@@ -49,7 +49,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                 messageManager.disableKeyboardLastBotMessage()
                         .sendSimpleTextMessage("Please, choose meeting date.", keyboard);
             } else {
-                messageManager.updateOrSendDependsOnLastMessageOwner("Which day are you free to join a meeting? Let’s pick a date.", keyboard);
+                messageManager.updateOrSendDependsOnLastMessageOwner("Which day are you free to join a meeting?\nLet’s pick a date.", keyboard);
             }
         } else {
             if (callBackData.contains(NO_DATE)) {
@@ -61,7 +61,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             int month = Integer.parseInt(monthYear.substring(0, 2));
             int year = Integer.parseInt("20" + monthYear.substring(2, 4));
             keyboard = generateCalendarKeyboard(month, year);
-            messageManager.updateOrSendDependsOnLastMessageOwner("Which day are you free to join a meeting? Let’s pick a date.", keyboard);
+            messageManager.updateOrSendDependsOnLastMessageOwner("Which day are you free to join a meeting?\nLet’s pick a date.", keyboard);
         }
     }
 

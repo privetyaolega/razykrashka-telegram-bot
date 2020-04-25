@@ -113,9 +113,11 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     private void setMeetingInfoFromMessage() {
         List<String> list = Arrays.asList(updateHelper.getMessageText().split("\n"));
         if (!isTopicInfoValid(list)) {
-            messageManager.replyLastMessage("Ooopppsss..." +
-                    "\nIt seems, that you created topic not quite correctly \uD83E\uDD74" +
-                    "\nDesign your topic according to our rules [link].");
+            messageManager
+                    .disableKeyboardLastBotMessage()
+                    .replyLastMessage("Ooopppsss..." +
+                            "\nIt seems, that you created topic not quite correctly \uD83E\uDD74" +
+                            "\nDesign your topic according to our rules [link].");
             razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).start();
             throw new IncorrectInputDataFormatException("Meeting info is designed incorrectly");
         }

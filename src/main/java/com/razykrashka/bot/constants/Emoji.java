@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PUBLIC, makeFinal = true)
 public class Emoji {
+    public static String DIZZY = "\uD83D\uDCAB";
+    public static String BOOM = "\uD83D\uDCA5";
     public static String LOCATION = "\uD83D\uDCCD";
     public static String FIRE = "\uD83D\uDD25";
     public static String CLOCK = "⏰";

@@ -8,8 +8,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.ParseMode;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.ArrayList;
@@ -33,8 +31,11 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
         }
         meeting = optionalMeeting.get();
         String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(messageText, this.getKeyboard());
 
-        if (updateHelper.isCallBackQueryFromGroup()) {
+/*        if (updateHelper.isCallBackQueryFromGroup()) {
             String userChatId = String.valueOf(razykrashkaBot.getRealUpdate().getCallbackQuery().getFrom().getId());
             messageManager
                     .disableKeyboardLastBotMessage(userChatId)
@@ -45,8 +46,7 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
                             .setReplyMarkup(this.getKeyboard())
                             .disableWebPagePreview());
         } else {
-            messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
-        }
+        }*/
     }
 
     @Override
