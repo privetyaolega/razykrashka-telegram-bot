@@ -30,6 +30,9 @@
             INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Rutski', 'Slawek', '', '667266423', '');
 
+            INSERT INTO user (first_name, last_name, phone_number, id, user_name, skype_contact)
+            VALUES('Elena', '', '79827299699', '1059554362', 'elena_ostrovskaia', 'Skype1');
+
 <!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
 <!--            VALUES('Dasha', 'Solnce', '+375292020058', '414315618', '');-->
 

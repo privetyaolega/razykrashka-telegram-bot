@@ -1,5 +1,6 @@
 package com.razykrashka.bot.service.config.job.task;
 
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.job.AbstractJob;
@@ -58,8 +59,11 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements Runn
                 messageManager.sendMessage(new SendMessage()
                         .setParseMode(ParseMode.HTML)
                         .setChatId(String.valueOf(p.getId()))
-                        .setText("Hey! Do you remember about today’s meeting at " + m.getMeetingDateTime() +
-                                "? Wish you a great time! ✨\n/meeting" + m.getId())
+//                        .setText("Hey! Do you remember about today’s meeting at " + m.getMeetingDateTime() +
+//                                "? Wish you a great time! ✨\n/meeting" + m.getId())
+                        .setText("Wakey wakey, rise and shine! " + Emoji.SUNNY + "\n"
+                                + "You have a meeting today at " + m.getMeetingDateTime() + "\n"
+                                + "Don’t miss it! ✨\n/meeting" + m.getId())
                         .disableWebPagePreview());
             });
         });

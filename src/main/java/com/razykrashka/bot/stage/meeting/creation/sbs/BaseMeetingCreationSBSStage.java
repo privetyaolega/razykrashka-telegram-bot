@@ -81,7 +81,7 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             meetingRepository.delete(expiredMeeting);
 
             messageManager.disableKeyboardLastBotMessage()
-                    .sendSimpleTextMessage("SESSION EXPIRED");
+                    .sendSimpleTextMessage("Oops! Your session has expired \uD83E\uDD74\nYou’ll have to start over again.");
 
             razykrashkaBot.getContext().getBean(IntroStartMeetingCreationStage.class).handleRequest();
             throw new RuntimeException("SESSION EXPIRED");

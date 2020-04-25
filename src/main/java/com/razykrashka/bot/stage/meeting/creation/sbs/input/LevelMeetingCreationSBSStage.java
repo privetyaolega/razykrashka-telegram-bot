@@ -62,10 +62,10 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         String buttonLabel;
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
             editedClass = LocationMeetingCreationSBSStage.class;
-            buttonLabel = "Back to Location edit";
+            buttonLabel = "Back to editing Location";
         } else {
             editedClass = OfflineMeetingCreationSBSStage.class;
-            buttonLabel = "Back to Skype edit";
+            buttonLabel = "Back to editing Skype";
         }
         return Pair.of(Emoji.LEFT_FINGER + " " + buttonLabel, editedClass.getSimpleName() + "edit");
     }

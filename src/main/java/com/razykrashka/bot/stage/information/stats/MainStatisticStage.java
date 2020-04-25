@@ -23,18 +23,20 @@ public class MainStatisticStage extends MainStage {
     public void processCallBackQuery() {
         Long doneMeetingsCount = meetingRepository.countByMeetingDateTimeBefore();
         long usersUsingBotCount = telegramUserRepository.count();
-        Integer groupMembersCount = 0;
 
+        String message = getFormatString("main", doneMeetingsCount, usersUsingBotCount, getMembersCount());
+        messageManager.updateOrSendDependsOnLastMessageOwner(message, this.getKeyboard());
+    }
+
+    private int getMembersCount() {
         try {
-            groupMembersCount = updateHelper.getBot()
-                    .execute(new GetChatMembersCount()
-                            .setChatId(groupChatId));
+            return updateHelper
+                    .getBot()
+                    .execute(new GetChatMembersCount().setChatId(groupChatId));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-
-        String message = getFormatString("main", doneMeetingsCount, usersUsingBotCount, groupMembersCount);
-        messageManager.updateOrSendDependsOnLastMessageOwner(message, this.getKeyboard());
+        return 0;
     }
 
     @Override

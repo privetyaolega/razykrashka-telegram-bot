@@ -32,6 +32,10 @@ public class HelpStage extends MainStage {
                 .append(" - show all expired (archived) meetings\n")
                 .append("/my")
                 .append(" - show my schedule meetings")
+                .append("\n\n")
+                .append(TextFormatter.getBoldString("Actions\n"))
+                .append("/create")
+                .append(" - create new meeting")
                 .append("\n\nGood luck! ").append(Emoji.WINK);
 
         messageManager
