@@ -38,7 +38,7 @@
       "hourAdvance": "⚠️ We’re sorry but you can’t create a meeting unless there are more than <b>%s hours left</b> (other participants might not be able to join you so fast). \n\nWould you like to reschedule for a different time?\nThe earliest opening is <code>%s</code>"
     },
     "LevelMeetingCreationSBSStage": {
-      "input": "Please, enter speaking level:",
+      "input": "Please, enter your speaking level:",
       "back": "👈 Back to editing Location"
     },
     "ParticipantsMeetingCreationSBSStage": {
@@ -93,7 +93,7 @@
     "AcceptDateMeetingCreationSBSStage": {
       "pastDate": "⚠️ ERROR! Impossible to create meeting in the past.\uD83D\uDE30",
       "lateTime": "⚠️ It’s too late to create meeting for today.",
-      "lateDaysWarning": "⚠️  We don’t recommend setting a date more than % days from now.\nWhy wait for so long when you can start speaking English now? ☺️"
+      "lateDaysWarning": "⚠️  We don’t recommend setting a date more than %s days from now.\nWhy wait for so long when you can start speaking English now? ☺️"
     },
     "TimeMeetingCreationSBSStage": {
       "input": "What time would be convenient for you? (e.g 19-30, 10 20, 15:00)",

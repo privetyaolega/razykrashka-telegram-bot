@@ -24,7 +24,9 @@ public class ParticipantsMeetingCreationSBSStage extends BaseMeetingCreationSBSS
 
     @Override
     public void handleRequest() {
-        messageManager.sendSimpleTextMessage(getMeetingMessage(), getKeyboard());
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(getMeetingMessage(), getKeyboard());
         super.setActiveNextStage(nextStageClass);
     }
 

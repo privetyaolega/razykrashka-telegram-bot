@@ -15,7 +15,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -25,10 +27,20 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AvailableMeetingsNotificationJob extends AbstractJob implements Runnable {
 
-    final static String MAIN_MESSAGE = "Hey, guys! " + Emoji.WAVE_HAND + "\n" +
-            "Yahooooo! There are %s available meetings!\n" +
-            "Hurry up and join! Practice makes perfect. " + Emoji.BICEPS;
     final static String NO_MEETINGS_MESSAGE = "There is no any available meeting. Work hard and create meeting!";
+
+    List<String> messages;
+
+    public AvailableMeetingsNotificationJob() {
+        messages = Arrays.asList(
+                "Hey, guys! " + Emoji.WAVE_HAND + "\nYahooooo! There are %s available meetings!\nHurry up and join! Practice makes perfect " + Emoji.BICEPS,
+                "Hey! How are you? We miss you" + Emoji.DISAPPOINTED_RELIEVED + "\nWould you like to join a meeting soon?",
+                "Well, hello there! We’ve been told your English needs some practice. Let’s join a meeting from the list!",
+                "Hiii! What's up? Wanna practice some English later?",
+                "Are you dreaming of speaking perfect English? Well, you have to start somewhere. Join a meeting and start improving your skills now!",
+                "Stop being someone who learns English and become someone who speaks it! Join a meeting now " + Emoji.HUG
+        );
+    }
 
     /**
      *
@@ -47,7 +59,7 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
         List<Meeting> availableMeetings = meetingService.getAllCreationStatusDone();
         String message;
         if (!availableMeetings.isEmpty()) {
-            message = String.format(MAIN_MESSAGE, availableMeetings.size());
+            message = String.format(getRandomMessage(), availableMeetings.size());
             InlineKeyboardMarkup keyboard = keyboardBuilder
                     .getKeyboard()
                     .setRow(new InlineKeyboardButton()
@@ -61,5 +73,9 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
                     .setText(message)
                     .setReplyMarkup(keyboard));
         }
+    }
+
+    private String getRandomMessage() {
+        return messages.get(new Random().nextInt(messages.size()));
     }
 }
