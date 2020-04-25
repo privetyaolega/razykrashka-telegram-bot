@@ -35,7 +35,7 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         messageManager
                 .disableKeyboardLastBotMessage()
                 .replyLastMessage("Please, confirm meeting creation \uD83E\uDD28");
-        razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).sendSimple();
     }
 
     @Override

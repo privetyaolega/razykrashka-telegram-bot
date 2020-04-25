@@ -23,9 +23,21 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getLink("Here you can find our meeting's topics catalogue ⚡️\n\n", "https://telegra.ph/Meeting-catalogue-04-19")
                 + TextFormatter.getItalicString(getString("input"));
-        messageManager
-                .disableKeyboardLastBotMessage()
-                .updateOrSendDependsOnLastMessageOwner(message, getKeyboard());
+        messageManager.updateMessage(message, getKeyboard());
+        super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
+    }
+
+    public void start() {
+        meeting = getMeetingInCreation();
+        meeting.getMeetingInfo().setTopic(null);
+        meeting.getMeetingInfo().setQuestions(null);
+        meetingInfoRepository.save(meeting.getMeetingInfo());
+        meetingRepository.save(meeting);
+
+        String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getLink("Here you can find our meeting's topics catalogue ⚡️\n\n", "https://telegra.ph/Meeting-catalogue-04-19")
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.sendSimpleTextMessage(message, getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
     }
 

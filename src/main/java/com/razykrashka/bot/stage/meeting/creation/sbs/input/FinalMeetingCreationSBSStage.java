@@ -23,6 +23,13 @@ public class FinalMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         setActiveNextStage(nextStageClass);
     }
 
+    public void sendSimple() {
+        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(getMeetingInCreation())
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.sendSimpleTextMessage(messageText, getKeyboard());
+        setActiveNextStage(nextStageClass);
+    }
+
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()

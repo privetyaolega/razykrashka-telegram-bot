@@ -5,6 +5,7 @@ import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingCatalog;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.db.repo.MeetingCatalogRepository;
+import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
 import com.razykrashka.bot.exception.NoSuchEntityException;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.FinalMeetingCreationSBSStage;
@@ -34,7 +35,7 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     MeetingCatalogRepository meetingCatalogRepository;
     final static String RANDOM_TOPIC_CBQ = AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Random";
     final static String ACCEPT_TOPIC_CBQ = AcceptTopicMeetingCreationSBSStage.class.getSimpleName() + "Accept";
-    final static String TOPIC_ID_REGEXP = "(?i)id[$:\\-., ;*=]*\\d{0,3}";
+    final static String TOPIC_ID_REGEXP = "(?i)id[$:\\-., ;*=]*\\d*";
 
     @Override
     public void handleRequest() {
@@ -44,8 +45,8 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
             Integer id = updateHelper.getIntDataFromMessage();
             Optional<MeetingCatalog> meetingCatalog = meetingCatalogRepository.findById(id);
             meetingCatalog.orElseThrow(() -> {
-                //TODO: Notification message if ID doesn't exist
-                updateHelper.getBot().getContext().getBean(TopicMeetingCreationSBSStage.class).processCallBackQuery();
+                messageManager.replyLastMessage("Meeting info #" + id + " was not found.");
+                updateHelper.getBot().getContext().getBean(TopicMeetingCreationSBSStage.class).start();
                 return new NoSuchEntityException("Meeting info #" + id + " was not found.");
             });
             MeetingCatalog mc = meetingCatalog.get();
@@ -57,6 +58,8 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meetingInfoRepository.save(mi);
         meeting.setMeetingInfo(mi);
         meetingRepository.save(meeting);
+
+        messageManager.deleteLastMessage();
 
         razykrashkaBot.getContext().getBean(FinalMeetingCreationSBSStage.class).handleRequest();
     }
@@ -101,16 +104,35 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         return randomMeetingInfo;
     }
 
+    private boolean isTopicInfoValid(List<String> list) {
+        return list.stream()
+                .filter(s -> !s.isEmpty())
+                .count() > 3;
+    }
+
     private void setMeetingInfoFromMessage() {
         List<String> list = Arrays.asList(updateHelper.getMessageText().split("\n"));
-        if (list.size() == 1) {
-            //TODO: Create validation for topic/questions input message
+        if (!isTopicInfoValid(list)) {
+            messageManager.replyLastMessage("Ooopppsss..." +
+                    "\nIt seems, that you created topic not quite correctly \uD83E\uDD74" +
+                    "\nDesign your topic according to our rules [link].");
+            razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).start();
+            throw new IncorrectInputDataFormatException("Meeting info is designed incorrectly");
         }
-        String questions = list.stream()
-                .skip(1)
-                .collect(Collectors.joining(";"));
+
+        String questions = getQuestionsInDbFormat(list);
         meeting.getMeetingInfo().setTopic(list.get(0));
         meeting.getMeetingInfo().setQuestions(questions);
+    }
+
+    private String getQuestionsInDbFormat(List<String> q) {
+        return q.stream()
+                .skip(1)
+                .filter(l -> !l.isEmpty())
+                .map(l -> l.trim()
+                        .replaceAll("^\\d*[.,)*-?!]{0,5}", "")
+                        .trim())
+                .collect(Collectors.joining(";"));
     }
 
     @Override
@@ -118,7 +140,8 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         return keyboardBuilder.getKeyboard()
                 .setRow(ImmutableMap.of(
                         Emoji.RANDOM_CUBE + " Random Topic", RANDOM_TOPIC_CBQ,
-                        "Accept Topic " + Emoji.OK_HAND, ACCEPT_TOPIC_CBQ))
+                        "Accept Topic " + Emoji.OK_HAND, ACCEPT_TOPIC_CBQ)
+                )
                 .setRow(getString("backButton"), ParticipantsMeetingCreationSBSStage.class.getSimpleName())
                 .build();
     }
