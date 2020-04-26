@@ -14,7 +14,7 @@ public class MeetingCatalogParser {
 
 //    "bot/other/topics/101_150.txt"
     public static String catalogToSql(String filePath) {
-        String sql = "INSERT INTO meeting_catalog (id, questions, speaking_level, topic)\n" +
+        String sql = "INSERT INTO topic_catalogue (id, questions, speaking_level, topic)\n" +
                 "VALUES ('%s',\n" +
                 "'%s',\n" +
                 "'%s',\n" +

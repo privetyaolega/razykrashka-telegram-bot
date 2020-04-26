@@ -41,10 +41,10 @@ public class TestBulkMeetingCreationStage extends MainStage {
                 .replace("/cm", ""));
         try {
             for (int i = 0; i < meetingsAmount; i++) {
-                List<MeetingCatalog> meetingCatalogList = StreamSupport
+                List<TopicCatalogue> topicCatalogueList = StreamSupport
                         .stream(meetingCatalogRepository.findAll().spliterator(), false)
                         .collect(Collectors.toList());
-                MeetingCatalog randomMeetingInfo = meetingCatalogList.get(new Random().nextInt(meetingCatalogList.size()));
+                TopicCatalogue randomMeetingInfo = topicCatalogueList.get(new Random().nextInt(topicCatalogueList.size()));
 
                 MeetingInfo mi = MeetingInfo.builder()
                         .topic(randomMeetingInfo.getTopic())

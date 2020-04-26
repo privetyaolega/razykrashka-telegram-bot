@@ -22,8 +22,8 @@
         <file>C:/log/full/console.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>log/archive/full/%d{yyyy-MM-dd}/console-%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
-            <maxFileSize>3MB</maxFileSize>
-            <maxHistory>10</maxHistory>
+            <maxFileSize>5MB</maxFileSize>
+            <maxHistory>30</maxHistory>
             <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
         <encoder>

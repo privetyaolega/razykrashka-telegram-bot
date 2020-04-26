@@ -113,10 +113,10 @@
             -- Table structure for table `poll`
             --
 
-            DROP TABLE IF EXISTS `meeting_catalog`;
+            DROP TABLE IF EXISTS `topic_catalogue`;
             /*!40101 SET @saved_cs_client = @@character_set_client */;
             /*!50503 SET character_set_client = utf8mb4 */;
-            CREATE TABLE `meeting_catalog` (
+            CREATE TABLE `topic_catalogue` (
             `id` int NOT NULL,
             `questions` longtext,
             `speaking_level` varchar(255) DEFAULT NULL,

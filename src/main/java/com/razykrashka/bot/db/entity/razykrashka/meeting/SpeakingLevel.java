@@ -1,20 +1,23 @@
 package com.razykrashka.bot.db.entity.razykrashka.meeting;
 
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 
 @Getter
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum SpeakingLevel {
-    ELEMENTARY("Elementary"),
-    PRE_INTERMEDIATE("Pre-Intermediate"),
-    INTERMEDIATE("Intermediate"),
-    UPPER_INTERMEDIATE("Upper-Intermediate"),
-    ADVANCED("Advanced"),
-    NATIVE("Native");
+    ELEMENTARY("Elementary", "A1", 1),
+    PRE_INTERMEDIATE("Pre-Intermediate", "A2", 2),
+    INTERMEDIATE("Intermediate", "B1", 3),
+    UPPER_INTERMEDIATE("Upper-Intermediate", "B2", 4),
+    ADVANCED("Advanced", "C1", 5),
+    NATIVE("Native", "C2", 6);
 
-    private final String level;
-
-    SpeakingLevel(String level) {
-        this.level = level;
-    }
+    String label;
+    String levelLabel;
+    int levelPoint;
 }

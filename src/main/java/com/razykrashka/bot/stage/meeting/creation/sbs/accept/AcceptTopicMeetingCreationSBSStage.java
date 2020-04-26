@@ -2,7 +2,7 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.constants.Emoji;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingCatalog;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.TopicCatalogue;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.db.repo.MeetingCatalogRepository;
 import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
@@ -43,13 +43,13 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         MeetingInfo mi = meeting.getMeetingInfo();
         if (isGettingFromCatalog()) {
             Integer id = updateHelper.getIntDataFromMessage();
-            Optional<MeetingCatalog> meetingCatalog = meetingCatalogRepository.findById(id);
+            Optional<TopicCatalogue> meetingCatalog = meetingCatalogRepository.findById(id);
             meetingCatalog.orElseThrow(() -> {
                 messageManager.replyLastMessage("Meeting info #" + id + " was not found.");
                 updateHelper.getBot().getContext().getBean(TopicMeetingCreationSBSStage.class).start();
                 return new NoSuchEntityException("Meeting info #" + id + " was not found.");
             });
-            MeetingCatalog mc = meetingCatalog.get();
+            TopicCatalogue mc = meetingCatalog.get();
             mi.setTopic(mc.getTopic());
             mi.setQuestions(mc.getQuestions());
         } else {
@@ -79,7 +79,7 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
         meeting = getMeetingInCreation();
         MeetingInfo mi = meeting.getMeetingInfo();
-        MeetingCatalog randomMeetingInfo = getRandomMeetingInfo(mi);
+        TopicCatalogue randomMeetingInfo = getRandomMeetingInfo(mi);
 
         mi.setTopic(randomMeetingInfo.getTopic());
         mi.setQuestions(randomMeetingInfo.getQuestions());
@@ -92,14 +92,14 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
     }
 
-    private MeetingCatalog getRandomMeetingInfo(MeetingInfo actualMi) {
-        List<MeetingCatalog> meetingCatalogList = StreamSupport
+    private TopicCatalogue getRandomMeetingInfo(MeetingInfo actualMi) {
+        List<TopicCatalogue> topicCatalogueList = StreamSupport
                 .stream(meetingCatalogRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
-        MeetingCatalog randomMeetingInfo;
+        TopicCatalogue randomMeetingInfo;
         do {
-            int randomNumber = new Random().nextInt(meetingCatalogList.size());
-            randomMeetingInfo = meetingCatalogList.get(randomNumber);
+            int randomNumber = new Random().nextInt(topicCatalogueList.size());
+            randomMeetingInfo = topicCatalogueList.get(randomNumber);
         } while (randomMeetingInfo.getTopic().equals(actualMi.getTopic()));
         return randomMeetingInfo;
     }

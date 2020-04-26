@@ -5,302 +5,302 @@
 
     <changeSet author="orutsky" id="10">
         <sql>
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('151',
             'What do people live for?;Is there any special purpose for mankind to exist?;Has people\'s attitude to life changed through time?;Has people\'s attitude to life become more pessimistic or more optimistic?;Is it a good idea to live for somebody\'s sake or we should firstly care for ourselves?;What way of living do you approve of?;What way of living do you disapprove of?;Should we sacrifice something for other people in our life?;Do you think it\'s good to give your life to save another one?;Could you imagine a situation when you may be ready to sacrifice your life?',
             'PRE_INTERMEDIATE',
             'What Do we Live for?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('152',
             'Is this world the best one of all possible worlds?;What would the world be like if suffering and pain did not exist?;Should we sacrifice our lives for some great goals?;Do people have missions or is it just a product of their imagination?;What can we say about characters of the saviors?;Do people like missioners, saviors?;Do all attempts to improve the life inevitably lead to bad consequences?;Do you think it\'s fine to do bad things for the sake of humankind?;Can we all do something to make this world a better place to live?;Christ, Marks, Lenin, Stalin, Roosevelt, Freud, Dostoyevsky, Kurchatov: did any one of them change the world to better?',
             'PRE_INTERMEDIATE',
             'Should we Save this World?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('153',
             'To make our positive image should we present our real advantages or does the image have nothing to do with the reality?;Will people appreciate your degrees if you don\'t present them?;Must we be modest, unpretentious, retiring?;Is it wise to declare your merits in open way, like that: I am a great master of conceptual, logical, and motivational analysis?;Who are better image-makers, men or women?;What qualities of a woman are in a great demand?;What qualities of a man are in a great demand?;Do you think it\'s fine for a person to attempt creating a better image of himself/herself when dating someone/applying for a job/making a deal?;What should we do to become an expert in image-making: to read special books or just to act as we feel?;Which respect is more valuable: the respect of thousands of stupid people or the respect of some intelligent ones?',
             'INTERMEDIATE',
             'Image-making');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('154',
             'Which way of dealing with circumstances is better: to adjust oneself to circumstances or to alter them?;Do you believe that our emotional state depends on our mood only or it depends on current life circumstances?;What do you prefer: to do what you can do easily or to overcome difficulties and hardships?;Do occasions exist in our world?;Do all occasions have their reasons, sometimes unknown to us?;Should we adjust ourselves to the inconsistent world or should we adjust the world to our needs?;Does everything depend on us?;Do you think everything is possible in this world?;It is popular today to think that our thoughts can directly influence our world. Do you believe in that?;Do you think everyone can become a genius or is it just a gift of fate/God/Nature?',
             'INTERMEDIATE',
             'A Person and Circumstances');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('155',
             'What is the difference between pessimism and optimism?;Are you a pessimist or an optimist? Why?;Why do people become pessimists or optimists?;What is good and what is bad about being an optimist?;What is good and what is bad about being a pessimist?;Do you believe that if something can go wrong, it will go wrong?;Do you agree that pessimists usually have a more realistic view on life compared to pessimists?;Do you think it\'s possible to overcome any troubles in life?;Do you agree with the following statement: “Nothing of value can be learned from failure”?;Do you agree with the concept that every human is the master of his/her life?',
             'INTERMEDIATE',
             'Pessimism and Optimism');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('156',
             'Do you think that your opinion of what happens around you in the world can be quite independent?;Do you think that there are some powers in society that are interested in manipulating peoples conscious?;Do you think that some conspiracy theories have some real grounds to exist?;Do you agree that governments of some countries conceal something from people?;How often do you realize that information you get is oriented on your forming certain opinion on certain things?;Do you think that many people agree with the decisions made by the government of your country because they are presented in a favorable way?;Do you think that fashion is something that was invented to manipulate people\'s minds?;Do you think there is too much propaganda in mass media nowadays?;Do you agree that there are a lot of people who can be easily forced to believe anything people say?;Do you think church manipulates people\'s minds?',
             'INTERMEDIATE',
             'Manipulating Public Conscious');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('157',
             'Do you think it\'s a good idea to always rely on your memory?;Do you think it is possible to train your memory really well?;Do you think that memory can only be developed in one\'s childhood or it can even be trained by elderly people?;What are the pros and cons of relying on one\'s memory?;Do you think having a good memory is something which is absolutely necessary for being successful in some professional areas?;Why do you think our childhood memories are the brightest ones?;Is it better to write something important down on a piece of paper or try to remember it instead?;Do you think that it\'s impossible to learn a foreign language without having a good memory?;Is it possible to keep all the necessary things in mind when you are multitasking?;Do you think that using electronic gadget for making notes makes our memory less trained?',
             'INTERMEDIATE',
             'Using your Memory');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('158',
             'Do you agree that happiness sis when you are understood by other people?;Would you like to be able to read other\'s thoughts?;What are the pluses and the minuses of having the ability of reading other people\'s thoughts?;Would you like others to be able to read your thoughts?;Do you think that people understand you pretty well?;Is it crazy trying to find the meaning of the life?;Do you always try to find the cause of causes of what is happening?;Do people who don\'t understand you often irritate you?;Do you think that people should learn to understand each other better?;Do you think that misunderstanding arises because sometimes people don\'t care about what other people think?',
             'INTERMEDIATE',
             'To Understand or not to Understand?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('159',
             'Do you believe that your fate is in your hands?;What do you think about predictions, forecasts?;Do you believe in horoscopes?;What is your attitude towards coincident?;Do you believe in the sixth sense?;Do you believe that every event in our life is predetermined?;Do you think there is God that controls everything or we live through some universal algorithm?;Do you think that science is really able to forecast certain things?;What do you think about magicians, psychics and fortune-tellers?;Do you think that artificial intelligence will be able to make very accurate forecasts in future?',
             'INTERMEDIATE',
             'Is your Fate in your Hands?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('160',
             'Does the society have a right to kill people?;Can the death penalty be real retaliation for some of most gruesome crimes?;Who are worse: worst criminals or respectful politicians who make suffer millions of people and die thousands of them?;Death penalty is an easy way to get away with your crimes, because in fact it\'s not a penalty at all?;The life sentence is a much more severe punishment than the death penalty, isn\'t it?;Aren\'t they the same: arguments against torture and those against capital punishment?;Can the fear of penalty be a constraining factor for potential criminals?;Are you not afraid that our people will become even crueler after our society will accept the cruelest laws?;May we kill insane people?;If there is the death penalty, isn\'t it the easiest way for some criminal to commit suicide?',
             'UPPER_INTERMEDIATE',
             'Death Penalty');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('161',
             'Do you like to argue or try to avoid any arguments?;What is the difference between argument and discussion?;What are the pros and cons of an argument?;Do you think it\'s possible to find the truth in an argument?;What motto is closer to you: “It\'s only fools who argue”/”Truth\'s born in an argument”?;Is it typical for you to consider somebody\'s opinion during the argument or you always try to uphold your convictions?;Is it easy for you to change your opinion after some argument?;What is more effective in an argument: logical reasons or appealing to emotions during an argument?;Do you argue only when you\'re sure that you can win or ever if you\'re not sure that you\'ll persuade another person?;What is your reaction if you lose the argument?',
             'INTERMEDIATE',
             'Truth is Born in an Argument');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('162',
             'Are there people who never lie?;Is lying always a bad thing, or is it ok to lie sometimes?;Do you lie only when it is necessary? Or does it happen somehow by itself?;Do you trust people who say that they never lie?;Do you agree that we lie only to those who we fear?;Does everyone have his own truth or there is only one truth??;If we lie will it inevitably lead to karma consequences? Will we always have to pay for lying even in our current life?;Can truth be offensive?;Is it good advice to always say everything what you think?;Can a person be objective?',
             'INTERMEDIATE',
             'Truth and Lies');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('163',
             'What or who do you think a human being is?;What makes us humans?;Are we born “criminal”?;Are we born “kind” or “wicked”?;Do we need a competition?;Is envy part of our nature? Do you envy?;Are men and women equal?;Is it really human to err?;Are we more dependent of our emotions and instincts than our consciousness?;Can we be called humans because we are humane?',
             'INTERMEDIATE',
             'Are we Humans?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('164',
             'Is it possible to save the planet from pollution?;Do you think that we can live in peace forever or next world war is inevitable?;Do you think that hunting should be stopped to preserve wild life on our planet?;Do you think that everyone can do something to preserve the Earth?;Do you agree that the Universe is to serve humans?;Do you think that humankind needs to continue searching for alternative sources of energy to save the planet from pollution and destruction?;Do you think that we need to change the way humankind is living nowadays?;Do you agree with the idea that human activity can lead to a global catastrophe?;Do you think we will be able to explore other planets in future in order to save mankind?;Will it be possible for humankind to start a new and better life on another planet?',
             'INTERMEDIATE',
             'Is Humankind Cancer of the Earth?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('165',
             'Is it always good to have choices?;Which is more important: justice or mercy?;Is defining people according to race a social construct or a biological category?;Will it ever be possible to travel through time?;Will it ever be possible to travel to distant planets?;Should terminally ill people be allowed or encouraged to commit suicide?;Is it ever okay to break the law? Why and when?;Is there such a thing as honor in today\'s society?;Can a woman be ever justified in getting an abortion?;Can torture be ever justified?',
             'UPPER_INTERMEDIATE',
             'Hard Philosophical Questions');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('166',
             'What can you say about the present economic situation?;Do you think that unemployment will increase/decrease in the next few years?;What can we do to help people who have been laid off and who have no real chance of finding another job?;What is better in current economic situation: to work for a company or run your own business?;Do you think that global economy is too dependent of oil price?;Do you think that trade wars will be a common things in future?;Will there be a global conflict for resources in future?;Which business areas have a bright future, in your opinion?;Will there be more poverty in future?;Do you think that the use of robots will lead to a global unemployment issue in future?',
             'UPPER_INTERMEDIATE',
             'Global Economy. Achievements and Challenges');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('167',
             'All governments call their power democratic, but can anybody tell us, what the real democracy is?;What is good and what is bad about democracy?;Has democracy ever worked? Is it working now anywhere?;Is freedom of speech a good or a bad thing?;Do you think that truly democratic elections are possible?;Can we decide what is right and what is wrong by voting?;Does monarchy or autocracy have its advantages compared to democracy?;Can there be any alternative to democracy nowadays?;Is a referendum a democratic procedure?;Can unpopular but necessary arrangements be undertaken in democratic countries?',
             'UPPER_INTERMEDIATE',
             'Democracy. is it for the People?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('168',
             'Do you believe in world conspiracies?;Does the secret world government exist?;Do you think secret orders still exist and influence our life in a certain way?;Are there implicit contracts?;Do you think that the world government has already contacted the aliens?;Are politicians trying to manipulate our consciousness to make us believe in what they say?;Do you think there is the world government conspiracy?;Do you think that all people in the world will be watched with the help of electronic tracking systems in future?;Do you think in the theory of a “golden milliard”?;Do you believe that our history is being rewritten by the secret world government?',
             'UPPER_INTERMEDIATE',
             'The World Conspiracies');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('169',
             'Is it a play of forces of nature or is it being done deliberately by some group of people?;Don\'t you feel that the media promotes the crisis?;Who is responsible for global economic crises?;What should be done in order to stop the crisis?;Are we all responsible for the crisis?;The Great Depression coincided with the uprise of fascism? Was it just a coincident?;What is awaiting the global trade market, in your opinion?;Will economic crises become more severe in future?;Will crises change our way of living in future?;Do you think that economic crises will be more frequent in future?',
             'UPPER_INTERMEDIATE',
             'Global Economic Crisis');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('170',
             'What forms our personality: our genes or the environment where we grow up?;Do you think you can change a major characteristic of your personality if you make an effort?;What would you like to change in your personality?;Do you think it\'s possible to change any aspect of your personality?;What personal traits do you consider to be important in a good friend/a boss/a partner?;What personal traits can a person obtain because of a troubled childhood?;Does our nationality determine the way we think and act?;Does changing our appearance (hairstyle, clothes, etc.) influence our personality as well?;Are you happy with your personality? Would you like to be different?;Do you think your personality suited to your job?',
             'INTERMEDIATE',
             'What is Human Personality?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('171',
             'Are introversion and extraversion inherited qualities?;What is good and what is bad about being an introvert?;What are the advantages and disadvantages of being an extravert?;Can we get more introverted or extraverted if we want?;What are the qualities that determine an introvert?;What are the qualities that determine an extravert?;Is it easy for an introvert to find his place in society?;What are the challenges introverts face when interacting with society and how do they meet them?  9. What are the challenges extraverts face when interacting with society?;What professions are good for introverts and for extraverts?',
             'INTERMEDIATE',
             'Introverts and Extraverts');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('172',
             'What\'s a career, in your opinion?;What do you think of career-oriented people?;Do you consider a successful career only the one that ends at the very top of a career ladder?;Do you think it is good to work in one institution or one company for the rest of your professional life?;What do you think of ambitious people?;What skills can help a person to make a good career?;Do you think that it is good to compete with your workmate if it gives you a chance to make a good career?;Do you think that having a good education doesn\'t matter much for making a good career?;Is it possible to have a good balance between career and family life?;May a businessman be a procrastinator?',
             'INTERMEDIATE',
             'Making a Career');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('173',
             'What do you understand by the problem of choice?;How much does this problem influence people\'s life?;Is it easy or difficult for you to choose?;Is it a good idea to think a lot before making a choice?;What are advantages and disadvantages of having an opportunity to choose?;What helps us to make the right choice?;What distracts us from making the right choice?;What influences our choice?;Do you think there is no fate but we choose our fate ourselves?;What would our life be if there was no choice at all?',
             'INTERMEDIATE',
             'The Problem of Choice');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('174',
             'Do we need to discuss our personal problems with somebody?;What is good and what is bad in asking for a piece of advice in difficult life situations?;If we choose to discuss our personal problems with somebody, whom should we prefer: a professional, a good friend, or just a stranger?;What is more effective: psychoanalysis or the search for truth?;Can church substitute a psychologist?;Can the “help” of a psychologist deteriorate your situation?;How can someone tell a good psychologist from a bad one?;Why do Americans visit psychoanalytics while Russians almost never do it?;Do you think that psychologists can resolve their own personal problems?;Should we change our life or should we patiently adjust ourselves to circumstances?',
             'INTERMEDIATE',
             'Psychology in our Life');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('175',
             'What do you work for?;Is it possible to be happy at your work, or is happiness possible only after your work is done?;What is work for you first of all: the movement to results or a joy of the process itself?;Which is better: to build your own structure (hierarchy) to head it, or enter a hierarchy which has already been built by somebody else to make career in it?;Do you prefer to work in collective; or is it more comfortable for you to work alone?;Imagine you can work two hours a day as a simple worker. Would you take that opportunity?;What is your way of acting: adjusting yourself to work or looking for work which is appropriate for you?;Is it good to be a workaholic?;What is more important for you: money or freedom?;If your work is not interesting for you, can you be completely satisfied with your life?',
             'INTERMEDIATE',
             'Work and Motivation');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('176',
             'Do you get annoyed when other people display bad manners?;Do you get annoyed when someone cuts in front of you when you are waiting in line?;Do you get angry when politicians make promises they can\'t keep?;Do you get annoyed when you watch the news on TV and see all the terrible things happening in the world?;Does it annoy you when shop assistants try to sell you things you don\'t need?;Does it annoy you when someone knows everything better than you and says so?;Does it drive you crazy to always see the same faces and read about the same celebrities in the gossip columns?;Does it drive you crazy when waiters ignore you?;Does it upset or annoy you when a beggar asks you for money?;Does it upset you when have to say "No" when someone asks you for help?',
             'PRE_INTERMEDIATE',
             'Feelings That Drive us Crazy');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('177',
             'Do you think it\'s OK for adults to play games?;Is it fine for adults to play computer games in their free time?;Do children today have enough play time?;How important is playtime for children?;What are the best types of games for children to play?;What is the right balance between play and study?;How do you think play affects a person\'s character?;What skills do you think kids learn through playing?;Do you believe that kids that play action computer games containing the scenes of violence become more aggressive than those ones who don\'t?;What type of games is the most useful or beneficial one for child\'s development?',
             'INTERMEDIATE',
             'Play is More than Fun');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('178',
             'Why do people become scared?;Why are people afraid of flying?;Why are people afraid of the dark?;Do you think young children should be allowed to watch horror movies?;Why are people afraid of certain insects or animals?;Do you think that the only reason for the “language barrier” is the fear of speaking with foreigners?;Why are people afraid of going to the dentist?;Would you take part in a show where you can win money after passing through some scary competitions?;Do you believe people can be cured of phobias by hypnosis?;What is the scariest thing for mankind, in your opinion?',
             'INTERMEDIATE',
             'Reasons for our Fears');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('179',
             'What are your opinions regarding people who claim about the awaiting Apocalypse and their followers?;Imagine that the world is really going to end in the next few months. What will be your plans for your last weeks on earth?;If the world is really going to end this year: how do you think it will happen?;Do you think that the human race will survive forever or will we become extinct some day?;Will humans outlast the Earth?;If we die out, what do you think will be the cause of our extinction?;Do you believe in the second coming of Christ or any similar theories?;Do you think that mankind will kill itself or there is a global cataclysm that is waiting for us in future?;Do you think it\'s possible to be prepared for the Apocalypse?;How would you act if a “zombie” Apocalypse started on earth?',
             'INTERMEDIATE',
             'Is Apocalypse Waiting for us?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('180',
             'Do people need to be unique?;What is more important: form or content?;Is modesty a virtue?;Is it necessary to be clever, rich or beautiful, being properly dressed?;When you meet new people, do you show WHAT you are or WHO you are?;Do you show your social status, your personal status or your games and your interests?;Is it natural and sufficient for you to be an employee?;Nonverbal communication: what is important for us in it?;Voice, diction, manners: how can we improve them?;How can we become not afraid of people and begin to communicate?',
             'INTERMEDIATE',
             'Self-presentation');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('181',
             'What is a habit?;How do habits appear?;Is it possible to get new good habits? What is necessary to do for it?;Is it possible to get rid of a bad habit? What is necessary to do for it?;Should we change our habits if our friends/family members don\'t like them?;Should we accept habits of our friends/family members if we don\'t like them?;Is it possible to live without habits? Why?;What makes people gamble?;Is overworking a bad habit?;Is always being late a bad habit?',
             'INTERMEDIATE',
             'What is a Habit?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('182',
             'Do you want to be a master?;What is the main difference between a master and a slave, in your opinion?;The master is the one who is afraid of nothing. Can we hide our fears?;Is fake boldness typical for real masters or should we choose other strategies?;Can someone who doesn\'t feel like a real master look like a real one?;Will ever real master use somebody else\'s authority (diploma, social position, etc.)?;Professionalism or self-presentation, what is more important?;Is it a good idea to say all what we think, or should we control our speech?;Can you be a master to others if you are not a master to yourself?;Will ever a master conform to slaves?',
             'INTERMEDIATE',
             'How to Become a Master?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('183',
             'Do you think about new ideas positively?;Do you readily accept and support new things?;How do you pick up new topics, ideas?;How creative are you?;What is your own way of understanding and dealing with new subjects, tasks, etc.?;Do you prefer to have the whole picture right from the beginning or to break topic down into small parts?;Is it difficult for you to implement (realize) new ideas?;How would you define the key contributors to the process of creation of ideas?;What is good and what is bad about following new trends?;Is it good to be conservative?',
             'INTERMEDIATE',
             'Dealing with New Things');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('184',
             'Do you find it easy to hide your feelings?;Do we need to hide our feelings?;Do you respect other people\'s feelings?;Are you afraid of strong feelings - love, affection, hatred, anger, jealousy, despair?;Do you agree with the statement that men and women are equally emotional creatures?;Are you against or for emotions?;Do you think that logic and cold heart is a good alternative to emotions?;What are the good and bad sides of being emotional?;Do you think it\'s good to be emotional with people?;Is it a good idea to allow your actions to be inspired by your emotions?',
             'INTERMEDIATE',
             'Feelings. Are they Real?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('185',
             'Do you hate or do you like changes?;What is good and what is bad about changes?;Are you afraid of changes?;What kind of changes does really matter?;Will you take a risk of changing everything?;What is the best way of managing changes?;Do you agree that many people don\'t succeed in life because they are afraid of changes?;Do you think it\'s good to constantly change something in your appearance, the way your life?;Can changes ruin a life?;Do you think everyone should always look at changes happening to our society in a positive way or take them as they are?',
             'INTERMEDIATE',
             'Changes in your Life');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('186',
             'What is your definition of cheating?;Why do you think people cheat?;Is it OK to cheat a little to become successful at studies/work/etc.?;If you had a chance to cheat now, would you take it?;In what situations do people usually cheat?;Do you think if people stopped cheating the world would be a better place?;What do you think of people who cheat in their relationships?;Can cheating in relationships help spouses to understand whether they love each other or not?;What do you think can be done to prevent cheating?;Is it a good thing to stop those people who are cheating?',
             'INTERMEDIATE',
             'Cheating in our Life');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('187',
             'What are the main causes for people getting divorced?;Why are divorce rates increasing around the world?;Why do you think the number of divorces is higher in some countries than in others?;Should all married couples always plan for divorce?;Who should get the children in a divorce?;What effect does divorce have on children?;How should people protect themselves financially during divorce?;Do you think a person should always ask a professional for help in legal issues in case of divorce?;Do you think divorce is becoming a big business nowadays?;Would you still be friends with someone after you divorced him/her (or he/she divorced you)?',
             'INTERMEDIATE',
             'Divorces. Broken Happiness');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('188',
             'Should people decide what to believe on their own or should there be people who will make them choose what to believe?;Can one belong to two different churches simultaneously?;Should anyone ever doubt his/her religion?;If our religion tells us one thing and our conscience another, which should we follow?;Do we need mediators between us and God?;Can we find the right way to faith ourselves?;Do you believe in The Ten Commandments?;Should religions be responsible for crimes believers or so-called “believers” have committed?;What is the difference between religions and sects?;Do you agree that terrorists must not use religion as a weapon?',
             'INTERMEDIATE',
             'Belief in Church');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('189',
             'What springs to your mind when you hear the word “invention”?;What are the best and the most useful inventions of mankind in the 20th and 21st centuries?;How did the invention of television change people\'s life?;Do you think people can live without their mobile phones or is it now an important part of our daily life?;Do you think that radio has been of the greatest inventions of our era?;Have computers changed our life forever or it\'s the same but has only become more convenient?;Do you believe that one day people will live on the moon and on other planets?;Do you think that human workers will be replaced by robots one day?;Will scientists be able to develop such kind of artificial intelligence that will outsmart humans in future?;What inventions can destroy mankind in future?',
             'INTERMEDIATE',
             'Great Inventions');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('190',
             'What, in your opinion, are the main reasons for space exploration?;Do you think that competition between different nations in the field space exploration can cause another global conflict in future?;What are the good and bad sides of space exploration?;Has space exploration lead to a technological leap, in your opinion?;Do you think that humankind is exploring space just because of people\'s natural curiosity?;Do you think that space tourism will become as common as travelling to sea resorts in future?;Do you think that space exploration programs should be financed by private organizations only?;Would you take a chance to travel to another planet if you were offered such opportunity?;Do you think that space exploration have given us a lot of modern conveniences in our life?;Do you think that mankind will move to another planet in future?',
             'INTERMEDIATE',
             'Space Exploration');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('191',
             'What springs to mind when you hear the word “evolution”?;Do you believe the story of evolution as told in religious books?;Why is Darwin\'s Theory of Evolution discarded by so many religions?;Do you believe in Darwin\'s Theory of Evolution and why?;How do you think the world got here?;Do you believe that our appearance on this planet was the result of natural selection?;How did the very first life form appeared and what did it look like?;Do you believe in the idea that all life forms were brought to our planet by aliens?;Could life be brought to our planet by a comet/an asteroid?;Do you think that evolution is still going on?',
             'UPPER_INTERMEDIATE',
             'Revolution of Evolution');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('192',
             'Is nationality of a person important?;To what extend does it determine a person\'s personality?;Do you consider some traits of your personality typical for most people of your nationality?;Are you proud for your nationality, or you are a cosmopolitan?;Can patriotism transform to xenophobia?;How would you describe the national character of the citizens of your country?;Are some stereotypes about your nation based on truth?;What factors affect a people\'s national character?;Do you think that bilingualism makes people many-sided?;Does studying a foreign language and culture affect one\'s personality?',
             'UPPER_INTERMEDIATE',
             'National Identity');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('193',
             'Do you think that people like foreign products more than the ones produced by local manufacturers?;Do you think that Western products have a much higher quality or the quality of a product depends on other factors as well?;Do you think people should buy more products of local manufacturers in order to support them as well as the economy of the state more?;Do you think that people buy certain products made by some foreign brands more often not because of their high quality or reasonable price but just because they are better advertised?;Do you think that there are certain stereotypes that are common among customers that make them buy products of certain manufacturers?;Do you think it\'s a good idea for the government to impose restrictions on the amount of goods imported from abroad in order to support local manufacturers?;What are the ways of making local products more attractive for customers, in your opinion?;Do you think that sanctions imposed by certain countries on other ones are just a political tool?;Do you think that trade wars are initiated to win business competition?;Do you think trade wars will become a common thing in future?',
             'UPPER_INTERMEDIATE',
             'Imports versus Domestic');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('194',
             'Is legalization a good idea?;Is marijuana a gateway drug? (i.e. is it the first step to trying harder drugs such as cocaine and heroin?);Is marijuana better/worse than alcohol/cigarettes?;Should it be a priority for governments?;If the government should legalize, then how much control should there be versus having a free market?;What are your thoughts on cannabis cure potentials?;Should employers be able to hire on the basis if a person smokes marihuana (as long as it does not affect his work performance)?;Should marijuana be legalized medicinally or recreationally?;How is outlawing marijuana different from alcohol prohibition?;What are the pros and cons of legalizing marijuana?',
             'UPPER_INTERMEDIATE',
             'Should Cannabis Be Legalized?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('195',
             'Do you think Genetically Modified (GM) food is the future?;What are the pros and cons of humankind transferring to GM food?;Why, in your opinion, GM products can be dangerous for our health?;Do you usually avoid buying products containing with “GM” sign on them or it doesn\'t bother you much?;Do you think that GM products can harm our genetics?;How do you feel about genetic experiments on animals: is it a good or a bad idea?;Do you think it\'s fine to breed genetically modified animals?;Do you think that genetic engineering can become a weapon of an “evil mind”?;Do you think it would be a good idea to Genetically Engineer humans?;Do you think humankind won\'t survive without genetic engineering in future?',
             'UPPER_INTERMEDIATE',
             'Genetic Engineering');
 
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('196',
             'What comes to mind when you hear the word “drugs”?;Why are some drugs more addicting than others?;Many politicians have used cannabis. What do you think about this?;Do you think that drug addiction leads people into crime?;What punishment do you think drug dealers should get?;Is taking illegal drugs a disease or a crime?;Why do people get into hard drugs like heroin, in your opinion?;Should pregnant women be arrested for child abuse if they use drugs when they are pregnant which may affect the baby?;Do you think that marijuana should be legal for medical uses with a prescription from a doctor?;Why do you think people take drugs?',
             'INTERMEDIATE',
             'Drugs. Legal and Illegal Ones');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('197',
             'Do you think we really need the police as a law-enforcement body?;Do you think that sometimes the government uses the police as a manipulation tool?;Do you believe that the police can always help you when you are in trouble?;Do the police in your country do a good job of upholding the law and protecting citizens?;How do the police in your country compare to other country\'s police forces?;Do cops have too much power?;Do they abuse their authority?;If you were in charge of the police force in your country what changes would you make?;Should policemen be armed?;What do you think would happen if the police went on strike for 24 hours?',
             'INTERMEDIATE',
             'There`s the Sound of the Police');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('198',
             'What are the good and bad sides of adoption?;Do you think that adopted child can really become close with his foster parents?;Should an adopted child have the same legal right as a non-adopted child?;What problems do you think there might be with adoption?;What checks should adoption agencies conduct on prospective parents?;Should same-sex couples or single people be allowed to adopt?;Is it better to adopt a baby or an older child?;When should you tell a child he/she is adopted?;Should people adopt children from the same race?;Would you prefer to adopt a child from your own country or a very poor country?',
             'INTERMEDIATE',
             'The Issues of Adoption');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('199',
             'What images spring to mind when you hear the word “globalization”?;What are the good and bad things about globalization?;Do you think it\'s possible to ignore globalization?;How has globalization affected your life?;Is globalization good for the world?;Does globalization unite us?;What will globalization look like fifty years from now?;Do you think globalization will make us all the same in the future?;Which countries do you think like or hate globalization most?;What concept do you think will come after globalization?',
             'INTERMEDIATE',
             'Globalization. Does it Unite us?');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('200',
             'How can you distinguish a subculture?;Where is the edge between hobbies and subcultures?;How do subcultures influence a person\'s lifestyle?;Why do members of subcultures invent their own style?;Do you think its members really have to accept the style of a subculture?;Why has music led to the creation of so many subcultures?;Why are subcultures so popular among the youth, especially teenagers?;Would you like your own kid to join some?;Should some of the subcultures be restricted?;Do you think there are any destructive subcultures?',
             'INTERMEDIATE',

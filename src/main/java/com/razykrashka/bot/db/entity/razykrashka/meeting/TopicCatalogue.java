@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "meeting_catalog")
+@Table(name = "topic_catalogue")
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id"})
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MeetingCatalog {
+public class TopicCatalogue {
     @Id
     Integer id;
     @Enumerated(EnumType.STRING)

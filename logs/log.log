@@ -27,7 +27,7 @@
 2020-04-18 01:12:18,394 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`hibernate_sequence`
 2020-04-18 01:12:18,403 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`location`
 2020-04-18 01:12:18,420 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting`
-2020-04-18 01:12:18,448 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_catalog`
+2020-04-18 01:12:18,448 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`topic_catalogue`
 2020-04-18 01:12:18,470 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_info`
 2020-04-18 01:12:18,493 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll`
 2020-04-18 01:12:18,506 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll_option`
@@ -157,10 +157,10 @@
             -- Table structure for table `poll`
             --
 
-            DROP TABLE IF EXISTS `meeting_catalog`
+            DROP TABLE IF EXISTS `topic_catalogue`
 2020-04-18 01:12:19,281 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!40101 SET @saved_cs_client = @@character_set_client */
 2020-04-18 01:12:19,282 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!50503 SET character_set_client = utf8mb4 */
-2020-04-18 01:12:19,283 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `meeting_catalog` (
+2020-04-18 01:12:19,283 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `topic_catalogue` (
             `id` int NOT NULL,
             `questions` longtext,
             `speaking_level` varchar(255) DEFAULT NULL,
@@ -382,99 +382,99 @@
 2020-04-18 01:12:19,576 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
 2020-04-18 01:12:19,577 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/user_meeting.xml::6::brokorenko ran successfully in 31ms
 2020-04-18 01:12:19,578 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('6', 'brokorenko', 'classpath:liquibase/changelog/insert/user_meeting.xml', NOW(), 8, '8:33f4e2d91d89fb0b13b674e692267ff4', 'sql', 'Upload 3 user_meetings', 'EXECUTED', NULL, NULL, '3.6.3', '7161539125')
-2020-04-18 01:12:19,586 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,586 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (1,
             'Are there any parts of the city where you live which you are afraid to visit after dark? Where?;Are there certain weather conditions that scare people? What are they? Why do people become scared?;Are you afraid of flying?;Are you afraid of ghosts?;Are you afraid of giving a speech in public?;Are you afraid of going to the dentist?;Are you afraid of heights?;Are you afraid of the dark?;Are you afraid of getting old? Why?',
             'INTERMEDIATE',
             'Fears v.1')
-2020-04-18 01:12:19,591 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,591 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (2,
             'Are there any numbers that people are afraid of in your culture?;Were you afraid of the dark as a child?;What animal do you think is the most scary?;What is the scariest movie you have ever seen?;What is your biggest fear in life? Are you afraid that it might come true?;Do you believe people can be cured of phobias by hypnosis?;Are you afraid of speaking English?;A foreign language?;In front of many people?;At official functions?',
             'INTERMEDIATE',
             'Fears v.2')
-2020-04-18 01:12:19,593 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,593 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (3,
             'Why do people volunteer?;Would you like to work as a volunteer?;Have you ever done any volunteer work?;Is volunteering worth the time it takes?;Why would you enjoy volunteering?;Do you know anyone who has done volunteer work?;Have you ever benefitted by someone\'s volunteer work?;What benefits do you get personally by volunteering?;Can you list some reasons why people volunteer?;What types of volunteer work would be unpleasant for you?',
             'INTERMEDIATE',
             'Volunteer work')
-2020-04-18 01:12:19,595 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,595 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (4,
             'What ganre of music do you prefer?;Do you think the ganre you listen to influences your state of mind and mood?;Do you listen to music while working or studying?;Have you slept with music?;Why is classical music so popular?;What is more important in a song:the lyrics or the melody?;Remember and tell about the last consert you\'ve attended;Do you think it\'s unacceptable to lip-sync?;Is music made on computer worse than usual one?;Do you sing whilst taking shower?;Could you imagine your life without music?',
             'INTERMEDIATE',
             'Music')
-2020-04-18 01:12:19,597 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,597 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (5,
             'How do you feel about advertising?;Are you easily persuaded to buy something after seeing or hearing an advertisement?;What kind of advertisements attracts your attention?;What’s the best advertisement you\’ve ever seen?;What’s the most shocking advertisement you\’ve ever seen?;What’s the funniest advertisement you\’ve ever seen?;What makes an advertisement memorable?;Is advertising an art?;Can your favorite celebrity to persuade you to buy a product?;Are children and teenagers more influenced with advertising than adults?',
             'INTERMEDIATE',
             'Advertising')
-2020-04-18 01:12:19,600 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,600 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(6,
             'What is work-life balance for you?;Is there a “long-hours” working culture in your country?;Why should employers care about their employees’ work-life balance?;Can you tell me about your working day routine?;What does your company do to help you maintain work-life balance?;Do you overtime? If you have urgent task will you overtime or portpone it the next day?;Have you spent all your annual leave for the previous year? Do you prefer to spend it or get compensation for unused days?;What is the best time to work? Do you prefer to start work earlier or later?;Have you ever worked shifts? Did you enjoy it? Why / why not?;What do you think are the pros and cons of working shifts?;Do you think working shifts could be bad for your health? Why / why not?',
             'INTERMEDIATE',
             'Work-life balance')
-2020-04-18 01:12:19,602 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,602 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(7,
             'Are you good at making friends?;Can you remember your first friend?;What’s the best age for making friends?;How long has your strongest friendship lasted?;How often do you contact with your long-distance friends?;How difficult is it to maintain a friendship?;What can break a good relationship?;Is it a good idea to go on holiday with a friend?;What do you think about lending/borrowing money to/from a friend?;Would it be difficult if your friend was your boss or subordinate?',
             'INTERMEDIATE',
             'Friends v.1')
-2020-04-18 01:12:19,605 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,605 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(8,
             'Is it a good idea to start business with a friend?;Is it possible to establish a strong friendship through the Internet?;Is it possible to have the best friend from a different generation?;Is it possible to have the best friend from a different social or cultural background?;Is it possible to have the best friend of the opposite sex without falling in love?;Describe your ideal girlfriend/boyfriend.;Is it possible to be friends with an ex-spouse?;Is it possible to be friends with your teacher?;Can you imagine your life without friends?',
             'INTERMEDIATE',
             'Friends v.2')
-2020-04-18 01:12:19,607 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,607 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(9,
             'How conscious are you about your health?;What things might damage your health?;Should you give up something to protect your health?;What do you do to stay healthy?;Do you ever read articles or watch TV programmes about health?;Do you usually take medicine when you are sick?;Do you usually go to a doctor when you get a cold?;How often do you have a health check?;What are your experiences of hospitals?;Have you ever been to a hospital in another country?',
             'INTERMEDIATE',
             'Health v.1')
-2020-04-18 01:12:19,611 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,611 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(10,
             'Is being gay more difficult in some countries than others?;In your opinion, can a gay be a religious person?;What main problems do gays have in the military?;In what ways does the gay community try to tackle homophobia? Are they being successful?;Do you think being lesbian is viewed as being worse, the same or better than being gay in our society?;Could you name any famous lesbian through history?;Do you believe gays and heterosexuals have the same rights? Do they have equal duties?;What\'s your opinion on gay marriage?;What do you think of adoption by gay couples?;Do you think homosexual families can bring up children as well as straight families? If not, why?;What stereotypes do you know about gays?',
             'INTERMEDIATE',
             'Gay Community v.1')
-2020-04-18 01:12:19,613 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,613 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(11,
             'What problems do you think someone goes through when they find out they are gay?;Do you think they should try to change?;In your opinion, should they say they are gay?;What do you think your parents\' reaction would be if you told them you are gay?;Do you think one of them would take it better / worse?;Do you think their first reaction would persist or would it change?;How about your best friend\'s reaction?;How would you react if one of your children told you they\'re gay?;What are the main problems gays have to face at college?;Is it easier for a gay to live in a village or in a city?',
             'INTERMEDIATE',
             'Gay Community v.2')
-2020-04-18 01:12:19,615 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,615 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(12,
             'About how many of them would you say are not offensive?;How is it being gay in your country?;Do you know anyone who is gay?;How about any celebrities?;Or any historical figure?;Are there any gay characters on a current TV series?;Could you tell us about them?;What\'s the meaning of "homophobia"?;In your view, is there homophobia in our society? If not, why?;Do you believe that the gay community is being discriminated against in any way?;If so, why do you think there is such discrimination?',
             'INTERMEDIATE',
             'Gay Community v.3')
-2020-04-18 01:12:19,618 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,618 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(13,
             'How does having children change someone\’s life?;What kinds of things do people have to give up when they have children?;What are some of the benefits of having children?;Do you think it is better to have children when you are older or younger?;What is the best number of children to have? How many boys or girls?;What do you think about "childfree"?;Do you want to have children?;If not: Why not? Have you told your parents about your decision? What do they think about it?;If so: When do you want to have children and how many do you want to have?;Do you want your first child to be a boy or a girl? Why?;How do children who have no brothers or sisters act?;What do you think about kids from a children\'s home? Would you take a child from an orphanage?',
             'INTERMEDIATE',
             'Having children')
-2020-04-18 01:12:19,620 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,620 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(14,
             'What are two disadvantages of using smartphones and tablets?;What do you think about Cybercafes? Are they still useful?;Do you like a job in which you have to use computers?;Do you spend too much time online?;Does your mother of father know how to use a computer?;Do computers make life easier?;What websites do you visit in a regular basis?;What do you think about the Apple?;What are some advantages of using social networks?;Do you visit English websites?',
             'INTERMEDIATE',
             'Internet and Computers')
-2020-04-18 01:12:19,622 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,622 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(15,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview1')
-2020-04-18 01:12:19,624 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,624 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(16,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview')
-2020-04-18 01:12:19,626 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,626 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(17,
             'How could hospitals be made better places to visit and stay in?;Which is better: private and public health care?;What do you think about alternative medicine?;Who is more responsible for your health: you or the government?;Do you normally go one doctor in particular or any available doctor?;What disease frightens you the most? Why?;What do you do to stay healthy?',
             'PRE_INTERMEDIATE',
             'Health v.2')
-2020-04-18 01:12:19,628 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:12:19,628 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(18,
             'Do you have a lot of free time?;\'Time is money\'. Do you agree or disagree?;What\'s your perception of time now?;Do you show up early or late for work/university/meeting with friends?;Are you a \'night owl\' or an \'early bird\'?;Do you use any time management apps to structure your day/week?;Do you have some tips on how to organize your day for maximum productivity?;What Is procrastination? Why we do it and how to stop it);What would you do if you had a few extra hours in a day?;Does time go by slowly or quickly for you? What does this depend on?;What is your ideal working schedule?;Have you ever had some situations when procrastination was good for you?',
             'PRE_INTERMEDIATE',
             'Time')
 2020-04-18 01:12:19,631 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
-2020-04-18 01:12:19,631 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/meeting_catalog.xml::10::author ran successfully in 48ms
-2020-04-18 01:12:19,632 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/meeting_catalog.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7161539125')
+2020-04-18 01:12:19,631 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/topic_catalogue.xml::10::author ran successfully in 48ms
+2020-04-18 01:12:19,632 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/topic_catalogue.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7161539125')
 2020-04-18 01:12:19,641 INFO liquibase.lockservice.StandardLockService [main] Successfully released change log lock
 2020-04-18 01:12:19,793 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
 	name: default
@@ -648,7 +648,7 @@ com.razykrashka.bot.exception.IncorrectInputDataFormatException: Stage does not 
 2020-04-18 01:34:46,691 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`hibernate_sequence`
 2020-04-18 01:34:46,699 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`location`
 2020-04-18 01:34:46,718 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting`
-2020-04-18 01:34:46,744 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_catalog`
+2020-04-18 01:34:46,744 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`topic_catalogue`
 2020-04-18 01:34:46,771 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_info`
 2020-04-18 01:34:46,790 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll`
 2020-04-18 01:34:46,799 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll_option`
@@ -778,10 +778,10 @@ com.razykrashka.bot.exception.IncorrectInputDataFormatException: Stage does not 
             -- Table structure for table `poll`
             --
 
-            DROP TABLE IF EXISTS `meeting_catalog`
+            DROP TABLE IF EXISTS `topic_catalogue`
 2020-04-18 01:34:47,364 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!40101 SET @saved_cs_client = @@character_set_client */
 2020-04-18 01:34:47,365 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!50503 SET character_set_client = utf8mb4 */
-2020-04-18 01:34:47,365 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `meeting_catalog` (
+2020-04-18 01:34:47,365 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `topic_catalogue` (
             `id` int NOT NULL,
             `questions` longtext,
             `speaking_level` varchar(255) DEFAULT NULL,
@@ -1003,99 +1003,99 @@ com.razykrashka.bot.exception.IncorrectInputDataFormatException: Stage does not 
 2020-04-18 01:34:47,608 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
 2020-04-18 01:34:47,608 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/user_meeting.xml::6::brokorenko ran successfully in 20ms
 2020-04-18 01:34:47,609 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('6', 'brokorenko', 'classpath:liquibase/changelog/insert/user_meeting.xml', NOW(), 8, '8:33f4e2d91d89fb0b13b674e692267ff4', 'sql', 'Upload 3 user_meetings', 'EXECUTED', NULL, NULL, '3.6.3', '7162887232')
-2020-04-18 01:34:47,616 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,616 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (1,
             'Are there any parts of the city where you live which you are afraid to visit after dark? Where?;Are there certain weather conditions that scare people? What are they? Why do people become scared?;Are you afraid of flying?;Are you afraid of ghosts?;Are you afraid of giving a speech in public?;Are you afraid of going to the dentist?;Are you afraid of heights?;Are you afraid of the dark?;Are you afraid of getting old? Why?',
             'INTERMEDIATE',
             'Fears v.1')
-2020-04-18 01:34:47,618 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,618 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (2,
             'Are there any numbers that people are afraid of in your culture?;Were you afraid of the dark as a child?;What animal do you think is the most scary?;What is the scariest movie you have ever seen?;What is your biggest fear in life? Are you afraid that it might come true?;Do you believe people can be cured of phobias by hypnosis?;Are you afraid of speaking English?;A foreign language?;In front of many people?;At official functions?',
             'INTERMEDIATE',
             'Fears v.2')
-2020-04-18 01:34:47,622 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,622 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (3,
             'Why do people volunteer?;Would you like to work as a volunteer?;Have you ever done any volunteer work?;Is volunteering worth the time it takes?;Why would you enjoy volunteering?;Do you know anyone who has done volunteer work?;Have you ever benefitted by someone\'s volunteer work?;What benefits do you get personally by volunteering?;Can you list some reasons why people volunteer?;What types of volunteer work would be unpleasant for you?',
             'INTERMEDIATE',
             'Volunteer work')
-2020-04-18 01:34:47,623 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,623 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (4,
             'What ganre of music do you prefer?;Do you think the ganre you listen to influences your state of mind and mood?;Do you listen to music while working or studying?;Have you slept with music?;Why is classical music so popular?;What is more important in a song:the lyrics or the melody?;Remember and tell about the last consert you\'ve attended;Do you think it\'s unacceptable to lip-sync?;Is music made on computer worse than usual one?;Do you sing whilst taking shower?;Could you imagine your life without music?',
             'INTERMEDIATE',
             'Music')
-2020-04-18 01:34:47,626 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,626 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (5,
             'How do you feel about advertising?;Are you easily persuaded to buy something after seeing or hearing an advertisement?;What kind of advertisements attracts your attention?;What’s the best advertisement you\’ve ever seen?;What’s the most shocking advertisement you\’ve ever seen?;What’s the funniest advertisement you\’ve ever seen?;What makes an advertisement memorable?;Is advertising an art?;Can your favorite celebrity to persuade you to buy a product?;Are children and teenagers more influenced with advertising than adults?',
             'INTERMEDIATE',
             'Advertising')
-2020-04-18 01:34:47,627 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,627 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(6,
             'What is work-life balance for you?;Is there a “long-hours” working culture in your country?;Why should employers care about their employees’ work-life balance?;Can you tell me about your working day routine?;What does your company do to help you maintain work-life balance?;Do you overtime? If you have urgent task will you overtime or portpone it the next day?;Have you spent all your annual leave for the previous year? Do you prefer to spend it or get compensation for unused days?;What is the best time to work? Do you prefer to start work earlier or later?;Have you ever worked shifts? Did you enjoy it? Why / why not?;What do you think are the pros and cons of working shifts?;Do you think working shifts could be bad for your health? Why / why not?',
             'INTERMEDIATE',
             'Work-life balance')
-2020-04-18 01:34:47,629 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,629 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(7,
             'Are you good at making friends?;Can you remember your first friend?;What’s the best age for making friends?;How long has your strongest friendship lasted?;How often do you contact with your long-distance friends?;How difficult is it to maintain a friendship?;What can break a good relationship?;Is it a good idea to go on holiday with a friend?;What do you think about lending/borrowing money to/from a friend?;Would it be difficult if your friend was your boss or subordinate?',
             'INTERMEDIATE',
             'Friends v.1')
-2020-04-18 01:34:47,630 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,630 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(8,
             'Is it a good idea to start business with a friend?;Is it possible to establish a strong friendship through the Internet?;Is it possible to have the best friend from a different generation?;Is it possible to have the best friend from a different social or cultural background?;Is it possible to have the best friend of the opposite sex without falling in love?;Describe your ideal girlfriend/boyfriend.;Is it possible to be friends with an ex-spouse?;Is it possible to be friends with your teacher?;Can you imagine your life without friends?',
             'INTERMEDIATE',
             'Friends v.2')
-2020-04-18 01:34:47,632 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,632 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(9,
             'How conscious are you about your health?;What things might damage your health?;Should you give up something to protect your health?;What do you do to stay healthy?;Do you ever read articles or watch TV programmes about health?;Do you usually take medicine when you are sick?;Do you usually go to a doctor when you get a cold?;How often do you have a health check?;What are your experiences of hospitals?;Have you ever been to a hospital in another country?',
             'INTERMEDIATE',
             'Health v.1')
-2020-04-18 01:34:47,634 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,634 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(10,
             'Is being gay more difficult in some countries than others?;In your opinion, can a gay be a religious person?;What main problems do gays have in the military?;In what ways does the gay community try to tackle homophobia? Are they being successful?;Do you think being lesbian is viewed as being worse, the same or better than being gay in our society?;Could you name any famous lesbian through history?;Do you believe gays and heterosexuals have the same rights? Do they have equal duties?;What\'s your opinion on gay marriage?;What do you think of adoption by gay couples?;Do you think homosexual families can bring up children as well as straight families? If not, why?;What stereotypes do you know about gays?',
             'INTERMEDIATE',
             'Gay Community v.1')
-2020-04-18 01:34:47,636 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,636 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(11,
             'What problems do you think someone goes through when they find out they are gay?;Do you think they should try to change?;In your opinion, should they say they are gay?;What do you think your parents\' reaction would be if you told them you are gay?;Do you think one of them would take it better / worse?;Do you think their first reaction would persist or would it change?;How about your best friend\'s reaction?;How would you react if one of your children told you they\'re gay?;What are the main problems gays have to face at college?;Is it easier for a gay to live in a village or in a city?',
             'INTERMEDIATE',
             'Gay Community v.2')
-2020-04-18 01:34:47,638 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,638 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(12,
             'About how many of them would you say are not offensive?;How is it being gay in your country?;Do you know anyone who is gay?;How about any celebrities?;Or any historical figure?;Are there any gay characters on a current TV series?;Could you tell us about them?;What\'s the meaning of "homophobia"?;In your view, is there homophobia in our society? If not, why?;Do you believe that the gay community is being discriminated against in any way?;If so, why do you think there is such discrimination?',
             'INTERMEDIATE',
             'Gay Community v.3')
-2020-04-18 01:34:47,640 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,640 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(13,
             'How does having children change someone\’s life?;What kinds of things do people have to give up when they have children?;What are some of the benefits of having children?;Do you think it is better to have children when you are older or younger?;What is the best number of children to have? How many boys or girls?;What do you think about "childfree"?;Do you want to have children?;If not: Why not? Have you told your parents about your decision? What do they think about it?;If so: When do you want to have children and how many do you want to have?;Do you want your first child to be a boy or a girl? Why?;How do children who have no brothers or sisters act?;What do you think about kids from a children\'s home? Would you take a child from an orphanage?',
             'INTERMEDIATE',
             'Having children')
-2020-04-18 01:34:47,641 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,641 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(14,
             'What are two disadvantages of using smartphones and tablets?;What do you think about Cybercafes? Are they still useful?;Do you like a job in which you have to use computers?;Do you spend too much time online?;Does your mother of father know how to use a computer?;Do computers make life easier?;What websites do you visit in a regular basis?;What do you think about the Apple?;What are some advantages of using social networks?;Do you visit English websites?',
             'INTERMEDIATE',
             'Internet and Computers')
-2020-04-18 01:34:47,643 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,643 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(15,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview1')
-2020-04-18 01:34:47,645 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,645 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(16,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview')
-2020-04-18 01:34:47,647 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,647 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(17,
             'How could hospitals be made better places to visit and stay in?;Which is better: private and public health care?;What do you think about alternative medicine?;Who is more responsible for your health: you or the government?;Do you normally go one doctor in particular or any available doctor?;What disease frightens you the most? Why?;What do you do to stay healthy?',
             'PRE_INTERMEDIATE',
             'Health v.2')
-2020-04-18 01:34:47,649 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:34:47,649 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(18,
             'Do you have a lot of free time?;\'Time is money\'. Do you agree or disagree?;What\'s your perception of time now?;Do you show up early or late for work/university/meeting with friends?;Are you a \'night owl\' or an \'early bird\'?;Do you use any time management apps to structure your day/week?;Do you have some tips on how to organize your day for maximum productivity?;What Is procrastination? Why we do it and how to stop it);What would you do if you had a few extra hours in a day?;Does time go by slowly or quickly for you? What does this depend on?;What is your ideal working schedule?;Have you ever had some situations when procrastination was good for you?',
             'PRE_INTERMEDIATE',
             'Time')
 2020-04-18 01:34:47,651 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
-2020-04-18 01:34:47,651 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/meeting_catalog.xml::10::author ran successfully in 38ms
-2020-04-18 01:34:47,652 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/meeting_catalog.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7162887232')
+2020-04-18 01:34:47,651 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/topic_catalogue.xml::10::author ran successfully in 38ms
+2020-04-18 01:34:47,652 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/topic_catalogue.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7162887232')
 2020-04-18 01:34:47,659 INFO liquibase.lockservice.StandardLockService [main] Successfully released change log lock
 2020-04-18 01:34:47,812 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
 	name: default
@@ -1182,7 +1182,7 @@ Caused by: java.lang.UnsupportedOperationException: null
 2020-04-18 01:36:22,786 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`hibernate_sequence`
 2020-04-18 01:36:22,792 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`location`
 2020-04-18 01:36:22,810 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting`
-2020-04-18 01:36:22,824 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_catalog`
+2020-04-18 01:36:22,824 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`topic_catalogue`
 2020-04-18 01:36:22,844 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_info`
 2020-04-18 01:36:22,861 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll`
 2020-04-18 01:36:22,866 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll_option`
@@ -1312,10 +1312,10 @@ Caused by: java.lang.UnsupportedOperationException: null
             -- Table structure for table `poll`
             --
 
-            DROP TABLE IF EXISTS `meeting_catalog`
+            DROP TABLE IF EXISTS `topic_catalogue`
 2020-04-18 01:36:23,381 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!40101 SET @saved_cs_client = @@character_set_client */
 2020-04-18 01:36:23,382 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!50503 SET character_set_client = utf8mb4 */
-2020-04-18 01:36:23,382 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `meeting_catalog` (
+2020-04-18 01:36:23,382 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `topic_catalogue` (
             `id` int NOT NULL,
             `questions` longtext,
             `speaking_level` varchar(255) DEFAULT NULL,
@@ -1537,99 +1537,99 @@ Caused by: java.lang.UnsupportedOperationException: null
 2020-04-18 01:36:23,644 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
 2020-04-18 01:36:23,644 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/user_meeting.xml::6::brokorenko ran successfully in 22ms
 2020-04-18 01:36:23,645 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('6', 'brokorenko', 'classpath:liquibase/changelog/insert/user_meeting.xml', NOW(), 8, '8:33f4e2d91d89fb0b13b674e692267ff4', 'sql', 'Upload 3 user_meetings', 'EXECUTED', NULL, NULL, '3.6.3', '7162983243')
-2020-04-18 01:36:23,652 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,652 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (1,
             'Are there any parts of the city where you live which you are afraid to visit after dark? Where?;Are there certain weather conditions that scare people? What are they? Why do people become scared?;Are you afraid of flying?;Are you afraid of ghosts?;Are you afraid of giving a speech in public?;Are you afraid of going to the dentist?;Are you afraid of heights?;Are you afraid of the dark?;Are you afraid of getting old? Why?',
             'INTERMEDIATE',
             'Fears v.1')
-2020-04-18 01:36:23,656 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,656 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (2,
             'Are there any numbers that people are afraid of in your culture?;Were you afraid of the dark as a child?;What animal do you think is the most scary?;What is the scariest movie you have ever seen?;What is your biggest fear in life? Are you afraid that it might come true?;Do you believe people can be cured of phobias by hypnosis?;Are you afraid of speaking English?;A foreign language?;In front of many people?;At official functions?',
             'INTERMEDIATE',
             'Fears v.2')
-2020-04-18 01:36:23,658 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,658 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (3,
             'Why do people volunteer?;Would you like to work as a volunteer?;Have you ever done any volunteer work?;Is volunteering worth the time it takes?;Why would you enjoy volunteering?;Do you know anyone who has done volunteer work?;Have you ever benefitted by someone\'s volunteer work?;What benefits do you get personally by volunteering?;Can you list some reasons why people volunteer?;What types of volunteer work would be unpleasant for you?',
             'INTERMEDIATE',
             'Volunteer work')
-2020-04-18 01:36:23,660 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,660 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (4,
             'What ganre of music do you prefer?;Do you think the ganre you listen to influences your state of mind and mood?;Do you listen to music while working or studying?;Have you slept with music?;Why is classical music so popular?;What is more important in a song:the lyrics or the melody?;Remember and tell about the last consert you\'ve attended;Do you think it\'s unacceptable to lip-sync?;Is music made on computer worse than usual one?;Do you sing whilst taking shower?;Could you imagine your life without music?',
             'INTERMEDIATE',
             'Music')
-2020-04-18 01:36:23,661 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,661 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (5,
             'How do you feel about advertising?;Are you easily persuaded to buy something after seeing or hearing an advertisement?;What kind of advertisements attracts your attention?;What’s the best advertisement you\’ve ever seen?;What’s the most shocking advertisement you\’ve ever seen?;What’s the funniest advertisement you\’ve ever seen?;What makes an advertisement memorable?;Is advertising an art?;Can your favorite celebrity to persuade you to buy a product?;Are children and teenagers more influenced with advertising than adults?',
             'INTERMEDIATE',
             'Advertising')
-2020-04-18 01:36:23,663 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,663 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(6,
             'What is work-life balance for you?;Is there a “long-hours” working culture in your country?;Why should employers care about their employees’ work-life balance?;Can you tell me about your working day routine?;What does your company do to help you maintain work-life balance?;Do you overtime? If you have urgent task will you overtime or portpone it the next day?;Have you spent all your annual leave for the previous year? Do you prefer to spend it or get compensation for unused days?;What is the best time to work? Do you prefer to start work earlier or later?;Have you ever worked shifts? Did you enjoy it? Why / why not?;What do you think are the pros and cons of working shifts?;Do you think working shifts could be bad for your health? Why / why not?',
             'INTERMEDIATE',
             'Work-life balance')
-2020-04-18 01:36:23,665 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,665 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(7,
             'Are you good at making friends?;Can you remember your first friend?;What’s the best age for making friends?;How long has your strongest friendship lasted?;How often do you contact with your long-distance friends?;How difficult is it to maintain a friendship?;What can break a good relationship?;Is it a good idea to go on holiday with a friend?;What do you think about lending/borrowing money to/from a friend?;Would it be difficult if your friend was your boss or subordinate?',
             'INTERMEDIATE',
             'Friends v.1')
-2020-04-18 01:36:23,667 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,667 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(8,
             'Is it a good idea to start business with a friend?;Is it possible to establish a strong friendship through the Internet?;Is it possible to have the best friend from a different generation?;Is it possible to have the best friend from a different social or cultural background?;Is it possible to have the best friend of the opposite sex without falling in love?;Describe your ideal girlfriend/boyfriend.;Is it possible to be friends with an ex-spouse?;Is it possible to be friends with your teacher?;Can you imagine your life without friends?',
             'INTERMEDIATE',
             'Friends v.2')
-2020-04-18 01:36:23,669 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,669 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(9,
             'How conscious are you about your health?;What things might damage your health?;Should you give up something to protect your health?;What do you do to stay healthy?;Do you ever read articles or watch TV programmes about health?;Do you usually take medicine when you are sick?;Do you usually go to a doctor when you get a cold?;How often do you have a health check?;What are your experiences of hospitals?;Have you ever been to a hospital in another country?',
             'INTERMEDIATE',
             'Health v.1')
-2020-04-18 01:36:23,672 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,672 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(10,
             'Is being gay more difficult in some countries than others?;In your opinion, can a gay be a religious person?;What main problems do gays have in the military?;In what ways does the gay community try to tackle homophobia? Are they being successful?;Do you think being lesbian is viewed as being worse, the same or better than being gay in our society?;Could you name any famous lesbian through history?;Do you believe gays and heterosexuals have the same rights? Do they have equal duties?;What\'s your opinion on gay marriage?;What do you think of adoption by gay couples?;Do you think homosexual families can bring up children as well as straight families? If not, why?;What stereotypes do you know about gays?',
             'INTERMEDIATE',
             'Gay Community v.1')
-2020-04-18 01:36:23,674 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,674 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(11,
             'What problems do you think someone goes through when they find out they are gay?;Do you think they should try to change?;In your opinion, should they say they are gay?;What do you think your parents\' reaction would be if you told them you are gay?;Do you think one of them would take it better / worse?;Do you think their first reaction would persist or would it change?;How about your best friend\'s reaction?;How would you react if one of your children told you they\'re gay?;What are the main problems gays have to face at college?;Is it easier for a gay to live in a village or in a city?',
             'INTERMEDIATE',
             'Gay Community v.2')
-2020-04-18 01:36:23,675 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,675 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(12,
             'About how many of them would you say are not offensive?;How is it being gay in your country?;Do you know anyone who is gay?;How about any celebrities?;Or any historical figure?;Are there any gay characters on a current TV series?;Could you tell us about them?;What\'s the meaning of "homophobia"?;In your view, is there homophobia in our society? If not, why?;Do you believe that the gay community is being discriminated against in any way?;If so, why do you think there is such discrimination?',
             'INTERMEDIATE',
             'Gay Community v.3')
-2020-04-18 01:36:23,677 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,677 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(13,
             'How does having children change someone\’s life?;What kinds of things do people have to give up when they have children?;What are some of the benefits of having children?;Do you think it is better to have children when you are older or younger?;What is the best number of children to have? How many boys or girls?;What do you think about "childfree"?;Do you want to have children?;If not: Why not? Have you told your parents about your decision? What do they think about it?;If so: When do you want to have children and how many do you want to have?;Do you want your first child to be a boy or a girl? Why?;How do children who have no brothers or sisters act?;What do you think about kids from a children\'s home? Would you take a child from an orphanage?',
             'INTERMEDIATE',
             'Having children')
-2020-04-18 01:36:23,679 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,679 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(14,
             'What are two disadvantages of using smartphones and tablets?;What do you think about Cybercafes? Are they still useful?;Do you like a job in which you have to use computers?;Do you spend too much time online?;Does your mother of father know how to use a computer?;Do computers make life easier?;What websites do you visit in a regular basis?;What do you think about the Apple?;What are some advantages of using social networks?;Do you visit English websites?',
             'INTERMEDIATE',
             'Internet and Computers')
-2020-04-18 01:36:23,681 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,681 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(15,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview1')
-2020-04-18 01:36:23,683 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,683 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(16,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview')
-2020-04-18 01:36:23,685 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,685 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(17,
             'How could hospitals be made better places to visit and stay in?;Which is better: private and public health care?;What do you think about alternative medicine?;Who is more responsible for your health: you or the government?;Do you normally go one doctor in particular or any available doctor?;What disease frightens you the most? Why?;What do you do to stay healthy?',
             'PRE_INTERMEDIATE',
             'Health v.2')
-2020-04-18 01:36:23,688 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:36:23,688 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(18,
             'Do you have a lot of free time?;\'Time is money\'. Do you agree or disagree?;What\'s your perception of time now?;Do you show up early or late for work/university/meeting with friends?;Are you a \'night owl\' or an \'early bird\'?;Do you use any time management apps to structure your day/week?;Do you have some tips on how to organize your day for maximum productivity?;What Is procrastination? Why we do it and how to stop it);What would you do if you had a few extra hours in a day?;Does time go by slowly or quickly for you? What does this depend on?;What is your ideal working schedule?;Have you ever had some situations when procrastination was good for you?',
             'PRE_INTERMEDIATE',
             'Time')
 2020-04-18 01:36:23,689 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
-2020-04-18 01:36:23,689 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/meeting_catalog.xml::10::author ran successfully in 40ms
-2020-04-18 01:36:23,691 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/meeting_catalog.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7162983243')
+2020-04-18 01:36:23,689 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/topic_catalogue.xml::10::author ran successfully in 40ms
+2020-04-18 01:36:23,691 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/topic_catalogue.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7162983243')
 2020-04-18 01:36:23,698 INFO liquibase.lockservice.StandardLockService [main] Successfully released change log lock
 2020-04-18 01:36:23,844 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
 	name: default
@@ -1686,7 +1686,7 @@ Caused by: java.lang.UnsupportedOperationException: null
 2020-04-18 01:42:41,504 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`hibernate_sequence`
 2020-04-18 01:42:41,511 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`location`
 2020-04-18 01:42:41,532 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting`
-2020-04-18 01:42:41,550 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_catalog`
+2020-04-18 01:42:41,550 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`topic_catalogue`
 2020-04-18 01:42:41,582 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_info`
 2020-04-18 01:42:41,601 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll`
 2020-04-18 01:42:41,614 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll_option`
@@ -1816,10 +1816,10 @@ Caused by: java.lang.UnsupportedOperationException: null
             -- Table structure for table `poll`
             --
 
-            DROP TABLE IF EXISTS `meeting_catalog`
+            DROP TABLE IF EXISTS `topic_catalogue`
 2020-04-18 01:42:42,155 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!40101 SET @saved_cs_client = @@character_set_client */
 2020-04-18 01:42:42,156 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!50503 SET character_set_client = utf8mb4 */
-2020-04-18 01:42:42,157 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `meeting_catalog` (
+2020-04-18 01:42:42,157 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `topic_catalogue` (
             `id` int NOT NULL,
             `questions` longtext,
             `speaking_level` varchar(255) DEFAULT NULL,
@@ -2041,99 +2041,99 @@ Caused by: java.lang.UnsupportedOperationException: null
 2020-04-18 01:42:42,437 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
 2020-04-18 01:42:42,438 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/user_meeting.xml::6::brokorenko ran successfully in 25ms
 2020-04-18 01:42:42,439 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('6', 'brokorenko', 'classpath:liquibase/changelog/insert/user_meeting.xml', NOW(), 8, '8:33f4e2d91d89fb0b13b674e692267ff4', 'sql', 'Upload 3 user_meetings', 'EXECUTED', NULL, NULL, '3.6.3', '7163362011')
-2020-04-18 01:42:42,449 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,449 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (1,
             'Are there any parts of the city where you live which you are afraid to visit after dark? Where?;Are there certain weather conditions that scare people? What are they? Why do people become scared?;Are you afraid of flying?;Are you afraid of ghosts?;Are you afraid of giving a speech in public?;Are you afraid of going to the dentist?;Are you afraid of heights?;Are you afraid of the dark?;Are you afraid of getting old? Why?',
             'INTERMEDIATE',
             'Fears v.1')
-2020-04-18 01:42:42,453 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,453 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (2,
             'Are there any numbers that people are afraid of in your culture?;Were you afraid of the dark as a child?;What animal do you think is the most scary?;What is the scariest movie you have ever seen?;What is your biggest fear in life? Are you afraid that it might come true?;Do you believe people can be cured of phobias by hypnosis?;Are you afraid of speaking English?;A foreign language?;In front of many people?;At official functions?',
             'INTERMEDIATE',
             'Fears v.2')
-2020-04-18 01:42:42,456 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,456 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (3,
             'Why do people volunteer?;Would you like to work as a volunteer?;Have you ever done any volunteer work?;Is volunteering worth the time it takes?;Why would you enjoy volunteering?;Do you know anyone who has done volunteer work?;Have you ever benefitted by someone\'s volunteer work?;What benefits do you get personally by volunteering?;Can you list some reasons why people volunteer?;What types of volunteer work would be unpleasant for you?',
             'INTERMEDIATE',
             'Volunteer work')
-2020-04-18 01:42:42,458 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,458 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (4,
             'What ganre of music do you prefer?;Do you think the ganre you listen to influences your state of mind and mood?;Do you listen to music while working or studying?;Have you slept with music?;Why is classical music so popular?;What is more important in a song:the lyrics or the melody?;Remember and tell about the last consert you\'ve attended;Do you think it\'s unacceptable to lip-sync?;Is music made on computer worse than usual one?;Do you sing whilst taking shower?;Could you imagine your life without music?',
             'INTERMEDIATE',
             'Music')
-2020-04-18 01:42:42,460 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,460 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (5,
             'How do you feel about advertising?;Are you easily persuaded to buy something after seeing or hearing an advertisement?;What kind of advertisements attracts your attention?;What’s the best advertisement you\’ve ever seen?;What’s the most shocking advertisement you\’ve ever seen?;What’s the funniest advertisement you\’ve ever seen?;What makes an advertisement memorable?;Is advertising an art?;Can your favorite celebrity to persuade you to buy a product?;Are children and teenagers more influenced with advertising than adults?',
             'INTERMEDIATE',
             'Advertising')
-2020-04-18 01:42:42,463 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,463 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(6,
             'What is work-life balance for you?;Is there a “long-hours” working culture in your country?;Why should employers care about their employees’ work-life balance?;Can you tell me about your working day routine?;What does your company do to help you maintain work-life balance?;Do you overtime? If you have urgent task will you overtime or portpone it the next day?;Have you spent all your annual leave for the previous year? Do you prefer to spend it or get compensation for unused days?;What is the best time to work? Do you prefer to start work earlier or later?;Have you ever worked shifts? Did you enjoy it? Why / why not?;What do you think are the pros and cons of working shifts?;Do you think working shifts could be bad for your health? Why / why not?',
             'INTERMEDIATE',
             'Work-life balance')
-2020-04-18 01:42:42,465 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,465 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(7,
             'Are you good at making friends?;Can you remember your first friend?;What’s the best age for making friends?;How long has your strongest friendship lasted?;How often do you contact with your long-distance friends?;How difficult is it to maintain a friendship?;What can break a good relationship?;Is it a good idea to go on holiday with a friend?;What do you think about lending/borrowing money to/from a friend?;Would it be difficult if your friend was your boss or subordinate?',
             'INTERMEDIATE',
             'Friends v.1')
-2020-04-18 01:42:42,467 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,467 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(8,
             'Is it a good idea to start business with a friend?;Is it possible to establish a strong friendship through the Internet?;Is it possible to have the best friend from a different generation?;Is it possible to have the best friend from a different social or cultural background?;Is it possible to have the best friend of the opposite sex without falling in love?;Describe your ideal girlfriend/boyfriend.;Is it possible to be friends with an ex-spouse?;Is it possible to be friends with your teacher?;Can you imagine your life without friends?',
             'INTERMEDIATE',
             'Friends v.2')
-2020-04-18 01:42:42,468 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,468 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(9,
             'How conscious are you about your health?;What things might damage your health?;Should you give up something to protect your health?;What do you do to stay healthy?;Do you ever read articles or watch TV programmes about health?;Do you usually take medicine when you are sick?;Do you usually go to a doctor when you get a cold?;How often do you have a health check?;What are your experiences of hospitals?;Have you ever been to a hospital in another country?',
             'INTERMEDIATE',
             'Health v.1')
-2020-04-18 01:42:42,470 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,470 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(10,
             'Is being gay more difficult in some countries than others?;In your opinion, can a gay be a religious person?;What main problems do gays have in the military?;In what ways does the gay community try to tackle homophobia? Are they being successful?;Do you think being lesbian is viewed as being worse, the same or better than being gay in our society?;Could you name any famous lesbian through history?;Do you believe gays and heterosexuals have the same rights? Do they have equal duties?;What\'s your opinion on gay marriage?;What do you think of adoption by gay couples?;Do you think homosexual families can bring up children as well as straight families? If not, why?;What stereotypes do you know about gays?',
             'INTERMEDIATE',
             'Gay Community v.1')
-2020-04-18 01:42:42,472 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,472 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(11,
             'What problems do you think someone goes through when they find out they are gay?;Do you think they should try to change?;In your opinion, should they say they are gay?;What do you think your parents\' reaction would be if you told them you are gay?;Do you think one of them would take it better / worse?;Do you think their first reaction would persist or would it change?;How about your best friend\'s reaction?;How would you react if one of your children told you they\'re gay?;What are the main problems gays have to face at college?;Is it easier for a gay to live in a village or in a city?',
             'INTERMEDIATE',
             'Gay Community v.2')
-2020-04-18 01:42:42,474 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,474 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(12,
             'About how many of them would you say are not offensive?;How is it being gay in your country?;Do you know anyone who is gay?;How about any celebrities?;Or any historical figure?;Are there any gay characters on a current TV series?;Could you tell us about them?;What\'s the meaning of "homophobia"?;In your view, is there homophobia in our society? If not, why?;Do you believe that the gay community is being discriminated against in any way?;If so, why do you think there is such discrimination?',
             'INTERMEDIATE',
             'Gay Community v.3')
-2020-04-18 01:42:42,476 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,476 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(13,
             'How does having children change someone\’s life?;What kinds of things do people have to give up when they have children?;What are some of the benefits of having children?;Do you think it is better to have children when you are older or younger?;What is the best number of children to have? How many boys or girls?;What do you think about "childfree"?;Do you want to have children?;If not: Why not? Have you told your parents about your decision? What do they think about it?;If so: When do you want to have children and how many do you want to have?;Do you want your first child to be a boy or a girl? Why?;How do children who have no brothers or sisters act?;What do you think about kids from a children\'s home? Would you take a child from an orphanage?',
             'INTERMEDIATE',
             'Having children')
-2020-04-18 01:42:42,478 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,478 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(14,
             'What are two disadvantages of using smartphones and tablets?;What do you think about Cybercafes? Are they still useful?;Do you like a job in which you have to use computers?;Do you spend too much time online?;Does your mother of father know how to use a computer?;Do computers make life easier?;What websites do you visit in a regular basis?;What do you think about the Apple?;What are some advantages of using social networks?;Do you visit English websites?',
             'INTERMEDIATE',
             'Internet and Computers')
-2020-04-18 01:42:42,480 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,480 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(15,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview1')
-2020-04-18 01:42:42,481 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,481 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(16,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview')
-2020-04-18 01:42:42,483 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,483 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(17,
             'How could hospitals be made better places to visit and stay in?;Which is better: private and public health care?;What do you think about alternative medicine?;Who is more responsible for your health: you or the government?;Do you normally go one doctor in particular or any available doctor?;What disease frightens you the most? Why?;What do you do to stay healthy?',
             'PRE_INTERMEDIATE',
             'Health v.2')
-2020-04-18 01:42:42,484 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:42:42,484 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(18,
             'Do you have a lot of free time?;\'Time is money\'. Do you agree or disagree?;What\'s your perception of time now?;Do you show up early or late for work/university/meeting with friends?;Are you a \'night owl\' or an \'early bird\'?;Do you use any time management apps to structure your day/week?;Do you have some tips on how to organize your day for maximum productivity?;What Is procrastination? Why we do it and how to stop it);What would you do if you had a few extra hours in a day?;Does time go by slowly or quickly for you? What does this depend on?;What is your ideal working schedule?;Have you ever had some situations when procrastination was good for you?',
             'PRE_INTERMEDIATE',
             'Time')
 2020-04-18 01:42:42,486 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
-2020-04-18 01:42:42,487 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/meeting_catalog.xml::10::author ran successfully in 44ms
-2020-04-18 01:42:42,489 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/meeting_catalog.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7163362011')
+2020-04-18 01:42:42,487 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/topic_catalogue.xml::10::author ran successfully in 44ms
+2020-04-18 01:42:42,489 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/topic_catalogue.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7163362011')
 2020-04-18 01:42:42,497 INFO liquibase.lockservice.StandardLockService [main] Successfully released change log lock
 2020-04-18 01:42:42,674 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
 	name: default
@@ -2238,7 +2238,7 @@ https://search-maps.yandex.ru/v1/?apikey=7efe26bd-92bc-4c6f-89b5-41b620790bd6&te
 2020-04-18 01:45:39,445 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`hibernate_sequence`
 2020-04-18 01:45:39,449 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`location`
 2020-04-18 01:45:39,467 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting`
-2020-04-18 01:45:39,484 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_catalog`
+2020-04-18 01:45:39,484 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`topic_catalogue`
 2020-04-18 01:45:39,501 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_info`
 2020-04-18 01:45:39,518 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll`
 2020-04-18 01:45:39,524 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll_option`
@@ -2368,10 +2368,10 @@ https://search-maps.yandex.ru/v1/?apikey=7efe26bd-92bc-4c6f-89b5-41b620790bd6&te
             -- Table structure for table `poll`
             --
 
-            DROP TABLE IF EXISTS `meeting_catalog`
+            DROP TABLE IF EXISTS `topic_catalogue`
 2020-04-18 01:45:39,999 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!40101 SET @saved_cs_client = @@character_set_client */
 2020-04-18 01:45:39,999 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!50503 SET character_set_client = utf8mb4 */
-2020-04-18 01:45:40,000 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `meeting_catalog` (
+2020-04-18 01:45:40,000 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `topic_catalogue` (
             `id` int NOT NULL,
             `questions` longtext,
             `speaking_level` varchar(255) DEFAULT NULL,
@@ -2593,99 +2593,99 @@ https://search-maps.yandex.ru/v1/?apikey=7efe26bd-92bc-4c6f-89b5-41b620790bd6&te
 2020-04-18 01:45:40,235 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
 2020-04-18 01:45:40,235 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/user_meeting.xml::6::brokorenko ran successfully in 17ms
 2020-04-18 01:45:40,236 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('6', 'brokorenko', 'classpath:liquibase/changelog/insert/user_meeting.xml', NOW(), 8, '8:33f4e2d91d89fb0b13b674e692267ff4', 'sql', 'Upload 3 user_meetings', 'EXECUTED', NULL, NULL, '3.6.3', '7163539871')
-2020-04-18 01:45:40,247 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,247 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (1,
             'Are there any parts of the city where you live which you are afraid to visit after dark? Where?;Are there certain weather conditions that scare people? What are they? Why do people become scared?;Are you afraid of flying?;Are you afraid of ghosts?;Are you afraid of giving a speech in public?;Are you afraid of going to the dentist?;Are you afraid of heights?;Are you afraid of the dark?;Are you afraid of getting old? Why?',
             'INTERMEDIATE',
             'Fears v.1')
-2020-04-18 01:45:40,250 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,250 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (2,
             'Are there any numbers that people are afraid of in your culture?;Were you afraid of the dark as a child?;What animal do you think is the most scary?;What is the scariest movie you have ever seen?;What is your biggest fear in life? Are you afraid that it might come true?;Do you believe people can be cured of phobias by hypnosis?;Are you afraid of speaking English?;A foreign language?;In front of many people?;At official functions?',
             'INTERMEDIATE',
             'Fears v.2')
-2020-04-18 01:45:40,252 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,252 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (3,
             'Why do people volunteer?;Would you like to work as a volunteer?;Have you ever done any volunteer work?;Is volunteering worth the time it takes?;Why would you enjoy volunteering?;Do you know anyone who has done volunteer work?;Have you ever benefitted by someone\'s volunteer work?;What benefits do you get personally by volunteering?;Can you list some reasons why people volunteer?;What types of volunteer work would be unpleasant for you?',
             'INTERMEDIATE',
             'Volunteer work')
-2020-04-18 01:45:40,254 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,254 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (4,
             'What ganre of music do you prefer?;Do you think the ganre you listen to influences your state of mind and mood?;Do you listen to music while working or studying?;Have you slept with music?;Why is classical music so popular?;What is more important in a song:the lyrics or the melody?;Remember and tell about the last consert you\'ve attended;Do you think it\'s unacceptable to lip-sync?;Is music made on computer worse than usual one?;Do you sing whilst taking shower?;Could you imagine your life without music?',
             'INTERMEDIATE',
             'Music')
-2020-04-18 01:45:40,256 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,256 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (5,
             'How do you feel about advertising?;Are you easily persuaded to buy something after seeing or hearing an advertisement?;What kind of advertisements attracts your attention?;What’s the best advertisement you\’ve ever seen?;What’s the most shocking advertisement you\’ve ever seen?;What’s the funniest advertisement you\’ve ever seen?;What makes an advertisement memorable?;Is advertising an art?;Can your favorite celebrity to persuade you to buy a product?;Are children and teenagers more influenced with advertising than adults?',
             'INTERMEDIATE',
             'Advertising')
-2020-04-18 01:45:40,258 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,258 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(6,
             'What is work-life balance for you?;Is there a “long-hours” working culture in your country?;Why should employers care about their employees’ work-life balance?;Can you tell me about your working day routine?;What does your company do to help you maintain work-life balance?;Do you overtime? If you have urgent task will you overtime or portpone it the next day?;Have you spent all your annual leave for the previous year? Do you prefer to spend it or get compensation for unused days?;What is the best time to work? Do you prefer to start work earlier or later?;Have you ever worked shifts? Did you enjoy it? Why / why not?;What do you think are the pros and cons of working shifts?;Do you think working shifts could be bad for your health? Why / why not?',
             'INTERMEDIATE',
             'Work-life balance')
-2020-04-18 01:45:40,261 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,261 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(7,
             'Are you good at making friends?;Can you remember your first friend?;What’s the best age for making friends?;How long has your strongest friendship lasted?;How often do you contact with your long-distance friends?;How difficult is it to maintain a friendship?;What can break a good relationship?;Is it a good idea to go on holiday with a friend?;What do you think about lending/borrowing money to/from a friend?;Would it be difficult if your friend was your boss or subordinate?',
             'INTERMEDIATE',
             'Friends v.1')
-2020-04-18 01:45:40,263 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,263 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(8,
             'Is it a good idea to start business with a friend?;Is it possible to establish a strong friendship through the Internet?;Is it possible to have the best friend from a different generation?;Is it possible to have the best friend from a different social or cultural background?;Is it possible to have the best friend of the opposite sex without falling in love?;Describe your ideal girlfriend/boyfriend.;Is it possible to be friends with an ex-spouse?;Is it possible to be friends with your teacher?;Can you imagine your life without friends?',
             'INTERMEDIATE',
             'Friends v.2')
-2020-04-18 01:45:40,265 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,265 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(9,
             'How conscious are you about your health?;What things might damage your health?;Should you give up something to protect your health?;What do you do to stay healthy?;Do you ever read articles or watch TV programmes about health?;Do you usually take medicine when you are sick?;Do you usually go to a doctor when you get a cold?;How often do you have a health check?;What are your experiences of hospitals?;Have you ever been to a hospital in another country?',
             'INTERMEDIATE',
             'Health v.1')
-2020-04-18 01:45:40,267 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,267 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(10,
             'Is being gay more difficult in some countries than others?;In your opinion, can a gay be a religious person?;What main problems do gays have in the military?;In what ways does the gay community try to tackle homophobia? Are they being successful?;Do you think being lesbian is viewed as being worse, the same or better than being gay in our society?;Could you name any famous lesbian through history?;Do you believe gays and heterosexuals have the same rights? Do they have equal duties?;What\'s your opinion on gay marriage?;What do you think of adoption by gay couples?;Do you think homosexual families can bring up children as well as straight families? If not, why?;What stereotypes do you know about gays?',
             'INTERMEDIATE',
             'Gay Community v.1')
-2020-04-18 01:45:40,268 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,268 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(11,
             'What problems do you think someone goes through when they find out they are gay?;Do you think they should try to change?;In your opinion, should they say they are gay?;What do you think your parents\' reaction would be if you told them you are gay?;Do you think one of them would take it better / worse?;Do you think their first reaction would persist or would it change?;How about your best friend\'s reaction?;How would you react if one of your children told you they\'re gay?;What are the main problems gays have to face at college?;Is it easier for a gay to live in a village or in a city?',
             'INTERMEDIATE',
             'Gay Community v.2')
-2020-04-18 01:45:40,271 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,271 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(12,
             'About how many of them would you say are not offensive?;How is it being gay in your country?;Do you know anyone who is gay?;How about any celebrities?;Or any historical figure?;Are there any gay characters on a current TV series?;Could you tell us about them?;What\'s the meaning of "homophobia"?;In your view, is there homophobia in our society? If not, why?;Do you believe that the gay community is being discriminated against in any way?;If so, why do you think there is such discrimination?',
             'INTERMEDIATE',
             'Gay Community v.3')
-2020-04-18 01:45:40,273 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,273 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(13,
             'How does having children change someone\’s life?;What kinds of things do people have to give up when they have children?;What are some of the benefits of having children?;Do you think it is better to have children when you are older or younger?;What is the best number of children to have? How many boys or girls?;What do you think about "childfree"?;Do you want to have children?;If not: Why not? Have you told your parents about your decision? What do they think about it?;If so: When do you want to have children and how many do you want to have?;Do you want your first child to be a boy or a girl? Why?;How do children who have no brothers or sisters act?;What do you think about kids from a children\'s home? Would you take a child from an orphanage?',
             'INTERMEDIATE',
             'Having children')
-2020-04-18 01:45:40,275 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,275 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(14,
             'What are two disadvantages of using smartphones and tablets?;What do you think about Cybercafes? Are they still useful?;Do you like a job in which you have to use computers?;Do you spend too much time online?;Does your mother of father know how to use a computer?;Do computers make life easier?;What websites do you visit in a regular basis?;What do you think about the Apple?;What are some advantages of using social networks?;Do you visit English websites?',
             'INTERMEDIATE',
             'Internet and Computers')
-2020-04-18 01:45:40,277 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,277 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(15,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview1')
-2020-04-18 01:45:40,278 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,278 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(16,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview')
-2020-04-18 01:45:40,279 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,279 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(17,
             'How could hospitals be made better places to visit and stay in?;Which is better: private and public health care?;What do you think about alternative medicine?;Who is more responsible for your health: you or the government?;Do you normally go one doctor in particular or any available doctor?;What disease frightens you the most? Why?;What do you do to stay healthy?',
             'PRE_INTERMEDIATE',
             'Health v.2')
-2020-04-18 01:45:40,281 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:45:40,281 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(18,
             'Do you have a lot of free time?;\'Time is money\'. Do you agree or disagree?;What\'s your perception of time now?;Do you show up early or late for work/university/meeting with friends?;Are you a \'night owl\' or an \'early bird\'?;Do you use any time management apps to structure your day/week?;Do you have some tips on how to organize your day for maximum productivity?;What Is procrastination? Why we do it and how to stop it);What would you do if you had a few extra hours in a day?;Does time go by slowly or quickly for you? What does this depend on?;What is your ideal working schedule?;Have you ever had some situations when procrastination was good for you?',
             'PRE_INTERMEDIATE',
             'Time')
 2020-04-18 01:45:40,282 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
-2020-04-18 01:45:40,282 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/meeting_catalog.xml::10::author ran successfully in 42ms
-2020-04-18 01:45:40,283 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/meeting_catalog.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7163539871')
+2020-04-18 01:45:40,282 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/topic_catalogue.xml::10::author ran successfully in 42ms
+2020-04-18 01:45:40,283 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/topic_catalogue.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7163539871')
 2020-04-18 01:45:40,291 INFO liquibase.lockservice.StandardLockService [main] Successfully released change log lock
 2020-04-18 01:45:40,429 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
 	name: default
@@ -2832,7 +2832,7 @@ com.razykrashka.bot.exception.StageActivityException: More than one stage is act
 2020-04-18 01:52:24,197 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`hibernate_sequence`
 2020-04-18 01:52:24,203 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`location`
 2020-04-18 01:52:24,218 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting`
-2020-04-18 01:52:24,234 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_catalog`
+2020-04-18 01:52:24,234 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`topic_catalogue`
 2020-04-18 01:52:24,251 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`meeting_info`
 2020-04-18 01:52:24,267 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll`
 2020-04-18 01:52:24,274 INFO liquibase.executor.jvm.JdbcExecutor [main] DROP TABLE `telegram-bot`.`poll_option`
@@ -2962,10 +2962,10 @@ com.razykrashka.bot.exception.StageActivityException: More than one stage is act
             -- Table structure for table `poll`
             --
 
-            DROP TABLE IF EXISTS `meeting_catalog`
+            DROP TABLE IF EXISTS `topic_catalogue`
 2020-04-18 01:52:24,773 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!40101 SET @saved_cs_client = @@character_set_client */
 2020-04-18 01:52:24,774 INFO liquibase.executor.jvm.JdbcExecutor [main] /*!50503 SET character_set_client = utf8mb4 */
-2020-04-18 01:52:24,774 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `meeting_catalog` (
+2020-04-18 01:52:24,774 INFO liquibase.executor.jvm.JdbcExecutor [main] CREATE TABLE `topic_catalogue` (
             `id` int NOT NULL,
             `questions` longtext,
             `speaking_level` varchar(255) DEFAULT NULL,
@@ -3187,99 +3187,99 @@ com.razykrashka.bot.exception.StageActivityException: More than one stage is act
 2020-04-18 01:52:25,040 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
 2020-04-18 01:52:25,040 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/user_meeting.xml::6::brokorenko ran successfully in 19ms
 2020-04-18 01:52:25,041 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('6', 'brokorenko', 'classpath:liquibase/changelog/insert/user_meeting.xml', NOW(), 8, '8:33f4e2d91d89fb0b13b674e692267ff4', 'sql', 'Upload 3 user_meetings', 'EXECUTED', NULL, NULL, '3.6.3', '7163944634')
-2020-04-18 01:52:25,047 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,047 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (1,
             'Are there any parts of the city where you live which you are afraid to visit after dark? Where?;Are there certain weather conditions that scare people? What are they? Why do people become scared?;Are you afraid of flying?;Are you afraid of ghosts?;Are you afraid of giving a speech in public?;Are you afraid of going to the dentist?;Are you afraid of heights?;Are you afraid of the dark?;Are you afraid of getting old? Why?',
             'INTERMEDIATE',
             'Fears v.1')
-2020-04-18 01:52:25,049 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,049 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (2,
             'Are there any numbers that people are afraid of in your culture?;Were you afraid of the dark as a child?;What animal do you think is the most scary?;What is the scariest movie you have ever seen?;What is your biggest fear in life? Are you afraid that it might come true?;Do you believe people can be cured of phobias by hypnosis?;Are you afraid of speaking English?;A foreign language?;In front of many people?;At official functions?',
             'INTERMEDIATE',
             'Fears v.2')
-2020-04-18 01:52:25,051 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,051 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (3,
             'Why do people volunteer?;Would you like to work as a volunteer?;Have you ever done any volunteer work?;Is volunteering worth the time it takes?;Why would you enjoy volunteering?;Do you know anyone who has done volunteer work?;Have you ever benefitted by someone\'s volunteer work?;What benefits do you get personally by volunteering?;Can you list some reasons why people volunteer?;What types of volunteer work would be unpleasant for you?',
             'INTERMEDIATE',
             'Volunteer work')
-2020-04-18 01:52:25,053 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,053 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (4,
             'What ganre of music do you prefer?;Do you think the ganre you listen to influences your state of mind and mood?;Do you listen to music while working or studying?;Have you slept with music?;Why is classical music so popular?;What is more important in a song:the lyrics or the melody?;Remember and tell about the last consert you\'ve attended;Do you think it\'s unacceptable to lip-sync?;Is music made on computer worse than usual one?;Do you sing whilst taking shower?;Could you imagine your life without music?',
             'INTERMEDIATE',
             'Music')
-2020-04-18 01:52:25,056 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,056 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES (5,
             'How do you feel about advertising?;Are you easily persuaded to buy something after seeing or hearing an advertisement?;What kind of advertisements attracts your attention?;What’s the best advertisement you\’ve ever seen?;What’s the most shocking advertisement you\’ve ever seen?;What’s the funniest advertisement you\’ve ever seen?;What makes an advertisement memorable?;Is advertising an art?;Can your favorite celebrity to persuade you to buy a product?;Are children and teenagers more influenced with advertising than adults?',
             'INTERMEDIATE',
             'Advertising')
-2020-04-18 01:52:25,058 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,058 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(6,
             'What is work-life balance for you?;Is there a “long-hours” working culture in your country?;Why should employers care about their employees’ work-life balance?;Can you tell me about your working day routine?;What does your company do to help you maintain work-life balance?;Do you overtime? If you have urgent task will you overtime or portpone it the next day?;Have you spent all your annual leave for the previous year? Do you prefer to spend it or get compensation for unused days?;What is the best time to work? Do you prefer to start work earlier or later?;Have you ever worked shifts? Did you enjoy it? Why / why not?;What do you think are the pros and cons of working shifts?;Do you think working shifts could be bad for your health? Why / why not?',
             'INTERMEDIATE',
             'Work-life balance')
-2020-04-18 01:52:25,060 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,060 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(7,
             'Are you good at making friends?;Can you remember your first friend?;What’s the best age for making friends?;How long has your strongest friendship lasted?;How often do you contact with your long-distance friends?;How difficult is it to maintain a friendship?;What can break a good relationship?;Is it a good idea to go on holiday with a friend?;What do you think about lending/borrowing money to/from a friend?;Would it be difficult if your friend was your boss or subordinate?',
             'INTERMEDIATE',
             'Friends v.1')
-2020-04-18 01:52:25,061 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,061 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(8,
             'Is it a good idea to start business with a friend?;Is it possible to establish a strong friendship through the Internet?;Is it possible to have the best friend from a different generation?;Is it possible to have the best friend from a different social or cultural background?;Is it possible to have the best friend of the opposite sex without falling in love?;Describe your ideal girlfriend/boyfriend.;Is it possible to be friends with an ex-spouse?;Is it possible to be friends with your teacher?;Can you imagine your life without friends?',
             'INTERMEDIATE',
             'Friends v.2')
-2020-04-18 01:52:25,063 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,063 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(9,
             'How conscious are you about your health?;What things might damage your health?;Should you give up something to protect your health?;What do you do to stay healthy?;Do you ever read articles or watch TV programmes about health?;Do you usually take medicine when you are sick?;Do you usually go to a doctor when you get a cold?;How often do you have a health check?;What are your experiences of hospitals?;Have you ever been to a hospital in another country?',
             'INTERMEDIATE',
             'Health v.1')
-2020-04-18 01:52:25,065 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,065 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(10,
             'Is being gay more difficult in some countries than others?;In your opinion, can a gay be a religious person?;What main problems do gays have in the military?;In what ways does the gay community try to tackle homophobia? Are they being successful?;Do you think being lesbian is viewed as being worse, the same or better than being gay in our society?;Could you name any famous lesbian through history?;Do you believe gays and heterosexuals have the same rights? Do they have equal duties?;What\'s your opinion on gay marriage?;What do you think of adoption by gay couples?;Do you think homosexual families can bring up children as well as straight families? If not, why?;What stereotypes do you know about gays?',
             'INTERMEDIATE',
             'Gay Community v.1')
-2020-04-18 01:52:25,067 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,067 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(11,
             'What problems do you think someone goes through when they find out they are gay?;Do you think they should try to change?;In your opinion, should they say they are gay?;What do you think your parents\' reaction would be if you told them you are gay?;Do you think one of them would take it better / worse?;Do you think their first reaction would persist or would it change?;How about your best friend\'s reaction?;How would you react if one of your children told you they\'re gay?;What are the main problems gays have to face at college?;Is it easier for a gay to live in a village or in a city?',
             'INTERMEDIATE',
             'Gay Community v.2')
-2020-04-18 01:52:25,069 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,069 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(12,
             'About how many of them would you say are not offensive?;How is it being gay in your country?;Do you know anyone who is gay?;How about any celebrities?;Or any historical figure?;Are there any gay characters on a current TV series?;Could you tell us about them?;What\'s the meaning of "homophobia"?;In your view, is there homophobia in our society? If not, why?;Do you believe that the gay community is being discriminated against in any way?;If so, why do you think there is such discrimination?',
             'INTERMEDIATE',
             'Gay Community v.3')
-2020-04-18 01:52:25,071 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,071 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(13,
             'How does having children change someone\’s life?;What kinds of things do people have to give up when they have children?;What are some of the benefits of having children?;Do you think it is better to have children when you are older or younger?;What is the best number of children to have? How many boys or girls?;What do you think about "childfree"?;Do you want to have children?;If not: Why not? Have you told your parents about your decision? What do they think about it?;If so: When do you want to have children and how many do you want to have?;Do you want your first child to be a boy or a girl? Why?;How do children who have no brothers or sisters act?;What do you think about kids from a children\'s home? Would you take a child from an orphanage?',
             'INTERMEDIATE',
             'Having children')
-2020-04-18 01:52:25,073 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,073 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(14,
             'What are two disadvantages of using smartphones and tablets?;What do you think about Cybercafes? Are they still useful?;Do you like a job in which you have to use computers?;Do you spend too much time online?;Does your mother of father know how to use a computer?;Do computers make life easier?;What websites do you visit in a regular basis?;What do you think about the Apple?;What are some advantages of using social networks?;Do you visit English websites?',
             'INTERMEDIATE',
             'Internet and Computers')
-2020-04-18 01:52:25,074 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,074 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(15,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview1')
-2020-04-18 01:52:25,076 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,076 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(16,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
             'Job interview')
-2020-04-18 01:52:25,078 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,078 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(17,
             'How could hospitals be made better places to visit and stay in?;Which is better: private and public health care?;What do you think about alternative medicine?;Who is more responsible for your health: you or the government?;Do you normally go one doctor in particular or any available doctor?;What disease frightens you the most? Why?;What do you do to stay healthy?',
             'PRE_INTERMEDIATE',
             'Health v.2')
-2020-04-18 01:52:25,080 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+2020-04-18 01:52:25,080 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES(18,
             'Do you have a lot of free time?;\'Time is money\'. Do you agree or disagree?;What\'s your perception of time now?;Do you show up early or late for work/university/meeting with friends?;Are you a \'night owl\' or an \'early bird\'?;Do you use any time management apps to structure your day/week?;Do you have some tips on how to organize your day for maximum productivity?;What Is procrastination? Why we do it and how to stop it);What would you do if you had a few extra hours in a day?;Does time go by slowly or quickly for you? What does this depend on?;What is your ideal working schedule?;Have you ever had some situations when procrastination was good for you?',
             'PRE_INTERMEDIATE',
             'Time')
 2020-04-18 01:52:25,081 INFO liquibase.changelog.ChangeSet [main] Custom SQL executed
-2020-04-18 01:52:25,082 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/meeting_catalog.xml::10::author ran successfully in 37ms
-2020-04-18 01:52:25,083 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/meeting_catalog.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7163944634')
+2020-04-18 01:52:25,082 INFO liquibase.changelog.ChangeSet [main] ChangeSet classpath:liquibase/changelog/insert/topic_catalogue.xml::10::author ran successfully in 37ms
+2020-04-18 01:52:25,083 INFO liquibase.executor.jvm.JdbcExecutor [main] INSERT INTO `telegram-bot`.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, `DESCRIPTION`, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('10', 'author', 'classpath:liquibase/changelog/insert/topic_catalogue.xml', NOW(), 9, '8:546671f1f28bb8bda1d5595ee5c63693', 'sql', '', 'EXECUTED', NULL, NULL, '3.6.3', '7163944634')
 2020-04-18 01:52:25,090 INFO liquibase.lockservice.StandardLockService [main] Successfully released change log lock
 2020-04-18 01:52:25,267 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
 	name: default

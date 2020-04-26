@@ -6,116 +6,116 @@
     <changeSet author="orutsky" id="10">
         <sql>
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('201',
             'What are the advantages and disadvantages of owning a car?;Are men better drivers than women? Are women better drivers than men?;Do you think the age for driving should be raised or lowered?;What are the advantages and disadvantages of having a GPS?;Does the type of car a person drives tell us about the person who drives it?;What are the advantages and disadvantages of air conditioning?;Do you think that the style of driving depends on person\'s character?;Do you think there are too many cars in the streets nowadays?;Do you think that punishment for violating traffic rules should be more stringent?;What would our live be like without cars? Will it better or worse?',
             'UPPER_INTERMEDIATE',
             'Cars and Driving');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('202',
             'If your friend was doing something dangerous or illegal would you tell his parents or his teacher about it?;If you found your sister\'s or brother\'s diary, would you read it or would you respect their privacy?;When you meet someone new, are there some things that you want to keep secret or private?;Are you concerned about Internet privacy?;What do you think about foreign countries asking you for your fingerprints when you live there?;When applying for a job is it OK for a company to ask you about your religion, marital status, sexual orientation or narcotic use?;If you were going to marry someone, but had a family secret they should know before you get married would you tell them?;If you won a lot of money, would you tell your family?;Do you think you should keep something in secret till you die if you have promised another person to do so?;What would our life be without secrets?',
             'UPPER_INTERMEDIATE',
             'Secrets');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('203',
             'Is being gay more difficult in some countries than others?;In your opinion, can a gay be a religious person?;What main problems do gays have in the military?;In what ways does the gay community try to tackle homophobia? Are they being successful?;Do you think being lesbian is viewed as being worse, the same or better than being gay in our society?;Could you name any famous lesbian through history?;Do you believe gays and heterosexuals have the same rights? Do they have equal duties?;What\'s your opinion on gay marriage?;What do you think of adoption by gay couples?;Do you think homosexual families can bring up children as well as straight families? If not, why?;What stereotypes do you know about gays?',
             'UPPER_INTERMEDIATE',
             'Gay Community v.1');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('204',
             'What problems do you think someone goes through when they find out they are gay?;Do you think they should try to change?;In your opinion, should they say they are gay?;What do you think your parents\' reaction would be if you told them you are gay?;Do you think one of them would take it better / worse?;Do you think their first reaction would persist or would it change?;How about your best friend\'s reaction?;How would you react if one of your children told you they\'re gay?;What are the main problems gays have to face at college?;Is it easier for a gay to live in a village or in a city?',
             'UPPER_INTERMEDIATE',
             'Gay Community v.2');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('205',
             'About how many of them would you say are not offensive?;How is it being gay in your country?;Do you know anyone who is gay?;How about any celebrities?;Or any historical figure?;Are there any gay characters on a current TV series?;Could you tell us about them?;What\'s the meaning of "homophobia"?;In your view, is there homophobia in our society? If not, why?;Do you believe that the gay community is being discriminated against in any way?;If so, why do you think there is such discrimination?',
             'UPPER_INTERMEDIATE',
             'Gay Community v.3');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('206',
             'Are there any parts of the city where you live which you are afraid to visit after dark? Where?;Are there certain weather conditions that scare people? What are they? Why do people become scared?;Are you afraid of flying?;Are you afraid of ghosts?;Are you afraid of giving a speech in public?;Are you afraid of going to the dentist?;Are you afraid of heights?;Are you afraid of the dark?;Are you afraid of getting old? Why?',
             'PRE_INTERMEDIATE',
             'Fears v.1');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('207',
             'Are there any numbers that people are afraid of in your culture?;Were you afraid of the dark as a child?;What animal do you think is the most scary?;What is the scariest movie you have ever seen?;What is your biggest fear in life? Are you afraid that it might come true?;Do you believe people can be cured of phobias by hypnosis?;Are you afraid of speaking English?;A foreign language?;In front of many people?;At official functions?',
             'PRE_INTERMEDIATE',
             'Fears v.2');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('208',
             'What are two disadvantages of using smartphones and tablets?;What do you think about Cybercafes? Are they still useful?;Do you like a job in which you have to use computers?;Do you spend too much time online?;Does your mother of father know how to use a computer?;Do computers make life easier?;What websites do you visit in a regular basis?;What do you think about the Apple?;What are some advantages of using social networks?;Do you visit English websites?',
             'INTERMEDIATE',
             'Internet and Computers');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('209',
             'Why do people volunteer?;Would you like to work as a volunteer?;Have you ever done any volunteer work?;Is volunteering worth the time it takes?;Why would you enjoy volunteering?;Do you know anyone who has done volunteer work?;Have you ever benefitted by someone\'s volunteer work?;What benefits do you get personally by volunteering?;Can you list some reasons why people volunteer?;What types of volunteer work would be unpleasant for you?',
             'INTERMEDIATE',
             'Volunteer work');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('210',
             'Are you good at making friends?;Can you remember your first friend?;What\'s the best age for making friends?;How long has your strongest friendship lasted?;How often do you contact with your long-distance friends?;How difficult is it to maintain a friendship?;What can break a good relationship?;Is it a good idea to go on holiday with a friend?;What do you think about lending/borrowing money to/from a friend?;Would it be difficult if your friend was your boss or subordinate?',
             'INTERMEDIATE',
             'Friends v.1');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('211',
             'How conscious are you about your health?;What things might damage your health?;Should you give up something to protect your health?;What do you do to stay healthy?;Do you ever read articles or watch TV programmes about health?;Do you usually take medicine when you are sick?;Do you usually go to a doctor when you get a cold?;How often do you have a health check?;What are your experiences of hospitals?;Have you ever been to a hospital in another country?',
             'INTERMEDIATE',
             'Health v.1');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('212',
             'How could hospitals be made better places to visit and stay in?;Which is better: private and public health care?;What do you think about alternative medicine?;Who is more responsible for your health: you or the government?;Do you normally go one doctor in particular or any available doctor?;What disease frightens you the most? Why?;What do you do to stay healthy?',
             'INTERMEDIATE',
             'Health v.2');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('213',
             'Do you have a lot of free time?;"Time is money". Do you agree or disagree?;What\'s your perception of time now?;Do you show up early or late for work/university/meeting with friends?;Are you a "night owl" or an "early bird"?;Do you use any time management apps to structure your day/week?;Do you have some tips on how to organize your day for maximum productivity?;What Is procrastination? Why we do it and how to stop it);What would you do if you had a few extra hours in a day?;Does time go by slowly or quickly for you? What does this depend on?;What is your ideal working schedule?;Have you ever had some situations when procrastination was good for you?',
             'INTERMEDIATE',
             'Time');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('214',
             'Do you think journalism is different in different countries around the world?;What do you think of journalists who report in war zones?;What positive and negative sides does journalism have?;Do you think people can make a lot of money from journalism?;Do you think investigative journalism is interesting?;How important is journalism in today\'s world?;What do you think of the paparazzi - are they doing a good job stalking celebrities?;Do you think the Internet can make us all journalists?;What do you think world leaders and government s think of journalism?;Does the government control journalism in your country?',
             'UPPER_INTERMEDIATE',
             'Journalism');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('215',
             'Why do we say men are from Mars and women are from Venus?;Why men and women are different when it comes to communicating with each other?;Why relationships became so complicated in the modern world?;How can women make men\'s life different and vice versa?;Why women are more verbal than men?;How can you describe the term “gender politics”?;Do you think that gender inequality does exist in modern world?;Do you agree with the idea that women need to be given more rights and opportunities in our society?;Do you think that sexual harassment is a big issue in modern society?;Do you stick to a conservative point of view in terms of the distribution of social roles of men and women or do you approach this issue in a different way?',
             'INTERMEDIATE',
             'Men and Women');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('216',
             'How can the word “hobby” be described?;Is doing extreme sports a good kind of hobby?;Can a person become a real professional in something he is doing as a hobby?;Do you agree that hobbies help people to become a better rounded person?;Which hobbies do you think are the most difficult?;Can some hobbies be disruptive for your personality?;Should parents let their children choose pastime activities for themselves or should they encourage them to do things that they want them to do?;Should each person have a hobby?;Is it OK for a grown-up to have some kind of hobby which is usually associated with the way children spend their free time?;What would your life be without any hobby?',
             'PRE_INTERMEDIATE',
             'Hobbies and Interests');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('217',
             'What is responsibility in your opinion?;What should a responsible friend/spouse/parent/sibling/grandparent be like?;What are the responsibilities of parents?;How should kids be raised so that they become responsible and not live off their parents?;Why are some people irresponsible?;How can we fight procrastination?;Are we responsible for our elderly parents?;18 is now very often considered the age of legal adulthood. Do you think this is an appropriate age to be considered an adult?;Should all the people be socially responsible in any situations?;Is social responsibility important for corporations? Should companies think about more than just the “bottom line”?',
             'INTERMEDIATE',
             'Responsibility');
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('218',
             'What qualities does a high-minded person have?;Do we need religion to be people of good morals?;Are we obliged to religion for the existence of morality?;Is it necessary to create universal moral values? If so, what should they be like?;Should people all over the world reach common ground in answers to the most important questions of human life?;How do we understand what is good and what is bad?;Are our moral values based on facts about human and animal well-being;Can science (neurology, psychology) answer some general moral questions (e. g., what is good and what is bad?)?;Should we always follow our principles?;Is it easy to be an altruist?',
             'INTERMEDIATE',
             'Morality, Empathy and Altruism');
 
 
-            INSERT INTO meeting_catalog (id, questions, speaking_level, topic)
+            INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('219',
             'Why are so many people afraid of death, when it is unavoidable?;What do you think lies beyond the death?;Do you believe in reincarnation?;If you could re-live your life, what would you change?;Do you believe some day we could live forever?;How living immortally differs from living as a mortal person?;Is immortality worse than death?;Do we cheat Mother Nature by our attempts to prolong our lives?;What are the implications of people living longer?;Would you like to have your body frozen, so that you could be thawed out and brought back to life sometime in the future?',
             'UPPER_INTERMEDIATE',

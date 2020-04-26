@@ -91,7 +91,7 @@ public class MeetingMessageUtils {
 
         StringBuilder levelLine = new StringBuilder()
                 .append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
-                .append(Emoji.HIEROGLYPH).append(" ").append(meetingInfo.getSpeakingLevel().getLevel()).append("\n");
+                .append(Emoji.HIEROGLYPH).append(" ").append(meetingInfo.getSpeakingLevel().getLabel()).append("\n");
 
         StringBuilder topicLine = new StringBuilder()
                 .append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
@@ -182,7 +182,7 @@ public class MeetingMessageUtils {
         }
 
         String levelLine = new StringBuilder()
-                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()))
+                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLabel()))
                 .toString();
         String topicLevelLine = new StringBuilder()
                 .append(Emoji.SPACES).append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getTopic())
@@ -224,7 +224,7 @@ public class MeetingMessageUtils {
         }
 
         String levelLine = new StringBuilder()
-                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()))
+                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLabel()))
                 .toString();
         String topicLevelLine = new StringBuilder()
                 .append(Emoji.SPACES).append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getTopic())
@@ -267,7 +267,7 @@ public class MeetingMessageUtils {
         }
 
         String levelLine = new StringBuilder()
-                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLevel()))
+                .append(Emoji.SPACES).append(TextFormatter.getBoldString(meeting.getMeetingInfo().getSpeakingLevel().getLabel()))
                 .toString();
         String topicLevelLine = new StringBuilder()
                 .append(Emoji.SPACES).append(Emoji.SPEECH_CLOUD).append(" ").append(meeting.getMeetingInfo().getTopic())
@@ -339,7 +339,7 @@ public class MeetingMessageUtils {
                 sb.append("\n\n")
                         .append(Emoji.HIEROGLYPH)
                         .append(TextFormatter.getBoldString(" Level: "))
-                        .append(meetingInfo.getSpeakingLevel().getLevel());
+                        .append(meetingInfo.getSpeakingLevel().getLabel());
             }
             if (meetingInfo.getParticipantLimit() != null) {
                 sb.append("\n\n")
@@ -402,7 +402,7 @@ public class MeetingMessageUtils {
                 sb.append("\n\n")
                         .append(Emoji.HIEROGLYPH)
                         .append(TextFormatter.getBoldString(" Level: "))
-                        .append(meetingInfo.getSpeakingLevel().getLevel());
+                        .append(meetingInfo.getSpeakingLevel().getLabel());
             }
             if (meetingInfo.getParticipantLimit() != null) {
                 sb.append("\n\n")
@@ -447,7 +447,7 @@ public class MeetingMessageUtils {
         sb.append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.TWO_PERSONS_SILHOUETTE).append("   ").append(meeting.getMeetingInfo().getParticipantLimit()).append("\n")
                 .append(Emoji.CHAINS).append("\n")
-                .append(Emoji.CHAINS).append("   ").append(Emoji.HIEROGLYPH).append("   ").append(meeting.getMeetingInfo().getSpeakingLevel().getLevel()).append("\n")
+                .append(Emoji.CHAINS).append("   ").append(Emoji.HIEROGLYPH).append("   ").append(meeting.getMeetingInfo().getSpeakingLevel().getLabel()).append("\n")
                 .append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.SPEECH_CLOUD).append("   ").append(meeting.getMeetingInfo().getTopic()).append("\n")
                 .append(Emoji.CHAINS).append("\n")
