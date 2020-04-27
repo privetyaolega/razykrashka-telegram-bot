@@ -15,6 +15,10 @@ public class HelpStage extends InformationMainStage {
 
     public final static String KEYWORD = "/help";
 
+    public HelpStage() {
+        buttonLabel = "Help";
+    }
+
     @Override
     public void handleRequest() {
         messageManager
@@ -46,7 +50,7 @@ public class HelpStage extends InformationMainStage {
 
     @Override
     public void processCallBackQuery() {
-        messageManager.updateMessage(getMessage(), getKeyboardWithHighlightedButton("Help"));
+        messageManager.updateMessage(getMessage(), getKeyboardWithHighlightedButton());
     }
 
     @Override

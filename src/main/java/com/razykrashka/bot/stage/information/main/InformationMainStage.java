@@ -14,8 +14,9 @@ public abstract class InformationMainStage extends MainStage {
 
     static final String HIGHLIGHT_LEFT_BORDER = "⤙ ";
     static final String HIGHLIGHT_RIGHT_BORDER = " ⤚";
+    String buttonLabel;
 
-    protected ReplyKeyboard getKeyboardWithHighlightedButton(String buttonLabel) {
+    protected ReplyKeyboard getKeyboardWithHighlightedButton() {
         return keyboardBuilder
                 .getKeyboard()
                 .setRow(ImmutableMap.of(
@@ -23,6 +24,7 @@ public abstract class InformationMainStage extends MainStage {
                         "Statistics", StatisticStage.class.getSimpleName()
                 ))
                 .setRow("Help", HelpStage.class.getSimpleName())
+                .setRow("Contacts", ContactsStage.class.getSimpleName())
                 .highlightButtonWithText(buttonLabel, HIGHLIGHT_LEFT_BORDER, HIGHLIGHT_RIGHT_BORDER)
                 .build();
     }

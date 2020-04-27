@@ -10,6 +10,10 @@ public class InformationStage extends InformationMainStage {
 
     public static final String KEYWORD = "Information";
 
+    public InformationStage() {
+        buttonLabel = "Main";
+    }
+
     @Override
     public void processCallBackQuery() {
         messageManager.updateOrSendDependsOnLastMessageOwner("Have you been learning English for a long time but you are still afraid to speak it? " + Emoji.SCREAM +
@@ -23,7 +27,7 @@ public class InformationStage extends InformationMainStage {
                         "Join one of the available meetings or create a new one! You can be your own boss here \uD83D\uDE0E\n" +
                         "\n" +
                         "Let’s get started! /create",
-                getKeyboardWithHighlightedButton("Main"));
+                getKeyboardWithHighlightedButton());
     }
 
     @Override

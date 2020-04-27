@@ -16,13 +16,17 @@ public class StatisticStage extends InformationMainStage {
     @Value("${razykrashka.group.id}")
     Long groupChatId;
 
+    public StatisticStage() {
+        buttonLabel = "Statistics";
+    }
+
     @Override
     public void processCallBackQuery() {
         Long doneMeetingsCount = meetingRepository.countByMeetingDateTimeBefore();
         long usersUsingBotCount = telegramUserRepository.count();
 
         String message = getFormatString("main", doneMeetingsCount, usersUsingBotCount, getMembersCount());
-        messageManager.updateOrSendDependsOnLastMessageOwner(message, getKeyboardWithHighlightedButton("Statistics"));
+        messageManager.updateOrSendDependsOnLastMessageOwner(message, getKeyboardWithHighlightedButton());
     }
 
     private int getMembersCount() {
