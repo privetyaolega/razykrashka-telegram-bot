@@ -26,6 +26,7 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.payments.LabeledPrice;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 import org.telegram.telegrambots.meta.api.objects.polls.PollOption;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -360,5 +361,28 @@ public class MessageManager extends Sender {
                 .setChatId(updateHelper.getChatId())
                 .setAction(actionType);
         return send(action);
+    }
+
+    public MessageManager sendInvoice() {
+        LabeledPrice labeledPrice = new LabeledPrice();
+        labeledPrice.setAmount(50000);
+        labeledPrice.setLabel("Test Label");
+
+        SendInvoice invoice = new SendInvoice()
+                .setChatId(Math.toIntExact(updateHelper.getChatId()))
+                .setTitle("Test Title")
+                .setDescription("Test Description")
+                .setPayload("Test Payload")
+                .setProviderToken("")
+                .setStartParameter("start")
+                .setCurrency("RUB")
+                .setPrices(Arrays.asList(labeledPrice));
+
+        try {
+            razykrashkaBot.execute(invoice);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

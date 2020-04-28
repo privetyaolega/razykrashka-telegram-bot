@@ -413,9 +413,9 @@ public class MeetingMessageUtils {
     }
 
     public String createMeetingInfoGroup(Meeting meeting) {
-        StringBuilder sb = new StringBuilder().append(Emoji.FIRE).append(Emoji.FIRE).append(Emoji.FIRE)
+        StringBuilder sb = new StringBuilder().append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.FIRE)
                 .append(TextFormatter.getBoldString("  NEW MEETING # " + meeting.getId() + "  "))
-                .append(Emoji.FIRE).append(Emoji.FIRE).append(Emoji.FIRE).append("\n\n")
+                .append(Emoji.FIRE).append(Emoji.SPACES).append(Emoji.SPACES).append("\n\n")
                 .append(Emoji.RADIO_BUTTON).append("\n")
                 .append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.CLOCK).append("   ")
