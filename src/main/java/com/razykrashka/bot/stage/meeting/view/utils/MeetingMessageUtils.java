@@ -33,7 +33,6 @@ public class MeetingMessageUtils {
     final static String DATE_TIME_PATTERN = "dd MMMM (EEEE) HH:mm";
     final static String DATE_PATTERN = "dd MMMM (EEEE)";
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
-    String lastSunny;
 
     public String getPaginationAllGeneral(List<Meeting> userMeetings) {
         return userMeetings.stream()
@@ -54,7 +53,6 @@ public class MeetingMessageUtils {
     }
 
     public String createSingleMeetingFullInfo(Meeting meeting) {
-        lastSunny = Emoji.SMALL_SUN;
         MeetingInfo meetingInfo = meeting.getMeetingInfo();
         StringBuilder sb = new StringBuilder();
         StringBuilder header = new StringBuilder();
@@ -141,22 +139,10 @@ public class MeetingMessageUtils {
     }
 
     private String getSingleStringForParticipantsList(TelegramUser telegramUser, Meeting meeting) {
-        String profileLinkTmpl = "https://t.me/%s";
-        boolean isUserMeetingOwner = meeting.getTelegramUser() != null && meeting.getTelegramUser()
-                .getId().equals(telegramUser.getId());
+        boolean isUserMeetingOwner = meeting.getTelegramUser() != null
+                && meeting.getTelegramUser().getId().equals(telegramUser.getId());
         String ownerLabel = isUserMeetingOwner ? " " + Emoji.CROWN : "";
-
-        String participantName = telegramUser.getFirstName() + " " + telegramUser.getLastName();
-        if (!telegramUser.getUserName().isEmpty()) {
-            String url = String.format(profileLinkTmpl, telegramUser.getUserName());
-            participantName = TextFormatter.getLink(participantName, url);
-        }
-        return "\n" + Emoji.CHAINS + Emoji.SPACES + " • " + participantName + ownerLabel;
-    }
-
-    private String getNextSunny() {
-        lastSunny = lastSunny.equals(Emoji.SMALL_SUN) ? Emoji.BIG_SUN : Emoji.SMALL_SUN;
-        return lastSunny;
+        return "\n" + Emoji.CHAINS + Emoji.SPACES + " • " + TextFormatter.getTelegramLink(telegramUser) + ownerLabel;
     }
 
     public String createSingleMeetingMainInformationText(Meeting meeting) {

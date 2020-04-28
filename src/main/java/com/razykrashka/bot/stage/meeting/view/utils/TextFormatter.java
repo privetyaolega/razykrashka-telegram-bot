@@ -1,5 +1,7 @@
 package com.razykrashka.bot.stage.meeting.view.utils;
 
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
+
 public class TextFormatter {
 
     public static String getBoldString(String text) {
@@ -18,15 +20,14 @@ public class TextFormatter {
         return String.format("<code>%s</code>", text);
     }
 
-    public static String getFramedString(String text) {
-        return String.format("⋅%s⋅", text);
-    }
-
-    public static String getFramedString(Integer text) {
-        return getFramedString(String.valueOf(text));
-    }
-
     public static String getLink(String textLink, String url) {
         return String.format("<a href='%s'>%s</a>", url, textLink);
+    }
+
+    public static String getTelegramLink(TelegramUser u) {
+        String profileLinkTmpl = "tg://user?id=%s";
+        String participantName = u.getFirstName() + " " + u.getLastName();
+        String url = String.format(profileLinkTmpl, u.getId());
+        return TextFormatter.getLink(participantName, url);
     }
 }
