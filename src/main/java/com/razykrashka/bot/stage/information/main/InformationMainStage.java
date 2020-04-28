@@ -19,12 +19,13 @@ public abstract class InformationMainStage extends MainStage {
     protected ReplyKeyboard getKeyboardWithHighlightedButton() {
         return keyboardBuilder
                 .getKeyboard()
+                .setRow("Main", InformationStage.class.getSimpleName())
                 .setRow(ImmutableMap.of(
-                        "Main", InformationStage.class.getSimpleName(),
-                        "Statistics", StatisticStage.class.getSimpleName()
+                        "Statistics", StatisticStage.class.getSimpleName(),
+                        "Support Us", SupportUsStage.class.getSimpleName(),
+                        "Contacts", ContactsStage.class.getSimpleName()
                 ))
                 .setRow("Help", HelpStage.class.getSimpleName())
-                .setRow("Contacts", ContactsStage.class.getSimpleName())
                 .highlightButtonWithText(buttonLabel, HIGHLIGHT_LEFT_BORDER, HIGHLIGHT_RIGHT_BORDER)
                 .build();
     }

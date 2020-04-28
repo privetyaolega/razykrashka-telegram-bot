@@ -42,12 +42,13 @@ public class StageActivitySBSAspect {
         this.creationStateRepository = creationStateRepository;
         this.meetingRepository = meetingRepository;
         this.keyWordsList = Arrays.asList(
+                //TODO: keywords disable SBS process
                 WelcomeStage.KEYWORD,
                 InformationStage.KEYWORD,
                 HelpStage.KEYWORD,
                 IntroStartMeetingCreationStage.KEYWORD,
                 SelectMeetingsTypeStage.KEYWORD,
-                ActiveMeetingsViewStage.KEYWORD,
+//                ActiveMeetingsViewStage.KEYWORD,
                 ArchivedMeetingsViewStage.KEYWORD,
                 OfflineMeetingsViewStage.KEYWORD,
                 OnlineMeetingsViewStage.KEYWORD,

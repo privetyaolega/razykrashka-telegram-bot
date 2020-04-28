@@ -5,15 +5,15 @@ import org.springframework.stereotype.Component;
 
 @Log4j2
 @Component
-public class ContactsStage extends InformationMainStage {
+public class SupportUsStage extends InformationMainStage {
 
-    public ContactsStage() {
-        buttonLabel = "Contacts";
+    public SupportUsStage() {
+        buttonLabel = "Support Us";
     }
 
     @Override
     public void processCallBackQuery() {
-        messageManager.updateMessage(getString("main"), getKeyboardWithHighlightedButton());
+        messageManager.updateOrSendDependsOnLastMessageOwner(getString("main"), getKeyboardWithHighlightedButton());
     }
 
     @Override
