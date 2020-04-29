@@ -25,7 +25,8 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
         Optional<Meeting> optionalMeeting = meetingRepository.findById(id);
         if (!optionalMeeting.isPresent()) {
             String message = super.getFormatString("meetingNotFound", id);
-            messageManager.sendRandomSticker("error")
+            messageManager
+//                    .sendRandomSticker("error")
                     .replyLastMessage(message);
             return;
         }

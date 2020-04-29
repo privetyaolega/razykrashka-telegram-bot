@@ -29,40 +29,31 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     static String NO_DATE = "noDate";
 
     @Override
-    public void handleRequest() {
-        processCallBackQuery();
-    }
-
-    @Override
     public void processCallBackQuery() {
         ReplyKeyboard keyboard;
-
-        String callBackData = updateHelper.getCallBackData();
-
-
-        if (this.getClass().getSimpleName().equals(callBackData) || meetingRepository
-                .findByCreationStatusEqualsInProgress(updateHelper.getTelegramUserId()).get()
-                .getCreationState().getActiveStage().equals(this.getClass().getSimpleName())) {
-
+        if (updateHelper.isCallBackDataEquals() || isDateStageActive()) {
             keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
-            if (razykrashkaBot.getRealUpdate().hasMessage()) {
-                messageManager.disableKeyboardLastBotMessage()
-                        .sendSimpleTextMessage("Please, choose meeting date.", keyboard);
-            } else {
-                messageManager.updateOrSendDependsOnLastMessageOwner("Which day are you free to join a meeting?\nLet’s pick a date.", keyboard);
-            }
         } else {
-            if (callBackData.contains(NO_DATE)) {
-                messageManager.sendAlertMessage("Please, choose meeting date.");
-                setActiveNextStage(this.getClass());
+            if (updateHelper.isCallBackDataContains(NO_DATE)) {
+                messageManager.sendAlertMessage("Please, select meeting date.");
                 return;
             }
-            String monthYear = callBackData.replace(this.getClass().getSimpleName(), "");
-            int month = Integer.parseInt(monthYear.substring(0, 2));
-            int year = Integer.parseInt("20" + monthYear.substring(2, 4));
-            keyboard = generateCalendarKeyboard(month, year);
-            messageManager.updateOrSendDependsOnLastMessageOwner("Which day are you free to join a meeting?\nLet’s pick a date.", keyboard);
+            keyboard = getKeyboardFromCallBackData();
         }
+        messageManager.updateOrSendDependsOnLastMessageOwner(getString("main"), keyboard);
+    }
+
+    private ReplyKeyboard getKeyboardFromCallBackData() {
+        String monthYear = updateHelper.getStringPureCallBackData();
+        int month = Integer.parseInt(monthYear.substring(0, 2));
+        int year = Integer.parseInt("20" + monthYear.substring(2, 4));
+        return generateCalendarKeyboard(month, year);
+    }
+
+    private boolean isDateStageActive() {
+        return meetingRepository
+                .findByCreationStatusEqualsInProgress(updateHelper.getTelegramUserId()).get()
+                .getCreationState().getActiveStage().equals(this.getClass().getSimpleName());
     }
 
     private InlineKeyboardMarkup generateCalendarKeyboard(int month, int year) {
@@ -171,6 +162,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains() || super.isStageActive();
+        return updateHelper.isCallBackDataContains()
+                || super.isStageActive();
     }
 }

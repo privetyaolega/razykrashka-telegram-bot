@@ -6,16 +6,14 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManagerFactory;
 
-@Aspect
+//@Aspect
+//@Component
 @Log4j2
-@Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MeasurementStatisticsAspect {
 

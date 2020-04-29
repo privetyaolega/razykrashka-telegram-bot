@@ -21,7 +21,7 @@ public abstract class InformationMainStage extends MainStage {
                 .getKeyboard()
                 .setRow("Main", InformationStage.class.getSimpleName())
                 .setRow(ImmutableMap.of(
-                        "Statistics", StatisticStage.class.getSimpleName(),
+//                        "Statistics", StatisticStage.class.getSimpleName(),
                         "Support Us", SupportUsStage.class.getSimpleName(),
                         "Contacts", ContactsStage.class.getSimpleName()
                 ))

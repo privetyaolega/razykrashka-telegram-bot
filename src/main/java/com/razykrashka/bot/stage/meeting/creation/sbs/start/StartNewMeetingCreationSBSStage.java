@@ -22,7 +22,7 @@ public class StartNewMeetingCreationSBSStage extends BaseMeetingCreationSBSStage
         }
         super.setActiveNextStage(DateMeetingCreationSBSStage.class);
         joinToThread(loadingThread);
-        razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).processCallBackQuery();
     }
 
     @Override

@@ -69,7 +69,7 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
     private void sendAlertMessage(String message, boolean showAlert) {
         messageManager.sendAlertMessage(message, showAlert);
         setActiveNextStage(DateMeetingCreationSBSStage.class);
-        razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).processCallBackQuery();
     }
 
     @Override
