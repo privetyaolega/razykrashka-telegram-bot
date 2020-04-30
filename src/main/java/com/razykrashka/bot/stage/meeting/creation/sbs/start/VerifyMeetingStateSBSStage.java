@@ -16,7 +16,6 @@ public class VerifyMeetingStateSBSStage extends BaseMeetingCreationSBSStage {
     public void processCallBackQuery() {
         meeting = getMeetingInCreation();
         if (meeting.getCreationState().isInCreationProgress()) {
-            setActiveNextStage(StartNewMeetingCreationSBSStage.class);
             razykrashkaBot.getContext().getBean(StartNewMeetingCreationSBSStage.class).processCallBackQuery();
         } else {
             InlineKeyboardMarkup keyboard = keyboardBuilder.getKeyboard()

@@ -15,7 +15,7 @@
             VALUES ('152',
             'Is this world the best one of all possible worlds?;What would the world be like if suffering and pain did not exist?;Should we sacrifice our lives for some great goals?;Do people have missions or is it just a product of their imagination?;What can we say about characters of the saviors?;Do people like missioners, saviors?;Do all attempts to improve the life inevitably lead to bad consequences?;Do you think it\'s fine to do bad things for the sake of humankind?;Can we all do something to make this world a better place to live?;Christ, Marks, Lenin, Stalin, Roosevelt, Freud, Dostoyevsky, Kurchatov: did any one of them change the world to better?',
             'PRE_INTERMEDIATE',
-            'Should we Save this World?');
+            'Save the World');
 
             INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('153',

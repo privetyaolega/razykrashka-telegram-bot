@@ -16,7 +16,7 @@
             VALUES ((SELECT id from meeting WHERE owner_id = '485869971'), 485869971);
 
             INSERT INTO user_meeting (meeting_id, user_id)
-            VALUES ((SELECT id from meeting WHERE owner_id = '610115598' LIMIT 1), 610115598);
+            VALUES ((SELECT id from meeting WHERE owner_id = '127455779' LIMIT 1), 127455779);
 
             INSERT INTO user_meeting (meeting_id, user_id)
             VALUES ((SELECT id from meeting WHERE owner_id = '506787628'), 506787628);
@@ -28,7 +28,7 @@
             VALUES ((SELECT id from meeting WHERE owner_id = '506787628'), 532965560);
 
             INSERT INTO user_meeting (meeting_id, user_id)
-            VALUES ((SELECT id from meeting WHERE owner_id = '485869971'), 610115598);
+            VALUES ((SELECT id from meeting WHERE owner_id = '485869971'), 127455779);
 
             INSERT INTO user_meeting (meeting_id, user_id)
             VALUES ((SELECT id from meeting WHERE owner_id = '485869971'), 667266423);

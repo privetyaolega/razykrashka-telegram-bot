@@ -5,6 +5,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.SpeakingLevel;
 import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.IncorrectInputFormatSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.OfflineMeetingCreationSBSStage;
@@ -33,7 +34,7 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
 
     @Override
     public void handleRequest() {
-        razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(IncorrectInputFormatSBSStage.class).handleRequest();
         razykrashkaBot.getContext().getBean(LevelMeetingCreationSBSStage.class).handleRequest();
     }
 

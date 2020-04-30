@@ -43,6 +43,18 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         messageManager.updateOrSendDependsOnLastMessageOwner(getString("main"), keyboard);
     }
 
+    public void initStage() {
+        ReplyKeyboard keyboard = generateCalendarKeyboard(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .sendSimpleTextMessage(getString("main"), keyboard);
+    }
+
+    @Override
+    public void handleRequest() {
+        initStage();
+    }
+
     private ReplyKeyboard getKeyboardFromCallBackData() {
         String monthYear = updateHelper.getStringPureCallBackData();
         int month = Integer.parseInt(monthYear.substring(0, 2));

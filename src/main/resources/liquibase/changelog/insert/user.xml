@@ -7,19 +7,16 @@
         <comment>Upload 3 users</comment>
         <sql>
             INSERT INTO user (first_name, last_name, phone_number, id, user_name, skype_contact)
-            VALUES('Olega', 'Rutski', '+375295508809', '532965560', 'privetyaolega', 'privetyaolega');
+            VALUES('Olega', 'Rutski', '', '532965560', 'privetyaolega', 'privetyaolega');
 
-            INSERT INTO user (first_name, last_name, phone_number, id, user_name)
-            VALUES('Andrew', '', '+375293489901', '431957763', '');
+            INSERT INTO user (first_name, last_name, phone_number, id, user_name, skype_contact)
+            VALUES('Andrew', '', '+375293489901', '431957763', '', 'kiska1996');
 
             INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Dmitry', '', '+375259514749', '506787628', 'dmitrylen');
 
-            INSERT INTO user (first_name, last_name, phone_number, id, user_name)
-            VALUES('Victoria', 'Vorobey', '+375291374610', '485869971', '');
-
-            INSERT INTO user (first_name, last_name, phone_number, id, user_name)
-            VALUES('Nata', 'Rutskaya', '+375336808745', '610115598', '');
+            INSERT INTO user (first_name, last_name, phone_number, id, user_name, skype_contact)
+            VALUES('Victoria', 'Vorobey', '+375291374610', '485869971', '', 'vika1241');
 
             INSERT INTO user (first_name, last_name, phone_number, id, user_name)
             VALUES('Pumpmeup', '', '+375257568884', '127455779', 'PeaceItsMe');
@@ -31,19 +28,22 @@
             VALUES('Rutski', 'Slawek', '', '667266423', '');
 
             INSERT INTO user (first_name, last_name, phone_number, id, user_name, skype_contact)
-            VALUES('Elena', '', '79827299699', '1059554362', 'elena_ostrovskaia', 'Skype1');
+            VALUES('Elena', '', '79827299699', '1059554362', 'elena_ostrovskaia', 'elena_skype');
 
-<!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
-<!--            VALUES('Dasha', 'Solnce', '+375292020058', '414315618', '');-->
+            <!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
+            <!--            VALUES('Dasha', 'Solnce', '+375292020058', '414315618', '');-->
 
-<!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
-<!--            VALUES('имя', 'фамилия', '+375259249808', '197208573', 'ruby_roys');-->
+            <!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
+            <!--            VALUES('имя', 'фамилия', '+375259249808', '197208573', 'ruby_roys');-->
 
-<!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
-<!--            VALUES('Dmec', 'Muo', '', '563735949', 'Dmecmuo');-->
+            <!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
+            <!--            VALUES('Dmec', 'Muo', '', '563735949', 'Dmecmuo');-->
 
-<!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
-<!--            VALUES('Светлана', 'Курынина', '79035820865', '525670563', 'rabotka1987');-->
+            <!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
+            <!--            VALUES('Светлана', 'Курынина', '79035820865', '525670563', 'rabotka1987');-->
+
+            <!--            INSERT INTO user (first_name, last_name, phone_number, id, user_name)-->
+            <!--            VALUES('Nata', 'Rutskaya', '+375336808745', '610115598', '');-->
         </sql>
     </changeSet>
 </databaseChangeLog>

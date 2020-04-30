@@ -1,6 +1,5 @@
 package com.razykrashka.bot.ui.helpers.sender;
 
-import com.google.common.collect.Iterables;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
@@ -107,19 +106,23 @@ public class MessageManager extends Sender {
     }
 
     public MessageManager disableKeyboardLastBotMessage(String chatId) {
-        List<TelegramMessage> telegramMessages = telegramMessageRepository.findAllByBotMessageIsTrueAndChatIdEquals(Long.valueOf(chatId));
-        if (telegramMessages.isEmpty()) {
+        TelegramMessage telegramMessage = telegramMessageRepository
+                .findTop1ByChatIdAndBotMessageIsTrueOrderByIdDesc(Long.valueOf(chatId));
+
+        if (telegramMessage == null) {
             return this;
         }
 
-        TelegramMessage telegramMessage = Iterables.getLast(telegramMessages);
-        EditMessageText editMessageReplyMarkup = new EditMessageText()
-                .setChatId(chatId)
-                .setMessageId(telegramMessage.getId())
-                .setText(telegramMessage.getText() + " ")
-                .setParseMode(ParseMode.HTML)
-                .disableWebPagePreview();
-        return send(editMessageReplyMarkup);
+        if (telegramMessage.isHasKeyboard()) {
+            EditMessageText editMessageReplyMarkup = new EditMessageText()
+                    .setChatId(chatId)
+                    .setMessageId(telegramMessage.getId())
+                    .setText(telegramMessage.getText() + " ")
+                    .setParseMode(ParseMode.HTML)
+                    .disableWebPagePreview();
+            return send(editMessageReplyMarkup);
+        }
+        return this;
     }
 
     public MessageManager replyLastMessage(String textMessage, ReplyKeyboard keyboard) {
@@ -225,6 +228,7 @@ public class MessageManager extends Sender {
         try {
             razykrashkaBot.execute(botApiMethod);
         } catch (TelegramApiException ignored) {
+            ignored.printStackTrace();
         }
         return this;
     }

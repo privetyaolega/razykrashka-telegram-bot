@@ -9,7 +9,31 @@
             VALUES(3,
             'Do you often go to job interview?;Do you like it?;What is the reason for you to go?;Do you use English for interview?;Have you ever interview another people?;What about the most interesting interview?;How was the most stressful interview?;Tell about the most strange interview?;How do you prepare yourself for interview?;What is your attitude to online interview?',
             'PRE_INTERMEDIATE',
-            'Job interview1');
+            'Job interview');
+
+            INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
+            VALUES(3,
+            'What can we consider junk food?;Why is junk food considered to be unhealthy?;Is it possible to live without junk food?;How often can you eat junk food without detriment to your health?;What kind of junk food is the unhealthiest?;Since what age should children be allowed to eat junk food?;What food should be sold in school canteens?;What is your attitude to dietary additives like E-supplements?;Do you think the food in our groceries is checked properly?;Do you think junk food is the future of mankind?',
+            'INTERMEDIATE',
+            'Junk Food');
+
+            INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
+            VALUES ('4',
+            'Is this world the best one of all possible worlds?;What would the world be like if suffering and pain did not exist?;Should we sacrifice our lives for some great goals?;Do people have missions or is it just a product of their imagination?;What can we say about characters of the saviors?;Do people like missioners, saviors?;Do all attempts to improve the life inevitably lead to bad consequences?;Do you think it\'s fine to do bad things for the sake of humankind?;Can we all do something to make this world a better place to live?;Christ, Marks, Lenin, Stalin, Roosevelt, Freud, Dostoyevsky, Kurchatov: did any one of them change the world to better?',
+            'PRE_INTERMEDIATE',
+            'Save the World');
+
+            INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
+            VALUES ('5',
+            'To make our positive image should we present our real advantages or does the image have nothing to do with the reality?;Will people appreciate your degrees if you don\'t present them?;Must we be modest, unpretentious, retiring?;Is it wise to declare your merits in open way, like that: I am a great master of conceptual, logical, and motivational analysis?;Who are better image-makers, men or women?;What qualities of a woman are in a great demand?;What qualities of a man are in a great demand?;Do you think it\'s fine for a person to attempt creating a better image of himself/herself when dating someone/applying for a job/making a deal?;What should we do to become an expert in image-making: to read special books or just to act as we feel?;Which respect is more valuable: the respect of thousands of stupid people or the respect of some intelligent ones?',
+            'INTERMEDIATE',
+            'Image-making');
+
+            INSERT INTO meeting_info (participant_limit, questions, speaking_level, topic)
+            VALUES ('3',
+            'What is the difference between pessimism and optimism?;Are you a pessimist or an optimist? Why?;Why do people become pessimists or optimists?;What is good and what is bad about being an optimist?;What is good and what is bad about being a pessimist?;Do you believe that if something can go wrong, it will go wrong?;Do you agree that pessimists usually have a more realistic view on life compared to pessimists?;Do you think it\'s possible to overcome any troubles in life?;Do you agree with the following statement: “Nothing of value can be learned from failure”?;Do you agree with the concept that every human is the master of his/her life?',
+            'INTERMEDIATE',
+            'Pessimism and Optimism');
         </sql>
     </changeSet>
 </databaseChangeLog>

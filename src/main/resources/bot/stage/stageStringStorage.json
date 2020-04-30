@@ -4,13 +4,7 @@
       "main": "Have you been learning English for a long time but you are still afraid to speak it? Or waiting for the ”right moment”? If you want to be fluent one day, you need to make practicing English your habit <b>NOW</b>!  \n\nGood news: you’re not alone with this anymore. Now you have US! Our community will help you connect with people who have the same language goals as you. Only together you will be able to develop your speaking and listening skills!  And, who knows, maybe you even become friends IRL (in real life) \n\nSo, how exactly does it all work? It’s not all rocket science! All you need to do is join any /available meeting you like (which can be either /offline or /online). If there’s nothing that catches your eye, you can always /create your own meeting by choosing date, time, place, English level and number of people. See, you can be your own boss here \uD83D\uDE0E\n\nHowever, some people are shy to initiate a meeting. If you don’t consider yourself very shy, try taking the first step and /create a meeting! You will help a lot of peers out this way!  \n\nIf you’re still having second thoughts… look how many people have already chosen us to practice their English with! \uD83E\uDD24\n\n\uD83D\uDCA5 Successfully completed meetings: 3\n\uD83D\uDCA5 Users using bot: 9\n\uD83D\uDCA5 Users in community group: 4\n\nWe will be happy to see you as a member of our friendly community!\nDon’t hesitate and join the next available meeting! \uD83E\uDD1F\uD83C\uDFFB"
     },
     "HelpStage": {
-      "main": "Hey! Here are some useful commands that might help you find your perfect meeting:\n\nMeetings\n/active - show all available meetings\n/online - show all available online meetings\n/offline - show all available offline meetings\n/archived - show all expired (archived) meetings\n/my - show my schedule meetings\n\nActions\n/create - create new meeting\n\nInformation\n/help - all bot commands\n/faq - frequently asked questions (en/ru)\n\nGood luck! \uD83D\uDE09"
-    },
-    "CreateMeetingByTemplateStage": {
-      "enInstruction": "Here you can create meeting using template and example :)",
-      "ruInstruction": "Здесь ты можешь создать встречу.\nИспользуй шаблон во вкладке 'Template' или пример на вкладке 'Example', для созданий встречи.\nПросто копируй пример или шаблон, после чего, заполни его необходимыми данными.\nПожалуйста, не используй смайлы и эмоджи при форматировании встречи, а также используй формат даты и номера телефона такой, как указан в примере.\n\nПосле формирования сообщения, просто отправь его боту.\n\nСпасибо!",
-      "template": "NEW MEETING REQUEST\n\nDATE: \n{WRITE DATE HERE IN FORMAT month.day.year  hour-minutes}\n\nLOCATION: \n{WRITE HERE ADDRESS OF LOCATION IN RUSSIAN}\n\nMAX PEOPLE: \n{WRITE HERE MAX AMOUNT OF ATTANDEE}\n\nSPEAKING LEVEL: \n{MINIMUM SPEAKING LEVE}\n\nCONTACT NUMBER: \n{WRITE HERE YOUR CONTACT NUMBER}\n\nTOPIC: \n{WRITE HERE TOPIC}\n\nQUESTIONS:\n{WRITE HERE QUESTIONS TO DISCUSS}",
-      "example": "NEW MEETING REQUEST:\n\nDATE: \n14.01.2020 19-00\n\nLOCATION: \nул. Немига 5, Лидо\n\nMAX PEOPLE: \n4\n\nSPEAKING LEVEL: \nUpper-Intermediate\n\nCONTACT NUMBER: \n+375295508809\n\nTOPIC: \nInternet and Computers\n\nQUESTIONS:\n● What are two disadvantages of using smartphones and tablets?\n● What do you think about Cybercafes? are they still useful?\n● Do you like a job in which you have to use computers?\n● Do you spend too much time online?\n● Does your mother of father know how to use a computer?\n● Do computers make life easier?\n● What websites do you visit in a regular basis?\n● What do you think about the Apple?\n● What are some advantages of using social networks?\n● Do you visit English websites?"
+      "main": "Hey! Here are some useful commands that might help you find your perfect meeting:\n\n<b>Information</b>\n/info - information section\n/help - all bot commands\n/faq - frequently asked questions (en/ru)\n\n<b>Meetings</b>\n/active - show all available meetings\n/online - show all available online meetings\n/offline - show all available offline meetings\n/archived - show all expired (archived) meetings\n/my - show my schedule meetings\n\n<b>Actions</b>\n/create - create new meeting\n\nGood luck! \uD83D\uDE09"
     },
     "UndefinedStage": {
       "unknown": "Oops! I’m sorry I don’t understand this command \uD83E\uDD74\n\nYou can find the list of available commands here \n<b>/help</b>✨"
@@ -53,7 +47,7 @@
       "backButton": "👈 Back to editing Meeting Format"
     },
     "TopicMeetingCreationSBSStage": {
-      "input": "It’s always better to choose the topic of the meeting beforehand. This way you will be able not only to review your vocabulary and prepare the words you may need to use. But also spend a pleasant time in an engaging conversation without making any awkward pauses…\nTrust me, I know what I’m talking about! \uD83D\uDE0F\n\nYou can choose one of the random topics from our catalogue or come up with your own.\n\nWhat would you like to talk about?",
+      "input": "It’s always better to choose the topic of the meeting beforehand. This way you will be able not only to review your vocabulary and prepare the words you may need to use. But also spend a pleasant time in an engaging conversation without making any awkward pauses…\nTrust me, I know what I’m talking about! \uD83D\uDE0F\n\nYou can choose one of the random topics from <a href='https://telegra.ph/Meeting-catalogue-04-19'>our catalogue</a> or come up with your own.\n\nWhat would you like to talk about?",
       "backButton": "👈 Back to editing Participant Limit"
     },
     "FinalMeetingCreationSBSStage": {
@@ -131,7 +125,7 @@
       "deleteNotification": "Hey! Unfortunately, /meeting%s creator decided to cancel the meeting and deleted it \uD83D\uDE25\nI know, it's sad... But don't worry! You can find other meetings /active or even /create your own!\n\nHave a good day! \uD83D\uDE09"
     },
     "WelcomeStage": {
-      "intro": "Welcome to the best English Speaking Club!\uD83E\uDD17\nNice to meet you! I will help to improve your speaking skills as much as possible!\uD83D\uDCAA\nAll necessary information you can find in 'Information' section!\n/help"
+      "intro": "Welcome to our community! \uD83E\uDD17\n\nIt’s nice to meet you! Let’s improve your speaking skills together! \uD83D\uDE08\nAll necessary information you can find in <b>/info</b> section!"
     },
     "IntroStartMeetingCreationStage": {
       "main": "Wow! You’re really motivated to speak English! We’re happy to see that kind of eager from you! \uD83D\uDE08\n\nCreating a meeting is actually easier than you might think! And it won’t take much of your time either. You can find all related <a href='https://telegra.ph/Razykrashka-English-FAQ-04-28'>information here.</a> \n\nRight now we’re going to ask you a few questions and see what your perfect meeting looks like. Just follow the tips on the bottom of each message ⬇️ \n\nAfter you create a meeting, everyone in the community group will receive a notification, so that they can join you later.\n\nAnd REMEMBER: Practice makes perfect! \uD83D\uDCAA"
@@ -144,6 +138,9 @@
     },
     "DateMeetingCreationSBSStage": {
       "main": "Which day are you free to join a meeting?\nLet’s pick a date."
+    },
+    "IncorrectInputFormatSBSStage": {
+      "main": "You don't have to type anything here!\uD83D\uDC7F\nJust choose one of the options below ☺️"
     }
   }
 ]

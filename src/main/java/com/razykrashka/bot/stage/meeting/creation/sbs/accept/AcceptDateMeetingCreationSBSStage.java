@@ -4,6 +4,7 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
 import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.IncorrectInputFormatSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.DateMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
 import lombok.AccessLevel;
@@ -39,7 +40,8 @@ public class AcceptDateMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
         if (razykrashkaBot.getRealUpdate().hasMessage()) {
             messageManager.disableKeyboardLastBotMessage();
             setActiveNextStage(DateMeetingCreationSBSStage.class);
-            razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).handleRequest();
+            razykrashkaBot.getContext().getBean(IncorrectInputFormatSBSStage.class).handleRequest();
+            razykrashkaBot.getContext().getBean(DateMeetingCreationSBSStage.class).initStage();
             throw new IncorrectInputDataFormatException("Stage does not support text message date input!");
         }
     }

@@ -3,8 +3,8 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
-import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.IncorrectInputFormatSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.ParticipantsMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TopicMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
@@ -29,7 +29,7 @@ public class AcceptParticipantsMeetingCreationSBSStage extends BaseMeetingCreati
 
     @Override
     public void handleRequest() {
-        razykrashkaBot.getContext().getBean(UndefinedStage.class).handleRequest();
+        razykrashkaBot.getContext().getBean(IncorrectInputFormatSBSStage.class).handleRequest();
         setActiveNextStage(ParticipantsMeetingCreationSBSStage.class);
         razykrashkaBot.getContext().getBean(ParticipantsMeetingCreationSBSStage.class).handleRequest();
         throw new IncorrectInputDataFormatException("Stage does not support text message date input!");
