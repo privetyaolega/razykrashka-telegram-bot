@@ -13,9 +13,11 @@ public class FAQStage extends MainStage {
 
     @Override
     public void handleRequest() {
-        messageManager.sendMessage(new SendMessage()
-                .setChatId(updateHelper.getChatId())
-                .setText("https://telegra.ph/Razykrashka-English-FAQ-04-28"));
+        messageManager
+                .disableKeyboardLastBotMessage()
+                .sendMessage(new SendMessage()
+                        .setChatId(updateHelper.getChatId())
+                        .setText("https://telegra.ph/Razykrashka-English-FAQ-04-28"));
     }
 
     @Override

@@ -47,12 +47,12 @@ public class LevelMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
-                .setRow(ImmutableMap.of("Elementary ⋅ A1", "ELEMENTARY",
-                        "Pre-Intermediate ⋅ A2", "PRE_INTERMEDIATE"))
-                .setRow(ImmutableMap.of("Intermediate ⋅ B1", "INTERMEDIATE",
-                        "Upper-Intermediate ⋅ B2", "UPPER_INTERMEDIATE"))
-                .setRow(ImmutableMap.of("Advanced ⋅ C1", "ADVANCED",
-                        "Native ⋅ C2", "NATIVE"))
+                .setRow(ImmutableMap.of("Elementary", "ELEMENTARY",
+                        "Pre-Intermediate", "PRE_INTERMEDIATE"))
+                .setRow(ImmutableMap.of("Intermediate", "INTERMEDIATE",
+                        "Upper-Intermediate", "UPPER_INTERMEDIATE"))
+                .setRow(ImmutableMap.of("Advanced", "ADVANCED",
+                        "Native", "NATIVE"))
                 .setRow(getBackButton(meeting))
                 .build();
     }
