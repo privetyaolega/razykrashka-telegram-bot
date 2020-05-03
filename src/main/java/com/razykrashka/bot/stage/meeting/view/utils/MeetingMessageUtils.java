@@ -151,8 +151,8 @@ public class MeetingMessageUtils {
         StringBuilder freePlacesLine = new StringBuilder();
 
         if (freePlacesAmount != 0) {
-            freePlacesLine.append(Emoji.NEEDLE).append(" ").append(freePlacesAmount)
-                    .append(TextFormatter.getItalicString(" free places!"));
+            freePlacesLine.append(Emoji.NEEDLE).append(" ")
+                    .append(TextFormatter.getItalicString(freePlacesAmount + " free place(s)!"));
         } else {
             freePlacesLine.append(Emoji.NEEDLE)
                     .append(" ")
@@ -236,8 +236,8 @@ public class MeetingMessageUtils {
         }
 
         if (freePlacesAmount != 0) {
-            freePlacesLine.append(formatLabel).append(" ").append(freePlacesAmount)
-                    .append(TextFormatter.getItalicString(" free places!"));
+            freePlacesLine.append(formatLabel).append(" ")
+                    .append(TextFormatter.getItalicString(freePlacesAmount + " free place(s)!"));
         } else {
             freePlacesLine.append(formatLabel)
                     .append(" ")
@@ -414,8 +414,8 @@ public class MeetingMessageUtils {
     }
 
     public String createMeetingInfoGroup(Meeting meeting) {
-        StringBuilder sb = new StringBuilder().append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.FIRE)
-                .append(TextFormatter.getBoldString("  NEW MEETING # " + meeting.getId() + "  "))
+        StringBuilder sb = new StringBuilder().append("⠀⠀⠀").append(Emoji.FIRE)
+                .append(TextFormatter.getBoldString("  Nᴇᴡ ᴍᴇᴇᴛɪɴɢ # " + meeting.getId() + "  "))
                 .append(Emoji.FIRE).append(Emoji.SPACES).append(Emoji.SPACES).append("\n\n")
                 .append(Emoji.RADIO_BUTTON).append("\n")
                 .append(Emoji.CHAINS).append("\n")

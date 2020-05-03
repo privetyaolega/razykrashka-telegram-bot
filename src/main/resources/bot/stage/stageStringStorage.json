@@ -77,10 +77,10 @@
       "success": "HOORAY! Your meeting has been created! \uD83E\uDD73 \nYou can find it in <code>\"My Meetings\"</code> section.\n<b>/meeting%d</b>"
     },
     "SingleMeetingViewLeaveStage": {
-      "main": "\nYou've successfully left meeting. ☹️\nYou can always find and join to it in <code>\"View Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
+      "main": "\nYou've successfully left meeting ☹️\n\nYou can always find and join to it in <code>\"View Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
     },
     "SingleMeetingViewJoinStage": {
-      "main": "\nYou've successfully joined to meeting. \uD83E\uDD73\nYou can find all your upcoming meetings in <code>\"My Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
+      "main": "\nYou've successfully joined to meeting \uD83E\uDD73\n\nYou can find all your upcoming meetings in <code>\"My Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
     },
     "AcceptTopicMeetingCreationSBSStage": {
       "input": "Please, enter topic with questions or generate random one by clicking <code>\"Random Topic\"</code> button",
@@ -106,7 +106,7 @@
       "edit": "⚙️ Edit Skype"
     },
     "DeleteConfirmationSingleMeetingStage": {
-      "warning": "       ⚠️Warning!\n\nAre you sure you want to delete the meeting?\nThe action is irrevocable! And it also decreases your chances of getting fluent in English \uD83D\uDE14\n<b>/meeting%s</b>"
+      "warning": "       ⚠️Warning!\n\nAre you sure you want to delete the meeting?\nThe action is irrevocable! And it also decreases your chances of getting fluent in English \uD83D\uDE14\n\n<b>/meeting%s</b>"
     },
     "StatisticStage": {
       "main": "If you’re still having second thoughts… look how many people have already chosen us to practice their English with! \uD83E\uDD24\n\n\uD83D\uDCA5 Successfully completed meetings: <b>%s</b>\n\uD83D\uDCA5 Users using bot: <b>%s</b>\n\uD83D\uDCA5 Users in community group: <b>%s</b>\n\nWe will be happy to see you as a member of our friendly community!\nDon’t hesitate and join the next available meeting! \uD83E\uDD1F\uD83C\uDFFB"
@@ -134,7 +134,7 @@
       "main": "Are you experiencing any problem using the bot or want to see some improvements?\nWe would like to hear your suggestions!\nPlease, contact me @privetyaolega \uD83E\uDD19\n\nYou can become a part of our community by simply <a href='https://t.me/razykrashkaen'>joining our community chat \uD83E\uDD17</a> \n\nAlso invite your friends and practice English together! \nMeeting new people can be a little bit overwhelming… Seeing a familiar face will help you release all the pressure.  Even if you already feel confident, it’s more fun with friends anyway! ☺"
     },
     "SupportUsStage": {
-      "main": "We’re <b>not commercial</b>. \n\nHowever, if you want to see this project improve, we accept donations. All the donated money will go on <i>advertising, maintenance and improvements</i> so that more people can find out about our community. \uD83D\uDCAA\n\nIt will also increase your chances to meet a like-minded person and become really good friends! \uD83E\uDD17\n\n[payment information]"
+      "main": "We’re <b>not commercial</b>. \n\nHowever, if you want to see this project improve, we accept donations. All the donated money will go on <i>advertising, maintenance and improvements</i> so that more people can find out about our community \uD83D\uDCAA\n\nIt will also increase your chances to meet a like-minded person and become really good friends! \uD83E\uDD17\n\n[payment information]"
     },
     "DateMeetingCreationSBSStage": {
       "main": "Which day are you free to join a meeting?\nLet’s pick a date."
