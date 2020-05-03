@@ -26,7 +26,8 @@ public class TextFormatter {
 
     public static String getTelegramLink(TelegramUser u) {
         String profileLinkTmpl = "tg://user?id=%s";
-        String participantName = u.getFirstName() + " " + u.getLastName();
+        String lastName = u.getLastName() == null ? "" : " " + u.getLastName();
+        String participantName = u.getFirstName() + lastName;
         String url = String.format(profileLinkTmpl, u.getId());
         return TextFormatter.getLink(participantName, url);
     }

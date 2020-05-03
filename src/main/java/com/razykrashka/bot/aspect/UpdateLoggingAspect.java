@@ -6,6 +6,7 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import com.razykrashka.bot.exception.StageActivityException;
 import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
+import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import com.razykrashka.bot.ui.helpers.sender.MessageManager;
 import lombok.AccessLevel;
@@ -23,6 +24,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -59,16 +61,23 @@ public class UpdateLoggingAspect {
     @After("execution(public void com.razykrashka.bot.service.BotExecutor.execute(*))")
     public void loggingUpdateAdvice(JoinPoint joinPoint) {
         Update update = (Update) joinPoint.getArgs()[0];
+        if (!updateHelper.isMessageFromGroup()) {
+            List<String> activeStages = updateHelper.getBot().getBotExecutor().getActiveStages()
+                    .stream()
+                    .map(c -> c.getClass().getSimpleName().split("\\$\\$")[0])
+                    .collect(Collectors.toList());
 
-        List<String> activeStages = updateHelper.getBot().getBotExecutor().getActiveStages().stream()
-                .map(c -> c.getClass().getSimpleName().split("\\$\\$")[0])
-                .collect(Collectors.toList());
+            String activeStage = activeStages.isEmpty()
+                    ? UndefinedStage.class.getSimpleName()
+                    : activeStages.stream().collect(Collectors.joining(" ,", "[", "]"));
 
-        log.info("ASPECT: User ID: {}. {} -> {}", getUserId(update), getMessageToProcess(update),
-                activeStages.stream().collect(Collectors.joining(" ,", "[", "]")));
+            User user = getUser(update);
+            log.info("ASPECT: User ID: {} - {}. {} -> {}", user.getId(), user.getFirstName(),
+                    getMessageToProcess(update), activeStage);
 
-        if (activeStages.size() > 1) {
-            throw new StageActivityException("More than one stage is active!");
+            if (activeStages.size() > 1) {
+                throw new StageActivityException("More than one stage is active!");
+            }
         }
     }
 
@@ -79,7 +88,7 @@ public class UpdateLoggingAspect {
         if (isMessageFromGroup(update)) {
             folderName = "group";
         } else {
-            folderName = String.valueOf(getUserId(update));
+            folderName = String.valueOf(getUser(update).getId());
         }
 
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
@@ -105,13 +114,13 @@ public class UpdateLoggingAspect {
         return false;
     }
 
-    private Integer getUserId(Update update) {
+    private User getUser(Update update) {
         if (update.hasMessage()) {
-            return update.getMessage().getFrom().getId();
+            return update.getMessage().getFrom();
         } else if (update.hasCallbackQuery()) {
-            return update.getCallbackQuery().getFrom().getId();
+            return update.getCallbackQuery().getFrom();
         } else {
-            return 0;
+            return new User();
         }
     }
 

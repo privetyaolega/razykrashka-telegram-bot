@@ -4,6 +4,7 @@ import com.razykrashka.bot.db.entity.telegram.TelegramMessage;
 import com.razykrashka.bot.db.repo.TelegramMessageRepository;
 import com.razykrashka.bot.stage.Stage;
 import com.razykrashka.bot.stage.information.UndefinedStage;
+import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -23,6 +24,8 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BotExecutor {
 
+    @Autowired
+    UpdateHelper updateHelper;
     @Autowired
     ApplicationContext context;
     @Autowired
@@ -44,17 +47,19 @@ public class BotExecutor {
     }
 
     public void execute(Update update) {
-        activeStages = stages.stream()
-                .filter(Stage::isStageActive)
-                .collect(Collectors.toList());
+        if (!updateHelper.isMessageFromGroup()) {
+            activeStages = stages.stream()
+                    .filter(Stage::isStageActive)
+                    .collect(Collectors.toList());
 
-        activeStage = activeStages.isEmpty() ? undefinedStage : activeStages.get(0);
+            activeStage = activeStages.isEmpty() ? undefinedStage : activeStages.get(0);
 
-        if (update.hasCallbackQuery()) {
-            activeStage.processCallBackQuery();
-        } else if (update.hasMessage() || update.hasPoll()) {
-            saveUpdate(update);
-            activeStage.handleRequest();
+            if (update.hasCallbackQuery()) {
+                activeStage.processCallBackQuery();
+            } else if (update.hasMessage() || update.hasPoll()) {
+                saveUpdate(update);
+                activeStage.handleRequest();
+            }
         }
     }
 

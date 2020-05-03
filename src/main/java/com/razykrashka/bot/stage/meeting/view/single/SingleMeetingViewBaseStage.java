@@ -36,10 +36,8 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
     public static final String KEYWORD = "/meeting";
 
     protected Integer getMeetingId() {
-        if (!updateHelper.getMessageText().isEmpty()) {
-            String messageText = updateHelper.getMessageText();
-            String meetingIdString = messageText.replace(KEYWORD, "");
-            return Integer.valueOf(meetingIdString);
+        if (updateHelper.hasMessage()) {
+            return updateHelper.getIntDataFromMessage();
         } else {
             return updateHelper.getIntDataFromCallBackQuery();
         }

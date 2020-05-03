@@ -66,9 +66,8 @@ public class MeetingMessageUtils {
         }
 
         header.append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
-                .append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES)
-                .append(Emoji.SPACES).append(Emoji.LIGHTNING)
-                .append(TextFormatter.getCodeString(" MEETING # " + meeting.getId()))
+//                .append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES)
+                .append(TextFormatter.getCodeString("Mᴇᴇᴛɪɴɢ # " + meeting.getId()))
                 .append("\n").append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("\n");
 
@@ -115,13 +114,14 @@ public class MeetingMessageUtils {
     public String getSingleMeetingDiscussionInfo(Meeting meeting) {
         StringBuilder sb = new StringBuilder();
         StringBuilder header = new StringBuilder()
-                .append(Emoji.RADIO_BUTTON).append(Emoji.SPACES).append(Emoji.SPACES)
-                .append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES)
-                .append(Emoji.SPACES).append(Emoji.LIGHTNING)
-                .append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n")
+                .append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
+//                .append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES)
+//                .append(Emoji.SPACES).append(Emoji.LIGHTNING)
+//                .append(TextFormatter.getCodeString(" MEETING # " + meeting.getId())).append("\n")
+                .append(TextFormatter.getCodeString("Mᴇᴇᴛɪɴɢ # " + meeting.getId())).append("\n")
                 .append(Emoji.CHAINS).append("\n");
         StringBuilder topic = new StringBuilder()
-                .append(Emoji.RADIO_BUTTON).append(" ")
+                .append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                 .append(TextFormatter.getBoldString(meeting.getMeetingInfo().getTopic())).append("\n");
         String questions = questionsToPrettyOrderedString(meeting.getMeetingInfo().getQuestions());
         return sb.append(header)
