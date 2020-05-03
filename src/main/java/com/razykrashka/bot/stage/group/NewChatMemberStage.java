@@ -31,7 +31,8 @@ public class NewChatMemberStage extends MainStage {
         Optional<TelegramUser> telegramUser = telegramUserRepository.findById(user.getId());
         String message;
         if (telegramUser.isPresent()) {
-            message = "Nice to see you again " + Emoji.WAVE_HAND;
+//            message = "Nice to see you again " + Emoji.WAVE_HAND;
+            message = getString("welcome");
         } else {
             message = getString("welcome");
             telegramUserRepository.save(TelegramUser.builder()
@@ -47,6 +48,7 @@ public class NewChatMemberStage extends MainStage {
                 .sendMessage(new SendMessage()
                         .setChatId(String.valueOf(user.getId()))
                         .setReplyMarkup(getMainKeyboard())
+                        .enableHtml(true)
                         .setText(message));
     }
 

@@ -12,12 +12,12 @@ public class WelcomeStage extends MainStage {
 
     @Override
     public void handleRequest() {
+        updateHelper.getUser();
         messageManager.sendSimpleTextMessage(getString("intro"), getMainKeyboard());
     }
 
     @Override
     public boolean isStageActive() {
-        updateHelper.getUser();
         return updateHelper.isMessageContains("/start")
                 && !updateHelper.isMessageFromGroup();
     }

@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.information.main;
 
+import com.razykrashka.bot.constants.Telegraph;
 import com.razykrashka.bot.stage.MainStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class FAQStage extends MainStage {
                 .disableKeyboardLastBotMessage()
                 .sendMessage(new SendMessage()
                         .setChatId(updateHelper.getChatId())
-                        .setText("https://telegra.ph/Razykrashka-English-FAQ-04-28"));
+                        .setText(Telegraph.EN_FAQ));
     }
 
     @Override

@@ -47,7 +47,7 @@ public class BotExecutor {
     }
 
     public void execute(Update update) {
-        if (!updateHelper.isMessageFromGroup()) {
+        if (!updateHelper.isMessageFromGroup() || updateHelper.isNewChatMember()) {
             activeStages = stages.stream()
                     .filter(Stage::isStageActive)
                     .collect(Collectors.toList());

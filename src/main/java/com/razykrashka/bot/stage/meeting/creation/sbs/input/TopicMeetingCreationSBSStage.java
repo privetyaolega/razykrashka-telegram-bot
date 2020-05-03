@@ -1,6 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
 import com.razykrashka.bot.constants.Emoji;
+import com.razykrashka.bot.constants.Telegraph;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptTopicMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
@@ -21,7 +22,7 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         meetingRepository.save(meeting);
 
         String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
-                + TextFormatter.getLink("How can I choose topic? ⚡️\n\n", "https://telegra.ph/Meeting-catalogue-04-19")
+                + TextFormatter.getLink("How can I choose topic? ⚡️\n\n", Telegraph.TOPICS_CATALOGUE)
                 + TextFormatter.getItalicString(getString("input"));
         messageManager.updateMessage(message, getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
@@ -35,7 +36,7 @@ public class TopicMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         meetingRepository.save(meeting);
 
         String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
-                + TextFormatter.getLink("How can I choose topic? ⚡️\n\n", "https://telegra.ph/Meeting-catalogue-04-19")
+                + TextFormatter.getLink("How can I choose topic? ⚡️\n\n", Telegraph.TOPICS_CATALOGUE)
                 + TextFormatter.getItalicString(getString("input"));
         messageManager.sendSimpleTextMessage(message, getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
