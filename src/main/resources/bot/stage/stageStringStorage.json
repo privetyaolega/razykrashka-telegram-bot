@@ -7,7 +7,7 @@
       "main": "Hey! Here are some useful commands that might help you find your perfect meeting:\n\n<b>Information</b>\n/info - information section\n/help - all bot commands\n/faq - frequently asked questions (en/ru)\n/catalogue - meeting's topics catalogue\n\n<b>Meetings</b>\n/active - show all available meetings\n/online - show all available online meetings\n/offline - show all available offline meetings\n/archived - show all expired (archived) meetings\n/my - show my schedule meetings\n\n<b>Actions</b>\n/create - create new meeting\n\nGood luck! \uD83D\uDE09"
     },
     "UndefinedStage": {
-      "unknown": "Oops! I’m sorry I don’t understand this command \uD83E\uDD74\n\nYou can find the list of available commands here \n<b>/help</b>✨"
+      "unknown": "Oops! I’m sorry I don’t understand this command \uD83E\uDD74\n\nYou can find the list of available commands here: \n<b>/help</b>✨"
     },
     "SelectWayMeetingCreationStage": {
       "enMain": "Please, choose the way to create new meeting!\n\n☝\uD83C\uDFFBTemplate.\nUsing template (plain text) to create new meeting.\nJust copy existing template and fill it with all required data such as date, location, english level etc...\n\n\n✌\uD83C\uDFFBStep by step.\nCreate new meeting by answering questions about meeting details."
@@ -115,7 +115,7 @@
       "error": "We can't find anything by this address \uD83D\uDE13\nPlease, clarify address and make sure that this place located in <b>Minsk</b>\uD83D\uDCCD"
     },
     "PhoneMeetingCreationSBSStage": {
-      "shareNumber": "Oh, I see that you’re new here… To be able to create a meeting, you need to share your Telegram contact with us. Just click on the button below. And don’t worry, it’s completely safe!\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number? \uD83E\uDD28</a>"
+      "shareNumber": "Oh, I see that you’re new here… To be able to create a meeting, you need to share your Telegram contact with us.\nJust click on the button below. And don’t worry, it’s completely safe!\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number?</a> \uD83E\uDD28"
     },
     "AcceptPhoneMeetingCreationSBSStage": {
       "accept": "Thank you for your trust!\nYou’re all set. Let’s do it!  \uD83D\uDE0C"
@@ -131,16 +131,16 @@
       "main": "Wow! You’re really motivated to speak English! We’re happy to see that kind of eager from you! \uD83D\uDE08\n\nCreating a meeting is actually easier than you might think! And it won’t take much of your time either. You can find all related <a href='%s'>information here.</a> \n\nRight now we’re going to ask you a few questions and see what your perfect meeting looks like. Just follow the tips on the bottom of each message ⬇️ \n\nAfter you create a meeting, everyone in the community group will receive a notification, so that they can join you later.\n\nAnd REMEMBER: Practice makes perfect! \uD83D\uDCAA"
     },
     "ContactsStage": {
-      "main": "Are you experiencing any problem using the bot or want to see some improvements? We would like to hear your suggestions! \nPlease, contact me @privetyaolega \uD83E\uDD19\n\nYou can become a part of our community by simply <a href='https://t.me/razykrashkaen'>joining our chat \uD83E\uDD17</a> \n\nAlso invite your friends and practice English together! \nMeeting new people can be a little bit overwhelming… Seeing a familiar face will help you release all the pressure.  Even if you already feel confident, it’s more fun with friends anyway! ☺"
+      "main": "Are you experiencing any problem using the bot or want to see some improvements?\nWe would like to hear your suggestions!\nPlease, contact me @privetyaolega \uD83E\uDD19\n\nYou can become a part of our community by simply <a href='https://t.me/razykrashkaen'>joining our community chat \uD83E\uDD17</a> \n\nAlso invite your friends and practice English together! \nMeeting new people can be a little bit overwhelming… Seeing a familiar face will help you release all the pressure.  Even if you already feel confident, it’s more fun with friends anyway! ☺"
     },
     "SupportUsStage": {
-      "main": "We’re <b>not commercial</b>. However, if you want to see this project improve, we accept donations. All the donated money will go on <i>advertising, maintenance and improvements</i> so that more people can find out about our community. It will also increase your chances to meet a like-minded person and become really good friends!\n\n[payment information]"
+      "main": "We’re <b>not commercial</b>. \n\nHowever, if you want to see this project improve, we accept donations. All the donated money will go on <i>advertising, maintenance and improvements</i> so that more people can find out about our community. \uD83D\uDCAA\n\nIt will also increase your chances to meet a like-minded person and become really good friends! \uD83E\uDD17\n\n[payment information]"
     },
     "DateMeetingCreationSBSStage": {
       "main": "Which day are you free to join a meeting?\nLet’s pick a date."
     },
     "IncorrectInputFormatSBSStage": {
-      "main": "You don't have to type anything here!\uD83D\uDC7F\nJust choose one of the options below ☺️"
+      "main": "You don't have to type anything here!\nJust choose one of the options below ☺️"
     }
   }
 ]

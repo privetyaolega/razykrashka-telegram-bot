@@ -21,7 +21,7 @@ public class MyMeetingsViewStage extends PaginationMeetingsViewStage {
     public void handleRequest() {
         meetings = meetingRepository.findAllScheduledMeetingsForUserById(updateHelper.getTelegramUserId())
                 .stream()
-                .filter(m -> m.getMeetingDateTime().plusHours(1).isAfter(LocalDateTime.now()))
+                .filter(m -> m.getMeetingDateTime().plusHours(2).isAfter(LocalDateTime.now()))
                 .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
                 .collect(Collectors.toList());
         super.generateMainMessage(meetingMessageUtils::getPaginationAllGeneral);

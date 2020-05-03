@@ -228,7 +228,7 @@ public class MessageManager extends Sender {
         try {
             razykrashkaBot.execute(botApiMethod);
         } catch (TelegramApiException ignored) {
-            ignored.printStackTrace();
+//            ignored.printStackTrace();
         }
         return this;
     }
@@ -238,8 +238,8 @@ public class MessageManager extends Sender {
         if (telegramMessage.isBotMessage()) {
             updateMessage(textMessage, replyKeyboard);
         } else {
-            disableKeyboardLastBotMessage();
-            sendSimpleTextMessage(textMessage, replyKeyboard);
+            disableKeyboardLastBotMessage()
+                    .sendSimpleTextMessage(textMessage, replyKeyboard);
         }
     }
 

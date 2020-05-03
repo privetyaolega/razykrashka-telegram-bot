@@ -34,7 +34,7 @@ public class OfflineMeetingCreationSBSStage extends BaseMeetingCreationSBSStage 
                     getString("confirmButton"), nextStageClass.getSimpleName() + "Confirm"))
                     .setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
                     .build();
-            message = messageText + "Your Skype account is " + TextFormatter.getCodeString(skype);
+            message = messageText + TextFormatter.getItalicString("Your Skype account name is ") + TextFormatter.getCodeString(skype);
         }
         messageManager.updateOrSendDependsOnLastMessageOwner(message, keyboard.build());
         setActiveNextStage(nextStageClass);
