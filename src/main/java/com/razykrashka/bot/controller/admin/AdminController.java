@@ -72,7 +72,6 @@ public class AdminController {
     @RequestMapping(value = "/logs-ajax", method = RequestMethod.GET)
     public @ResponseBody
     String getTime() {
-        log.info("TEST");
         return "<pre>" + getLastLogLines() + "</pre>";
     }
 
