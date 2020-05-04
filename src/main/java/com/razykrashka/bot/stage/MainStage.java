@@ -110,7 +110,7 @@ public abstract class MainStage implements Stage {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton(IntroStartMeetingCreationStage.KEYWORD));
+        keyboardFirstRow.add(new KeyboardButton(IntroStartMeetingCreationStage.KEYWORDS.get(0)));
         keyboardFirstRow.add(new KeyboardButton(MyMeetingsViewStage.KEYWORD));
         keyboardFirstRow.add(new KeyboardButton(SelectMeetingsTypeStage.KEYWORD));
 

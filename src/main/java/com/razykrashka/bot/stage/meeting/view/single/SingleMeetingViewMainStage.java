@@ -26,7 +26,8 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
         if (!optionalMeeting.isPresent()) {
             String message = super.getFormatString("meetingNotFound", id);
             messageManager
-//                    .sendRandomSticker("error")
+                    .disableKeyboardLastBotMessage()
+                    .sendRandomSticker("error")
                     .replyLastMessage(message);
             return;
         }
