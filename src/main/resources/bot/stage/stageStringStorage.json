@@ -121,7 +121,7 @@
       "accept": "Thank you for your trust!\nYou’re all set. Let’s do it!  \uD83D\uDE0C"
     },
     "DeleteSingleMeetingStage": {
-      "main": "Your meeting has been deleted \uD83D\uDE1E\nMaybe we could reschedule? <b>/create</b>",
+      "main": "Your meeting has been deleted \uD83D\uDE1E\n\nMaybe we could reschedule?\n<b>/create</b>",
       "deleteNotification": "Hey! Unfortunately, /meeting%s creator decided to cancel the meeting and deleted it \uD83D\uDE25\nI know, it's sad... But don't worry! You can find other meetings /active or even /create your own!\n\nHave a good day! \uD83D\uDE09"
     },
     "WelcomeStage": {
