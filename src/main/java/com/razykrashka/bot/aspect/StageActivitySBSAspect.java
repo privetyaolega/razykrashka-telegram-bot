@@ -5,12 +5,13 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.db.repo.MeetingRepository;
+import com.razykrashka.bot.stage.information.WelcomeStage;
 import com.razykrashka.bot.stage.information.main.HelpStage;
 import com.razykrashka.bot.stage.information.main.InformationStage;
-import com.razykrashka.bot.stage.information.WelcomeStage;
 import com.razykrashka.bot.stage.meeting.creation.IntroStartMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.view.all.*;
+import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewBaseStage;
 import com.razykrashka.bot.ui.helpers.UpdateHelper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -36,25 +37,25 @@ public class StageActivitySBSAspect {
     final UpdateHelper updateHelper;
     final List<String> keyWordsList;
 
-    public StageActivitySBSAspect(UpdateHelper updateHelper, CreationStateRepository creationStateRepository,
+    public StageActivitySBSAspect(UpdateHelper updateHelper,
+                                  CreationStateRepository creationStateRepository,
                                   MeetingRepository meetingRepository) {
         this.updateHelper = updateHelper;
         this.creationStateRepository = creationStateRepository;
         this.meetingRepository = meetingRepository;
         this.keyWordsList = Arrays.asList(
-                //TODO: keywords disable SBS process
                 WelcomeStage.KEYWORD,
-                InformationStage.KEYWORD,
                 HelpStage.KEYWORD,
-                IntroStartMeetingCreationStage.KEYWORD,
                 SelectMeetingsTypeStage.KEYWORD,
-//                ActiveMeetingsViewStage.KEYWORD,
+                SingleMeetingViewBaseStage.KEYWORD,
                 ArchivedMeetingsViewStage.KEYWORD,
                 OfflineMeetingsViewStage.KEYWORD,
-                OnlineMeetingsViewStage.KEYWORD,
-                MyMeetingsViewStage.KEYWORD,
-                "/my"
+                OnlineMeetingsViewStage.KEYWORD
         );
+        keyWordsList.addAll(MyMeetingsViewStage.KEYWORDS);
+        keyWordsList.addAll(ActiveMeetingsViewStage.KEYWORDS);
+        keyWordsList.addAll(InformationStage.KEYWORDS);
+        keyWordsList.addAll(IntroStartMeetingCreationStage.KEYWORDS);
     }
 
     @Pointcut("execution(public void com.razykrashka.bot.service.BotExecutor.execute(*))))")

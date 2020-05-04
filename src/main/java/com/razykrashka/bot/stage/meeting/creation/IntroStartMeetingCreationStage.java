@@ -8,11 +8,14 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Log4j2
 @Component
 public class IntroStartMeetingCreationStage extends MainStage {
 
-    public static final String KEYWORD = "Create Meeting";
+    public static final List<String> KEYWORDS = Arrays.asList("Create Meeting", "/create");
 
     @Override
     public ReplyKeyboard getKeyboard() {
@@ -31,8 +34,7 @@ public class IntroStartMeetingCreationStage extends MainStage {
 
     @Override
     public boolean isStageActive() {
-        return (updateHelper.isMessageTextEquals(KEYWORD)
-                || updateHelper.isMessageTextEquals("/create"))
+        return KEYWORDS.contains(updateHelper.getMessageText())
                 && !updateHelper.isMessageFromGroup();
     }
 }
