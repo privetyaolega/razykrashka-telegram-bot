@@ -15,7 +15,8 @@ public class ArchivedMeetingsViewStage extends PaginationMeetingsViewStage {
     @Override
     public void processCallBackQuery() {
         meetings = meetingService.getAllMeetings()
-                .filter(m -> m.getMeetingDateTime().isBefore(LocalDateTime.now()))
+                .filter(m -> m.getMeetingDateTime() != null
+                        && m.getMeetingDateTime().isBefore(LocalDateTime.now()))
                 .sorted(Comparator.comparing(Meeting::getMeetingDateTime).reversed())
                 .collect(Collectors.toList());
 
