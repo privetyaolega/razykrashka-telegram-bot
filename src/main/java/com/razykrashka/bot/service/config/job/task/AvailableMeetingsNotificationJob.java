@@ -35,10 +35,15 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
         messages = Arrays.asList(
                 "Hey, guys! " + Emoji.WAVE_HAND + "\nYahooooo! There are %s available meetings!\nHurry up and join! Practice makes perfect " + Emoji.BICEPS,
                 "Hey! How are you? We miss you" + Emoji.DISAPPOINTED_RELIEVED + "\nWould you like to join a meeting soon?",
-                "Well, hello there! We’ve been told your English needs some practice. Let’s join a meeting from the list!",
-                "Hiii! What's up? Wanna practice some English later?",
-                "Are you dreaming of speaking perfect English? Well, you have to start somewhere. Join a meeting and start improving your skills now!",
-                "Stop being someone who learns English and become someone who speaks it! Join a meeting now " + Emoji.HUG
+                "Well, hello there!\nWe’ve been told your English needs some practice. Let’s join a meeting from the list!",
+                "Hiii! What's up?\nWanna practice some English later?",
+                "Are you dreaming of speaking perfect English? Well, you have to start somewhere.\nJoin a meeting and start improving your skills now!",
+                "Stop being someone who learns English and become someone who speaks it!\nJoin a meeting now " + Emoji.HUG,
+                "Heeeeyyy! \uD83D\uDE1C\n\nWhile you were away, some new meetings appeared. \nDon’t hesitate and join one of them right now!",
+                "Well well well... What was the last time you practiced your English?\nCheck the new meetings out! \uD83D\uDE08",
+                "Hi there! Here are some new meetings you can join.\nDon’t give up on your dream of being fluent! " + Emoji.BICEPS,
+                "Procrastinating on your English practice again? You’re not alone here \uD83D\uDE11\nLet’s fight procrastination together! \uD83D\uDC4A\uD83C\uDFFB\n\nJoin one of the available meetings",
+                "Hi there! Look how many new meetings are waiting for you to join \uD83D\uDE0C"
         );
     }
 
@@ -76,6 +81,11 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
     }
 
     private String getRandomMessage() {
-        return messages.get(new Random().nextInt(messages.size()));
+        return messages.get(new Random().nextInt(messages.size()))
+                + "\n⚠️\n" +
+                "Sorry, but our bot is still in the test mode\n" +
+                "None of the meetings are valid yet.\n" +
+                "We want to make it better for you and perfection takes time!\n" +
+                "⚠️";
     }
 }

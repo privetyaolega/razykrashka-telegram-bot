@@ -76,22 +76,22 @@
       "meetingNotFound": "Oops! Meeting # <b>%d</b> was not found \uD83E\uDD74"
     },
     "AcceptFinalMeetingCreationSBSStage": {
-      "success": "HOORAY! Your meeting has been created! \uD83E\uDD73 \nYou can find it in <code>\"My Meetings\"</code> section.\n<b>/meeting%d</b>"
+      "success": "HOORAY! Your meeting has been created! \uD83E\uDD73 \nYou can find it in <i>My Meetings</i> section.\n\n<b>/meeting%d</b>"
     },
     "SingleMeetingViewLeaveStage": {
-      "main": "\nYou've successfully left meeting ☹️\n\nYou can always find and join to it in <code>\"View Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
+      "main": "\nYou've successfully left meeting ☹️\n\nYou can always find and join to it in <i>View Meeting</i> section\n\n<b>/meeting%s</b>✨\n"
     },
     "SingleMeetingViewJoinStage": {
-      "main": "\nYou've successfully joined to meeting \uD83E\uDD73\n\nYou can find all your upcoming meetings in <code>\"My Meeting\"</code> section\n<b>/meeting%s</b>✨\n"
+      "main": "\nYou've successfully joined to meeting \uD83E\uDD73\n\nYou can find all your upcoming meetings in <i>My Meeting</i> section\n\n<b>/meeting%s</b>✨\n"
     },
     "AcceptTopicMeetingCreationSBSStage": {
       "input": "Please, enter topic with questions or generate random one by clicking <code>\"Random Topic\"</code> button",
       "backButton": "👈 Back to editing Participant Limit"
     },
     "AcceptDateMeetingCreationSBSStage": {
-      "pastDate": "⚠️ ERROR! Impossible to create meeting in the past.\uD83D\uDE30",
-      "lateTime": "⚠️ It’s too late to create meeting for today.",
-      "lateDaysWarning": "⚠️  We don’t recommend setting a date more than %s days from now.\nWhy wait for so long when you can start speaking English now? ☺️"
+      "pastDate": "⚠️ Warning!\nImpossible to create meeting in the past.",
+      "lateTime": "⚠️ Warning!\n\nIt’s too late to create a meeting for today – many people are already asleep (or tired after the long day) and won’t be able to join you today \uD83D\uDCA4",
+      "lateDaysWarning": "⚠️  Warning!\n\nWe don’t recommend setting a date more than %s days from now.\nWhy wait for so long when you can start speaking English now? ☺️"
     },
     "TimeMeetingCreationSBSStage": {
       "input": "What time would be convenient for you? (e.g 19-30, 10 20, 15:00)",

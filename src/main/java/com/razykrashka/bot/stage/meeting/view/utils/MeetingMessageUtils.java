@@ -428,7 +428,7 @@ public class MeetingMessageUtils {
                     .append(getLocationLink(meeting)).append("\n");
         } else {
             sb.append(Emoji.CHAINS).append("   ").append(Emoji.INTERNET).append("   ")
-                    .append("ONLINE").append("\n");
+                    .append("Online").append("\n");
         }
 
         sb.append(Emoji.CHAINS).append("\n")
@@ -438,13 +438,18 @@ public class MeetingMessageUtils {
                 .append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.SPEECH_CLOUD).append("   ").append(meeting.getMeetingInfo().getTopic()).append("\n")
                 .append(Emoji.CHAINS).append("\n")
-                .append(Emoji.RADIO_BUTTON).append("\n").append("\n")
+                .append(Emoji.RADIO_BUTTON).append("\n\n\n")
                 .append("Hey, guys! ").append(Emoji.WAVE_HAND).append("\n")
-                .append("A new meeting is available Hurry up to check it and join. ").append("\n").append("\n")
-                .append("Using ").append(TextFormatter.getBoldString("@" + botUserName))
-                .append(", you can find all information about meeting, join to it and find other ones.\n")
-                .append("Hurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit() - 1))
-                .append(" places left! ").append(Emoji.SCREAM).toString();
+                .append("A new meeting is available! Check it out now and join later.")
+//                .append("\n\n").append("You can find out all the details and join the meeting using ").append(TextFormatter.getBoldString("@" + botUserName))
+                .append("\n\nHurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit() - 1))
+                .append(" place(s) left! ").append(Emoji.SCREAM)
+
+                .append("\n\n").append(Emoji.WARNING)
+                .append("\n<b>Sorry, but our bot is still in the test mode\nNone of the meetings are valid yet.\nWe want to make it better for you and perfection takes time!</b>\n")
+                .append(Emoji.WARNING)
+
+                .toString();
 
         return sb.toString();
     }

@@ -166,7 +166,7 @@
             VALUES ('77',
             'Why do you think people send their elders to nursing homes?;Do you think sending your loved ones to nursing homes is a kind of abandonment?;Do you think we should take care of our parents when they grow old?;What are the pros and cons of being in a nursing home?;Do you think handicapped people are treated well in your country?;Do you think that it should be mainly relatives\' duty to take care of handicapped people but not the one of the government or society?;Do you think that the general attitude for handicapped people has changed for the better recently?;Do disabled people have anything of value to add to society?;What are ways that disabled people can compensate for their weakness?;Do you agree that handicapped people should be given more rights and more opportunities?',
             'UPPER_INTERMEDIATE',
-            'Nursing Homes, Retirement Communities, Disabilities and Handicaps');
+            'Disabilities and Handicaps');
 
             INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('78',

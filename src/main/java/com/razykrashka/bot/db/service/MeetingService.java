@@ -46,7 +46,8 @@ public class MeetingService {
     public List<Meeting> getAllMeetingDateToday() {
         return getAllMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
-                        && m.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now()))
+                        && m.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now())
+                        && m.getMeetingDateTime().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());
     }
 
