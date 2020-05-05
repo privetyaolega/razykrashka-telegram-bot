@@ -67,7 +67,7 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
                     .getKeyboard()
                     .setRow(new InlineKeyboardButton()
                             .setText("Open Meeting \uD83D\uDCAB")
-                            .setUrl("https://t.me/RazykrashkaTestBot"))
+                            .setUrl("https://t.me/RazykrashkaBot"))
                     .build();
 
             messageManager.sendMessage(new SendMessage()

@@ -428,7 +428,7 @@ public class MeetingMessageUtils {
                     .append(getLocationLink(meeting)).append("\n");
         } else {
             sb.append(Emoji.CHAINS).append("   ").append(Emoji.INTERNET).append("   ")
-                    .append(" ONLINE").append("\n");
+                    .append("ONLINE").append("\n");
         }
 
         sb.append(Emoji.CHAINS).append("\n")

@@ -64,7 +64,7 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
                     .getKeyboard()
                     .setRow(new InlineKeyboardButton()
                             .setText("Show available meetings ✨")
-                            .setUrl("https://t.me/RazykrashkaTestBot"))
+                            .setUrl("https://t.me/RazykrashkaBot"))
                     .build();
 
             messageManager.sendMessage(new SendMessage()
