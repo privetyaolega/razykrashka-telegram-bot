@@ -16,7 +16,7 @@ public class SingleMeetingTopicInfoStage extends SingleMeetingViewBaseStage {
     @Override
     public void processCallBackQuery() {
         Integer meetingId = updateHelper.getIntegerPureCallBackData();
-        meeting = meetingRepository.findMeetingById(meetingId);
+        meeting = meetingRepository.findById(meetingId).get();
         String message = meetingMessageUtils.getSingleMeetingDiscussionInfo(meeting);
         messageManager.updateMessage(message, this.getKeyboard());
     }

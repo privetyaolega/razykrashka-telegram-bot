@@ -19,6 +19,7 @@ import org.telegram.telegrambots.meta.api.methods.ActionType;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMembersCount;
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
 import org.telegram.telegrambots.meta.api.methods.send.*;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -388,5 +389,15 @@ public class MessageManager extends Sender {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public int getGroupMembersCount() {
+        try {
+            return razykrashkaBot.execute(new GetChatMembersCount()
+                    .setChatId(updateHelper.getGroupChatId()));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

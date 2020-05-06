@@ -16,7 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import java.util.Optional;
 
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @Log4j2
 @PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public class UpdateHelper {
@@ -39,6 +39,10 @@ public class UpdateHelper {
                     .contains(string);
         }
         return false;
+    }
+
+    public Long getGroupChatId() {
+        return groupChatId;
     }
 
     public boolean isCallBackDataContains() {
