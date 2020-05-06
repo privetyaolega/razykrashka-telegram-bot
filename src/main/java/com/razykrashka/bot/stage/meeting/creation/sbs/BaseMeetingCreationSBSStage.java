@@ -80,9 +80,10 @@ public abstract class BaseMeetingCreationSBSStage extends MainStage {
             Meeting expiredMeeting = meetingOptional.get();
             meetingRepository.delete(expiredMeeting);
 
-            messageManager.disableKeyboardLastBotMessage()
-                    .sendSimpleTextMessage("Oops! Your session ( " + meetingProperties.getSession()
-                            + " minutes) has expired \uD83E\uDD74\nYou’ll have to start over again.");
+            messageManager
+                    .disableKeyboardLastBotMessage()
+                    .sendSimpleTextMessage("Oops! Your " + meetingProperties.getSession()
+                            + "-minute session has expired \uD83E\uDD74\nYou’ll have to start over again.");
 
             razykrashkaBot.getContext().getBean(IntroStartMeetingCreationStage.class).handleRequest();
             throw new RuntimeException("SBS Session Expired: " + updateHelper.getTelegramUserId());
