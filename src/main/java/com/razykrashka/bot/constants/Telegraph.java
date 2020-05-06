@@ -7,4 +7,5 @@ import lombok.experimental.FieldDefaults;
 public class Telegraph {
     public static String TOPICS_CATALOGUE = "https://telegra.ph/Meeting-catalogue-04-19";
     public static String EN_FAQ = "https://telegra.ph/Razykrashka-English-FAQ-05-03";
+    public static String SUPPORT_US = "https://telegra.ph/Support-Us-05-06";
 }

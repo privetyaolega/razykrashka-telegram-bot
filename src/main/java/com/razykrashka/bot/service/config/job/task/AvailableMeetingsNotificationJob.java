@@ -81,11 +81,11 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
     }
 
     private String getRandomMessage() {
-        return messages.get(new Random().nextInt(messages.size()))
-                + "\n⚠️\n" +
-                "Sorry, but our bot is still in the test mode\n" +
-                "None of the meetings are valid yet.\n" +
-                "We want to make it better for you and perfection takes time!\n" +
-                "⚠️";
+        return messages.get(new Random().nextInt(messages.size()));
+//                + "\n⚠️\n" +
+//                "Sorry, but our bot is still in the test mode\n" +
+//                "None of the meetings are valid yet.\n" +
+//                "We want to make it better for you and perfection takes time!\n" +
+//                "⚠️";
     }
 }

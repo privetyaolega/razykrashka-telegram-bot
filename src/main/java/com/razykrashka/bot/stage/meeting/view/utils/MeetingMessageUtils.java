@@ -152,7 +152,7 @@ public class MeetingMessageUtils {
 
         if (freePlacesAmount != 0) {
             freePlacesLine.append(Emoji.NEEDLE).append(" ")
-                    .append(TextFormatter.getItalicString(freePlacesAmount + " free place(s)!"));
+                    .append(TextFormatter.getItalicString(freePlacesAmount + " free place(s)"));
         } else {
             freePlacesLine.append(Emoji.NEEDLE)
                     .append(" ")
@@ -237,7 +237,7 @@ public class MeetingMessageUtils {
 
         if (freePlacesAmount != 0) {
             freePlacesLine.append(formatLabel).append(" ")
-                    .append(TextFormatter.getItalicString(freePlacesAmount + " free place(s)!"));
+                    .append(TextFormatter.getItalicString(freePlacesAmount + " free place(s)"));
         } else {
             freePlacesLine.append(formatLabel)
                     .append(" ")
@@ -445,9 +445,9 @@ public class MeetingMessageUtils {
                 .append("\n\nHurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit() - 1))
                 .append(" place(s) left! ").append(Emoji.SCREAM)
 
-                .append("\n\n").append(Emoji.WARNING)
-                .append("\n<b>Sorry, but our bot is still in the test mode\nNone of the meetings are valid yet.\nWe want to make it better for you and perfection takes time!</b>\n")
-                .append(Emoji.WARNING)
+//                .append("\n\n").append(Emoji.WARNING)
+//                .append("\n<b>Sorry, but our bot is still in the test mode\nNone of the meetings are valid yet.\nWe want to make it better for you and perfection takes time!</b>\n")
+//                .append(Emoji.WARNING)
 
                 .toString();
 

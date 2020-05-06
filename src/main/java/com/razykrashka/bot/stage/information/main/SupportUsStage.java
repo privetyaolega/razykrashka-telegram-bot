@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.information.main;
 
+import com.razykrashka.bot.constants.Telegraph;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,8 @@ public class SupportUsStage extends InformationMainStage {
 
     @Override
     public void processCallBackQuery() {
-        messageManager.updateOrSendDependsOnLastMessageOwner(getString("main"), getKeyboardWithHighlightedButton());
+        String message = getFormatString("main", Telegraph.SUPPORT_US);
+        messageManager.updateOrSendDependsOnLastMessageOwner(message, getKeyboardWithHighlightedButton());
     }
 
     @Override
