@@ -166,7 +166,7 @@
             VALUES ('128',
             'Does television play an important role in our day-to-day life?;Do you think we can “survive” without television?;Do you think that television will be completely replaced by the Internet in future?;What will stop you from giving up TV?;Do you think TV news is a credible source of information?;Do you think there are a lot of people that believe everything they hear on TV?;Do you think that TV can be both entertaining and educating at the same time?;Do you agree that the time that children spend on watching TV should be limited by their parents?;Do you think that the government in your country is using TV and/or other mass media to influence people\'s minds?;How will TV change in 20 years?',
             'PRE_INTERMEDIATE',
-            'Would you Give up Watching TV?');
+            'Watching TV');
 
             INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('129',
@@ -208,7 +208,7 @@
             VALUES ('135',
             'Do you think that we shouldn\'t take all what\'s happening in life too seriously?;What jokes can be inappropriate to make in public?;Is it easier to live when you treat everything with a smile on your face?;Do you think it\'s OK to set up pranks on your friends/partner/relatives?;What usually makes people laugh?;Why do people react to the same joke differently?;Why do people all over the world celebrate April Fool\'s Day?;What was the reason why anecdotes appeared, in your opinion?;What really makes a joke good?;What would our life be without humor?',
             'INTERMEDIATE',
-            'Making Fun. Playing Jokes');
+            'Making Fun');
 
             INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('136',
@@ -232,7 +232,7 @@
             VALUES ('139',
             'What comes to your mind whenever you hear the words “willpower” and “self-discipline”?;Do you think that self-discipline is one of the most important and useful skills everyone should possess?;Do you sometimes feel that you lack the inner strength to take action, act assertively or be persistent?;Are there any habits you want to change, but you lack the necessary willpower and self-discipline?;Is inner strength really the expression of willpower?;What is self-control for you?;Are you the kind of person that like to do or study something complicated? What really gives you the willpower to continue?;Do you find it easy or difficult to do exercises?;Do you lose yourself in your work or do you often find yourself so absorbed in your favorite pastime that you lose track of time?;Why do many people end up not keeping to their resolution? Do you think it is the lack of willpower?',
             'INTERMEDIATE',
-            'Willpower and Self-Discipline');
+            'Self-Discipline');
 
             INSERT INTO topic_catalogue (id, questions, speaking_level, topic)
             VALUES ('140',

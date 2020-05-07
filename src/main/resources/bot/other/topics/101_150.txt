@@ -388,7 +388,7 @@ Questions:
 10. What will you choose: to stay alone on a deserted island for the rest of your life with a full access to all modern media (Internet included) or be deprived of the access to the Internet but be able to talk to people in person?
 
 ID: 128
-Topic: Would you Give up Watching TV?
+Topic: Watching TV
 Level: PRE_INTERMEDIATE
 Questions:
 1. Does television play an important role in our day-to-day life?
@@ -492,7 +492,7 @@ Questions:
 10. What is the key to success when studying a foreign language, in your opinion?
 
 ID: 135
-Topic: Making Fun. Playing Jokes
+Topic: Making Fun
 Level: INTERMEDIATE
 Questions:
 1. Do you think that we shouldn`t take all what`s happening in life too seriously?
@@ -552,7 +552,7 @@ Questions:
 10. Would you like to travel for the rest of your life and why?
 
 ID: 139
-Topic: Willpower and Self-Discipline
+Topic: Self-Discipline
 Level: INTERMEDIATE
 Questions:
 1. What comes to your mind whenever you hear the words “willpower” and “self-discipline”?

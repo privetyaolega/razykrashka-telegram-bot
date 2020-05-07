@@ -142,6 +142,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     private String getSeasonEmoji(LocalDate localDate) {
         switch (localDate.getMonthValue()) {
             case 1:
+                return Emoji.CHRISTMAS_TREE;
             case 2:
                 return Emoji.SNOWFLAKE;
             case 3:
@@ -151,6 +152,7 @@ public class DateMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
             case 5:
                 return Emoji.TULIP;
             case 6:
+                return Emoji.HIBISCUS;
             case 7:
                 return Emoji.SUNNY;
             case 8:

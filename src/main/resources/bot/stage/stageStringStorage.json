@@ -124,7 +124,7 @@
     },
     "DeleteSingleMeetingStage": {
       "main": "Your meeting has been deleted \uD83D\uDE1E\n\nMaybe we could reschedule?\n<b>/create</b>",
-      "deleteNotification": "Hey! Unfortunately, /meeting%s creator decided to cancel the meeting and deleted it \uD83D\uDE25\nI know, it's sad... But don't worry! You can find other meetings /active or even /create your own!\n\nHave a good day! \uD83D\uDE09"
+      "deleteNotification": "Hey! Unfortunately, /meeting%s creator decided to cancel the meeting and deleted it \uD83D\uDE25\n\nI know, it's sad... But don't worry! You can find other meetings /active or even /create your own!\n\nHave a good day! \uD83D\uDE09"
     },
     "WelcomeStage": {
       "intro": "Welcome to our community! \uD83E\uDD17\n\nIt’s nice to meet you! Let’s improve your speaking skills together! \uD83D\uDE08\nAll necessary information you can find in <b>/info</b> section!"
