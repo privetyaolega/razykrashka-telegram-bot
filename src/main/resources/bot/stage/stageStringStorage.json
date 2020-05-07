@@ -69,8 +69,8 @@
     },
     "VerifyMeetingStateSBSStage": {
       "main": "OOOOOPPPSSS! \uD83D\uDE2E\nIt looks like you’ve got a meeting pending. \nDo you want to continue creating a meeting or start a new one from scratch? ☺️",
-      "continue": "Continue сreating the meeting",
-      "create": "Create new meeting"
+      "continue": "Continue сreating the meeting ⏯",
+      "create": "Create new meeting ↩️"
     },
     "SingleMeetingViewMainStage": {
       "meetingNotFound": "Oops! Meeting # <b>%d</b> was not found \uD83E\uDD74"
@@ -85,7 +85,8 @@
       "main": "\nYou've successfully joined to meeting \uD83E\uDD73\n\nYou can find all your upcoming meetings in <i>My Meeting</i> section\n\n<b>/meeting%s</b>✨\n"
     },
     "AcceptTopicMeetingCreationSBSStage": {
-      "input": "Please, enter topic with questions or generate random one by clicking <code>\"Random Topic\"</code> button",
+      "input": "Please, enter topic with questions, generate random one by clicking <b>Random Topic</b> button or specify topic id from <a href='%s'>our catalogue</a>",
+      "incorrectQuestionsFormat": "Ooopppsss...\nIt seems, that topic with questions is not well-formed \uD83E\uDD74\n\nPlease, design your topic according to <a href='%s'>our rules</a>",
       "backButton": "👈 Back to editing Participant Limit"
     },
     "AcceptDateMeetingCreationSBSStage": {

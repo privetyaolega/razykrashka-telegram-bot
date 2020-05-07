@@ -2,8 +2,9 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
 import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.constants.Emoji;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.TopicCatalogue;
+import com.razykrashka.bot.constants.Telegraph;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.TopicCatalogue;
 import com.razykrashka.bot.db.repo.MeetingCatalogRepository;
 import com.razykrashka.bot.exception.IncorrectInputDataFormatException;
 import com.razykrashka.bot.exception.NoSuchEntityException;
@@ -87,7 +88,7 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         meetingRepository.save(meeting);
 
         String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
-                + TextFormatter.getItalicString(getString("input"));
+                + TextFormatter.getItalicString(getFormatString("input", Telegraph.TOPICS_CATALOGUE));
         messageManager.updateMessage(messageText, getKeyboard());
         super.setActiveNextStage(AcceptTopicMeetingCreationSBSStage.class);
     }
@@ -115,9 +116,7 @@ public class AcceptTopicMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
         if (!isTopicInfoValid(list)) {
             messageManager
                     .disableKeyboardLastBotMessage()
-                    .replyLastMessage("Ooopppsss..." +
-                            "\nIt seems, that you created topic not quite correctly \uD83E\uDD74" +
-                            "\nDesign your topic according to our rules [link].");
+                    .replyLastMessage(getFormatString("incorrectQuestionsFormat", Telegraph.TOPICS_CATALOGUE));
             razykrashkaBot.getContext().getBean(TopicMeetingCreationSBSStage.class).start();
             throw new IncorrectInputDataFormatException("Meeting info is designed incorrectly");
         }
