@@ -69,21 +69,23 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements Runn
         log.info("JOB: Upcoming meetings on {} -> {}", LocalDate.now().toString(), meetingTodayString);
 
         availableMeetings.forEach(m -> {
-
             String participantsToString = m.getParticipants().stream()
                     .map(this::getUserString)
                     .collect(Collectors.joining(","));
 
             log.info("JOB: Meeting {} has the following participants: [{}]", m.getId(), participantsToString);
 
-            m.getParticipants().forEach(p -> messageManager
-                    .disableKeyboardLastBotMessage()
-                    .sendRandomSticker("greeting")
-                    .sendMessage(new SendMessage()
-                            .setParseMode(ParseMode.HTML)
-                            .setChatId(String.valueOf(p.getId()))
-                            .setText(getMessage(m))
-                            .setReplyMarkup(getKeyboard(m))));
+            m.getParticipants().forEach(p -> {
+                String id = String.valueOf(p.getId());
+                messageManager
+                        .disableKeyboardLastBotMessage(id)
+                        .sendRandomSticker("greeting", p.getId())
+                        .sendMessage(new SendMessage()
+                                .setParseMode(ParseMode.HTML)
+                                .setChatId(id)
+                                .setText(getMessage(m))
+                                .setReplyMarkup(getKeyboard(m)));
+            });
         });
     }
 

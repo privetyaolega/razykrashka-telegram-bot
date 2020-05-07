@@ -18,4 +18,6 @@
     <include file="changelog/insert/catalog/meeting_catalog_151_200.xml" relativeToChangelogFile="true"/>
     <include file="changelog/insert/catalog/meeting_catalog_201_250.xml" relativeToChangelogFile="true"/>
 
+    <include file="changelog/insert/archived/meeting_info.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/insert/archived/meeting.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

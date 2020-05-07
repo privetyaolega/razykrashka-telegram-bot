@@ -14,6 +14,12 @@
 
             INSERT INTO location (address, latitude, longitude)
             VALUES ('ул. Кульман 3', '53.918885', '27.581235');
+
+            INSERT INTO location (address, latitude, longitude)
+            VALUES ('ул. Немига 5, Лидо', '53.9022', '27.5498');
+
+            INSERT INTO location (address, latitude, longitude)
+            VALUES ('ул. Кульман, 5', '53.9205', '27.581');
         </sql>
     </changeSet>
 </databaseChangeLog>
