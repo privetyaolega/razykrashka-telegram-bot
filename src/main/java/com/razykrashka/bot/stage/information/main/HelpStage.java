@@ -1,12 +1,19 @@
 package com.razykrashka.bot.stage.information.main;
 
-import lombok.extern.log4j.Log4j2;
+import com.razykrashka.bot.constants.Telegraph;
+import com.razykrashka.bot.service.config.YamlPropertyLoaderFactory;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
-@Log4j2
 @Component
+@PropertySource(value = "classpath:/props/razykrashka.yaml", factory = YamlPropertyLoaderFactory.class)
 public class HelpStage extends InformationMainStage {
 
+    @Value("${razykrashka.bot.version}")
+    private String botVersion;
     public final static String KEYWORD = "/help";
 
     public HelpStage() {
@@ -15,12 +22,14 @@ public class HelpStage extends InformationMainStage {
 
     @Override
     public void handleRequest() {
-        messageManager.updateOrSendDependsOnLastMessageOwner(getString("main"), getKeyboardWithHighlightedButton());
+        String message = getFormatString("main", TextFormatter.getLink("\nversion " + botVersion, Telegraph.CHANGELOG));
+        ReplyKeyboard keyboard = getKeyboardWithHighlightedButton();
+        messageManager.updateOrSendDependsOnLastMessageOwner(message, keyboard);
     }
 
     @Override
     public void processCallBackQuery() {
-        messageManager.updateOrSendDependsOnLastMessageOwner(getString("main"), getKeyboardWithHighlightedButton());
+        handleRequest();
     }
 
     @Override

@@ -4,7 +4,7 @@
       "main": "Have you been learning English for a long time but you are still afraid to speak it? Or waiting for the ”right moment”? If you want to be fluent one day, you need to make practicing English your habit <b>NOW</b>! \uD83D\uDC4A\uD83C\uDFFB  \n\nGood news: you’re not alone with this anymore. Now you have US!\n<a href='https://t.me/razykrashkaen'>Our community</a> will help you connect with people who have the same language goals as you. Only together you will be able to develop your speaking and listening skills!  And, who knows, maybe you even become friends in real life! \n\nSo, how exactly does it all work? It’s not all rocket science! All you need to do is join any /available meeting you like (which can be either /offline or /online). If there’s nothing that catches your eye, you can always /create your own meeting by choosing date, time, place, English level and number of people. See, you can be your own boss here \uD83D\uDE0E\n\nHowever, some people are shy to initiate a meeting. If you don’t consider yourself very shy, try taking the first step and /create a meeting! You will help a lot of peers out this way!\n\nLet's get started!"
     },
     "HelpStage": {
-      "main": "Hey! Here are some useful commands that might help you find your perfect meeting:\n\n<b>Information</b>\n/faq - frequently asked questions\n/catalogue - meeting's topics catalogue\n\n<b>Meetings</b>\n/active - show all available meetings\n/online - show all available online meetings\n/offline - show all available offline meetings\n/archived - show all expired (archived) meetings\n/my - show my schedule meetings\n\n<b>Actions</b>\n/create - create new meeting\n\nGood luck! \uD83D\uDE09"
+      "main": "Hey! Here are some useful commands that might help you find your perfect meeting. Good luck! \uD83D\uDE09\n\n<b>Information</b>\n/faq - frequently asked questions\n/catalogue - meeting's topics catalogue\n\n<b>Meetings</b>\n/active - show all available meetings\n/online - show all available online meetings\n/offline - show all available offline meetings\n/archived - show all expired (archived) meetings\n/my - show my schedule meetings\n\n<b>Actions</b>\n/create - create new meeting\n\n%s"
     },
     "UndefinedStage": {
       "unknown": "Oops! I’m sorry I don’t understand this command \uD83E\uDD74\n\nYou can find the list of available commands here: <b>/help</b> ✨"
@@ -68,7 +68,7 @@
       "noMeetings": "Unfortunately, nobody has initiated a meeting yet...\nTake the first step and <b>/create</b> your own meeting! ✨"
     },
     "VerifyMeetingStateSBSStage": {
-      "main": "OOOOOPPPSSS! \uD83D\uDE2E\nIt looks like you’ve got a meeting pending. \nDo you want to continue creating a meeting or start a new one from scratch? ☺️",
+      "main": "Ooopppssss! \uD83D\uDE2E\nIt looks like you’ve got a meeting pending. \nDo you want to continue creating a meeting or start a new one from scratch? ☺️",
       "continue": "Continue сreating the meeting ⏯",
       "create": "Create new meeting ↩️"
     },
