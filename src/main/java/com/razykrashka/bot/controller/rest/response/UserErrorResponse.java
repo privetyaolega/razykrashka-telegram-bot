@@ -1,4 +1,4 @@
-package com.razykrashka.bot.rest.controller.exception.response;
+package com.razykrashka.bot.controller.rest.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

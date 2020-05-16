@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class StatisticStage extends InformationMainStage {
 
     public StatisticStage() {
-        buttonLabel = "Statistics";
+        buttonLabel = "Stats";
     }
 
     @Override

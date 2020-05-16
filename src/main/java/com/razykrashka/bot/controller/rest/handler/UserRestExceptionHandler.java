@@ -1,7 +1,7 @@
-package com.razykrashka.bot.rest.controller.exception.handler;
+package com.razykrashka.bot.controller.rest.handler;
 
 import com.razykrashka.bot.controller.rest.exception.UserNotFoundException;
-import com.razykrashka.bot.rest.controller.exception.response.UserErrorResponse;
+import com.razykrashka.bot.controller.rest.response.UserErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

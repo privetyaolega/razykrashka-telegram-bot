@@ -18,6 +18,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -61,7 +68,7 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
 
     public void run() {
         log.info("JOB: Available meeting notification job is started.");
-        List<Meeting> availableMeetings = meetingService.getAllCreationStatusDone();
+        List<Meeting> availableMeetings = meetingService.getAllActive().collect(Collectors.toList());
         String message;
         if (!availableMeetings.isEmpty()) {
             message = String.format(getRandomMessage(), availableMeetings.size());

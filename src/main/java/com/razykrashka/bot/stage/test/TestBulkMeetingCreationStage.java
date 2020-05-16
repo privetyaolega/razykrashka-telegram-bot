@@ -7,11 +7,9 @@ import com.razykrashka.bot.db.repo.LocationRepository;
 import com.razykrashka.bot.db.repo.MeetingCatalogRepository;
 import com.razykrashka.bot.exception.YandexMapApiException;
 import com.razykrashka.bot.stage.MainStage;
-
 import com.razykrashka.bot.ui.helpers.LocationHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -21,7 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Log4j2
-@Component
+//@Component
 public class TestBulkMeetingCreationStage extends MainStage {
 
     @Autowired
