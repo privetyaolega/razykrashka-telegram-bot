@@ -22,7 +22,8 @@ public class HelpStage extends InformationMainStage {
 
     @Override
     public void handleRequest() {
-        String message = getFormatString("main", TextFormatter.getLink("\nversion " + botVersion, Telegraph.CHANGELOG));
+        String versionHistoryLink = TextFormatter.getLink("\nversion " + botVersion, Telegraph.VERSION_HISTORY);
+        String message = getFormatString("main", versionHistoryLink);
         ReplyKeyboard keyboard = getKeyboardWithHighlightedButton();
         messageManager.updateOrSendDependsOnLastMessageOwner(message, keyboard);
     }
