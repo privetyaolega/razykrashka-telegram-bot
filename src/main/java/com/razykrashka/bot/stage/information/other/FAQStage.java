@@ -1,4 +1,4 @@
-package com.razykrashka.bot.stage.information.main;
+package com.razykrashka.bot.stage.information.other;
 
 import com.razykrashka.bot.constants.Telegraph;
 import com.razykrashka.bot.stage.MainStage;
