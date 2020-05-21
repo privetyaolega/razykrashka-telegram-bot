@@ -118,7 +118,7 @@
       "error": "We can't find anything by this address \uD83D\uDE13\nPlease, clarify address and make sure that this place located in <b>Minsk</b>\uD83D\uDCCD"
     },
     "PhoneMeetingCreationSBSStage": {
-      "shareNumber": "Oh, I see that you’re new here… To be able to create a meeting, you need to share your Telegram contact with us.\nJust click on the button below. And don’t worry, it’s completely safe!\n\n<a href='https://telegra.ph/Russian-FAQ-04-14'>Why should I provide my number?</a> \uD83E\uDD28"
+      "shareNumber": "Oh, I see that you’re new here… To be able to create a meeting, you need to share your Telegram contact with us.\nJust click on the button below. And don’t worry, it’s completely safe!\n\n<a href='%s'>Why should I provide my number?</a> \uD83E\uDD28"
     },
     "AcceptPhoneMeetingCreationSBSStage": {
       "accept": "Thank you for your trust!\nYou’re all set. Let’s do it!  \uD83D\uDE0C"

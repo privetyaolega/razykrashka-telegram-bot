@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
+import com.razykrashka.bot.constants.Telegraph;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptPhoneMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.start.VerifyMeetingStateSBSStage;
@@ -32,7 +33,7 @@ public class PhoneMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
                     .disableKeyboardLastBotMessage()
                     .sendMessage(new SendMessage()
                             .setParseMode(ParseMode.HTML)
-                            .setText(getString("shareNumber"))
+                            .setText(getFormatString("shareNumber", Telegraph.EN_FAQ))
                             .setReplyMarkup(getKeyboard())
                             .disableWebPagePreview()
                             .setChatId(updateHelper.getChatId()));
