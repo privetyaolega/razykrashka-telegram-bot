@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public abstract class PaginationMeetingsViewStage extends MainStage {
 
+    protected int meetingsPerPage;
     @Autowired
     MeetingProperties meetingProperties;
     @Autowired
@@ -34,17 +35,20 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
     List<Meeting> meetings;
 
     protected void generateMainMessage(Function<List<Meeting>, String> function) {
+        if (meetingsPerPage == 0) {
+            meetingsPerPage = meetingProperties.getViewPerPage();
+        }
         keyboard = new InlineKeyboardMarkup();
         if (meetings.size() == 0) {
             messageManager.updateOrSendDependsOnLastMessageOwner(getString("noMeetings"), null);
         } else {
             int pageNumToShow = getPageNumToShow();
-            int totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(meetingProperties.getViewPerPage()));
+            int totalPagesAmount = (int) Math.ceil(meetings.size() / new Double(meetingsPerPage));
             List<Meeting> meetingsToShow = getMeetingsSublistForCurrentPage(pageNumToShow, totalPagesAmount);
 
             String header = String.format(getString("header"), meetings.size());
             String meetingsString = function.apply(meetingsToShow);
-            if (meetings.size() > meetingProperties.getViewPerPage()) {
+            if (meetings.size() > meetingsPerPage) {
                 keyboard = keyboardBuilder.getPaginationKeyboard(this.getClass(), pageNumToShow, totalPagesAmount);
             }
             if (updateHelper.isUpdateFromGroup()) {
@@ -90,12 +94,12 @@ public abstract class PaginationMeetingsViewStage extends MainStage {
     }
 
     private List<Meeting> getMeetingsSublistForCurrentPage(int pageNumToShow, int totalPagesAmount) {
-        int limit = meetingProperties.getViewPerPage();
-        if (totalPagesAmount == pageNumToShow && totalPagesAmount * meetingProperties.getViewPerPage() != meetings.size()) {
-            limit = meetings.size() % meetingProperties.getViewPerPage();
+        int limit = meetingsPerPage;
+        if (totalPagesAmount == pageNumToShow && totalPagesAmount * meetingsPerPage != meetings.size()) {
+            limit = meetings.size() % meetingsPerPage;
         }
         return meetings.stream()
-                .skip((pageNumToShow - 1) * meetingProperties.getViewPerPage())
+                .skip((pageNumToShow - 1) * meetingsPerPage)
                 .limit(limit)
                 .collect(Collectors.toList());
     }

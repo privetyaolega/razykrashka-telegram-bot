@@ -66,6 +66,6 @@ public class PhoneMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     @Override
     public boolean isStageActive() {
-        return updateHelper.isCallBackDataContains();
+        return updateHelper.isCallBackDataEquals();
     }
 }

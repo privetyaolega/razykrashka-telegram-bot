@@ -9,6 +9,7 @@ public class ArchivedMeetingsViewStage extends PaginationMeetingsViewStage {
 
     @Override
     public void processCallBackQuery() {
+        meetingsPerPage = 4;
         meetings = meetingService.getAllArchivedMeetings();
         super.generateMainMessage(meetingMessageUtils::getPaginationAllViewArchived);
     }
