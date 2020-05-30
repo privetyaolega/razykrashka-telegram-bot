@@ -1,7 +1,7 @@
 [
   {
     "InformationStage": {
-      "main": "Have you been learning English for a long time but you are still afraid to speak it? Or waiting for the ”right moment”? If you want to be fluent one day, you need to make practicing English your habit <b>NOW</b>! \uD83D\uDC4A\uD83C\uDFFB  \n\nGood news: you’re not alone with this anymore. Now you have US!\n<a href='https://t.me/razykrashkaen'>Our community</a> will help you connect with people who have the same language goals as you. Only together you will be able to develop your speaking and listening skills!  And, who knows, maybe you even become friends in real life! \n\nSo, how exactly does it all work? It’s not all rocket science! All you need to do is join any /available meeting you like (which can be either /offline or /online). If there’s nothing that catches your eye, you can always /create your own meeting by choosing date, time, place, English level and number of people. See, you can be your own boss here \uD83D\uDE0E\n\nHowever, some people are shy to initiate a meeting. If you don’t consider yourself very shy, try taking the first step and /create a meeting! You will help a lot of peers out this way!\n\nLet's get started!"
+      "main": "Have you been learning English for a long time but you are still afraid to speak it? Or waiting for the ”right moment”? If you want to be fluent one day, you need to make practicing English your habit <b>NOW</b>! \uD83D\uDC4A\uD83C\uDFFB  \n\nGood news: you’re not alone with this anymore.\nNow you have US! \uD83E\uDD17\n<a href='https://t.me/razykrashkaen'>Our community</a> will help you connect with people who have the same language goals as you. Only together you will be able to develop your speaking and listening skills!  And, who knows, maybe you even become friends in real life! \n\nSo, how exactly does it all work? It’s not all rocket science! All you need to do is join any /available meeting you like (which can be either /offline or /online). If there’s nothing that catches your eye, you can always /create your own meeting by choosing date, time, place, English level and number of people. See, you can be your own boss here \uD83D\uDE0E\n\nHowever, some people are shy to initiate a meeting. If you don’t consider yourself very shy, try taking the first step and /create a meeting! You will help a lot of peers out this way!\n\n<b>Let's get started!</b>"
     },
     "HelpStage": {
       "main": "Hey! Here are some useful commands that might help you find your perfect meeting.\n\n<b>Information</b>\n/faq - frequently asked questions\n/catalogue - meeting's topics catalogue\n/version - version of the bot and changelog info\n\n<b>Meetings</b>\n/active - show all available meetings\n/online - show all available online meetings\n/offline - show all available offline meetings\n/archived - show all expired (archived) meetings\n/my - show my schedule meetings\n\n<b>Actions</b>\n/create - create new meeting\n\nGood luck! \uD83D\uDE09"
@@ -40,11 +40,11 @@
       "back": "👈 Back to editing Location"
     },
     "ParticipantsMeetingCreationSBSStage": {
-      "input": "The number of participants can be different. In my experience, I recommend arranging small meetings for 3-4 people, otherwise speaking turns into just listening \uD83D\uDE05\n\nHow many people do you want to practice your English with?",
+      "input": "The number of participants can be different. In our experience, we recommend arranging small meetings for 3-4 people, otherwise speaking turns into just listening \uD83D\uDE05\n\nHow many people do you want to practice your English with?",
       "back": "👈 Back to editing Level"
     },
     "LocationMeetingCreationSBSStage": {
-      "input": "Where would you like to meet? \nPlease, type in or attach the address (e.g ул. Немига 6)",
+      "input": "Where would you like to meet? \nPlease, type in address or <a href='https://thumbs.gfycat.com/AppropriateSilverIrukandjijellyfish-mobile.mp4'>attach map</a> (e.g ул. Немига 6)",
       "mapAttachment": "In this step you need to clarify the place where meeting will take place \uD83E\uDD17\n\nYou can write street name (e.g <code>Немига 25</code>, <code>улица Кальварийская 65</code>) or attach map using Telegram feature, it's up to you which method to use.\n\nAbove you can find example of map attachment.\uD83D\uDC46",
       "backButton": "👈 Back to editing Meeting Format"
     },
@@ -99,7 +99,7 @@
       "backButton": "\uD83D\uDC48 Back to editing Date"
     },
     "FormatMeetingCreationSBSStage": {
-      "input": "Hmmm...\uD83E\uDD14\nWhat exactly is ‘Meeting format’? Let’s see!\nIt means the place where you want to get in contact with your speaking partners.\n\n\t• For <b>online meetings</b> our community uses <a href='https://www.skype.com/en/get-skype/'>Skype</a> calls so, please, make sure, that you have this program on your device.\nIn the following releases we are going to support <i>Discord</i> and <i>Zoom</i> platform. Stay tuned for more updates \uD83D\uDE09\n\n\t• <b>Offline meetings</b> take place in the ’real life’. It can be your favorite café or just bench in a park (so far only <b>Minsk</b> is being supported).\n\nSo it’s really up to you to decide! \uD83D\uDE0C\nWhich option do you prefer? ",
+      "input": "Hmmm...\uD83E\uDD14\nWhat exactly is ‘Meeting format’? Let’s see!\nIt means the place where you want to get in contact with your speaking partners.\n\n\t• For <b>online meetings</b> our community uses <a href='https://www.skype.com/en/get-skype/'>Skype</a> calls so, please, make sure, that you have this program on your device.\nIn upcoming releases we are going to support <b>Discord</b> and <b>Zoom</b> platform. Stay tuned for more updates \uD83D\uDE09\n\n\t• <b>Offline meetings</b> take place in the ’real life’. It can be your favorite café or just bench in a park (so far only <b>Minsk</b> is being supported).\n\nSo it’s really up to you to decide! \uD83D\uDE0C\nWhich option do you prefer? ",
       "backButton": "\uD83D\uDC48 Back to editing Time"
     },
     "OfflineMeetingCreationSBSStage": {

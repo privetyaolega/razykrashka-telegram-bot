@@ -41,6 +41,7 @@ public class FormatMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
         String message = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getItalicString(getString("input"));
         messageManager.updateMessage(message, getKeyboard());
+        setActiveNextStage(nextStageClass);
     }
 
     @Override
