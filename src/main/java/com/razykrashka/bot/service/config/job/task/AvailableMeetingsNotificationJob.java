@@ -62,8 +62,6 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
      * - inline button that is trigger to AllMeetingViewStage for calling user.
      * The message is sent to calling user directly (user chat);
      *
-     * Period: every day;
-     *
      */
 
     public void run() {

@@ -54,8 +54,6 @@ public class UpcomingMeetingsNotificationJob extends AbstractJob implements Runn
      * contains link for meeting with brief information about it.
      * Each meeting member receives the message in user chat (including meeting owner)
      *
-     * Period: morning of every day.
-     *
      */
     @Override
     public void run() {
