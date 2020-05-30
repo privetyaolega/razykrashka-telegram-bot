@@ -18,7 +18,7 @@ public class UndefinedStage extends MainStage {
                 && !updateHelper.isMessageFromGroup()) {
             messageManager
                     .disableKeyboardLastBotMessage()
-                    .replyLastMessage(getString("unknown"));
+                    .replyLastMessage(getString("unknown"), getMainKeyboard());
         }
     }
 }

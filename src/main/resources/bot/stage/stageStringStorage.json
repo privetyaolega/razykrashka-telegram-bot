@@ -14,7 +14,7 @@
     },
     "ActiveMeetingsViewStage": {
       "header": "\uD83D\uDCAB There are <b>%d active</b> meetings.\n\n",
-      "noMeetings": "Unfortunately, nobody has initiated a meeting yet...\nTake the first step and <b>/create</b> your own meeting! ✨"
+      "noMeetings": "Unfortunately, nobody has initiated a meeting yet... \uD83D\uDE2D\nTake the first step and /create your own meeting!"
     },
     "ArchivedMeetingsViewStage": {
       "header": "\uD83D\uDCC1 There are <b>%d archived</b> meetings.\n\n",
@@ -23,12 +23,12 @@
     "OfflineMeetingsViewStage": {
       "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n",
       "header": "☕️ There are <b>%d active offline</b> meetings.\n\n",
-      "noMeetings": "Unfortunately, nobody has initiated a meeting yet...\nTake the first step and <b>/create</b> your own meeting! ✨"
+      "noMeetings": "Unfortunately, nobody has initiated a meeting yet... \uD83D\uDE2D\nTake the first step and /create your own meeting!"
     },
     "MyMeetingsViewStage": {
       "totalMeetingsInfo": "\uD83D\uDCAB Найдено %d встреч(и)\n\n",
       "header": "\uD83D\uDCAB There are <b>%d</b> active meetings.\n\n",
-      "noMeetings": "Seems like you don’t have any meetings planned… \nJoin <b>/available</b> meetings or <b>/create</b> your own ✨"
+      "noMeetings": "Seems like you don’t have any meetings planned… \uD83D\uDE14\nJoin /available meetings or /create your own!"
     },
     "AcceptTimeMeetingCreationSBSStage": {
       "incorrectTimeFormat": "<code>%s</code> incorrect time format \uD83D\uDE30\n\nPlease, use the following format: \n\t• <code>19-45</code>\n\t• <code>17 00</code>\n\t• <code>8:30</code>",
@@ -65,7 +65,7 @@
     },
     "OnlineMeetingsViewStage": {
       "header": "\uD83C\uDF10 There are <b>%d active online</b> meetings.\n\n",
-      "noMeetings": "Unfortunately, nobody has initiated a meeting yet...\nTake the first step and <b>/create</b> your own meeting! ✨"
+      "noMeetings": "Unfortunately, nobody has initiated a meeting yet... \uD83D\uDE2D\nTake the first step and /create your own meeting!"
     },
     "VerifyMeetingStateSBSStage": {
       "main": "Ooopppssss! \uD83D\uDE2E\nIt looks like you’ve got a meeting pending. \nDo you want to continue creating a meeting or start a new one from scratch? ☺️",
@@ -112,7 +112,7 @@
       "warning": "       ⚠️Warning!\n\nAre you sure you want to delete the meeting?\nThe action is irrevocable! And it also decreases your chances of getting fluent in English \uD83D\uDE14\n\n<b>/meeting%s</b>"
     },
     "StatisticStage": {
-      "main": "If you’re still having second thoughts… look how many people have already chosen us to practice their English with! \uD83E\uDD24\n\n\uD83D\uDCA5 Successfully completed meetings: <b>%s</b>\n\uD83D\uDCA5 Users using bot: <b>%s</b>\n\uD83D\uDCA5 Users in community group: <b>%s</b>\n\nWe will be happy to see you as a member of our friendly community!\nDon’t hesitate and join the next available meeting! \uD83E\uDD1F\uD83C\uDFFB"
+      "main": "If you’re still having second thoughts… look how many people have already chosen us to practice their English with! \uD83E\uDD24\n\n\uD83D\uDCA5 Successfully completed meetings: <b>%s</b>\n\uD83D\uDCA5 Users using bot: <b>%s</b>\n\uD83D\uDCA5 Users in community group: <b>%s</b>\n\nWe will be happy to see you as a member of our friendly community!\nDon’t hesitate and join the next /available meeting! \uD83E\uDD1F\uD83C\uDFFB"
     },
     "AcceptLocationMeetingCreationSBSStage": {
       "error": "We can't find anything by this address \uD83D\uDE13\nPlease, clarify address and make sure that this place located in <b>Minsk</b>\uD83D\uDCCD"
