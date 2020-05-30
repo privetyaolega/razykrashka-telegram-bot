@@ -6,10 +6,12 @@ import com.razykrashka.bot.db.repo.CreationStateRepository;
 import com.razykrashka.bot.db.repo.LocationRepository;
 import com.razykrashka.bot.db.repo.MeetingCatalogRepository;
 import com.razykrashka.bot.exception.YandexMapApiException;
+import com.razykrashka.bot.integration.discord.DiscordBot;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.ui.helpers.LocationHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Log4j2
-//@Component
+@Component
 public class TestBulkMeetingCreationStage extends MainStage {
 
     @Autowired
@@ -30,6 +32,8 @@ public class TestBulkMeetingCreationStage extends MainStage {
     protected CreationStateRepository creationStateRepository;
     @Autowired
     MeetingCatalogRepository meetingCatalogRepository;
+    @Autowired
+    DiscordBot discordBot;
 
     private Meeting meeting;
 
@@ -79,6 +83,8 @@ public class TestBulkMeetingCreationStage extends MainStage {
 
                 meeting.getParticipants().add(updateHelper.getUser());
                 meetingRepository.save(meeting);
+
+                messageManager.sendSimpleTextMessage(discordBot.createVoiceMeetingChannel(meeting));
             }
         } catch (Exception e) {
             e.printStackTrace();
