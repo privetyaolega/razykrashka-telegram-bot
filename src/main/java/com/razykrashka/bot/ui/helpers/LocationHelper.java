@@ -4,7 +4,9 @@ import com.razykrashka.bot.api.YandexMapApi;
 import com.razykrashka.bot.api.model.yandex.FeatureYandex;
 import com.razykrashka.bot.api.model.yandex.Properties;
 import com.razykrashka.bot.db.entity.razykrashka.Location;
+import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.exception.YandexMapApiException;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,7 @@ public class LocationHelper {
 
     @Autowired
     YandexMapApi yandexMapApi;
+    final static String GOOGLE_MAP_LINK_PATTERN = "https://www.google.com/maps/search/?api=1&query=%s,%s";
 
     public Location getLocation(String address) throws YandexMapApiException {
         // ImmutableMap.of("type", "biz")
@@ -47,5 +50,16 @@ public class LocationHelper {
         String text = location.getLatitude() + "," + location.getLongitude();
         Properties properties = yandexMapApi.getYandexMapModel(text).getFeatures().get(0).getProperties();
         return getLocation(properties.getName());
+    }
+
+    public String getLocationLink(Meeting meeting) {
+        Location location = meeting.getLocation();
+        String url = String.format(GOOGLE_MAP_LINK_PATTERN, location.getLatitude(), location.getLongitude());
+        return TextFormatter.getLink(location.getAddress(), url);
+    }
+
+    public String getLocationUrl(Meeting meeting) {
+        Location location = meeting.getLocation();
+        return String.format(GOOGLE_MAP_LINK_PATTERN, location.getLatitude(), location.getLongitude());
     }
 }

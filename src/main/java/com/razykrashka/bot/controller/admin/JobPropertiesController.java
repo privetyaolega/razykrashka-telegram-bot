@@ -43,6 +43,12 @@ public class JobPropertiesController {
         upcomingJobFromProperty.setCronExp(upcomingJobNewData.getCronExp());
         upcomingJobFromProperty.setEnabled(upcomingJobNewData.isEnabled());
         changeJobProperties(upcomingJobFromProperty);
+
+        NotificationRightBeforeMeetingsProperty rightBeforeNewData = job.getNotification().getRightBefore();
+        NotificationRightBeforeMeetingsProperty rightBeforeJobFromProperty = jobProperties.getMeeting().getNotification().getRightBefore();
+        rightBeforeJobFromProperty.setCronExp(rightBeforeNewData.getCronExp());
+        rightBeforeJobFromProperty.setEnabled(rightBeforeNewData.isEnabled());
+        changeJobProperties(rightBeforeJobFromProperty);
         return "redirect:/admin/job-properties";
     }
 

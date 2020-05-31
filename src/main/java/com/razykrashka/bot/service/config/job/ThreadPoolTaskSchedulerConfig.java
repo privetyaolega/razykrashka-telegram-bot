@@ -30,7 +30,7 @@ public class ThreadPoolTaskSchedulerConfig {
     }
 
     @Bean
-    public ThreadPoolTaskSchedulerWrapper threadPoolTaskSchedulerWrapper() {
+    public ThreadPoolTaskSchedulerWrapper threadPoolTaskScheduler() {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = threadPoolTaskSchedulerWrapper.getThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(5);
         threadPoolTaskScheduler.setThreadNamePrefix("Job Task Scheduler");
@@ -48,7 +48,7 @@ public class ThreadPoolTaskSchedulerConfig {
     }
 
     @Bean
-    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
+    public ThreadPoolTaskScheduler s() {
         return new ThreadPoolTaskScheduler();
     }
 

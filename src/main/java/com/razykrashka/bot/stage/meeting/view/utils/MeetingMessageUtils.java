@@ -65,9 +65,10 @@ public class MeetingMessageUtils {
                     .append("\n\n");
         }
 
-        header.append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
+        header.append(Emoji.RADIO_BUTTON).append(Emoji.SPACES);
+        String meetingHeaderName = meeting.getFormat().equals(MeetingFormatEnum.ONLINE) ? "Oɴʟɪɴᴇ ᴍᴇᴇᴛɪɴɢ # " : "Mᴇᴇᴛɪɴɢ # ";
 //                .append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES)
-                .append(TextFormatter.getCodeString("Mᴇᴇᴛɪɴɢ # " + meeting.getId()))
+        header.append(TextFormatter.getCodeString(meetingHeaderName + meeting.getId()))
                 .append("\n").append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("\n");
 
@@ -79,11 +80,6 @@ public class MeetingMessageUtils {
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
             location.append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                     .append(Emoji.LOCATION).append(" ").append(getLocationLink(meeting)).append("\n");
-        } else {
-            location.append(Emoji.CHAINS).append("\n").append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
-                    .append(Emoji.INTERNET).append(" Skype: ")
-                    .append(TextFormatter.getCodeString(meeting.getTelegramUser().getSkypeContact()))
-                    .append("\n");
         }
 
         StringBuilder levelLine = new StringBuilder()
@@ -374,13 +370,6 @@ public class MeetingMessageUtils {
             sb.append(Emoji.CLOCK)
                     .append(TextFormatter.getBoldString(" Dᴀᴛᴇ: "))
                     .append(date);
-        }
-
-        if (meeting.getTelegramUser().getSkypeContact() != null) {
-            sb.append("\n\n")
-                    .append(Emoji.PHONE_V1)
-                    .append(TextFormatter.getBoldString(" Sᴋʏᴘᴇ: "))
-                    .append(TextFormatter.getCodeString(meeting.getTelegramUser().getSkypeContact()));
         }
 
         MeetingInfo meetingInfo = meeting.getMeetingInfo();

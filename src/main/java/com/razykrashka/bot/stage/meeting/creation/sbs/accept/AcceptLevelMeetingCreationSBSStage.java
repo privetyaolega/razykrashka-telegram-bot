@@ -3,13 +3,9 @@ package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingInfo;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.SpeakingLevel;
-import com.razykrashka.bot.stage.information.UndefinedStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.IncorrectInputFormatSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.input.LevelMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.input.OfflineMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.input.ParticipantsMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.input.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +37,7 @@ public class AcceptLevelMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
     @Override
     public boolean isStageActive() {
         return super.isStageActive()
-                && (!updateHelper.isCallBackDataContains(LocationMeetingCreationSBSStage.class.getSimpleName())
-                && !updateHelper.isCallBackDataContains(OfflineMeetingCreationSBSStage.class.getSimpleName()));
+                && (!updateHelper.isCallBackDataContains(OfflineMeetingCreationSBSStage.class.getSimpleName())
+                && !updateHelper.isCallBackDataContains(FormatMeetingCreationSBSStage.class.getSimpleName()));
     }
 }

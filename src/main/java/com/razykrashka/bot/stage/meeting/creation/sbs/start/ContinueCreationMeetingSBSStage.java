@@ -23,8 +23,8 @@ public class ContinueCreationMeetingSBSStage extends BaseMeetingCreationSBSStage
         sbsStages.add(DateMeetingCreationSBSStage.class);
         sbsStages.add(TimeMeetingCreationSBSStage.class);
         sbsStages.add(FormatMeetingCreationSBSStage.class);
+        sbsStages.add(OnlineMeetingCreationSBSStage.class);
         sbsStages.add(OfflineMeetingCreationSBSStage.class);
-        sbsStages.add(LocationMeetingCreationSBSStage.class);
         sbsStages.add(LevelMeetingCreationSBSStage.class);
         sbsStages.add(ParticipantsMeetingCreationSBSStage.class);
         sbsStages.add(TopicMeetingCreationSBSStage.class);

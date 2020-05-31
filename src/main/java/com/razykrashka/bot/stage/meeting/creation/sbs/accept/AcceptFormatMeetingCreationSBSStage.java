@@ -4,8 +4,8 @@ import com.razykrashka.bot.db.entity.razykrashka.meeting.MeetingFormatEnum;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.IncorrectInputFormatSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.FormatMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.input.LocationMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.OfflineMeetingCreationSBSStage;
+import com.razykrashka.bot.stage.meeting.creation.sbs.input.OnlineMeetingCreationSBSStage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +21,9 @@ public class AcceptFormatMeetingCreationSBSStage extends BaseMeetingCreationSBSS
         meetingRepository.save(meeting);
 
         if (meetingFormatEnum.equals(MeetingFormatEnum.OFFLINE)) {
-            razykrashkaBot.getContext().getBean(LocationMeetingCreationSBSStage.class).handleRequest();
-        } else {
             razykrashkaBot.getContext().getBean(OfflineMeetingCreationSBSStage.class).handleRequest();
+        } else {
+            razykrashkaBot.getContext().getBean(OnlineMeetingCreationSBSStage.class).handleRequest();
         }
     }
 

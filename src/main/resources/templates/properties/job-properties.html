@@ -13,7 +13,8 @@
         </script>
     </head>
     <body onload="showMe('checkboxAvailableJob', 'inputAvailableJob');
-    showMe('checkboxUpcomingJob', 'inputUpcomingJob');">
+                  showMe('checkboxUpcomingJob', 'inputUpcomingJob');
+                  showMe('checkboxRightBeforeJob', 'inputRightBeforeJob');">
 
         <div class="container d-flex align-items-stretch">
             <nav id="sidebar" class="img">
@@ -78,6 +79,33 @@
                             <input class="form-control"
                                    th:value="${properties.notification.upcoming.cronExp}"
                                    th:field="*{notification.upcoming.cronExp}"
+                                   type="text"
+                                   aria-describedby="viewPerPageDescription"/>
+                            <small id="viewPerPageDescription" class="form-text text-muted">Cron expression</small>
+                        </div>
+                    </div>
+
+                    <!-- Right Before Job Property Row  -->
+                    <div class="row">
+                        <!-- Right Before Job Checkbox  -->
+                        <div class="form-group col-sm-4">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="checkboxRightBeforeJob"
+                                   onclick="showMe('checkboxRightBeforeJob', 'inputRightBeforeJob')"
+                                   th:value="${properties.notification.rightBefore.enabled}"
+                                   th:field="*{notification.rightBefore.enabled}"/>
+                            <label class="custom-control-label"
+                                   for="checkboxRightBeforeJob"
+                                   aria-describedby="test">Right Before Meetings</label>
+                            <small id="test" class="form-text text-muted">Job notifies about upcoming job before 1
+                                hour</small>
+                        </div>
+                        <!-- Right Before Job Input  -->
+                        <div class="col-sm-6" id="inputRightBeforeJob">
+                            <input class="form-control"
+                                   th:value="${properties.notification.rightBefore.cronExp}"
+                                   th:field="*{notification.rightBefore.cronExp}"
                                    type="text"
                                    aria-describedby="viewPerPageDescription"/>
                             <small id="viewPerPageDescription" class="form-text text-muted">Cron expression</small>

@@ -1,16 +1,14 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
-import com.google.common.collect.ImmutableMap;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptOfflineMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
-import com.razykrashka.bot.ui.helpers.keyboard.KeyboardBuilder;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+@Log4j2
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OfflineMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     Class<? extends BaseMeetingCreationSBSStage> nextStageClass = AcceptOfflineMeetingCreationSBSStage.class;
@@ -18,26 +16,32 @@ public class OfflineMeetingCreationSBSStage extends BaseMeetingCreationSBSStage 
 
     @Override
     public void handleRequest() {
-        meeting = getMeetingInCreation();
-        String messageText = meetingMessageUtils.createMeetingInfoDuringCreation(meeting);
-        String skype = updateHelper.getUser().getSkypeContact();
+        handleRequest(true);
+    }
 
-        KeyboardBuilder keyboard = keyboardBuilder.getKeyboard();
-        String message;
-        if (skype == null) {
-            keyboard.setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
-                    .build();
-            message = messageText + TextFormatter.getItalicString(getString("input"));
-        } else {
-            keyboard.setRow(ImmutableMap.of(
-                    getString(EDIT), nextStageClass.getSimpleName(),
-                    getString("confirmButton"), nextStageClass.getSimpleName() + "Confirm"))
-                    .setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
-                    .build();
-            message = messageText + TextFormatter.getItalicString("Your Skype account name is ") + TextFormatter.getCodeString(skype);
-        }
-        messageManager.updateOrSendDependsOnLastMessageOwner(message, keyboard.build());
-        setActiveNextStage(nextStageClass);
+    public void handleRequest(boolean showTutorial) {
+        meeting = getMeetingInCreation();
+        meeting.setLocation(null);
+        meetingRepository.save(meeting);
+
+/*        if (!updateHelper.isCallBackDataEquals(this.getClass().getSimpleName() + EDIT) && showTutorial) {
+            LoadingThreadV2 loadingThread = startLoadingThread(false);
+            messageManager.sendAnimation("bot/pics/map_attachment.gif", getString("mapAttachment"));
+            loadingThread.interrupt();
+        }*/
+
+        String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
+                + TextFormatter.getItalicString(getString("input"));
+        messageManager.deleteLastBotMessageIfHasKeyboard()
+                .sendSimpleTextMessage(meetingInfo, getKeyboard());
+        super.setActiveNextStage(nextStageClass);
+    }
+
+    @Override
+    public ReplyKeyboard getKeyboard() {
+        return keyboardBuilder.getKeyboard()
+                .setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
+                .build();
     }
 
     @Override
