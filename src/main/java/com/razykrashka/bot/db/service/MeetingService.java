@@ -46,7 +46,7 @@ public class MeetingService {
     }
 
     public List<Meeting> getAllMeetingDateToday() {
-        return getAllUpcomingMeetings()
+        return getAllMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
                         && m.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now())
                         && m.getMeetingDateTime().isAfter(LocalDateTime.now()))
@@ -54,7 +54,7 @@ public class MeetingService {
     }
 
     public Stream<Meeting> getAllActive() {
-        return getAllUpcomingMeetings()
+        return getAllMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
                         && m.getMeetingDateTime().isAfter(LocalDateTime.now()));
     }

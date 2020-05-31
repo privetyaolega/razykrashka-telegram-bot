@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +33,7 @@ public class MeetingMessageUtils {
     @Value("${razykrashka.bot.username}")
     String botUserName;
     final static String GOOGLE_MAP_LINK_PATTERN = "https://www.google.com/maps/search/?api=1&query=%s,%s";
-    final static String DATE_TIME_PATTERN = "dd MMMM (EEEE) HH:mm";
+    final static String DATE_TIME_PATTERN = "dd MMMM (eee) HH:mm";
     final static String DATE_PATTERN = "dd MMMM (EEEE)";
     final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN, Locale.ENGLISH);
 
@@ -74,7 +77,9 @@ public class MeetingMessageUtils {
 
         StringBuilder date = new StringBuilder()
                 .append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
-                .append(Emoji.CLOCK).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).append("\n");
+                .append(Emoji.CLOCK).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER))
+                .append(" • ").append(getTimeBefore(meeting))
+                .append("\n");
 
         StringBuilder location = new StringBuilder();
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
@@ -99,12 +104,18 @@ public class MeetingMessageUtils {
                         + meeting.getMeetingInfo().getParticipantLimit()))
                 .append(participants);
 
-        return sb.append(header)
+        sb.append(header)
                 .append(date)
                 .append(location)
                 .append(levelLine)
                 .append(topicLine)
-                .append(participantsLine).append("\n").append(Emoji.RADIO_BUTTON).toString();
+                .append(participantsLine).append("\n").append(Emoji.RADIO_BUTTON);
+        if (meeting.getFormat().equals(MeetingFormatEnum.ONLINE)) {
+            sb.append("\n\nDiscord channel for this meeting will be <b>automatically</b> created and all related information " +
+                    "will be sent to all participants by the bot <b>ONE hour before the start</b> ☺️\n\nGood luck! " + Emoji.SHAMROCK);
+        }
+
+        return sb.toString();
     }
 
     public String getSingleMeetingDiscussionInfo(Meeting meeting) {
@@ -157,7 +168,9 @@ public class MeetingMessageUtils {
         }
 
         String dateLine = new StringBuilder()
-                .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
+                .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER))
+                .append(" • ").append(getTimeBefore(meeting))
+                .toString();
         StringBuilder locationLine = new StringBuilder();
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
             locationLine.append("\n").append(Emoji.SPACES).append(getLocationLink(meeting));
@@ -177,7 +190,7 @@ public class MeetingMessageUtils {
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
-        int spacesAmount = (int) ((dateLine.length() * 1.425 - ("/meeting" + meeting.getId()).length()));
+        int spacesAmount = (int) ((dateLine.length() * 1.2 - ("/meeting" + meeting.getId()).length()));
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");
@@ -242,7 +255,9 @@ public class MeetingMessageUtils {
         }
 
         String dateLine = new StringBuilder()
-                .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER)).toString();
+                .append(Emoji.SPACES).append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER))
+                .append(" • ").append(getTimeBefore(meeting))
+                .toString();
         StringBuilder locationLine = new StringBuilder();
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
             locationLine.append("\n").append(Emoji.SPACES).append(getLocationLink(meeting));
@@ -262,7 +277,7 @@ public class MeetingMessageUtils {
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
-        int spacesAmount = (int) ((dateLine.length() * 1.425 - ("/meeting" + meeting.getId()).length()));
+        int spacesAmount = (int) ((dateLine.length() * 1.2 - ("/meeting" + meeting.getId()).length()));
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");
@@ -403,21 +418,20 @@ public class MeetingMessageUtils {
     }
 
     public String createMeetingInfoGroup(Meeting meeting) {
-        StringBuilder sb = new StringBuilder().append("⠀⠀⠀").append(Emoji.FIRE)
-                .append(TextFormatter.getBoldString("  Nᴇᴡ ᴍᴇᴇᴛɪɴɢ # " + meeting.getId() + "  "))
+        StringBuilder sb = new StringBuilder().append("⠀⠀⠀").append(Emoji.FIRE);
+        String meetingHeaderName = meeting.getFormat().equals(MeetingFormatEnum.ONLINE) ?
+                "  Nᴇᴡ ᴏɴʟɪɴᴇ ᴍᴇᴇᴛɪɴɢ # " : "  Nᴇᴡ ᴏғғʟɪɴᴇ ᴍᴇᴇᴛɪɴɢ # ";
+        sb.append(TextFormatter.getBoldString(meetingHeaderName + meeting.getId() + "  "))
                 .append(Emoji.FIRE).append(Emoji.SPACES).append(Emoji.SPACES).append("\n\n")
                 .append(Emoji.RADIO_BUTTON).append("\n")
                 .append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("   ").append(Emoji.CLOCK).append("   ")
-                .append(meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH))).append("\n")
-                .append(Emoji.CHAINS).append("\n");
+                .append(meeting.getMeetingDateTime().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH))).append("\n");
 
         if (meeting.getFormat().equals(MeetingFormatEnum.OFFLINE)) {
-            sb.append(Emoji.CHAINS).append("   ").append(Emoji.LOCATION).append("   ")
+            sb.append(Emoji.CHAINS).append("\n")
+                    .append(Emoji.CHAINS).append("   ").append(Emoji.LOCATION).append("   ")
                     .append(getLocationLink(meeting)).append("\n");
-        } else {
-            sb.append(Emoji.CHAINS).append("   ").append(Emoji.INTERNET).append("   ")
-                    .append("Online").append("\n");
         }
 
         sb.append(Emoji.CHAINS).append("\n")
@@ -447,5 +461,28 @@ public class MeetingMessageUtils {
         Location location = meeting.getLocation();
         String url = String.format(GOOGLE_MAP_LINK_PATTERN, location.getLatitude(), location.getLongitude());
         return TextFormatter.getLink(location.getAddress(), url);
+    }
+
+    private String getTimeBefore(Meeting m) {
+        LocalDateTime ldt1 = LocalDateTime.now();
+        LocalDateTime ldt2 = m.getMeetingDateTime();
+        long minuteBeforeMeeting = Duration.between(ldt1, ldt2).toMinutes();
+        String message;
+
+        if (m.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now())) {
+            if (minuteBeforeMeeting < 60) {
+                message = "in " + minuteBeforeMeeting + " minutes " + Emoji.FIRE;
+            } else {
+                long hours = minuteBeforeMeeting / 60;
+                message = "in " + hours + "h " + minuteBeforeMeeting % 60 + "m";
+                if (hours < 2) {
+                    message += " " + Emoji.FIRE;
+                }
+            }
+        } else {
+            long days = minuteBeforeMeeting / 1440;
+            message = "in " + days + "day(s) " + (minuteBeforeMeeting % 1440) / 60 + "h";
+        }
+        return TextFormatter.getItalicString(message);
     }
 }

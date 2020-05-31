@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PUBLIC, makeFinal = true)
 public class Emoji {
+    public static String SMILING_DEVIL = "\uD83D\uDE08";
+    public static String SHAMROCK = "\uD83C\uDF40";
     public static String CHRISTMAS_TREE = "\uD83C\uDF84";
     public static String HIBISCUS = "\uD83C\uDF3A";
     public static String DIZZY = "\uD83D\uDCAB";

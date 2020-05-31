@@ -6,23 +6,17 @@ import com.razykrashka.bot.stage.meeting.creation.sbs.input.FormatMeetingCreatio
 import com.razykrashka.bot.stage.meeting.creation.sbs.input.TimeMeetingCreationSBSStage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
     final static String TIME_REGEX = "^([0-1]?[0-9]|2[0-3])[:\\-., ;*][0-5][0-9]$";
-
-    @Value("${razykrashka.bot.meeting.creation.hour-advance}")
-    Integer hourAdvance;
 
     @Override
     public void handleRequest() {
@@ -55,6 +49,8 @@ public class AcceptTimeMeetingCreationSBSStage extends BaseMeetingCreationSBSSta
             sendReplyErrorMessage(message);
             throw new IncorrectInputDataFormatException(timeMessage + ": incorrect time format!");
         }
+
+        int hourAdvance = meetingProperties.getCreation().getHourAdvance();
 
         String hour;
         String minute;

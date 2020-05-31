@@ -42,19 +42,20 @@ public class NotificationRightBeforeMeetingJob extends AbstractJob implements Ru
     ParticipantsMessageManager participantsMessageManager;
 
     String onlineMessage = "Hey! Your /meeting%s is about to begin! " + Emoji.HUG + "\n\n" +
-            "At %s we are waiting for you in this discord channel that was created specifically for your meeting " + Emoji.WINK + "\n" +
+            "At %s we are waiting for you in this discord channel. It was created specifically for your meeting " + Emoji.WINK + "\n" +
             "Try to be there little bit in advance, to avoid wasting time on organizational issues. " +
-            "If you have any questions you can get in contact with meeting organizer\n\n" +
-            "<b>Meeting time:</b> %s\n" +
-            "<b>Channel name:</b> %s\n" +
-            "<b>Discord channel:</b> %s";
+            "If you have any questions you can get in contact with meeting organizer.\nGood luck! " + Emoji.SHAMROCK + "\n\n" +
+            "\t<b>Meeting time:</b> %s\n" +
+            "\t<b>Channel name:</b> %s\n" +
+            "\t<b>Discord channel:</b> %s";
 
-    String offlineMessage = "Hey! Your /meeting%s is about to begin! " + Emoji.HUG + "\n\n" +
-            "At %s we are waiting for at this address: %s " + Emoji.WINK + "\n" +
+    String offlineMessage = "Hey there! Your /meeting%s is about to begin! " + Emoji.HUG + "\n\n" +
+            "At %s we are waiting for you at this address:\n%s\n\n" +
             "Try to be there little bit in advance, to avoid wasting time on organizational issues. " +
-            "If you have any questions you can get in contact with meeting organizer\n\n" +
-            "<b>Meeting time:</b> %s\n" +
-            "<b>Address:</b> %s";
+            "If you have any questions you can get in contact with meeting organizer" + Emoji.WINK + "\n\n" +
+            "Good luck! " + Emoji.SHAMROCK + "\n\n" +
+            "\t<b>Meeting time:</b> %s\n" +
+            "\t<b>Address:</b> %s";
 
     public void run() {
         log.info("JOB: Notification right before meeting job is started...");

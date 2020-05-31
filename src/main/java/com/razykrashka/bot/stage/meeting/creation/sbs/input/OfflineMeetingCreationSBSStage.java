@@ -32,8 +32,7 @@ public class OfflineMeetingCreationSBSStage extends BaseMeetingCreationSBSStage 
 
         String meetingInfo = meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
                 + TextFormatter.getItalicString(getString("input"));
-        messageManager.deleteLastBotMessageIfHasKeyboard()
-                .sendSimpleTextMessage(meetingInfo, getKeyboard());
+        messageManager.updateOrSendDependsOnLastMessageOwner(meetingInfo, getKeyboard());
         super.setActiveNextStage(nextStageClass);
     }
 

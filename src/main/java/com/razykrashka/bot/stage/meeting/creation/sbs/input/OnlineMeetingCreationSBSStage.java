@@ -1,7 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
-import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptOnlineMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -28,7 +28,7 @@ public class OnlineMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     @Override
     public ReplyKeyboard getKeyboard() {
         return keyboardBuilder.getKeyboard()
-                .setRow("OK, got it!", nextStageClass.getSimpleName())
+                .setRow("Got it! Move on! " + Emoji.SMILING_DEVIL, nextStageClass.getSimpleName())
                 .setRow(getString("backButton"), previousStageClass.getSimpleName() + EDIT)
                 .build();
     }
