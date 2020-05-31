@@ -2,7 +2,6 @@ package com.razykrashka.bot.service.config.job.task;
 
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.job.AbstractJob;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +17,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 @Getter

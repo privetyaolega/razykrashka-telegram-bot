@@ -3,7 +3,6 @@ package com.razykrashka.bot.service.config.job.task;
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
-import com.razykrashka.bot.job.AbstractJob;
 import com.razykrashka.bot.stage.meeting.view.single.SingleMeetingViewMainStage;
 import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.AccessLevel;

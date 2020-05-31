@@ -30,4 +30,11 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
             "WHERE c.creation_status = 'DONE' " +
             "AND meeting_date_time < NOW()", nativeQuery = true)
     Long countByMeetingDateTimeBefore();
+
+    @Query(value = "SELECT * FROM meeting m " +
+            "LEFT JOIN creation_state c " +
+            "ON m.creation_state_id = c.id " +
+            "WHERE c.creation_status = 'DONE' " +
+            "AND meeting_date_time > NOW()", nativeQuery = true)
+    List<Meeting> findAllUpcomingMeetings();
 }

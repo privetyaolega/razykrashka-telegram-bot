@@ -29,6 +29,10 @@ public class MeetingService {
         return StreamSupport.stream(meetingRepository.findAll().spliterator(), false);
     }
 
+    public Stream<Meeting> getAllUpcomingMeetings() {
+        return StreamSupport.stream(meetingRepository.findAllUpcomingMeetings().spliterator(), false);
+    }
+
     public List<Meeting> getAllArchivedMeetings() {
         return getAllMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
@@ -42,7 +46,7 @@ public class MeetingService {
     }
 
     public List<Meeting> getAllMeetingDateToday() {
-        return getAllMeetings()
+        return getAllUpcomingMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
                         && m.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now())
                         && m.getMeetingDateTime().isAfter(LocalDateTime.now()))
@@ -50,7 +54,7 @@ public class MeetingService {
     }
 
     public Stream<Meeting> getAllActive() {
-        return getAllMeetings()
+        return getAllUpcomingMeetings()
                 .filter(m -> m.getCreationState().getCreationStatus().equals(CreationStatus.DONE)
                         && m.getMeetingDateTime().isAfter(LocalDateTime.now()));
     }
