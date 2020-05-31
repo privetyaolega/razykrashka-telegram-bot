@@ -44,7 +44,7 @@
       "back": "👈 Back to editing Level"
     },
     "OfflineMeetingCreationSBSStage": {
-      "input": "Where would you like to meet? \nPlease, type in address or <a href='https://thumbs.gfycat.com/AppropriateSilverIrukandjijellyfish-mobile.mp4'>attach map</a> (e.g ул. Немига 6)",
+      "input": "⚠️ So far, for offline meeting we support <b>only Minsk city (Belarus)</b>.\n\nWhere would you like to meet? \nPlease, type in address or <a href='https://thumbs.gfycat.com/AppropriateSilverIrukandjijellyfish-mobile.mp4'>attach map</a> (e.g ул. Немига 6)",
       "mapAttachment": "In this step you need to clarify the place where meeting will take place \uD83E\uDD17\n\nYou can write street name (e.g <code>Немига 25</code>, <code>улица Кальварийская 65</code>) or attach map using Telegram feature, it's up to you which method to use.\n\nAbove you can find example of map attachment.\uD83D\uDC46",
       "backButton": "👈 Back to editing Meeting Format"
     },
@@ -114,7 +114,7 @@
       "main": "If you’re still having second thoughts… look how many people have already chosen us to practice their English with! \uD83E\uDD24\n\n\uD83D\uDCA5 Successfully completed meetings: <b>%s</b>\n\uD83D\uDCA5 Users using bot: <b>%s</b>\n\uD83D\uDCA5 Users in community group: <b>%s</b>\n\nWe will be happy to see you as a member of our friendly community!\nDon’t hesitate and join the next /available meeting! \uD83E\uDD1F\uD83C\uDFFB"
     },
     "AcceptOfflineMeetingCreationSBSStage": {
-      "error": "We can't find anything by this address \uD83D\uDE13\nPlease, clarify address and make sure that this place located in <b>Minsk</b>\uD83D\uDCCD"
+      "error": "We can't find anything at this location \uD83D\uDE13\nPlease, clarify address and make sure that this place located in <b>Minsk</b>\uD83D\uDCCD"
     },
     "PhoneMeetingCreationSBSStage": {
       "shareNumber": "Oh, I see that you’re new here… To be able to create a meeting, you need to share your Telegram contact with us.\nJust click on the button below. And don’t worry, it’s completely safe!\n\n<a href='%s'>Why should I provide my number?</a> \uD83E\uDD28"

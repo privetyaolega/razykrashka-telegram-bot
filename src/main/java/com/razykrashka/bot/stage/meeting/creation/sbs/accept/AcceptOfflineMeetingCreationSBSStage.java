@@ -46,7 +46,7 @@ public class AcceptOfflineMeetingCreationSBSStage extends BaseMeetingCreationSBS
                 }
                 location = locationHelper.getLocation(address);
             }
-        } catch (YandexMapApiException | IncorrectInputDataFormatException e) {
+        } catch (Exception e) {
             messageManager
                     .disableKeyboardLastBotMessage()
                     .replyLastMessage(getString("error"));
