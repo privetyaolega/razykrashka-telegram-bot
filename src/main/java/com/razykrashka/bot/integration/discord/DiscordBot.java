@@ -63,7 +63,7 @@ public class DiscordBot {
         String channelName = "meeting # " + m.getId() + " - " + m.getMeetingInfo().getTopic();
         VoiceChannel channel = guild.createVoiceChannel(channelName)
                 .setParent(meetingInProgressCategory)
-                .setUserlimit(m.getMeetingInfo().getParticipantLimit())
+                .setUserlimit(m.getMeetingInfo().getParticipantLimit() + 1)
                 .complete();
         channel.putPermissionOverride(everyoneRole)
                 .setDeny(Arrays.asList(
@@ -77,7 +77,7 @@ public class DiscordBot {
 
         String inviteLink = String.format(inviteLinkTemplate, channel.getManager().getChannel()
                 .createInvite()
-                .setMaxAge(2L, TimeUnit.HOURS)
+                .setMaxAge(4L, TimeUnit.HOURS)
                 .setTemporary(true)
                 .complete()
                 .getCode());
