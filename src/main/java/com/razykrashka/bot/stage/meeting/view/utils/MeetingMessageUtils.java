@@ -111,8 +111,8 @@ public class MeetingMessageUtils {
                 .append(topicLine)
                 .append(participantsLine).append("\n").append(Emoji.RADIO_BUTTON);
         if (meeting.getFormat().equals(MeetingFormatEnum.ONLINE)) {
-            sb.append("\n\nDiscord channel for this meeting will be <b>automatically</b> created and all related information " +
-                    "will be sent to all participants by the bot <b>ONE hour before the start</b> ☺️\n\nGood luck! " + Emoji.SHAMROCK);
+            sb.append("\n\nA discord channel for this meeting will be created <b>automatically</b> and all related information " +
+                    "will be sent to all the participants by our bot <b>ONE hour before the start</b> ☺️\n\nGood luck! " + Emoji.SHAMROCK);
         }
 
         return sb.toString();
