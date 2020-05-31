@@ -75,12 +75,15 @@ public class DiscordBot {
                         Permission.VOICE_DEAF_OTHERS))
                 .complete();
 
-        return String.format(inviteLinkTemplate, channel.getManager().getChannel()
+        String inviteLink = String.format(inviteLinkTemplate, channel.getManager().getChannel()
                 .createInvite()
                 .setMaxAge(2L, TimeUnit.HOURS)
                 .setTemporary(true)
                 .complete()
                 .getCode());
+
+        log.info("DISCORD: Discord voice channel '{}' has been created. Invite link: {}", channelName, inviteLink);
+        return inviteLink;
     }
 
     public void deleteChannel(int meetingId) {

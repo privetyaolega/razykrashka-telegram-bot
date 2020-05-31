@@ -5,12 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.log4j.Log4j2;
 
 @Getter
 @Setter
 @ToString
-@Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NotificationRightBeforeMeetingsProperty implements JobRunnable {
     boolean enabled;

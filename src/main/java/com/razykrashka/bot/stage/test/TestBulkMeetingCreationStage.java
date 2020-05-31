@@ -71,7 +71,7 @@ public class TestBulkMeetingCreationStage extends MainStage {
 
                 meeting = Meeting.builder()
                         .telegramUser(updateHelper.getUser())
-                        .meetingDateTime(LocalDateTime.now().plusDays(5))
+                        .meetingDateTime(LocalDateTime.now().plusMinutes(325))
                         .creationDateTime(LocalDateTime.now())
                         .meetingInfo(mi)
                         .format(MeetingFormatEnum.OFFLINE)
@@ -83,8 +83,6 @@ public class TestBulkMeetingCreationStage extends MainStage {
 
                 meeting.getParticipants().add(updateHelper.getUser());
                 meetingRepository.save(meeting);
-
-                messageManager.sendSimpleTextMessage(discordBot.createVoiceMeetingChannel(meeting));
             }
         } catch (Exception e) {
             e.printStackTrace();
