@@ -99,7 +99,7 @@
       "backButton": "\uD83D\uDC48 Back to editing Date"
     },
     "FormatMeetingCreationSBSStage": {
-      "input": "Hmmm...\uD83E\uDD14\nWhat exactly is ‘Meeting format’? Let’s see!\nIt means the place where you want to get in contact with your speaking partners.\n\n\t• For <b>online meetings</b> our community uses <a href='https://discord.com'>Discord</a>. It's free platform for video/audio calls. You even don't have to be sign up there, you can use it on the fly.\nA discord channel will be created <b>automatically</b> and we will send you the link one hour before the meeting \uD83D\uDE09\n\n\t• <b>Offline meetings</b> take place in the ’real life’. It can be your favorite café or just bench in a park (so far only <b>Minsk</b> is being supported).\n\nSo it’s really up to you to decide! \uD83D\uDE0C\nWhich option do you prefer? ",
+      "input": "Hmmm...\uD83E\uDD14\nWhat exactly is ‘Meeting format’? Let’s see!\nIt means the place where you want to get in contact with your speaking partners.\n\n\t• For <b>online meetings</b> our community uses <a href='https://discord.com'>Discord</a>. It's free platform for video/audio calls. You even don't have to be sign up there, you can use it on the fly.\nA discord channel will be created <b>automatically</b> and we will send you the link one hour before the meeting\n\n\t• <b>Offline meetings</b> take place in the ’real life’. It can be your favorite café or just bench in a park (so far only <b>Minsk</b> is being supported).\n\nSo it’s really up to you to decide! \uD83D\uDE0C\nWhich option do you prefer? ",
       "backButton": "\uD83D\uDC48 Back to editing Time"
     },
     "OnlineMeetingCreationSBSStage": {
