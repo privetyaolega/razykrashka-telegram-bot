@@ -22,6 +22,7 @@ import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -63,7 +64,8 @@ public class NotificationRightBeforeMeetingJob extends AbstractJob implements Ru
     public void run() {
         log.info("JOB: Notification right before meeting job is started...");
         List<Meeting> meetings = meetingService.getAllActive()
-                .filter(m -> LocalDateTime.now().plusHours(1).getHour() == m.getMeetingDateTime().getHour())
+                .filter(m -> LocalDate.now().equals(m.getMeetingDateTime().toLocalDate()) &&
+                        LocalDateTime.now().plusHours(1).getHour() == m.getMeetingDateTime().getHour())
                 .collect(Collectors.toList());
         meetings.forEach(m1 -> {
             if (m1.getFormat().equals(MeetingFormatEnum.ONLINE)) {

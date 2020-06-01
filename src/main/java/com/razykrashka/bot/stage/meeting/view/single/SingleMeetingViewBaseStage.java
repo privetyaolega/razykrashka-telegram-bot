@@ -53,7 +53,7 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
 
     protected boolean isMeetingStarted() {
         LocalDateTime meetingDateTime = meeting.getMeetingDateTime();
-        return LocalDateTime.now().isAfter(meetingDateTime.minusHours(1));
+        return LocalDateTime.now().isAfter(meetingDateTime.minusMinutes(20));
     }
 
     protected boolean hasFreePlaces() {
