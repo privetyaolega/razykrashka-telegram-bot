@@ -1,23 +1,23 @@
 package com.razykrashka.bot.service.config.job.task;
 
 import com.razykrashka.bot.constants.Emoji;
-import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -28,23 +28,25 @@ import java.util.stream.Collectors;
 public class AvailableMeetingsNotificationJob extends AbstractJob implements Runnable {
 
     final static String NO_MEETINGS_MESSAGE = "There is no any available meeting. Work hard and create meeting!";
-
-    List<String> messages;
+    Map<String, String> messages;
 
     public AvailableMeetingsNotificationJob() {
-        messages = Arrays.asList(
-                "Hey, guys! " + Emoji.WAVE_HAND + "\nYahooooo! There are %s available meetings!\nHurry up and join! Practice makes perfect " + Emoji.BICEPS,
-                "Hey! How are you? We miss you" + Emoji.DISAPPOINTED_RELIEVED + "\nWould you like to join a meeting soon?",
-                "Well, hello there!\nWe’ve been told your English needs some practice. Let’s join a meeting from the list!",
-                "Hiii! What's up?\nWanna practice some English later?",
-                "Are you dreaming of speaking perfect English? Well, you have to start somewhere.\n\nJoin a meeting and start improving your skills now!",
-                "Stop being someone who learns English and become someone who speaks it!\n\nJoin a meeting now " + Emoji.HUG,
-                "Heeeeyyy! \uD83D\uDE1C\n\nWhile you were away, some new meetings appeared. \nDon’t hesitate and join one of them right now!",
-                "Well well well... What was the last time you practiced your English?\nCheck the new meetings out! \uD83D\uDE08",
-                "Hi there! Here are some new meetings you can join.\nDon’t give up on your dream of being fluent! " + Emoji.BICEPS,
-                "Procrastinating on your English practice again? You’re not alone here \uD83D\uDE11\nLet’s fight procrastination together! \uD83D\uDC4A\uD83C\uDFFB\n\nJoin one of the available meetings",
-                "Hi there! Look how many new meetings are waiting for you to join \uD83D\uDE0C"
-        );
+        messages = new HashMap<>();
+        messages.put("Hey, guys! " + Emoji.WAVE_HAND + "\nYahooooo! There are %s available meetings!\nHurry up and join! Practice makes perfect " + Emoji.BICEPS, "Let's go! " + Emoji.BICEPS);
+        messages.put("Hey! How are you? We miss you" + Emoji.DISAPPOINTED_RELIEVED + "\nWould you like to join a meeting soon?", "Show available meetings ✨");
+        messages.put("Well, hello there!\nWe’ve been told your English needs some practice. Let’s join a meeting from the list!", "Show available meetings ✨");
+        messages.put("Hiii! What's up?\nWanna practice some English later?", "Show available meetings ✨");
+        messages.put("Are you dreaming of speaking perfect English? Well, you have to start somewhere.\n\nJoin a meeting and start improving your skills now!", "Show available meetings ✨");
+        messages.put("Stop being someone who learns English and become someone who speaks it!\n\nJoin a meeting now " + Emoji.HUG, "Show available meetings ✨");
+        messages.put("Heeeeyyy! \uD83D\uDE1C\n\nWhile you were away, some new meetings appeared. \nDon’t hesitate and join one of them right now!", "Show available meetings ✨");
+        messages.put("Well well well... What was the last time you practiced your English?\nCheck the new meetings out! \uD83D\uDE08", "Show available meetings ✨");
+        messages.put("Hi there! Here are some new meetings you can join.\nDon’t give up on your dream of being fluent! " + Emoji.BICEPS, "Show available meetings ✨");
+        messages.put("Procrastinating on your English practice again? You’re not alone here \uD83D\uDE11\nLet’s fight procrastination together! \uD83D\uDC4A\uD83C\uDFFB\n\nJoin one of the available meetings", "Show available meetings ✨");
+        messages.put("Hi there! Look how many new meetings are waiting for you to join \uD83D\uDE0C", "Show available meetings ✨");
+        messages.put("Hey! \uD83D\uDC4B\uD83C\uDFFB\nI think you're missing something important in your life. Like very very important... We mean, of course, practicing English! \uD83D\uDE05\n\nCreating a meeting will most probably fix it \uD83D\uDE09 \nLet’s try. It will only take you a few clicks!", "Let's practice \uD83D\uDC4A\uD83C\uDFFB");
+        messages.put("Speaking English is no easy-peasy… But laying on a sofa and watching TV-shows is \uD83D\uDCFA\n\nWill it take you where you want to be though? \nStart making effort and your life will change! Create a meeting now \uD83D\uDE09", "Create meeting " + Emoji.BICEPS);
+        messages.put("The English language says:\n“Seems like you’re always too busy for me. \nOk, then I won’t help you when you most need me! \uD83D\uDE12”\n\nDon’t let this happen and start practicing now!  ⬇️", "Start practice right now! " + Emoji.BICEPS);
+        messages.put("Make your mom proud and start speaking English now!\nPress ‘Create a Meeting’. We will check! \uD83D\uDE09", "Create meeting! \uD83E\uDD24");
     }
 
     /**
@@ -58,32 +60,27 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
      */
 
     public void run() {
-        log.info("JOB: Available meeting notification job is started.");
-        List<Meeting> availableMeetings = meetingService.getAllActive().collect(Collectors.toList());
+        log.info("JOB: Available meeting notification job is started...");
         String message;
-        if (!availableMeetings.isEmpty()) {
-            message = String.format(getRandomMessage(), availableMeetings.size());
-            InlineKeyboardMarkup keyboard = keyboardBuilder
-                    .getKeyboard()
-                    .setRow(new InlineKeyboardButton()
-                            .setText("Show available meetings ✨")
-                            .setUrl("https://t.me/RazykrashkaBot"))
-                    .build();
+        Pair<String, String> randomMessage = getRandomMessage();
+        message = String.format(randomMessage.getFirst(), messages.size());
+        InlineKeyboardMarkup keyboard = keyboardBuilder
+                .getKeyboard()
+                .setRow(new InlineKeyboardButton()
+                        .setText(randomMessage.getSecond())
+                        .setUrl("https://t.me/RazykrashkaBot"))
+                .build();
 
-            messageManager.sendMessage(new SendMessage()
-                    .setParseMode(ParseMode.HTML)
-                    .setChatId(groupChatId)
-                    .setText(message)
-                    .setReplyMarkup(keyboard));
-        }
+        messageManager.sendMessage(new SendMessage()
+                .setParseMode(ParseMode.HTML)
+                .setChatId(groupChatId)
+                .setText(message)
+                .setReplyMarkup(keyboard));
     }
 
-    private String getRandomMessage() {
-        return messages.get(new Random().nextInt(messages.size()));
-//                + "\n⚠️\n" +
-//                "Sorry, but our bot is still in the test mode\n" +
-//                "None of the meetings are valid yet.\n" +
-//                "We want to make it better for you and perfection takes time!\n" +
-//                "⚠️";
+    private Pair<String, String> getRandomMessage() {
+        String key = new ArrayList<>(messages.keySet())
+                .get(new Random().nextInt(messages.size()));
+        return Pair.of(key, messages.get(key));
     }
 }

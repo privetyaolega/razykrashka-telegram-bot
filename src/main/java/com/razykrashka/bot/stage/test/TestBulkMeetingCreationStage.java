@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Log4j2
-@Component
+//@Component
 public class TestBulkMeetingCreationStage extends MainStage {
 
     @Autowired
