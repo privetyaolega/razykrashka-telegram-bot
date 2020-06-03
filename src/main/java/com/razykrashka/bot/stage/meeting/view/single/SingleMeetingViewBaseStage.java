@@ -2,8 +2,12 @@ package com.razykrashka.bot.stage.meeting.view.single;
 
 import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
+import com.razykrashka.bot.db.service.MeetingService;
+import com.razykrashka.bot.service.config.property.meeting.MeetingProperties;
 import com.razykrashka.bot.stage.MainStage;
 import com.razykrashka.bot.stage.meeting.edit.delete.DeleteConfirmationSingleMeetingStage;
+import com.razykrashka.bot.stage.meeting.view.all.ActiveMeetingsViewStage;
+import com.razykrashka.bot.stage.meeting.view.all.ArchivedMeetingsViewStage;
 import com.razykrashka.bot.stage.meeting.view.single.action.SingleMeetingViewJoinStage;
 import com.razykrashka.bot.stage.meeting.view.single.action.SingleMeetingViewLeaveStage;
 import com.razykrashka.bot.stage.meeting.view.single.info.SingleMeetingViewContactStage;
@@ -18,12 +22,17 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Log4j2
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public abstract class SingleMeetingViewBaseStage extends MainStage {
 
     Meeting meeting;
+    @Autowired
+    MeetingService meetingService;
+    @Autowired
+    MeetingProperties meetingProperties;
     @Autowired
     MeetingMessageUtils meetingMessageUtils;
     final String joinStage = SingleMeetingViewJoinStage.class.getSimpleName();
@@ -53,7 +62,7 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
 
     protected boolean isMeetingStarted() {
         LocalDateTime meetingDateTime = meeting.getMeetingDateTime();
-        return LocalDateTime.now().isAfter(meetingDateTime.minusMinutes(20));
+        return LocalDateTime.now().isAfter(meetingDateTime.minusMinutes(15));
     }
 
     protected boolean hasFreePlaces() {
@@ -94,6 +103,30 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
                 .setRow(getActionButton())
                 .setRow(getDeleteButton())
                 .build();
+    }
+
+    protected Pair<String, String> getNavigationBackButton() {
+        //TODO: update to work with meeting.getCreationState().getCreationStatus()
+        Pair<String, String> pair;
+        List<Meeting> meetings;
+        if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
+            meetings = meetingService.getAllCreationStatusDone();
+        } else {
+            meetings = meetingService.getAllArchivedMeetings();
+        }
+        int indexOfMeeting = IntStream.range(0, meetings.size())
+                .filter(i -> meetings.get(i).getId().equals(meeting.getId()))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Meeting is absent in appropriate list. ID:" + meeting.getId()));
+
+        if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
+            int pageNumToShow = (int) Math.ceil(indexOfMeeting / new Double(meetingProperties.getViewPerPage()));
+            pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+        } else {
+            int pageNumToShow = (int) Math.ceil(indexOfMeeting / 4.0);
+            pair = Pair.of(Emoji.LEFT_FINGER + " Archived meetings", ArchivedMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+        }
+        return pair;
     }
 
     /*private Pair<String, String> getNavigationBackButton() {

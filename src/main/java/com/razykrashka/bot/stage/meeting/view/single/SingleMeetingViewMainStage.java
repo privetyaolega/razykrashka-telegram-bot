@@ -10,6 +10,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,21 +33,18 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
             return;
         }
         meeting = optionalMeeting.get();
-        String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
-        messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
 
-/*        if (updateHelper.isCallBackQueryFromGroup()) {
-            String userChatId = String.valueOf(razykrashkaBot.getRealUpdate().getCallbackQuery().getFrom().getId());
-            messageManager
-                    .disableKeyboardLastBotMessage(userChatId)
-                    .sendMessage(new SendMessage()
-                            .setParseMode(ParseMode.HTML)
-                            .setChatId(userChatId)
-                            .setText(messageText)
-                            .setReplyMarkup(this.getKeyboard())
-                            .disableWebPagePreview());
+        if (meeting.getMeetingDateTime().plusHours(2).isBefore(LocalDateTime.now())) {
+            String messageText = meetingMessageUtils.createArchivedMeetingFullInfo(meeting);
+            messageManager.updateOrSendDependsOnLastMessageOwner(messageText, keyboardBuilder
+                    .getKeyboard()
+                    .setRow(getMeetingInfoButtons())
+                    .setRow(getNavigationBackButton())
+                    .build());
         } else {
-        }*/
+            String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
+            messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
+        }
     }
 
     @Override
