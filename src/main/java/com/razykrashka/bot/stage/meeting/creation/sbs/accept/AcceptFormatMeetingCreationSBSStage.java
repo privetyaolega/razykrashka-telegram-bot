@@ -23,7 +23,7 @@ public class AcceptFormatMeetingCreationSBSStage extends BaseMeetingCreationSBSS
         if (meetingFormatEnum.equals(MeetingFormatEnum.OFFLINE)) {
             razykrashkaBot.getContext().getBean(OfflineMeetingCreationSBSStage.class).handleRequest();
         } else {
-            razykrashkaBot.getContext().getBean(OnlineMeetingCreationSBSStage.class).handleRequest();
+            razykrashkaBot.getContext().getBean(OnlineMeetingCreationSBSStage.class).processCallBackQuery();
         }
     }
 
