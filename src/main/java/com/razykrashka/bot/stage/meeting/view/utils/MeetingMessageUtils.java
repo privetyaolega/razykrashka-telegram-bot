@@ -16,7 +16,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -243,7 +242,7 @@ public class MeetingMessageUtils {
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
-        int spacesAmount = (int) ((dateLine.length() * 1.2 - ("/meeting" + meeting.getId()).length()));
+        int spacesAmount = (int) ((dateLine.length() * 1.1 - ("/meeting" + meeting.getId()).length()));
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");
@@ -330,7 +329,7 @@ public class MeetingMessageUtils {
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
-        int spacesAmount = (int) ((dateLine.length() * 1.2 - ("/meeting" + meeting.getId()).length()));
+        int spacesAmount = (int) ((dateLine.length() * 1.1 - ("/meeting" + meeting.getId()).length()));
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");
@@ -343,7 +342,7 @@ public class MeetingMessageUtils {
     }
 
     private String getMeetingLine(Meeting m, String dateLine) {
-        int spacesAmount = (int) ((dateLine.length() * 1.2 - ("/meeting" + m.getId()).length()));
+        int spacesAmount = (int) ((dateLine.length() * 1.1 - ("/meeting" + m.getId()).length()));
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");
@@ -522,19 +521,17 @@ public class MeetingMessageUtils {
         long minuteBeforeMeeting = Duration.between(ldt1, ldt2).toMinutes();
         String message;
 
-        if (m.getMeetingDateTime().toLocalDate().isEqual(LocalDate.now())) {
-            if (minuteBeforeMeeting < 60) {
-                message = "In " + minuteBeforeMeeting + " min(s)" + Emoji.FIRE;
-            } else {
-                long hours = minuteBeforeMeeting / 60;
-                message = "In " + hours + "h " + minuteBeforeMeeting % 60 + "m";
-                if (hours < 2) {
-                    message += " " + Emoji.FIRE;
-                }
-            }
+        if (minuteBeforeMeeting < 60) {
+            message = "In " + minuteBeforeMeeting + " min(s)";
+        } else if (minuteBeforeMeeting < 24 * 60) {
+            long hours = minuteBeforeMeeting / 60;
+            message = "In " + hours + "h " + minuteBeforeMeeting % 60 + "m";
         } else {
             long days = minuteBeforeMeeting / 1440;
             message = "In " + days + "d " + (minuteBeforeMeeting % 1440) / 60 + "h";
+        }
+        if (minuteBeforeMeeting < 180) {
+            message += " " + Emoji.FIRE;
         }
         return TextFormatter.getItalicString(message);
     }

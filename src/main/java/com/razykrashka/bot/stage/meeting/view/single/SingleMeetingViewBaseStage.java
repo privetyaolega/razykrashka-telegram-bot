@@ -121,11 +121,10 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
         int indexOfMeeting = IntStream.range(0, meetings.size())
                 .filter(i -> meetings.get(i).getId().equals(meeting.getId()))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Meeting is absent in appropriate list. ID:" + meeting.getId()));
+                .orElseThrow(() -> new RuntimeException("Meeting is absent in appropriate list. ID:" + meeting.getId())) + 1;
 
         if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
             int pageNumToShow = (int) Math.ceil(indexOfMeeting / new Double(meetingProperties.getViewPerPage()));
-            pageNumToShow = pageNumToShow == 0 ? 1 : pageNumToShow;
             pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         } else {
             int pageNumToShow = (int) Math.ceil(indexOfMeeting / 4.0);
