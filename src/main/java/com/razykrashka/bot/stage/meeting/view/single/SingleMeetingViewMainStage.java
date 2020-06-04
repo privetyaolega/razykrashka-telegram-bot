@@ -33,18 +33,13 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
             return;
         }
         meeting = optionalMeeting.get();
-
+        String messageText;
         if (meeting.getMeetingDateTime().plusHours(2).isBefore(LocalDateTime.now())) {
-            String messageText = meetingMessageUtils.createArchivedMeetingFullInfo(meeting);
-            messageManager.updateOrSendDependsOnLastMessageOwner(messageText, keyboardBuilder
-                    .getKeyboard()
-                    .setRow(getMeetingInfoButtons())
-                    .setRow(getNavigationBackButton())
-                    .build());
+            messageText = meetingMessageUtils.createArchivedMeetingFullInfo(meeting);
         } else {
-            String messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
-            messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
+            messageText = meetingMessageUtils.createSingleMeetingFullInfo(meeting);
         }
+        messageManager.updateOrSendDependsOnLastMessageOwner(messageText, this.getKeyboard());
     }
 
     @Override
@@ -54,6 +49,7 @@ public class SingleMeetingViewMainStage extends SingleMeetingViewBaseStage {
                 .setRow(getMeetingInfoButtons())
                 .setRow(getActionButton())
                 .setRow(getDeleteButton())
+                .setRow(getNavigationBackButton())
                 .build();
     }
 

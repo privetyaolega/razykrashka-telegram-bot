@@ -124,9 +124,7 @@ public class MeetingMessageUtils {
         StringBuilder header = new StringBuilder();
 
         header.append(Emoji.RADIO_BUTTON).append(Emoji.SPACES);
-        String meetingHeaderName = meeting.getFormat().equals(MeetingFormatEnum.ONLINE) ? "Oɴʟɪɴᴇ ᴍᴇᴇᴛɪɴɢ # " : "Oғғʟɪɴᴇ ᴍᴇᴇᴛɪɴɢ # ";
-//                .append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES).append(Emoji.SPACES)
-        header.append(TextFormatter.getCodeString(meetingHeaderName + meeting.getId()))
+        header.append(TextFormatter.getCodeString("Aʀᴄʜɪᴠᴇᴅ ᴍᴇᴇᴛɪɴɢ #" + meeting.getId()))
                 .append("\n").append(Emoji.CHAINS).append("\n")
                 .append(Emoji.CHAINS).append("\n");
 

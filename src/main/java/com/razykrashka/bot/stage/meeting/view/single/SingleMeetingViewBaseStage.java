@@ -21,7 +21,9 @@ import org.springframework.data.util.Pair;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Log4j2
@@ -110,7 +112,9 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
         Pair<String, String> pair;
         List<Meeting> meetings;
         if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
-            meetings = meetingService.getAllCreationStatusDone();
+            meetings = meetingService.getAllActive()
+                    .sorted(Comparator.comparing(Meeting::getMeetingDateTime))
+                    .collect(Collectors.toList());
         } else {
             meetings = meetingService.getAllArchivedMeetings();
         }
@@ -121,6 +125,7 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
 
         if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
             int pageNumToShow = (int) Math.ceil(indexOfMeeting / new Double(meetingProperties.getViewPerPage()));
+            pageNumToShow = pageNumToShow == 0 ? 1 : pageNumToShow;
             pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         } else {
             int pageNumToShow = (int) Math.ceil(indexOfMeeting / 4.0);
