@@ -131,9 +131,7 @@ public class MeetingMessageUtils {
                 .append(Emoji.RADIO_BUTTON).append(Emoji.SPACES)
                 .append(Emoji.CLOCK).append(" ").append(meeting.getMeetingDateTime().format(DATE_TIME_FORMATTER))
                 .append("\n").append(Emoji.CHAINS).append(Emoji.SPACES).append(Emoji.SPACES)
-                .append(getTimeBefore(meeting)
-                        .replace("In", "Was")
-                        .replace("-", "")).append(" ago")
+                .append(getTimeBefore(meeting).replace("In", "Was")).append(" ago")
                 .append("\n");
 
         StringBuilder location = new StringBuilder();
@@ -283,7 +281,7 @@ public class MeetingMessageUtils {
                 .append(levelLine).append("\n")
                 .append(topicLevelLine).append("\n");
 
-        return sb.append(getMeetingLine(meeting, dateLine)).toString();
+        return sb.append(getMeetingLine(meeting, dateLine, 1.5)).toString();
     }
 
     private String getPaginationSingleViewActive(Meeting meeting) {
@@ -341,8 +339,8 @@ public class MeetingMessageUtils {
         return sb.append(meetingLinkLine).toString();
     }
 
-    private String getMeetingLine(Meeting m, String dateLine) {
-        int spacesAmount = (int) ((dateLine.length() * 1.1 - ("/meeting" + m.getId()).length()));
+    private String getMeetingLine(Meeting m, String dateLine, double rate) {
+        int spacesAmount = (int) ((dateLine.length() * rate - ("/meeting" + m.getId()).length()));
         StringBuilder meetingLinkLine = new StringBuilder();
         while (spacesAmount != 0) {
             meetingLinkLine.append(" ");
@@ -352,6 +350,10 @@ public class MeetingMessageUtils {
         boolean isUserMeetingOwner = m.getTelegramUser().equals(updateHelper.getUser());
         return meetingLinkLine.append(TextFormatter.getBoldString("/meeting" + m.getId()))
                 .append(isUserMeetingOwner ? " " + Emoji.CROWN : "").toString();
+    }
+
+    private String getMeetingLine(Meeting m, String dateLine) {
+        return getMeetingLine(m, dateLine, 1.1);
     }
 
     public String createMeetingInfoDuringCreation(Meeting meeting) {
@@ -518,7 +520,7 @@ public class MeetingMessageUtils {
     private String getTimeBefore(Meeting m) {
         LocalDateTime ldt1 = LocalDateTime.now();
         LocalDateTime ldt2 = m.getMeetingDateTime();
-        long minuteBeforeMeeting = Duration.between(ldt1, ldt2).toMinutes();
+        long minuteBeforeMeeting = Math.abs(Duration.between(ldt1, ldt2).toMinutes());
         String message;
 
         if (minuteBeforeMeeting < 60) {
