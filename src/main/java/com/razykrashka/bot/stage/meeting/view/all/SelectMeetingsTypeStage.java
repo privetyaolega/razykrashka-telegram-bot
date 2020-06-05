@@ -36,7 +36,7 @@ public class SelectMeetingsTypeStage extends MainStage {
                         "Offline " + Emoji.COFFEE, OfflineMeetingsViewStage.class.getSimpleName(),
                         "Online " + Emoji.INTERNET, OnlineMeetingsViewStage.class.getSimpleName())
                 )
-                .setRow("Active " + Emoji.STARS, ActiveMeetingsViewStage.class.getSimpleName())
+                .setRow("Offline & Online " + Emoji.BOOM, ActiveMeetingsViewStage.class.getSimpleName())
                 .build();
     }
 

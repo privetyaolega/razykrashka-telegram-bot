@@ -125,7 +125,7 @@ public abstract class SingleMeetingViewBaseStage extends MainStage {
 
         if (meeting.getMeetingDateTime().isAfter(LocalDateTime.now())) {
             int pageNumToShow = (int) Math.ceil(indexOfMeeting / new Double(meetingProperties.getViewPerPage()));
-            pair = Pair.of(Emoji.LEFT_FINGER + " Active meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
+            pair = Pair.of(Emoji.LEFT_FINGER + " Available meetings", ActiveMeetingsViewStage.class.getSimpleName() + pageNumToShow);
         } else {
             int pageNumToShow = (int) Math.ceil(indexOfMeeting / 4.0);
             pair = Pair.of(Emoji.LEFT_FINGER + " Archived meetings", ArchivedMeetingsViewStage.class.getSimpleName() + pageNumToShow);
