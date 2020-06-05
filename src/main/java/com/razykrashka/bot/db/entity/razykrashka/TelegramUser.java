@@ -26,7 +26,6 @@ public class TelegramUser {
     String lastName;
     String firstName;
     String phoneNumber;
-    String skypeContact;
 
     @Column
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "telegramUser")

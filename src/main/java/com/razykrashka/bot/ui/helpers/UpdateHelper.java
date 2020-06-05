@@ -24,6 +24,7 @@ public class UpdateHelper {
     public final static String FROM_GROUP = "fromGroup";
     @Value("${razykrashka.group.id}")
     Long groupChatId;
+    int userId;
     final RazykrashkaBot razykrashkaBot;
     final TelegramUserRepository telegramUserRepository;
 
@@ -180,13 +181,17 @@ public class UpdateHelper {
     }
 
     public Integer getTelegramUserId() {
-        Update realUpdate = razykrashkaBot.getRealUpdate();
-        if (realUpdate.hasMessage()) {
-            return realUpdate.getMessage().getFrom().getId();
-        } else if (realUpdate.hasCallbackQuery()) {
-            return realUpdate.getCallbackQuery().getFrom().getId();
+        if (userId == 0) {
+            Update realUpdate = razykrashkaBot.getRealUpdate();
+            if (realUpdate.hasMessage()) {
+                return realUpdate.getMessage().getFrom().getId();
+            } else if (realUpdate.hasCallbackQuery()) {
+                return realUpdate.getCallbackQuery().getFrom().getId();
+            }
+        } else {
+            return userId;
         }
-        return 0;
+        throw new RuntimeException("UPDATE HELPER: Can't retrieve user id from update");
     }
 
     public boolean hasCallBackQuery() {
