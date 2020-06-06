@@ -33,7 +33,7 @@ public class Meeting {
     @JoinColumn(name = "owner_id")
     TelegramUser telegramUser;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "meeting_info_id")
     MeetingInfo meetingInfo;
 

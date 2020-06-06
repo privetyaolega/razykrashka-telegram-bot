@@ -1,13 +1,11 @@
 package com.razykrashka.bot.db.entity.infrastructure;
 
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -20,7 +18,12 @@ import java.util.Date;
 @AllArgsConstructor
 public class BlackList {
     @Id
-    Integer userId;
+    @GeneratedValue
+    Long id;
+
+    @OneToOne
+    @JoinColumn(name = "userId")
+    TelegramUser user;
     String description;
 
     @CreationTimestamp

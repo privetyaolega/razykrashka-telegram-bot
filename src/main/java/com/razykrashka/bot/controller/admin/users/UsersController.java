@@ -2,11 +2,12 @@ package com.razykrashka.bot.controller.admin.users;
 
 
 import com.razykrashka.bot.db.entity.infrastructure.BlackList;
+import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.repo.BlackListRepository;
+import com.razykrashka.bot.db.repo.TelegramUserRepository;
 import com.razykrashka.bot.db.service.TelegramUserService;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.NotFoundException;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,14 +30,19 @@ import java.util.stream.StreamSupport;
 @Log4j2
 @Controller
 @RequestMapping("/admin/users")
-public class UserInfoController {
+public class UsersController {
 
     @Value("${my.log.folder}")
     private String logFolder;
-    @Autowired
-    TelegramUserService telegramUserService;
-    @Autowired
-    BlackListRepository blackListRepository;
+    final TelegramUserService telegramUserService;
+    final BlackListRepository blackListRepository;
+    final TelegramUserRepository telegramUserRepository;
+
+    public UsersController(TelegramUserService telegramUserService, BlackListRepository blackListRepository, TelegramUserRepository telegramUserRepository) {
+        this.telegramUserService = telegramUserService;
+        this.blackListRepository = blackListRepository;
+        this.telegramUserRepository = telegramUserRepository;
+    }
 
     @GetMapping("/info")
     public String getUsersInfo(Model model) {
@@ -74,16 +81,20 @@ public class UserInfoController {
 
     @PostMapping("/black-list")
     public String addToBlackList(@ModelAttribute BlackList blackList) {
+        TelegramUser telegramUser = telegramUserRepository.findById(blackList.getUser().getId())
+                .orElseThrow(() -> new NotFoundException("User with ID: " + blackList.getUser().getId() + " not found"));
+        blackList.setUser(telegramUser);
         blackListRepository.save(blackList);
-        log.info("BLACK LIST: User #{} has been blocked. Reason: {}",
-                blackList.getUserId(), blackList.getDescription());
+        log.info("BLACK LIST: User # {} has been blocked. Reason: {}",
+                blackList.getUser().getId(), blackList.getDescription());
         return "redirect:/admin/users/black-list";
     }
 
     @GetMapping("/unblock-user")
-    public String unblockUser(@RequestParam("user-id") int userId) {
-        blackListRepository.deleteById(userId);
-        log.info("BLACK LIST: User #{} has been unblocked", userId);
+    public String unblockUser(@RequestParam("record-id") long recordId) {
+        BlackList blackListRecord = blackListRepository.findById(recordId).get();
+        blackListRepository.delete(blackListRecord);
+        log.info("BLACK LIST: User # {} has been unblocked", blackListRecord.getUser().getId());
         return "redirect:/admin/users/black-list";
     }
 }

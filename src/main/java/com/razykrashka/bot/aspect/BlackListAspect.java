@@ -31,7 +31,7 @@ public class BlackListAspect {
     @Before("updateReceivedPointcut()")
     public void userBlackListValidation() {
         int id = updateHelper.getTelegramUserId();
-        if (blackListRepository.findById(id).isPresent()) {
+        if (blackListRepository.findByUserId(id).isPresent()) {
             throw new UserInBlackListException("BLACK LIST: User " + id + " is in black list! Update message is ignored! "
                     + getMessageToProcess(updateHelper.getUpdate()));
         }

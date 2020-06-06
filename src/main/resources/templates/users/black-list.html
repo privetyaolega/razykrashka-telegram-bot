@@ -25,8 +25,7 @@
                         <label class="col-sm-4 col-form-label" for="userId">User ID</label>
                         <div class="col-sm-6">
                             <input class="form-control" id="userId"
-                                   th:value="TEST"
-                                   th:field="*{userId}"
+                                   th:field="*{user.id}"
                                    type="number"/>
                         </div>
                     </div>
@@ -44,14 +43,14 @@
                     <button type="submit" class="btn btn-info col-2">Add to Black List</button>
                 </form>
                 <br>
-                <br>
+                <hr>
                 <br>
 
                 <!--Main table-->
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th>ID</th>
+                            <th>User ID</th>
                             <th>Description</th>
                             <th>Date</th>
                             <th>Actions</th>
@@ -59,10 +58,10 @@
                     </thead>
                     <tbody>
                         <tr th:each="record : ${blackListUsers}">
-                            <td th:text="${record.userId}"/>
+                            <td th:text="${record.user.id}"/>
                             <td th:text="${record.description}"/>
                             <td th:text="${record.date}"/>
-                            <td><a th:href="@{unblock-user?user-id={id}(id=${record.userId})}">Unblock user</a></td>
+                            <td><a th:href="@{unblock-user?record-id={id}(id=${record.id})}">Unblock user</a></td>
                         </tr>
                     </tbody>
                 </table>
