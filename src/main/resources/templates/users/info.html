@@ -4,11 +4,15 @@
         <div th:replace="blocks/head :: header"></div>
         <script>
             $(document).ready(function () {
-                $('#table').DataTable();
+                $('#table').DataTable({
+                    "order": [ [4, "desc"] ],
+                    "lengthMenu": [20, 25, 50, 75, 100],
+                    "pageLength": 20
+                });
             });
         </script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css"
-              rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
         <style>
             .row {
                 width: 100%;
@@ -50,33 +54,6 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/dataTables.bootstrap4.min.js"></script>
-
-                <!--                &lt;!&ndash;Pagination bar                &ndash;&gt;-->
-                <!--                <nav aria-label="Pagination" th:if="${userPage.totalPages gt 0}">-->
-                <!--                    <ul class="pagination justify-content-center font-weight-bold">-->
-                <!--                        <li class="page-item" th:classappend="${userPage.number eq 0} ? 'disabled'">-->
-                <!--                            <a class="page-link"-->
-                <!--                               th:href="@{info?page={id}(id=${userPage.number lt 2 ? 1 : userPage.number})}"-->
-                <!--                               aria-label="Previous" title="Previous Page" data-toggle="tooltip">-->
-                <!--                                <span aria-hidden="true">&laquo;</span>-->
-                <!--                            </a>-->
-                <!--                        </li>-->
-                <!--                        <li class="page-item" th:classappend="${i eq userPage.number + 1} ? 'active'"-->
-                <!--                            th:each="i : ${#numbers.sequence( 1, userPage.totalPages, 1)}">-->
-                <!--                            <a class="page-link" th:href="@{info?page={id}(id=${i})}" th:text="${i}"-->
-                <!--                               th:title="${'Page '+ i}" data-toggle="tooltip"></a>-->
-                <!--                        </li>-->
-                <!--                        <li class="page-item"-->
-                <!--                            th:classappend="${userPage.number + 1 eq userPage.totalPages} ? 'disabled'">-->
-                <!--                            <a class="page-link"-->
-                <!--                               th:href="@{info?page={id}(id=${userPage.number + 2})}"-->
-                <!--                               aria-label="Next" title="Next Page" data-toggle="tooltip">-->
-                <!--                                <span aria-hidden="true">&raquo;</span>-->
-                <!--                            </a>-->
-                <!--                        </li>-->
-                <!--                    </ul>-->
-                <!--                </nav>-->
-
             </div>
         </div>
     </body>

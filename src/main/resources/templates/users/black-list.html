@@ -16,28 +16,22 @@
                 <hr>
                 <br>
 
-
-                <form id="form" action="#" th:action="@{/admin/users/black-list}"
-                      th:object="${blackListRecord}" method="POST">
+                <form id="form" action="#" method="POST"
+                      th:action="@{/admin/users/black-list}"
+                      th:object="${blackListRecord}">
                     <div class="form-group row">
-
                         <!-- User input data row  -->
                         <label class="col-sm-4 col-form-label" for="userId">User ID</label>
                         <div class="col-sm-6">
-                            <input class="form-control" id="userId"
-                                   th:field="*{user.id}"
-                                   type="number"/>
+                            <input class="form-control" id="userId" th:field="*{user.id}" type="number"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="description">Description</label>
                         <div class="col-sm-6">
-                            <input class="form-control" id="description"
-                                   th:field="*{description}"
-                                   type="text"/>
+                            <input class="form-control" id="description" th:field="*{description}" type="text"/>
                         </div>
                     </div>
-
                     <!-- Save button  -->
                     <br>
                     <button type="submit" class="btn btn-info col-2">Add to Black List</button>
@@ -51,6 +45,8 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>User ID</th>
+                            <th>Username</th>
+                            <th>First Name</th>
                             <th>Description</th>
                             <th>Date</th>
                             <th>Actions</th>
@@ -59,6 +55,8 @@
                     <tbody>
                         <tr th:each="record : ${blackListUsers}">
                             <td th:text="${record.user.id}"/>
+                            <td th:text="${record.user.userName}"/>
+                            <td th:text="${record.user.firstName}"/>
                             <td th:text="${record.description}"/>
                             <td th:text="${record.date}"/>
                             <td><a th:href="@{unblock-user?record-id={id}(id=${record.id})}">Unblock user</a></td>
@@ -67,6 +65,5 @@
                 </table>
             </div>
         </div>
-
     </body>
 </html>
