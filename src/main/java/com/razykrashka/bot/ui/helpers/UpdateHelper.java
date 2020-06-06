@@ -191,7 +191,7 @@ public class UpdateHelper {
         } else {
             return userId;
         }
-        throw new RuntimeException("UPDATE HELPER: Can't retrieve user id from update");
+        return 0;
     }
 
     public boolean hasCallBackQuery() {
