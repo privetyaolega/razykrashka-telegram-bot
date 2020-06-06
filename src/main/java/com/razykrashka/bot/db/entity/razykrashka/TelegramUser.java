@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +28,10 @@ public class TelegramUser {
     String lastName;
     String firstName;
     String phoneNumber;
+
+    @CreationTimestamp
+    @Temporal(value = TemporalType.TIMESTAMP)
+    Date membershipDate;
 
     @Column
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, mappedBy = "telegramUser")

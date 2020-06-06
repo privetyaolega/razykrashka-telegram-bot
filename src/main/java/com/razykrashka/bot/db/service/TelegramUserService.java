@@ -37,4 +37,9 @@ public class TelegramUserService {
 
         return new PageImpl<>(subList, PageRequest.of(currentPage, pageSize), fullList.size());
     }
+
+    public List<TelegramUser> findAll() {
+        return StreamSupport.stream(telegramUserRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
 }

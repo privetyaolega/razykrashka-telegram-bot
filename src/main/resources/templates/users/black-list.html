@@ -54,6 +54,7 @@
                             <th>ID</th>
                             <th>Description</th>
                             <th>Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +62,7 @@
                             <td th:text="${record.userId}"/>
                             <td th:text="${record.description}"/>
                             <td th:text="${record.date}"/>
+                            <td><a th:href="@{unblock-user?user-id={id}(id=${record.userId})}">Unblock user</a></td>
                         </tr>
                     </tbody>
                 </table>

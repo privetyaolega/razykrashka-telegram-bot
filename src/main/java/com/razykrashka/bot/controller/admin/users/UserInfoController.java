@@ -2,7 +2,6 @@ package com.razykrashka.bot.controller.admin.users;
 
 
 import com.razykrashka.bot.db.entity.infrastructure.BlackList;
-import com.razykrashka.bot.db.entity.razykrashka.TelegramUser;
 import com.razykrashka.bot.db.repo.BlackListRepository;
 import com.razykrashka.bot.db.service.TelegramUserService;
 import lombok.SneakyThrows;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
 @Log4j2
@@ -43,22 +38,8 @@ public class UserInfoController {
     BlackListRepository blackListRepository;
 
     @GetMapping("/info")
-    public String meetingProperties(Model model,
-                                    @RequestParam("page") Optional<Integer> page,
-                                    @RequestParam("size") Optional<Integer> size) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-
-        Page<TelegramUser> userPage = telegramUserService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-        model.addAttribute("userPage", userPage);
-
-        int totalPages = userPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
+    public String getUsersInfo(Model model) {
+        model.addAttribute("userPage", telegramUserService.findAll());
         return "users/info.html";
     }
 
@@ -94,6 +75,15 @@ public class UserInfoController {
     @PostMapping("/black-list")
     public String addToBlackList(@ModelAttribute BlackList blackList) {
         blackListRepository.save(blackList);
+        log.info("BLACK LIST: User #{} has been blocked. Reason: {}",
+                blackList.getUserId(), blackList.getDescription());
+        return "redirect:/admin/users/black-list";
+    }
+
+    @GetMapping("/unblock-user")
+    public String unblockUser(@RequestParam("user-id") int userId) {
+        blackListRepository.deleteById(userId);
+        log.info("BLACK LIST: User #{} has been unblocked", userId);
         return "redirect:/admin/users/black-list";
     }
 }

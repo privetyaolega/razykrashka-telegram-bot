@@ -23,9 +23,6 @@
             <!--                <a rel="noopener noreferrer" target="_blank" href="/../time-setter"><span class="fa fa-calendar mr-3"></span>Times Setter</a>-->
             <!--            </li>-->
             <li>
-                <a th:href="@{/admin/logs}"><span class="fa fa-file-text-o mr-3"></span> Log</a>
-            </li>
-            <li>
                 <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
                     <span class="fa fa-user-o mr-3"></span> Users</a>
                 <ul class="list-unstyled collapse" id="pageSubmenu2" style="">
@@ -36,6 +33,9 @@
                         <a th:href="@{/admin/users/black-list}"><span class="fa fa-thumbs-down mr-3"></span> Black list</a>
                     </li>
                 </ul>
+            </li>
+            <li>
+                <a th:href="@{/admin/logs}"><span class="fa fa-file-text-o mr-3"></span> Log</a>
             </li>
         </ul>
 

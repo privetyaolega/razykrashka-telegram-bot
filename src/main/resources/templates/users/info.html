@@ -2,7 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <div th:replace="blocks/head :: header"></div>
-
+        <script>
+            $(document).ready(function () {
+                $('#table').DataTable();
+            });
+        </script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap4.min.css"
+              rel="stylesheet"/>
+        <style>
+            .row {
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
         <div class="container d-flex align-items-stretch">
@@ -11,52 +22,60 @@
             </nav>
             <!-- Page Content  -->
             <div id="content" class="p-4 p-md-5 pt-5">
+                <div>
+                    <!--Main table-->
+                    <table id="table" class="table table-striped" width="100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Membership date</th>
+                                <th>Log</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${userPage}">
+                                <td th:text="${user.id}"/>
+                                <td th:text="${user.userName}"/>
+                                <td th:text="${user.firstName}"/>
+                                <td th:text="${user.lastName}"/>
+                                <td th:text="${user.membershipDate}"/>
+                                <td><a th:href="@{download-log?user-id={id}(id=${user.id})}">Download log file</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/dataTables.bootstrap4.min.js"></script>
 
-                <!--Main table-->
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>UserName</th>
-                            <th>Log</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="user, iStat : ${userPage.content}"
-                            th:style="${iStat.odd}? 'font-weight: bold;'"
-                            th:alt-title="${iStat.even}? 'even' : 'odd'">
-                            <td th:text="${user.id}"/>
-                            <td th:text="${user.userName}"/>
-                            <td><a th:href="@{download-log?user-id={id}(id=${user.id})}">Download log file</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!--Pagination bar                -->
-                <nav aria-label="Pagination" th:if="${userPage.totalPages gt 0}">
-                    <ul class="pagination justify-content-center font-weight-bold">
-                        <li class="page-item" th:classappend="${userPage.number eq 0} ? 'disabled'">
-                            <a class="page-link"
-                               th:href="@{info?page={id}(id=${userPage.number lt 2 ? 1 : userPage.number})}"
-                               aria-label="Previous" title="Previous Page" data-toggle="tooltip">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${i eq userPage.number + 1} ? 'active'"
-                            th:each="i : ${#numbers.sequence( 1, userPage.totalPages, 1)}">
-                            <a class="page-link" th:href="@{info?page={id}(id=${i})}" th:text="${i}"
-                               th:title="${'Page '+ i}" data-toggle="tooltip"></a>
-                        </li>
-                        <li class="page-item"
-                            th:classappend="${userPage.number + 1 eq userPage.totalPages} ? 'disabled'">
-                            <a class="page-link"
-                               th:href="@{info?page={id}(id=${userPage.number + 2})}"
-                               aria-label="Next" title="Next Page" data-toggle="tooltip">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <!--                &lt;!&ndash;Pagination bar                &ndash;&gt;-->
+                <!--                <nav aria-label="Pagination" th:if="${userPage.totalPages gt 0}">-->
+                <!--                    <ul class="pagination justify-content-center font-weight-bold">-->
+                <!--                        <li class="page-item" th:classappend="${userPage.number eq 0} ? 'disabled'">-->
+                <!--                            <a class="page-link"-->
+                <!--                               th:href="@{info?page={id}(id=${userPage.number lt 2 ? 1 : userPage.number})}"-->
+                <!--                               aria-label="Previous" title="Previous Page" data-toggle="tooltip">-->
+                <!--                                <span aria-hidden="true">&laquo;</span>-->
+                <!--                            </a>-->
+                <!--                        </li>-->
+                <!--                        <li class="page-item" th:classappend="${i eq userPage.number + 1} ? 'active'"-->
+                <!--                            th:each="i : ${#numbers.sequence( 1, userPage.totalPages, 1)}">-->
+                <!--                            <a class="page-link" th:href="@{info?page={id}(id=${i})}" th:text="${i}"-->
+                <!--                               th:title="${'Page '+ i}" data-toggle="tooltip"></a>-->
+                <!--                        </li>-->
+                <!--                        <li class="page-item"-->
+                <!--                            th:classappend="${userPage.number + 1 eq userPage.totalPages} ? 'disabled'">-->
+                <!--                            <a class="page-link"-->
+                <!--                               th:href="@{info?page={id}(id=${userPage.number + 2})}"-->
+                <!--                               aria-label="Next" title="Next Page" data-toggle="tooltip">-->
+                <!--                                <span aria-hidden="true">&raquo;</span>-->
+                <!--                            </a>-->
+                <!--                        </li>-->
+                <!--                    </ul>-->
+                <!--                </nav>-->
 
             </div>
         </div>
