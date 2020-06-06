@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Aspect
 @Log4j2
@@ -31,7 +32,18 @@ public class BlackListAspect {
     public void userBlackListValidation() {
         int id = updateHelper.getTelegramUserId();
         if (blackListRepository.findById(id).isPresent()) {
-            throw new UserInBlackListException("BLACK LIST: User " + id + " is in black list! Update message is ignored!");
+            throw new UserInBlackListException("BLACK LIST: User " + id + " is in black list! Update message is ignored! "
+                    + getMessageToProcess(updateHelper.getUpdate()));
+        }
+    }
+
+    private String getMessageToProcess(Update update) {
+        if (update.hasMessage()) {
+            return "Message: '" + update.getMessage().getText() + "'";
+        } else if (update.hasCallbackQuery()) {
+            return "CallBackData: '" + update.getCallbackQuery().getData() + "'";
+        } else {
+            return null;
         }
     }
 }

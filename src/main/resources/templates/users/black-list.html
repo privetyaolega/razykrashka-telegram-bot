@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="blocks/head :: header"></div>
+    </head>
+    <body>
+
+        <div class="container d-flex align-items-stretch">
+            <nav id="sidebar" class="img">
+                <div th:replace="blocks/navigation :: navigation"></div>
+            </nav>
+
+            <!-- Page Content  -->
+            <div id="content" class="pt-4 pl-5">
+                <h4>Black list</h4>
+                <hr>
+                <br>
+
+
+                <form id="form" action="#" th:action="@{/admin/users/black-list}"
+                      th:object="${blackListRecord}" method="POST">
+                    <div class="form-group row">
+
+                        <!-- User input data row  -->
+                        <label class="col-sm-4 col-form-label" for="userId">User ID</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="userId"
+                                   th:value="TEST"
+                                   th:field="*{userId}"
+                                   type="number"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="description">Description</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="description"
+                                   th:field="*{description}"
+                                   type="text"/>
+                        </div>
+                    </div>
+
+                    <!-- Save button  -->
+                    <br>
+                    <button type="submit" class="btn btn-info col-2">Add to Black List</button>
+                </form>
+                <br>
+                <br>
+                <br>
+
+                <!--Main table-->
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="record : ${blackListUsers}">
+                            <td th:text="${record.userId}"/>
+                            <td th:text="${record.description}"/>
+                            <td th:text="${record.date}"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>
