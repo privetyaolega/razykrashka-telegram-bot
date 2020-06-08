@@ -1,5 +1,6 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.input;
 
+import com.razykrashka.bot.constants.Emoji;
 import com.razykrashka.bot.constants.Telegraph;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.accept.AcceptPhoneMeetingCreationSBSStage;
@@ -55,7 +56,7 @@ public class PhoneMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
 
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         keyboardFirstRow.add(new KeyboardButton()
-                .setText("Share My contact")
+                .setText("Share My contact " + Emoji.LEFT_FINGER)
                 .setRequestContact(true));
 
         keyboard.add(keyboardFirstRow);

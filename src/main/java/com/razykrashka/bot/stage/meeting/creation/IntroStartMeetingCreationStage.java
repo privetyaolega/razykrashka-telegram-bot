@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class IntroStartMeetingCreationStage extends MainStage {
 
-    public static final List<String> KEYWORDS = Arrays.asList("Create Meeting", "/create");
+    public static final List<String> KEYWORDS = Arrays.asList(Emoji.BOOM + " Create a Meeting " + Emoji.BOOM, "/create");
 
     @Override
     public ReplyKeyboard getKeyboard() {

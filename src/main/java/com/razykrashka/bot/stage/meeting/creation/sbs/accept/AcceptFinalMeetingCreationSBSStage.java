@@ -1,5 +1,7 @@
 package com.razykrashka.bot.stage.meeting.creation.sbs.accept;
 
+import com.razykrashka.bot.constants.Emoji;
+import com.razykrashka.bot.constants.Telegraph;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationState;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.CreationStatus;
 import com.razykrashka.bot.db.entity.razykrashka.meeting.Meeting;
@@ -66,8 +68,8 @@ public class AcceptFinalMeetingCreationSBSStage extends BaseMeetingCreationSBSSt
             InlineKeyboardMarkup keyboard = keyboardBuilder
                     .getKeyboard()
                     .setRow(new InlineKeyboardButton()
-                            .setText("Open Meeting \uD83D\uDCAB")
-                            .setUrl("https://t.me/RazykrashkaBot"))
+                            .setText("What's that?! " + Emoji.FACE_WITH_RAISED_EYEBROW)
+                            .setUrl(Telegraph.EN_FAQ))
                     .build();
 
             messageManager.sendMessage(new SendMessage()

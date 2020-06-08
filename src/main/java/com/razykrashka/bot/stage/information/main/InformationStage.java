@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class InformationStage extends InformationMainStage {
 
-    public static final List<String> KEYWORDS = Arrays.asList("Information", "/info");
+    public static final List<String> KEYWORDS = Arrays.asList("Information", "/information");
     public static final String KEYWORD = "Information";
 
     public InformationStage() {

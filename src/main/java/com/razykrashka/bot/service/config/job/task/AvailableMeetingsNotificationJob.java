@@ -1,12 +1,15 @@
 package com.razykrashka.bot.service.config.job.task;
 
 import com.razykrashka.bot.constants.Emoji;
+import com.razykrashka.bot.constants.Telegraph;
+import com.razykrashka.bot.stage.meeting.view.utils.TextFormatter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -29,6 +32,9 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
 
     final static String NO_MEETINGS_MESSAGE = "There is no any available meeting. Work hard and create meeting!";
     Map<String, String> messages;
+
+    @Value("${razykrashka.bot.username}")
+    String botUserName;
 
     public AvailableMeetingsNotificationJob() {
         messages = new HashMap<>();
@@ -63,12 +69,14 @@ public class AvailableMeetingsNotificationJob extends AbstractJob implements Run
         log.info("JOB: Available meeting notification job is started...");
         String message;
         Pair<String, String> randomMessage = getRandomMessage();
-        message = String.format(randomMessage.getFirst(), messages.size());
+        message = String.format(randomMessage.getFirst(), messages.size()) +
+                "\n\n\n\nYou can find and join available meetings, create one, get some additional information using our bot" +
+                "\n " + Emoji.RIGHT_FINGER + " @" + TextFormatter.getBoldString(botUserName) + " " + Emoji.LEFT_FINGER;
         InlineKeyboardMarkup keyboard = keyboardBuilder
                 .getKeyboard()
                 .setRow(new InlineKeyboardButton()
-                        .setText(randomMessage.getSecond())
-                        .setUrl("https://t.me/RazykrashkaBot"))
+                        .setText("What's that?! " + Emoji.FACE_WITH_RAISED_EYEBROW)
+                        .setUrl(Telegraph.EN_FAQ))
                 .build();
 
         messageManager.sendMessage(new SendMessage()

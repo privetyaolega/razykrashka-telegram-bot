@@ -498,7 +498,8 @@ public class MeetingMessageUtils {
                 .append(Emoji.RADIO_BUTTON).append("\n\n\n")
                 .append("Hey, guys! ").append(Emoji.WAVE_HAND).append("\n")
                 .append("A new meeting is available! Check it out now and join! ")
-//                .append("\n\n").append("You can find out all the details and join the meeting using ").append(TextFormatter.getBoldString("@" + botUserName))
+                .append("\n\n").append(TextFormatter.getBoldString("You can find out all the details and join the meeting using "))
+                .append(Emoji.RIGHT_FINGER + TextFormatter.getBoldString(" @" + botUserName)).append(" ").append(Emoji.LEFT_FINGER)
                 .append("\n\nHurry up! There are only ").append(TextFormatter.getBoldString(meeting.getMeetingInfo().getParticipantLimit() - 1))
                 .append(" place(s) left! ").append(Emoji.SCREAM)
 
