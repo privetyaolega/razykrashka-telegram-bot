@@ -8,6 +8,7 @@ import com.razykrashka.bot.db.repo.MeetingRepository;
 import com.razykrashka.bot.stage.information.WelcomeStage;
 import com.razykrashka.bot.stage.information.main.HelpStage;
 import com.razykrashka.bot.stage.information.main.InformationStage;
+import com.razykrashka.bot.stage.information.other.CurrentTimeStage;
 import com.razykrashka.bot.stage.information.other.VersionStage;
 import com.razykrashka.bot.stage.meeting.creation.IntroStartMeetingCreationStage;
 import com.razykrashka.bot.stage.meeting.creation.sbs.BaseMeetingCreationSBSStage;
@@ -56,7 +57,8 @@ public class StageActivitySBSAspect {
                 ArchivedMeetingsViewStage.KEYWORD,
                 OfflineMeetingsViewStage.KEYWORD,
                 OnlineMeetingsViewStage.KEYWORD,
-                VersionStage.KEYWORD
+                VersionStage.KEYWORD,
+                CurrentTimeStage.KEYWORD
         ));
         keyWordsList.addAll(MyMeetingsViewStage.KEYWORDS);
         keyWordsList.addAll(ActiveMeetingsViewStage.KEYWORDS);

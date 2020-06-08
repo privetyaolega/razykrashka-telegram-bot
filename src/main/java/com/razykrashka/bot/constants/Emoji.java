@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PUBLIC, makeFinal = true)
 public class Emoji {
+    public static String CLOCK_V2 = "\uD83D\uDD70";
     public static String RIGHT_FINGER = "\uD83D\uDC49\uD83C\uDFFC";
     public static String FACE_WITH_RAISED_EYEBROW = "\uD83E\uDD28";
     public static String BACK_LEFT_ARROW = "\uD83D\uDD19";

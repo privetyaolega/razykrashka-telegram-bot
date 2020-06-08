@@ -9,7 +9,10 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Locale;
 
 @Log4j2
 @Component
@@ -29,13 +32,15 @@ public class TimeMeetingCreationSBSStage extends BaseMeetingCreationSBSStage {
     }
 
     private String getMeetingMessage() {
+        String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM (EEEE) HH:mm", Locale.ENGLISH));
+
         meeting = getMeetingInCreation();
         meeting.setMeetingDateTime(meeting.getMeetingDateTime()
                 .withHour(0)
                 .withMinute(0));
         meetingRepository.save(meeting);
         return meetingMessageUtils.createMeetingInfoDuringCreation(meeting)
-                + TextFormatter.getItalicString(getString("input"));
+                + TextFormatter.getItalicString(getFormatString("input", TextFormatter.getBoldString(currentTime)));
     }
 
     /*    @Override
